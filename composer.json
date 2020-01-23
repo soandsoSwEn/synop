@@ -1,0 +1,32 @@
+{
+    "name": "soandso/synop",
+    "description": "Synop (AAXX/BBXX) weather report decoder",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Dmytriyenko Vyacheslav",
+            "email": "dmytriyenko.vyacheslav@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://soandso.biz/"
+    },
+    "config" : {
+        "sort-packages" : true
+    },
+    "autoload" : {
+        "psr-4" : {
+            "Synop\\" : "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Synop\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^7.2"
+    },
+    "minimum-stability": "dev"
+}
