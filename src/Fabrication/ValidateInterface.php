@@ -11,5 +11,5 @@ interface ValidateInterface
 {
     public function preparation(string $report) : string;
     
-    public function isValid(string $report) : bool;
+    public function isValid() : bool;
 }
