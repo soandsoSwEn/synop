@@ -16,6 +16,11 @@ class RawReport implements RawReportInterface
      */
     private $report;
     
+    public function __construct(string $report)
+    {
+        $this->setReport($report);
+    }
+
     /**
      * Sets the value of the weather report
      * @param string $report
@@ -23,7 +28,7 @@ class RawReport implements RawReportInterface
      */
     public function setReport(string $report): void
     {
-        $this->report = $report;
+        $this->report = $this->cleanReport($report);
     }
     
     /**
@@ -43,5 +48,25 @@ class RawReport implements RawReportInterface
     public function updateReport(string $report): void
     {
         $this->setReport($report);
+    }
+    
+    /**
+     * Clears meteorological data from random errors
+     * @param string $report
+     * @return string
+     */
+    public function cleanReport(string $report) : string
+    {
+        return $this->clearDoubleSpacing($report);
+    }
+    
+    /**
+     * Removes double spaces in the text of the weather report
+     * @param string $report
+     * @return string
+     */
+    public function clearDoubleSpacing(string $report) : string
+    {
+        return preg_replace("/[  ]+/", " ", $report);
     }
 }
