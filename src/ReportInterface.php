@@ -15,7 +15,7 @@ interface ReportInterface
 {
     public function setReport(string $report) : void;
     
-    public function validate() : mixed;
+    public function validate() : bool;
     
     public function getType() : string;
     
