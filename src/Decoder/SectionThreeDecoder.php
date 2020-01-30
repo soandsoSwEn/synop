@@ -10,7 +10,7 @@ use Synop\Fabrication\RawReportInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SectionTheeDecoder implements DecoderInterface
+class SectionThreeDecoder implements DecoderInterface
 {
     private $synop_report = null;
     

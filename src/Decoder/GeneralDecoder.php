@@ -7,7 +7,7 @@ use Synop\Fabrication\RawReportInterface;
 use Exception;
 use Synop\Process\Pipeline;
 use Synop\Decoder\SectionTwoDecoder;
-use Synop\Decoder\SectionTheeDecoder;
+use Synop\Decoder\SectionThreeDecoder;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -360,7 +360,7 @@ class GeneralDecoder implements DecoderInterface
                 $str_pipelie = new Pipeline();
                 $pipes = $this->getThreePipes();
                 $str_pipelie->pipe($pipes);
-                $str_decoder = new SectionTheeDecoder($this->synop_report, $this->ship_report);
+                $str_decoder = new SectionThreeDecoder($this->synop_report, $this->ship_report);
                 $str_blocks[] = $str_pipelie->process($raw_report, $str_decoder);
                 return $str_blocks;
             }
