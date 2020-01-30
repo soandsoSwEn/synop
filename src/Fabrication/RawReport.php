@@ -47,7 +47,7 @@ class RawReport implements RawReportInterface
      */
     public function updateReport(string $report): void
     {
-        $this->setReport($report);
+        $this->report = $report;
     }
     
     /**

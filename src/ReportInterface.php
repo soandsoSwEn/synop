@@ -21,5 +21,5 @@ interface ReportInterface
     
     public function getWmo() : string;
 
-    public function parse() : object;
+    public function parse();
 }
