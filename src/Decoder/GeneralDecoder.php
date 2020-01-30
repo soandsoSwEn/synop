@@ -343,6 +343,7 @@ class GeneralDecoder implements DecoderInterface
             '4Pw1Pw1Hw1Hw1',
             '5Pw2Pw2Hw2Hw2',
             '6IsEsEsPs',
+            'ISE'
         ];
     }
 

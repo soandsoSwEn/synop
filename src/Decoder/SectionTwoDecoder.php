@@ -186,6 +186,33 @@ class SectionTwoDecoder implements DecoderInterface
             return null;
         }
     }
+    
+    public function getISE(RawReportInterface $raw_report)
+    {
+        $ice = false;
+        if($this->synop_report) {
+            $distinguishing_word_ice = $this->block($raw_report->getReport());
+            if(strcmp($distinguishing_word_ice, 'ICE') == 0) {
+                $ice = true;
+                $this->updateReport($distinguishing_word_ice, $raw_report);
+                return $this->getciSibiDizi($raw_report);
+            }
+        } else {
+            //ship report
+        }
+        return null;
+    }
+    
+    public function getciSibiDizi(RawReportInterface $raw_report)
+    {
+        if($this->synop_report) {
+            $ice_group = $this->block($raw_report->getReport());
+        } else {
+            //ship report
+        }
+        $this->updateReport($ice_group, $raw_report);
+        return $ice_group;
+    }
 
     public function block(string $report_data) : string
     {
