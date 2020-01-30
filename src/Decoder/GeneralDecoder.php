@@ -7,6 +7,7 @@ use Synop\Fabrication\RawReportInterface;
 use Exception;
 use Synop\Process\Pipeline;
 use Synop\Decoder\SectionTwoDecoder;
+use Synop\Decoder\SectionTheeDecoder;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -344,6 +345,38 @@ class GeneralDecoder implements DecoderInterface
             '5Pw2Pw2Hw2Hw2',
             '6IsEsEsPs',
             'ISE'
+        ];
+    }
+    
+    public function get333(RawReportInterface $raw_report)
+    {
+        $section_three_group = false;
+        $str_blocks = [];
+        if($this->synop_report) {
+            $section_three = $this->block($raw_report->getReport());
+            if(strcmp($section_three, '333') == 0) {
+                $section_three_group = true;
+                $this->updateReport($section_three, $raw_report);
+                $str_pipelie = new Pipeline();
+                $pipes = $this->getThreePipes();
+                $str_pipelie->pipe($pipes);
+                $str_decoder = new SectionTheeDecoder($this->synop_report, $this->ship_report);
+                $str_blocks[] = $str_pipelie->process($raw_report, $str_decoder);
+                return $str_blocks;
+            }
+        } else {
+            //ship report
+        }
+    }
+    
+    public function getThreePipes() : array
+    {
+        return [
+            '1SnTxTxTx',
+            '2SnTnTnTn',
+            '6RRRtr',
+            '8NsChshs',
+            '9SpSpspsp',
         ];
     }
 
