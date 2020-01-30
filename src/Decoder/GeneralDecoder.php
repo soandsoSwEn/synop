@@ -5,6 +5,8 @@ namespace Synop\Decoder;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
+use Synop\Process\Pipeline;
+use Synop\Decoder\SectionTwoDecoder;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -306,6 +308,42 @@ class GeneralDecoder implements DecoderInterface
         } else {
             return null;
         }
+    }
+    
+    public function get222DsVs(RawReportInterface $raw_report)
+    {
+        $section_two = false;
+        $st_blocks = [];
+        if($this->synop_report) {
+            $section_two_group = $this->block($raw_report->getReport());
+            $distinguishing_digit = substr($section_two_group, 0, 3);
+            if(strcmp($distinguishing_digit, '222') == 0) {
+                $section_two = true;
+                $st_pipelie = new Pipeline();
+                $pipes = $this->getTwoPipes();
+                $st_pipelie->pipe($pipes);
+                $st_decoder = new SectionTwoDecoder($this->synop_report, $this->ship_report);
+                $st_blocks[] = $st_pipelie->process($raw_report, $st_decoder);
+                return $st_blocks;
+            }
+        } else {
+            //ship report
+        }
+        return null;
+    }
+    
+    public function getTwoPipes() : array
+    {
+        return [
+            '222DsVs',
+            '0SnTwTwTw',
+            '1PwaPwaHwaHwa',
+            '2PwPwHwHw',
+            '3dw1dw1dw2dw2',
+            '4Pw1Pw1Hw1Hw1',
+            '5Pw2Pw2Hw2Hw2',
+            '6IsEsEsPs',
+        ];
     }
 
     public function updateReport(string $group, RawReportInterface $raw_report) : void
