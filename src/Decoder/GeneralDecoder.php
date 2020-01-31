@@ -379,6 +379,32 @@ class GeneralDecoder implements DecoderInterface
             '9SpSpspsp',
         ];
     }
+    
+    public function get444(RawReportInterface $raw_report)
+    {
+        $section_four_group = false;
+        $sf_blocks = [];
+        if($this->synop_report) {
+            $section_four = $this->block($raw_report->getReport());
+            if(strcmp($section_four, '444') == 0) {
+                $section_four_group = true;
+                $this->updateReport($section_four, $raw_report);
+                $sf_pipelie = new Pipeline();
+                $pipes = $this->getFourPipes();
+                $sf_pipelie->pipe($pipes);
+                $sf_decoder = new SectionFourDecoder($this->synop_report, $this->ship_report);
+                $sf_blocks[] = $sf_pipelie->process($raw_report, $sf_decoder);
+                return $sf_blocks;
+            }
+        } else {
+            //ship report
+        }
+    }
+    
+    public function getFourPipes()
+    {
+        return ['NCHHCt'];
+    }
 
     public function updateReport(string $group, RawReportInterface $raw_report) : void
     {
