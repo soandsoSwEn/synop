@@ -401,9 +401,42 @@ class GeneralDecoder implements DecoderInterface
         }
     }
     
-    public function getFourPipes()
+    public function getFourPipes() : array
     {
         return ['NCHHCt'];
+    }
+    
+    public function get555(RawReportInterface $raw_report)
+    {
+        $section_five_group = false;
+        $sv_blocks = [];
+        if($this->synop_report) {
+            $section_five = $this->block($raw_report->getReport());
+            if(strcmp($section_five, '555') == 0) {
+                $section_five_group = true;
+                $this->updateReport($section_five, $raw_report);
+                $sv_pipelie = new Pipeline();
+                $pipes = $this->getFivePipes();
+                $sv_pipelie->pipe($pipes);
+                $sv_decoder = new SectionFiveDecoder($this->synop_report, $this->ship_report);
+                $sv_blocks[] = $sv_pipelie->process($raw_report, $sv_decoder);
+                return $sv_blocks;
+            }
+        } else {
+            //ship report
+        }
+    }
+    
+    public function getFivePipes() : array
+    {
+        return [
+            '1SnT24T24T24',
+            '3SnTgTg',
+            '4Esss',
+            '6RRRtr',
+            '7R24R24R24E',
+            '9SpSpspsp',
+        ];
     }
 
     public function updateReport(string $group, RawReportInterface $raw_report) : void
