@@ -13,8 +13,7 @@ interface DecoderInterface
     /**
      * Decodes a fragment of a meteorological report into a specific entity
      * 
-     * @param string $report_data
      * @return object
      */
-    public function parse(string $report_data) : object;
+    public function parse() : object;
 }

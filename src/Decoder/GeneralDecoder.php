@@ -2,11 +2,14 @@
 
 namespace Synop\Decoder;
 
+use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
+use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
 use Synop\Process\Pipeline;
 use Synop\Decoder\SectionTwoDecoder;
+use Synop\Sheme\Section;
 use Synop\Decoder\SectionThreeDecoder;
 
 /**
@@ -15,25 +18,51 @@ use Synop\Decoder\SectionThreeDecoder;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class GeneralDecoder implements DecoderInterface
+class GeneralDecoder extends Decoder implements DecoderInterface
 {
+    const ALL_SECTIONS = 'All Sections';
+    
+    private $sections;
+
+    private $section;
+    
     private $synop_report = null;
     
     private $ship_report = null;
     
     private $type_report = ['AAXX', 'BBXX'];
     
-    public function __construct()
+    public function __construct(SectionInterface $section_title)
     {
-        //
+        $this->section = $section_title;
+        $this->sections = new Section(self::ALL_SECTIONS);
+        $this->putSection($this->section);
     }
 
-    public function parse(string $report_data): object
+    public function parse() : object
     {
-        //
+        return $this->sections;
     }
     
-    public function getType(RawReportInterface $raw_report)
+    private function putSection($data)
+    {
+        if($this->sections->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function putInSection($data)
+    {
+        if($this->section->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getType(RawReportInterface $raw_report) : bool
     {
         $type = $this->block($raw_report->getReport());
         if(!in_array($type, $this->type_report)) {
@@ -47,12 +76,7 @@ class GeneralDecoder implements DecoderInterface
             $this->ship_report = true;
         }
         $this->updateReport($type, $raw_report);
-        return $type;
-    }
-    
-    public function block(string $report_data) : string
-    {
-        return strstr($report_data, ' ', true);
+        return $this->putInSection($type) ? true : false;
     }
     
     public function getShipSign(RawReportInterface $raw_report)
@@ -63,7 +87,7 @@ class GeneralDecoder implements DecoderInterface
         $ship_call = $this->block($raw_report->getReport());
         if(ctype_digit($ship_call)) {
             $this->updateReport($ship_call, $raw_report);
-            return $ship_call;
+            return $this->putInSection($ship_call) ? true : false;
         } else {
             throw new Exception('Invalid ship call sign format!');
         }
@@ -77,7 +101,7 @@ class GeneralDecoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($date_group, $raw_report);
-        return $date_group;
+        return $this->putInSection($date_group) ? true : false;
     }
     
     public function getIIiii(RawReportInterface $raw_report)
@@ -88,7 +112,7 @@ class GeneralDecoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($station_index, $raw_report);
-        return $station_index;
+        return $this->putInSection($station_index) ? true : false;
     }
     
     public function get99LaLaLa(RawReportInterface $raw_report)
@@ -115,7 +139,7 @@ class GeneralDecoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($cloud_visibility_group, $raw_report);
-        return $cloud_visibility_group;
+        return $this->putInSection($cloud_visibility_group) ? true : false;
     }
     
     public function getNddff(RawReportInterface $raw_report)
@@ -126,7 +150,7 @@ class GeneralDecoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($cloud_visibility_group, $raw_report);
-        return $cloud_visibility_group;
+        return $this->putInSection($cloud_visibility_group) ? true : false;
     }
     
     public function get1SnTTT(RawReportInterface $raw_report)
@@ -145,7 +169,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($temperature) {
             $this->updateReport($air_temperature_group, $raw_report);
-            return $air_temperature_group;
+            return $this->putInSection($air_temperature_group) ? true : false;
         } else {
             return null;
         }
@@ -165,7 +189,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($dew_point) {
             $this->updateReport($dew_point_group, $raw_report);
-            return $dew_point_group;
+            return $this->putInSection($dew_point_group) ? true : false;
         } else {
             return null;
         }
@@ -185,7 +209,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($pressure_station) {
             $this->updateReport($pressure_station_group, $raw_report);
-            return $pressure_station_group;
+            return $this->putInSection($pressure_station_group) ? true : false;
         } else {
             return null;
         }
@@ -205,7 +229,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($pressure_sea_level) {
             $this->updateReport($pressure_sea_level_group, $raw_report);
-            return $pressure_sea_level_group;
+            return $this->putInSection($pressure_sea_level_group) ? true : false;
         } else {
             return null;
         }
@@ -225,7 +249,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($baric_tendency) {
             $this->updateReport($baric_tendency_group, $raw_report);
-            return $baric_tendency_group;
+            return $this->putInSection($baric_tendency_group) ? true : false;
         } else {
             return null;
         }
@@ -245,7 +269,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($precipitation ) {
             $this->updateReport($precipitation_group, $raw_report);
-            return $precipitation_group;
+            return $this->putInSection($precipitation_group) ? true : false;
         } else {
             return null;
         }
@@ -265,7 +289,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($weather) {
             $this->updateReport($weather_group, $raw_report);
-            return $weather_group;
+            return $this->putInSection($weather_group) ? true : false;
         } else {
             return null;
         }
@@ -285,7 +309,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($cloud_characteristics) {
             $this->updateReport($cloud_characteristics_group, $raw_report);
-            return $cloud_characteristics_group;
+            return $this->putInSection($cloud_characteristics_group) ? true : false;
         } else {
             return null;
         }
@@ -305,7 +329,7 @@ class GeneralDecoder implements DecoderInterface
         }
         if($cloud_height) {
             $this->updateReport($cloud_characteristics_group, $raw_report);
-            return $cloud_characteristics_group;
+            return $this->putInSection($cloud_characteristics_group) ? true : false;
         } else {
             return null;
         }
@@ -314,7 +338,7 @@ class GeneralDecoder implements DecoderInterface
     public function get222DsVs(RawReportInterface $raw_report)
     {
         $section_two = false;
-        $st_blocks = [];
+        //$st_blocks = [];
         if($this->synop_report) {
             $section_two_group = $this->block($raw_report->getReport());
             $distinguishing_digit = substr($section_two_group, 0, 3);
@@ -323,9 +347,9 @@ class GeneralDecoder implements DecoderInterface
                 $st_pipelie = new Pipeline();
                 $pipes = $this->getTwoPipes();
                 $st_pipelie->pipe($pipes);
-                $st_decoder = new SectionTwoDecoder($this->synop_report, $this->ship_report);
-                $st_blocks[] = $st_pipelie->process($raw_report, $st_decoder);
-                return $st_blocks;
+                $st_decoder = new SectionTwoDecoder(new Section(self::SETION_TWO), $this->synop_report, $this->ship_report);
+                $st_blocks = $st_pipelie->process($raw_report, $st_decoder);
+                return $this->putSection($st_blocks) ? true : false;
             }
         } else {
             //ship report
@@ -351,7 +375,7 @@ class GeneralDecoder implements DecoderInterface
     public function get333(RawReportInterface $raw_report)
     {
         $section_three_group = false;
-        $str_blocks = [];
+        //$str_blocks = [];
         if($this->synop_report) {
             $section_three = $this->block($raw_report->getReport());
             if(strcmp($section_three, '333') == 0) {
@@ -360,9 +384,9 @@ class GeneralDecoder implements DecoderInterface
                 $str_pipelie = new Pipeline();
                 $pipes = $this->getThreePipes();
                 $str_pipelie->pipe($pipes);
-                $str_decoder = new SectionThreeDecoder($this->synop_report, $this->ship_report);
-                $str_blocks[] = $str_pipelie->process($raw_report, $str_decoder);
-                return $str_blocks;
+                $str_decoder = new SectionThreeDecoder(new Section(self::SECTION_THREE), $this->synop_report, $this->ship_report);
+                $str_blocks = $str_pipelie->process($raw_report, $str_decoder);
+                return $this->putSection($str_blocks) ? true : false;
             }
         } else {
             //ship report
@@ -383,7 +407,7 @@ class GeneralDecoder implements DecoderInterface
     public function get444(RawReportInterface $raw_report)
     {
         $section_four_group = false;
-        $sf_blocks = [];
+        //$sf_blocks = [];
         if($this->synop_report) {
             $section_four = $this->block($raw_report->getReport());
             if(strcmp($section_four, '444') == 0) {
@@ -392,9 +416,9 @@ class GeneralDecoder implements DecoderInterface
                 $sf_pipelie = new Pipeline();
                 $pipes = $this->getFourPipes();
                 $sf_pipelie->pipe($pipes);
-                $sf_decoder = new SectionFourDecoder($this->synop_report, $this->ship_report);
-                $sf_blocks[] = $sf_pipelie->process($raw_report, $sf_decoder);
-                return $sf_blocks;
+                $sf_decoder = new SectionFourDecoder(new Section(self::SECTION_FOUR), $this->synop_report, $this->ship_report);
+                $sf_blocks = $sf_pipelie->process($raw_report, $sf_decoder);
+                return $this->putSection($sf_blocks) ? true : false;
             }
         } else {
             //ship report
@@ -409,7 +433,7 @@ class GeneralDecoder implements DecoderInterface
     public function get555(RawReportInterface $raw_report)
     {
         $section_five_group = false;
-        $sv_blocks = [];
+        //$sv_blocks = [];
         if($this->synop_report) {
             $section_five = $this->block($raw_report->getReport());
             if(strcmp($section_five, '555') == 0) {
@@ -418,9 +442,9 @@ class GeneralDecoder implements DecoderInterface
                 $sv_pipelie = new Pipeline();
                 $pipes = $this->getFivePipes();
                 $sv_pipelie->pipe($pipes);
-                $sv_decoder = new SectionFiveDecoder($this->synop_report, $this->ship_report);
-                $sv_blocks[] = $sv_pipelie->process($raw_report, $sv_decoder);
-                return $sv_blocks;
+                $sv_decoder = new SectionFiveDecoder(new Section(self::SECTION_FIVE), $this->synop_report, $this->ship_report);
+                $sv_blocks = $sv_pipelie->process($raw_report, $sv_decoder);
+                return $this->putSection($sv_blocks) ? true : false;
             }
         } else {
             //ship report
@@ -437,11 +461,5 @@ class GeneralDecoder implements DecoderInterface
             '7R24R24R24E',
             '9SpSpspsp',
         ];
-    }
-
-    public function updateReport(string $group, RawReportInterface $raw_report) : void
-    {
-        $report = str_replace($group . ' ', '', $raw_report->getReport());
-        $raw_report->updateReport($report);
     }
 }

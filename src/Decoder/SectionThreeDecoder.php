@@ -2,6 +2,8 @@
 
 namespace Synop\Decoder;
 
+use Synop\Decoder\Decoder;
+use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
 
@@ -10,21 +12,33 @@ use Synop\Fabrication\RawReportInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SectionThreeDecoder implements DecoderInterface
+class SectionThreeDecoder extends Decoder implements DecoderInterface
 {
+    private $section;
+    
     private $synop_report = null;
     
     private $ship_report = null;
     
-    public function __construct(bool $synop, bool $ship)
+    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
     {
+        $this->section = $section_title;
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
     
-    public function parse(string $report_data): object
+    public function parse(): object
     {
-        //
+        return $this->section;
+    }
+    
+    private function putInSection($data)
+    {
+        if($this->section->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function get1SnTxTxTx(RawReportInterface $raw_report)
@@ -41,7 +55,7 @@ class SectionThreeDecoder implements DecoderInterface
         }
         if($maximum_temperature) {
             $this->updateReport($maximum_temperature_group, $raw_report);
-            return $maximum_temperature_group;
+            return $this->putInSection($maximum_temperature_group) ? true : false;
         } else {
             return null;
         }
@@ -61,7 +75,7 @@ class SectionThreeDecoder implements DecoderInterface
         }
         if($minimum_temperature) {
             $this->updateReport($minimum_temperature_group, $raw_report);
-            return $minimum_temperature_group;
+            return $this->putInSection($minimum_temperature_group) ? true : false;
         } else {
             return null;
         }
@@ -81,7 +95,7 @@ class SectionThreeDecoder implements DecoderInterface
         }
         if($precipitation) {
             $this->updateReport($precipitation_group, $raw_report);
-            return $precipitation_group;
+            return $this->putInSection($precipitation_group) ? true : false;
         } else {
             return null;
         }
@@ -101,7 +115,7 @@ class SectionThreeDecoder implements DecoderInterface
         }
         if($clouds) {
             $this->updateReport($clouds_group, $raw_report);
-            return $clouds_group;
+            return $this->putInSection($clouds_group) ? true : false;
         } else {
             return null;
         }
@@ -121,21 +135,9 @@ class SectionThreeDecoder implements DecoderInterface
         }
         if($weather) {
             $this->updateReport($weather_group, $raw_report);
-            return $weather_group;
+            return $this->putInSection($weather_group) ? true : false;
         } else {
             return null;
         }
     }
-
-    public function block(string $report_data) : string
-    {
-        return strstr($report_data, ' ', true);
-    }
-    
-    public function updateReport(string $group, RawReportInterface $raw_report) : void
-    {
-        $report = str_replace($group . ' ', '', $raw_report->getReport());
-        $raw_report->updateReport($report);
-    }
-
 }

@@ -2,6 +2,8 @@
 
 namespace Synop\Decoder;
 
+use Synop\Decoder\Decoder;
+use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
 
@@ -10,21 +12,33 @@ use Synop\Fabrication\RawReportInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SectionFourDecoder implements DecoderInterface
+class SectionFourDecoder extends Decoder implements DecoderInterface
 {
+    private $section;
+    
     private $synop_report = null;
     
     private $ship_report = null;
     
-    public function __construct(bool $synop, bool $ship)
+    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
     {
+        $this->section = $section_title;
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
     
-    public function parse(string $report_data): object
+    public function parse(): object
     {
-        //
+        return $this->section;
+    }
+    
+    private function putInSection($data)
+    {
+        if($this->section->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function getNCHHCt(RawReportInterface $raw_report)
@@ -34,20 +48,9 @@ class SectionFourDecoder implements DecoderInterface
             $mountain_weather_stations = $this->block($raw_report->getReport());
             $mountain_stations = true;
             $this->updateReport($mountain_weather_stations, $raw_report);
-            return $mountain_weather_stations;
+            return $this->putInSection($mountain_weather_stations) ? true : false;
         } else {
             //ship report
         }
-    }
-    
-    public function block(string $report_data) : string
-    {
-        return strstr($report_data, ' ', true);
-    }
-    
-    public function updateReport(string $group, RawReportInterface $raw_report) : void
-    {
-        $report = str_replace($group . ' ', '', $raw_report->getReport());
-        $raw_report->updateReport($report);
     }
 }

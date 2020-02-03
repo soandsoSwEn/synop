@@ -13,9 +13,6 @@ use Synop\Decoder\DecoderInterface;
 class Pipeline
 {
     private $pipes = [];
-    
-    private $blocks = [];
-
 
     public function __construct()
     {
@@ -30,7 +27,7 @@ class Pipeline
     public function process(RawReportInterface $raw_report, DecoderInterface $decoder)
     {
         $this->step($raw_report, $decoder);
-        return $this->blocks;
+        return $decoder->parse();
     }
     
     public function step(RawReportInterface $raw_report, DecoderInterface $decoder)
@@ -38,20 +35,11 @@ class Pipeline
         if($current_step = array_shift($this->pipes)) {
             $getter = 'get' . $current_step;
             if(method_exists($decoder, $getter)) {
-                $block = $decoder->$getter($raw_report);
-                if(!is_null($block)) {
-                    $this->blocks[] = $block;
-                }
+                $decoder->$getter($raw_report);
             }
             $this->step($raw_report, $decoder);
         } else {
             return false;
         }
     }
-
-
-    /*public function getPipes()
-    {
-        return $this->pipes;
-    }*/
 }

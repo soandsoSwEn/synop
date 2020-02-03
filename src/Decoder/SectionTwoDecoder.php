@@ -2,6 +2,8 @@
 
 namespace Synop\Decoder;
 
+use Synop\Decoder\Decoder;
+use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
 
@@ -10,21 +12,33 @@ use Synop\Fabrication\RawReportInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SectionTwoDecoder implements DecoderInterface
+class SectionTwoDecoder extends Decoder implements DecoderInterface
 {
+    private $section;
+    
     private $synop_report = null;
     
     private $ship_report = null;
     
-    public function __construct(bool $synop, bool $ship)
+    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
     {
+        $this->section = $section_title;
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
 
-    public function parse(string $report_data): object
+    public function parse(): object
     {
-        //
+        return $this->section;
+    }
+    
+    private function putInSection($data)
+    {
+        if($this->section->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function get222DsVs(RawReportInterface $raw_report)
@@ -41,7 +55,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($section_two) {
             $this->updateReport($section_two_group, $raw_report);
-            return $section_two_group;
+            return $this->putInSection($section_two_group) ? true : false;
         } else {
             return null;
         }
@@ -61,7 +75,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($sea_temperature) {
             $this->updateReport($sea_temperature_group, $raw_report);
-            return $sea_temperature_group;
+            return $this->putInSection($sea_temperature_group) ? true : false;
         } else {
             return null;
         }
@@ -81,7 +95,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($sea_wave) {
             $this->updateReport($sea_wave_group, $raw_report);
-            return $sea_wave_group;
+            return $this->putInSection($sea_wave_group) ? true : false;
         } else {
             return null;
         }
@@ -101,7 +115,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($wind_waves) {
             $this->updateReport($wind_waves_group, $raw_report);
-            return $wind_waves_group;
+            return $this->putInSection($wind_waves_group) ? true : false;
         } else {
             return null;
         }
@@ -121,7 +135,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($wave_transference) {
             $this->updateReport($wave_transference_group, $raw_report);
-            return $wave_transference_group;
+            return $this->putInSection($wave_transference_group) ? true : false;
         } else {
             return null;
         }
@@ -141,7 +155,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($period_height_wave) {
             $this->updateReport($period_height_wind_wave_group, $raw_report);
-            return $period_height_wind_wave_group;
+            return $this->putInSection($period_height_wind_wave_group) ? true : false;
         } else {
             return null;
         }
@@ -161,7 +175,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($period_and_height_wave) {
             $this->updateReport($period_height_wave_group, $raw_report);
-            return $period_height_wave_group;
+            return $this->putInSection($period_height_wave_group) ? true : false;
         } else {
             return null;
         }
@@ -181,7 +195,7 @@ class SectionTwoDecoder implements DecoderInterface
         }
         if($period_and_height_wave) {
             $this->updateReport($vessel_icing_group, $raw_report);
-            return $vessel_icing_group;
+            return $this->putInSection($vessel_icing_group) ? true : false;
         } else {
             return null;
         }
@@ -195,7 +209,8 @@ class SectionTwoDecoder implements DecoderInterface
             if(strcmp($distinguishing_word_ice, 'ICE') == 0) {
                 $ice = true;
                 $this->updateReport($distinguishing_word_ice, $raw_report);
-                return $this->getciSibiDizi($raw_report);
+                $ice_group = $this->getciSibiDizi($raw_report);
+                return $this->putInSection($ice_group) ? true : false;
             }
         } else {
             //ship report
@@ -213,16 +228,4 @@ class SectionTwoDecoder implements DecoderInterface
         $this->updateReport($ice_group, $raw_report);
         return $ice_group;
     }
-
-    public function block(string $report_data) : string
-    {
-        return strstr($report_data, ' ', true);
-    }
-    
-    public function updateReport(string $group, RawReportInterface $raw_report) : void
-    {
-        $report = str_replace($group . ' ', '', $raw_report->getReport());
-        $raw_report->updateReport($report);
-    }
-
 }

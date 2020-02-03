@@ -7,6 +7,7 @@ use Exception;
 use Synop\Fabrication\Validate;
 use Synop\Fabrication\RawReport;
 use Synop\Decoder\GeneralDecoder;
+use Synop\Sheme\Section;
 use Synop\Process\Pipeline;
 
 /**
@@ -16,6 +17,8 @@ use Synop\Process\Pipeline;
  */
 class Report implements ReportInterface
 {
+    const GENERAL_SETION = 'General Section';
+
     /**
      * @var type sring
      */
@@ -77,7 +80,7 @@ class Report implements ReportInterface
         
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
-        $decoder = new GeneralDecoder();
+        $decoder = new GeneralDecoder(new Section(self::GENERAL_SETION));
         $blocks =  $pipeline->process($this->raw_report, $decoder); var_dump($blocks);
     }
     
@@ -102,14 +105,14 @@ class Report implements ReportInterface
             '8NhClCmCh',
             '9hh//',
             '222DsVs',
-            '0SnTwTwTw',
+            /*'0SnTwTwTw',
             '1PwaPwaHwaHwa',
             '2PwPwHwHw',
             '3dw1dw1dw2dw2',
             '4Pw1Pw1Hw1Hw1',
             '5Pw2Pw2Hw2Hw2',
             '6IsEsEsPs',
-            'ISE',
+            'ISE',*/
             '333',
             '444',
             '555',

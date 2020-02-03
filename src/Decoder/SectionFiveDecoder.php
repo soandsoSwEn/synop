@@ -2,6 +2,8 @@
 
 namespace Synop\Decoder;
 
+use Synop\Decoder\Decoder;
+use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
 
@@ -10,21 +12,33 @@ use Synop\Fabrication\RawReportInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SectionFiveDecoder implements DecoderInterface
+class SectionFiveDecoder extends Decoder implements DecoderInterface
 {
+    private $section;
+    
     private $synop_report = null;
     
     private $ship_report = null;
     
-    public function __construct(bool $synop, bool $ship)
+    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
     {
+        $this->section = $section_title;
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
     
-    public function parse(string $report_data): object
+    public function parse(): object
     {
-        //
+        return $this->section;
+    }
+    
+    private function putInSection($data)
+    {
+        if($this->section->setBody($data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function get1SnT24T24T24(RawReportInterface $raw_report)
@@ -41,7 +55,7 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($average_temperature) {
             $this->updateReport($average_daily_temperature, $raw_report);
-            return $average_daily_temperature;
+            return $this->putInSection($average_daily_temperature) ? true : false;
         } else {
             return null;
         }
@@ -61,7 +75,7 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($soil_temperature) {
             $this->updateReport($minimum_soil_temperature, $raw_report);
-            return $minimum_soil_temperature;
+            return $this->putInSection($minimum_soil_temperature) ? true : false;
         } else {
             return null;
         }
@@ -81,7 +95,7 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($snow) {
             $this->updateReport($snow_cover, $raw_report);
-            return $snow_cover;
+            return $this->putInSection($snow_cover) ? true : false;
         } else {
             return null;
         }
@@ -101,7 +115,7 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($precipitation) {
             $this->updateReport($precipitation_group, $raw_report);
-            return $precipitation_group;
+            return $this->putInSection($precipitation_group) ? true : false;
         } else {
             return null;
         }
@@ -121,7 +135,7 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($precipitation) {
             $this->updateReport($precipitation_day, $raw_report);
-            return $precipitation_day;
+            return $this->putInSection($precipitation_day) ? true : false;
         } else {
             return null;
         }
@@ -141,25 +155,9 @@ class SectionFiveDecoder implements DecoderInterface
         }
         if($weather) {
             $this->updateReport($weather_group, $raw_report);
-            return $weather_group;
+            return $this->putInSection($weather_group) ? true : false;
         } else {
             return null;
         }
-    }
-
-    public function block(string $report_data) : string
-    {
-        return strstr($report_data, ' ', true);
-    }
-    
-    public function endBlock(string $report_data) : string
-    {
-        return strstr($report_data, '=', true);
-    }
-    
-    public function updateReport(string $group, RawReportInterface $raw_report) : void
-    {
-        $report = str_replace($group . ' ', '', $raw_report->getReport());
-        $raw_report->updateReport($report);
     }
 }
