@@ -11,6 +11,7 @@ use Synop\Process\Pipeline;
 use Synop\Decoder\SectionTwoDecoder;
 use Synop\Sheme\Section;
 use Synop\Decoder\SectionThreeDecoder;
+use Synop\Sheme\DateGroup;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -97,11 +98,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     {
         if($this->synop_report) {
             $date_group = $this->block($raw_report->getReport());
+            $date = new DateGroup($date_group);
         } else {
             //ship report
         }
         $this->updateReport($date_group, $raw_report);
-        return $this->putInSection($date_group) ? true : false;
+        return $this->putInSection($date) ? true : false;
     }
     
     public function getIIiii(RawReportInterface $raw_report)
