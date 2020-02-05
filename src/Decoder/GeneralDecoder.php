@@ -12,6 +12,7 @@ use Synop\Decoder\SectionTwoDecoder;
 use Synop\Sheme\Section;
 use Synop\Decoder\SectionThreeDecoder;
 use Synop\Sheme\DateGroup;
+use Synop\Sheme\IndexGroup;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -110,11 +111,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     {
         if($this->synop_report) {
             $station_index = $this->block($raw_report->getReport());
+            $index = new IndexGroup($station_index);
         } else {
             //ship report
         }
         $this->updateReport($station_index, $raw_report);
-        return $this->putInSection($station_index) ? true : false;
+        return $this->putInSection($index) ? true : false;
     }
     
     public function get99LaLaLa(RawReportInterface $raw_report)
