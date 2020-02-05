@@ -8,5 +8,5 @@ namespace Synop\Decoder\GroupDecoder;
  */
 interface GroupDecoderInterface
 {
-    public function setData(string $data) : void;
+    //
 }
