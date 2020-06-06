@@ -2,6 +2,8 @@
 
 namespace Synop\Decoder;
 
+use Synop\Sheme\SectionInterface;
+
 /**
  * The interface must be implemented in a class that performs decoding
  * of weather reports at any level (decoding of a section, group)
@@ -15,5 +17,5 @@ interface DecoderInterface
      * 
      * @return object
      */
-    public function parse() : object;
+    public function parse() : SectionInterface;
 }

@@ -27,7 +27,7 @@ class SectionFiveDecoder extends Decoder implements DecoderInterface
         $this->ship_report = $ship;
     }
     
-    public function parse(): object
+    public function parse(): SectionInterface
     {
         return $this->section;
     }

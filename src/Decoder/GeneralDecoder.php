@@ -41,7 +41,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->putSection($this->section);
     }
 
-    public function parse() : object
+    public function parse() : SectionInterface
     {
         return $this->sections;
     }
@@ -351,7 +351,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
                 $st_pipelie = new Pipeline();
                 $pipes = $this->getTwoPipes();
                 $st_pipelie->pipe($pipes);
-                $st_decoder = new SectionTwoDecoder(new Section(self::SETION_TWO), $this->synop_report, $this->ship_report);
+                $st_decoder = new SectionTwoDecoder(new Section(self::SECTION_TWO), $this->synop_report, $this->ship_report);
                 $st_blocks = $st_pipelie->process($raw_report, $st_decoder);
                 return $this->putSection($st_blocks) ? true : false;
             }

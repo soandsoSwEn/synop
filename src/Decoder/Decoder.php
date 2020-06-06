@@ -11,7 +11,7 @@ use Synop\Fabrication\RawReportInterface;
  */
 class Decoder
 {
-    const SETION_TWO = 'Section Two';
+    const SECTION_TWO = 'Section Two';
     const SECTION_THREE = 'Section Three';
     const SECTION_FOUR = 'Section Four';
     const SECTION_FIVE = 'Section Five';
