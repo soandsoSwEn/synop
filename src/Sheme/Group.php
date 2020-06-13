@@ -11,5 +11,19 @@ use Synop\Sheme\GroupInterface;
  */
 class Group implements GroupInterface
 {
-    //put your code here
+    private $title;
+    
+    public function __construct(string $title)
+    {
+        $this->setTitle($title);
+    }
+    
+    public function setTitle(string $title) : void
+    {
+        if(!empty($title)) {
+            $this->title = $title;
+        } else {
+            throw new Exception('Meteorological section title cannot be an empty string!');
+        }
+    }
 }
