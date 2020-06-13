@@ -26,7 +26,7 @@ class LowCloudVisibilityGroup implements GroupInterface
     private $inc_precip_group;
     
     /**
-     * @var string weather indicator inclusion index 7wwW1W2 
+     * @var array weather indicator inclusion index 7wwW1W2
      */
     private $inc_weather_group;
     
