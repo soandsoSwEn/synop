@@ -4,6 +4,7 @@ namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
+use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
@@ -151,12 +152,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     public function getNddff(RawReportInterface $raw_report)
     {
         if($this->synop_report) {
-            $cloud_visibility_group = $this->block($raw_report->getReport());
+            $cloud_wind_group = $this->block($raw_report->getReport());
+            $Nddff = new CloudWindGroup($cloud_wind_group);
         } else {
             //ship report
         }
-        $this->updateReport($cloud_visibility_group, $raw_report);
-        return $this->putInSection($cloud_visibility_group) ? true : false;
+        $this->updateReport($cloud_wind_group, $raw_report);
+        return $this->putInSection($Nddff) ? true : false;
     }
     
     public function get1SnTTT(RawReportInterface $raw_report)
