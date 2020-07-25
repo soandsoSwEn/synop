@@ -4,6 +4,7 @@ namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
+use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
 use Synop\Sheme\SectionInterface;
@@ -169,6 +170,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($air_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $temperature = true;
+                $SnTTT = new AirTemperatureGroup($air_temperature_group);
             } else {
                 $temperature = false;
             }
@@ -177,7 +179,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         }
         if($temperature) {
             $this->updateReport($air_temperature_group, $raw_report);
-            return $this->putInSection($air_temperature_group) ? true : false;
+            return $this->putInSection($SnTTT) ? true : false;
         } else {
             return null;
         }
