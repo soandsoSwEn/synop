@@ -17,6 +17,7 @@ use Synop\Sheme\Section;
 use Synop\Decoder\SectionThreeDecoder;
 use Synop\Sheme\DateGroup;
 use Synop\Sheme\IndexGroup;
+use Synop\Sheme\StLPressureGroup;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -215,13 +216,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($pressure_station_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $pressure_station = true;
+                $P0P0P0P0 = new StLPressureGroup($pressure_station_group);
             }
         } else {
             //ship report
         }
         if($pressure_station) {
             $this->updateReport($pressure_station_group, $raw_report);
-            return $this->putInSection($pressure_station_group) ? true : false;
+            return $this->putInSection($P0P0P0P0) ? true : false;
         } else {
             return null;
         }
