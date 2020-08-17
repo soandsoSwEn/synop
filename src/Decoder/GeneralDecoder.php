@@ -6,6 +6,7 @@ use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\CloudWindGroup;
+use Synop\Sheme\DewPointTemperatureGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
@@ -193,13 +194,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($dew_point_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $dew_point = true;
+                $SnTdTdTd = new DewPointTemperatureGroup($dew_point_group);
             }
         } else {
             //ship report
         }
         if($dew_point) {
             $this->updateReport($dew_point_group, $raw_report);
-            return $this->putInSection($dew_point_group) ? true : false;
+            return $this->putInSection($SnTdTdTd) ? true : false;
         } else {
             return null;
         }
