@@ -11,6 +11,8 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
  * atmospheric pressure at the station level
  *
  * @package Synop\Decoder\GroupDecoder
+ *
+ * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
 class StLPressureDecoder implements GroupDecoderInterface
 {
@@ -20,11 +22,11 @@ class StLPressureDecoder implements GroupDecoderInterface
     /**
      * @var string Station level atmospheric pressure data
      */
-    private $raw_dp_temperature;
+    private $raw_stl_pressure;
 
-    public function __construct(string $raw_dp_temperature)
+    public function __construct(string $raw_stl_pressure)
     {
-        $this->raw_dp_temperature = $raw_dp_temperature;
+        $this->raw_stl_pressure = $raw_stl_pressure;
     }
 
     /**
@@ -33,7 +35,7 @@ class StLPressureDecoder implements GroupDecoderInterface
      */
     public function isGroup() : bool
     {
-        $distinguishingDigit = substr($this->raw_dp_temperature, 0, 1);
+        $distinguishingDigit = substr($this->raw_stl_pressure, 0, 1);
 
         return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
     }
@@ -44,7 +46,7 @@ class StLPressureDecoder implements GroupDecoderInterface
      */
     public function getStLPressure() : float
     {
-        $P0P0P0P0 = substr($this->raw_dp_temperature, 1, 4);
+        $P0P0P0P0 = substr($this->raw_stl_pressure, 1, 4);
         $stationPressure = null;
 
         $firstDigit = substr($P0P0P0P0, 0, 1);
