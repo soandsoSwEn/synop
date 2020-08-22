@@ -64,7 +64,7 @@ class StLPressureGroup implements GroupInterface
     }
 
     /**
-     * alidates a block of code against a Station level atmospheric pressure group
+     * validates a block of code against a Station level atmospheric pressure group
      * @param GroupDecoderInterface $decoder
      * @return bool
      */

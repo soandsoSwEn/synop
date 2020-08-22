@@ -50,13 +50,11 @@ class StLPressureDecoder implements GroupDecoderInterface
         $stationPressure = null;
 
         $firstDigit = substr($P0P0P0P0, 0, 1);
+        $intPart = substr($P0P0P0P0, 0, 3);
+        $thenth = substr($P0P0P0P0, 3, 1);
         if (strcasecmp($firstDigit, '9') == 0) {
-            $intPart = substr($P0P0P0P0, 0, 3);
-            $thenth = substr($P0P0P0P0, 3, 1);
             $stationPressure = floatval($intPart . '.' . $thenth);
         } else {
-            $intPart = substr($P0P0P0P0, 0, 3);
-            $thenth = substr($P0P0P0P0, 3, 1);
             $stationPressure = floatval('1' . $intPart . '.' . $thenth);
         }
 
