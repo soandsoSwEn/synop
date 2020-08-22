@@ -8,6 +8,7 @@ use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\DewPointTemperatureGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
+use Synop\Sheme\MslPressureGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
@@ -237,13 +238,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($pressure_sea_level_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $pressure_sea_level = true;
+                $PPPP = new MslPressureGroup($pressure_sea_level_group);
             }
         } else {
             //ship report
         }
         if($pressure_sea_level) {
             $this->updateReport($pressure_sea_level_group, $raw_report);
-            return $this->putInSection($pressure_sea_level_group) ? true : false;
+            return $this->putInSection($PPPP) ? true : false;
         } else {
             return null;
         }
