@@ -5,6 +5,7 @@ namespace Synop\Decoder;
 use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
 use Synop\Sheme\AirTemperatureGroup;
+use Synop\Sheme\BaricTendencyGroup;
 use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\DewPointTemperatureGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
@@ -259,13 +260,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($baric_tendency_group, 0, 1);
             if(strcmp($distinguishing_digit, '5') == 0) {
                 $baric_tendency = true;
+                $appp = new BaricTendencyGroup($baric_tendency_group);
             }
         } else {
             //ship report
         }
         if($baric_tendency) {
             $this->updateReport($baric_tendency_group, $raw_report);
-            return $this->putInSection($baric_tendency_group) ? true : false;
+            return $this->putInSection($appp) ? true : false;
         } else {
             return null;
         }
