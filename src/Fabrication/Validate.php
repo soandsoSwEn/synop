@@ -2,7 +2,6 @@
 
 namespace Synop\Fabrication;
 
-use Synop\Fabrication\Validate;
 
 /**
  * Description of Validate
