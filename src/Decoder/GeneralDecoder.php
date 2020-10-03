@@ -5,6 +5,7 @@ namespace Synop\Decoder;
 use Synop\Decoder\Decoder;
 use Synop\Decoder\DecoderInterface;
 use Synop\Sheme\AirTemperatureGroup;
+use Synop\Sheme\AmountRainfallGroup;
 use Synop\Sheme\BaricTendencyGroup;
 use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\DewPointTemperatureGroup;
@@ -281,13 +282,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
+                $RRRtr = new AmountRainfallGroup($precipitation_group);
             }
         } else {
             //ship report
         }
         if($precipitation ) {
             $this->updateReport($precipitation_group, $raw_report);
-            return $this->putInSection($precipitation_group) ? true : false;
+            return $this->putInSection($RRRtr) ? true : false;
         } else {
             return null;
         }
