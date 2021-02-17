@@ -7,10 +7,12 @@ use Synop\Decoder\DecoderInterface;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\AmountRainfallGroup;
 use Synop\Sheme\BaricTendencyGroup;
+use Synop\Sheme\CloudPresentGroup;
 use Synop\Sheme\CloudWindGroup;
 use Synop\Sheme\DewPointTemperatureGroup;
 use Synop\Sheme\LowCloudVisibilityGroup;
 use Synop\Sheme\MslPressureGroup;
+use Synop\Sheme\PresentWeatherGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
@@ -303,13 +305,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($weather_group, 0, 1);
             if(strcmp($distinguishing_digit, '7') == 0) {
                 $weather = true;
+                $wwW1W2 = new PresentWeatherGroup($weather_group);
             }
         } else {
             //ship report
         }
         if($weather) {
             $this->updateReport($weather_group, $raw_report);
-            return $this->putInSection($weather_group) ? true : false;
+            return $this->putInSection($wwW1W2) ? true : false;
         } else {
             return null;
         }
@@ -323,13 +326,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $cloud_characteristics = true;
+                $NhClCmCh = new CloudPresentGroup($cloud_characteristics_group);
             }
         } else {
             //ship report
         }
         if($cloud_characteristics) {
             $this->updateReport($cloud_characteristics_group, $raw_report);
-            return $this->putInSection($cloud_characteristics_group) ? true : false;
+            return $this->putInSection($NhClCmCh) ? true : false;
         } else {
             return null;
         }
