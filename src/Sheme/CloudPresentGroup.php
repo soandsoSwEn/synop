@@ -9,26 +9,63 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Sheme\GroupInterface;
 
 
+/**
+ * Class CloudPresentGroup contains methods for working with the cloud present group - 8NhClCmCH
+ *
+ * @package Synop\Sheme
+ *
+ * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
+ */
 class CloudPresentGroup implements GroupInterface
 {
+    /**
+     * @var string Code block of cloud present group
+     */
     private $rawCloudPresent;
 
+    /**
+     * @var GroupDecoderInterface
+     */
     private $decoder;
 
+    /**
+     * @var string Amount of low cloud code symbol
+     */
     private $amountLowCloudSymbol;
 
+    /**
+     * @var string Amount of low cloud value
+     */
     private $amountLowCloud;
 
+    /**
+     * @var string Form of low cloud code symbol
+     */
     private $formLowCloudSymbol;
 
+    /**
+     * @var string Form of low cloud value
+     */
     private $formLowCloud;
 
+    /**
+     * @var string Form of medium cloud code symbol
+     */
     private $formMediumCloudSymbol;
 
+    /**
+     * @var string Form of medium cloud value
+     */
     private $formMediumCloud;
 
+    /**
+     * @var string Form of high cloud code symbol
+     */
     private $formHighCloudSymbol;
 
+    /**
+     * @var string Form of high cloud value
+     */
     private $formHighCloud;
 
     public function __construct(string $data)
@@ -36,6 +73,10 @@ class CloudPresentGroup implements GroupInterface
         $this->setData($data);
     }
 
+    /**
+     * @param string $data Code block of cloud present group
+     * @throws Exception
+     */
     public function setData(string $data) : void
     {
         if (!empty($data)) {
@@ -47,6 +88,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the parameters of cloud present group
+     * @param GroupDecoderInterface $decoder
+     */
     public function setCloudPresentGroup(GroupDecoderInterface $decoder)
     {
         if ($this->isCloudPresentGroup($decoder)) {
@@ -70,11 +115,20 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Validates a block of code against a cloud present group
+     * @param GroupDecoderInterface $decoder
+     * @return bool
+     */
     public function isCloudPresentGroup(GroupDecoderInterface $decoder) : bool
     {
         return $decoder->isGroup();
     }
 
+    /**
+     * Sets the symbolic value of amount low cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setAmountLowCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -84,6 +138,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the value of amount low cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setAmountLowCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -93,6 +151,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the symbolic value of form low cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormLowCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -102,6 +164,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the value of form low cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormLowCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -111,6 +177,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the symbolic value of form medium cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormMediumCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -120,6 +190,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the value of form medium cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormMediumCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -129,6 +203,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the symbolic value of form high cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormHighCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
@@ -138,6 +216,10 @@ class CloudPresentGroup implements GroupInterface
         }
     }
 
+    /**
+     * Sets the value of form high cloud
+     * @param GroupDecoderInterface|null $decoder
+     */
     public function setFormHighCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {

@@ -7,12 +7,26 @@ use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 
 
+/**
+ * Class CloudPresentDecoder contains methods for decoding a group of cloud present
+ *
+ * @package Synop\Decoder\GroupDecoder
+ *
+ * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
+ */
 class CloudPresentDecoder implements GroupDecoderInterface
 {
+    /** Distinctive digit of the cloud present group */
     const DIGIT = '8';
 
+    /**
+     * @var string cloud present data
+     */
     private $rawCloudPresent;
 
+    /**
+     * @var string[] Map correspondences of symbolic and amount of low cloud values
+     */
     private $amountCloudMap = [
         '0' => 'Niel',
         '1' => '1 eight of sky covered, or less, but not zero',
@@ -26,6 +40,9 @@ class CloudPresentDecoder implements GroupDecoderInterface
         '9' => 'Sky obscured or cloud amount cannot be estimated',
     ];
 
+    /**
+     * @var string[] Map correspondences of symbolic and form of low cloud values
+     */
     private $formLowCloudMap = [
         '0' => 'No Stratocumulus, Stratus, Cumulus or Cumulonimbus',
         '1' => 'Cumulus with little vertical extend and seemingly flattened, or ragged Cumulus other than of bad weather or both',
@@ -47,6 +64,9 @@ class CloudPresentDecoder implements GroupDecoderInterface
                 or other similar phenomena',
     ];
 
+    /**
+     * @var string[] Map correspondences of symbolic and form of medium cloud values
+     */
     private $formMediumCloudMap = [
         '0' => 'No Altocumulus, Altocumulus or Nimbostartus',
         '1' => 'Altostratus, the greater part of which is semi-transparent; trough this part the sun or moon may be weakly
@@ -67,6 +87,9 @@ class CloudPresentDecoder implements GroupDecoderInterface
                 similar phenomena, or more often because of the presence of a continuous layer of lower clouds',
     ];
 
+    /**
+     * @var string[] Map correspondences of symbolic and form of high cloud values
+     */
     private $formHighCloudMap = [
         '0' => 'No Cirrus, Cirrocumulus or Cirrostartus',
         '1' => 'Cirrus in the form of filaments, strands or hooks, not progressively invading the sky',
@@ -94,6 +117,10 @@ class CloudPresentDecoder implements GroupDecoderInterface
         $this->rawCloudPresent = $rawCloudPresent;
     }
 
+    /**
+     * Returns the result of checking the validity of the group
+     * @return bool
+     */
     public function isGroup() : bool
     {
         $distinguishingDigit = substr($this->rawCloudPresent, 0, 1);
@@ -101,11 +128,20 @@ class CloudPresentDecoder implements GroupDecoderInterface
         return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
     }
 
+    /**
+     * Returns the amount low cloud symbol value
+     * @return string
+     */
     public function getAmountLowCloudSymbol() : string
     {
         return substr($this->rawCloudPresent, 1, 1);
     }
 
+    /**
+     * Returns the amount low cloud value
+     * @return string
+     * @throws Exception
+     */
     public function getAmountLowCloud() : string
     {
         $Nh = $this->getAmountLowCloudSymbol();
@@ -116,11 +152,20 @@ class CloudPresentDecoder implements GroupDecoderInterface
         }
     }
 
+    /**
+     * Returns the form low cloud symbol value
+     * @return string
+     */
     public function getFormLowCloudSymbol() : string
     {
         return substr($this->rawCloudPresent, 2, 1);
     }
 
+    /**
+     * Returns the form low cloud value
+     * @return string
+     * @throws Exception
+     */
     public function getFormLowCloud() : string
     {
         $Cl = $this->getFormLowCloudSymbol();
@@ -131,11 +176,20 @@ class CloudPresentDecoder implements GroupDecoderInterface
         }
     }
 
+    /**
+     * Returns the form medium cloud symbol value
+     * @return string
+     */
     public function getFormMediumCloudSymbol() : string
     {
         return substr($this->rawCloudPresent, 3, 1);
     }
 
+    /**
+     * Returns the form medium cloud value
+     * @return string
+     * @throws Exception
+     */
     public function getFormMediumCloud() : string
     {
         $Cm = $this->getFormMediumCloudSymbol();
@@ -146,18 +200,27 @@ class CloudPresentDecoder implements GroupDecoderInterface
         }
     }
 
+    /**
+     * Returns the form high cloud symbol value
+     * @return string
+     */
     public function getFormHighCloudSymbol() : string
     {
         return substr($this->rawCloudPresent, 4, 1);
     }
 
+    /**
+     * Returns the form high cloud value
+     * @return string
+     * @throws Exception
+     */
     public function getFormHighCloud() : string
     {
         $Ch = $this->getFormHighCloudSymbol();
         if (array_key_exists($Ch, $this->formHighCloudMap)) {
             return $this->formHighCloudMap[$Ch];
         } else {
-            throw new Exception('Invalid data of Form of hight cloud');
+            throw new Exception('Invalid data of Form of high cloud');
         }
     }
 }
