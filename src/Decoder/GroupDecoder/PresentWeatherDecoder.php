@@ -24,8 +24,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
     private $rawPresentWeather;
 
     /**
-     * Map correspondences of symbolic and present Weather values
-     * @var string[]
+     * @var string[] Map correspondences of symbolic and present Weather values
      */
     private $presentWeatherMap = [
         '00' => 'Cloud Development not observed or not observable',
@@ -139,8 +138,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
     ];
 
     /**
-     * Map correspondences of symbolic and past Weather values
-     * @var string[]
+     * @var string[] Map correspondences of symbolic and past Weather values
      */
     private $pastWeatherMap = [
         '0' => 'Cloud covering 1/2 or less of the sky throughout the appropriate period',
