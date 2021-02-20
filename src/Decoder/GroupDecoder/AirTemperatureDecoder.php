@@ -19,13 +19,19 @@ class AirTemperatureDecoder implements GroupDecoderInterface
     /** Value distinctive number of air temperature group */
     const DIGIT = '1';
 
+    /** Value distinctive number of minimum air temperature group */
+    const MINIMUM_TEMP_DIGIT = '2';
+
+    private $currentDigit = null;
+
     /**
      * @var string Air temperature group data
      */
     private $raw_air_temperature;
 
-    public function __construct(string $raw_air_temperature)
+    public function __construct(string $raw_air_temperature, $isMinTemp = false)
     {
+        $this->currentDigit = $isMinTemp ? self::MINIMUM_TEMP_DIGIT : self::DIGIT;
         $this->raw_air_temperature = $raw_air_temperature;
     }
 
@@ -38,7 +44,7 @@ class AirTemperatureDecoder implements GroupDecoderInterface
     {
         $distinguishing_digit = substr($this->raw_air_temperature, 0, 1);
 
-        return strcasecmp($distinguishing_digit, self::DIGIT) == 0 ? true : false;
+        return strcasecmp($distinguishing_digit, $this->currentDigit) == 0 ? true : false;
     }
 
     /**
