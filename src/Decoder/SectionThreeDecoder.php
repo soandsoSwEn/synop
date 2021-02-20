@@ -3,6 +3,9 @@
 namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
+use Synop\Sheme\AirTemperatureGroup;
+use Synop\Sheme\MaxAirTemperatureGroup;
+use Synop\Sheme\MinAirTemperatureGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
@@ -49,13 +52,14 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($maximum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $maximum_temperature = true;
+                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group);
             }
         } else {
             //ship report
         }
         if($maximum_temperature) {
             $this->updateReport($maximum_temperature_group, $raw_report);
-            return $this->putInSection($maximum_temperature_group) ? true : false;
+            return $this->putInSection($SnTxTxTxMax) ? true : false;
         } else {
             return null;
         }
@@ -69,13 +73,14 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($minimum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $minimum_temperature = true;
+                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group);
             }
         } else {
             //ship report
         }
         if($minimum_temperature) {
             $this->updateReport($minimum_temperature_group, $raw_report);
-            return $this->putInSection($minimum_temperature_group) ? true : false;
+            return $this->putInSection($SnTxTxTxMin) ? true : false;
         } else {
             return null;
         }
