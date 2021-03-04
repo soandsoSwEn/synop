@@ -422,6 +422,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         return [
             '1SnTxTxTx',
             '2SnTnTnTn',
+            '3ESnTgTg',
             '6RRRtr',
             '8NsChshs',
             '9SpSpspsp',
