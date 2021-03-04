@@ -4,6 +4,7 @@ namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
 use Synop\Sheme\AirTemperatureGroup;
+use Synop\Sheme\GroundWithoutSnowGroup;
 use Synop\Sheme\MaxAirTemperatureGroup;
 use Synop\Sheme\MinAirTemperatureGroup;
 use Synop\Sheme\SectionInterface;
@@ -81,6 +82,27 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         if($minimum_temperature) {
             $this->updateReport($minimum_temperature_group, $raw_report);
             return $this->putInSection($SnTxTxTxMin) ? true : false;
+        } else {
+            return null;
+        }
+    }
+
+    public function get3ESnTgTg(RawReportInterface $raw_report)
+    {
+        $precipitation = false;
+        if($this->synop_report) {
+            $state_ground_group = $this->block($raw_report->getReport());
+            $distinguishing_digit = substr($state_ground_group, 0, 1);
+            if(strcmp($distinguishing_digit, '3') == 0) {
+                $precipitation = true;
+                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group);
+            }
+        } else {
+            //ship report
+        }
+        if($precipitation) {
+            $this->updateReport($state_ground_group, $raw_report);
+            return $this->putInSection($ESnTgTg) ? true : false;
         } else {
             return null;
         }
