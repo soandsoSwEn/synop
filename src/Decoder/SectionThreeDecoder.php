@@ -5,6 +5,7 @@ namespace Synop\Decoder;
 use Synop\Decoder\Decoder;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\GroundWithoutSnowGroup;
+use Synop\Sheme\GroundWithSnowGroup;
 use Synop\Sheme\MaxAirTemperatureGroup;
 use Synop\Sheme\MinAirTemperatureGroup;
 use Synop\Sheme\SectionInterface;
@@ -89,20 +90,41 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     public function get3ESnTgTg(RawReportInterface $raw_report)
     {
-        $precipitation = false;
+        $stateGround = false;
         if($this->synop_report) {
             $state_ground_group = $this->block($raw_report->getReport());
             $distinguishing_digit = substr($state_ground_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
-                $precipitation = true;
+                $stateGround = true;
                 $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group);
             }
         } else {
             //ship report
         }
-        if($precipitation) {
+        if($stateGround) {
             $this->updateReport($state_ground_group, $raw_report);
             return $this->putInSection($ESnTgTg) ? true : false;
+        } else {
+            return null;
+        }
+    }
+
+    public function get4Esss(RawReportInterface $raw_report)
+    {
+        $stateGroundSnow = false;
+        if($this->synop_report) {
+            $state_ground_with_snow_group = $this->block($raw_report->getReport());
+            $distinguishing_digit = substr($state_ground_with_snow_group, 0, 1);
+            if(strcmp($distinguishing_digit, '4') == 0) {
+                $stateGroundSnow = true;
+                $Esss = new GroundWithSnowGroup($state_ground_with_snow_group);
+            }
+        } else {
+            //ship report
+        }
+        if($stateGroundSnow) {
+            $this->updateReport($state_ground_with_snow_group, $raw_report);
+            return $this->putInSection($Esss) ? true : false;
         } else {
             return null;
         }
