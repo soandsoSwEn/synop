@@ -24,6 +24,9 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
      */
     private $rawGroundWithoutSnow;
 
+    /**
+     * @var string[] Map correspondences of symbolic and state of ground without snow or measurable ice cover values
+     */
     private $groundStateMap = [
         '0' => 'Surface of ground dry (without cracks and no appreciable amount of dust of loose sand)',
         '1' => 'Surface of ground moist',
