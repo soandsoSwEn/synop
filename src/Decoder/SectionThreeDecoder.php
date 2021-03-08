@@ -8,6 +8,7 @@ use Synop\Sheme\GroundWithoutSnowGroup;
 use Synop\Sheme\GroundWithSnowGroup;
 use Synop\Sheme\MaxAirTemperatureGroup;
 use Synop\Sheme\MinAirTemperatureGroup;
+use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
@@ -160,13 +161,14 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
+                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group);
             }
         } else {
             //ship report
         }
         if($precipitation) {
             $this->updateReport($precipitation_group, $raw_report);
-            return $this->putInSection($precipitation_group) ? true : false;
+            return $this->putInSection($RRRtr) ? true : false;
         } else {
             return null;
         }
