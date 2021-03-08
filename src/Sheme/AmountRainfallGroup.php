@@ -48,19 +48,24 @@ class AmountRainfallGroup implements GroupInterface
         $this->setData($data);
     }
 
+    /**
+     * Sets the initial data for the amount of rainfall group
+     * @param string $data Amount of rainfall group data
+     * @throws Exception
+     */
     public function setData(string $data)
     {
         if (!empty($data)) {
-            $this->rawAmountRainfall = $data;
-            $this->decoder = new AmountRainfallDecoder($this->rawAmountRainfall);
-            $this->setAmountRainfallGroup($this->decoder);
+            $this->setRawAmountRainfall($data);
+            $this->setDecoder(new AmountRainfallDecoder($this->getRawAmountRainfall()));
+            $this->setAmountRainfallGroup($this->getDecoder());
         } else {
             throw new Exception('AmountRainfallGroup group cannot be empty!');
         }
     }
 
     /**
-     * Sets the parameters of Amount of rainfall
+     * Sets the parameters of Amount of rainfall group
      * @param GroupDecoderInterface $decoder
      */
     public function setAmountRainfallGroup(GroupDecoderInterface $decoder)
@@ -74,6 +79,96 @@ class AmountRainfallGroup implements GroupInterface
             $this->setDurationPeriodNumber(null);
             $this->setDurationPeriod(null);
         }
+    }
+
+    /**
+     * Sets amount of rainfall group data
+     * @param string $rawAmountRainfall Amount of rainfall group data
+     */
+    public function setRawAmountRainfall(string $rawAmountRainfall) : void
+    {
+        $this->rawAmountRainfall = $rawAmountRainfall;
+    }
+
+    /**
+     * Sets an initialized decoder object for amount of rainfall group
+     * @param GroupDecoderInterface $decoder Initialized decoder object for amount of rainfall group
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
+    }
+
+    /**
+     * Sets duration period of Amount of rainfall integer value
+     * @param int|null $durationPeriodNumber Duration period of Amount of rainfall
+     */
+    public function setDurationPeriodNumberValue(?int $durationPeriodNumber) : void
+    {
+        $this->durationPeriodNumber = $durationPeriodNumber;
+    }
+
+    /**
+     * Sets duration period of Amount of rainfall string value
+     * @param string|null $durationPeriod Duration period of Amount of rainfall
+     */
+    public function setDurationPeriodValue(?string $durationPeriod) : void
+    {
+        $this->durationPeriod = $durationPeriod;
+    }
+
+    /**
+     * Sets title and Value of Amount of rainfall in mm
+     * @param array|null $amountRainfall Title and Value of Amount of rainfall in mm
+     */
+    public function setAmountRainfallValue(?array $amountRainfall) : void
+    {
+        $this->amountRainfall = $amountRainfall;
+    }
+
+    /**
+     * Returns amount of rainfall group data
+     * @return string Amount of rainfall group data
+     */
+    public function getRawAmountRainfall() : string
+    {
+        return $this->rawAmountRainfall;
+    }
+
+    /**
+     * Returns initialized decoder object for amount of rainfall group
+     * @return GroupDecoderInterface Initialized decoder object for amount of rainfall group
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
+    }
+
+    /**
+     * Returns duration period of Amount of rainfall integer value
+     * @return int|null Duration period of Amount of rainfall
+     */
+    public function getDurationPeriodNumberValue() : ?int
+    {
+        return $this->durationPeriodNumber;
+    }
+
+    /**
+     * Returns duration period of Amount of rainfall string value
+     * @return string|null Duration period of Amount of rainfall
+     */
+    public function getDurationPeriodValue() : ?string
+    {
+        return $this->durationPeriod;
+    }
+
+    /**
+     * Returns title and Value of Amount of rainfall in mm
+     * @return array|null Title and Value of Amount of rainfall in mm
+     */
+    public function getAmountRainfallValue() : ?array
+    {
+        return $this->amountRainfall;
     }
 
     /**
@@ -93,9 +188,9 @@ class AmountRainfallGroup implements GroupInterface
     public function setAmountRainfall(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->amountRainfall = null;
+            $this->setAmountRainfallValue(null);
         } else {
-            $this->amountRainfall = $decoder->getAmountRainfall();
+            $this->setAmountRainfallValue($decoder->getAmountRainfall());
         }
     }
 
@@ -106,9 +201,9 @@ class AmountRainfallGroup implements GroupInterface
     public function setDurationPeriodNumber(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->durationPeriodNumber = null;
+            $this->setDurationPeriodNumberValue(null);
         } else {
-            $this->durationPeriodNumber = $decoder->getDurationPeriodNumber();
+            $this->setDurationPeriodNumberValue($decoder->getDurationPeriodNumber());
         }
     }
 
@@ -119,9 +214,9 @@ class AmountRainfallGroup implements GroupInterface
     public function setDurationPeriod(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->durationPeriod = null;
+            $this->setDurationPeriodValue(null);
         } else {
-            $this->durationPeriod = $decoder->getDurationPeriod();
+            $this->setDurationPeriodValue($decoder->getDurationPeriod());
         }
     }
 }
