@@ -424,6 +424,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             '2SnTnTnTn',
             '3ESnTgTg',
             '4Esss',
+            '55SSS',
             '6RRRtr',
             '8NsChshs',
             '9SpSpspsp',
