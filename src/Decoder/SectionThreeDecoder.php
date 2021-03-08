@@ -11,6 +11,7 @@ use Synop\Sheme\MinAirTemperatureGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
+use Synop\Sheme\SunshineRadiationDataGroup;
 
 /**
  * Description of SectionTheeDecoder
@@ -125,6 +126,27 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         if($stateGroundSnow) {
             $this->updateReport($state_ground_with_snow_group, $raw_report);
             return $this->putInSection($Esss) ? true : false;
+        } else {
+            return null;
+        }
+    }
+
+    public function get55SSS(RawReportInterface $raw_report)
+    {
+        $sunshineRadiation = false;
+        if($this->synop_report) {
+            $sunshineRadiationGroup = $this->block($raw_report->getReport());
+            $distinguishing_digit = substr($sunshineRadiationGroup, 0, 2);
+            if(strcmp($distinguishing_digit, '55') == 0) {
+                $sunshineRadiation = true;
+                $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup);
+            }
+        } else {
+            //ship report
+        }
+        if($sunshineRadiation) {
+            $this->updateReport($sunshineRadiationGroup, $raw_report);
+            return $this->putInSection($SSS) ? true : false;
         } else {
             return null;
         }
