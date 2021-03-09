@@ -3,6 +3,7 @@
 namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
+use Synop\Sheme\AdditionalCloudInformationGroup;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\GroundWithoutSnowGroup;
 use Synop\Sheme\GroundWithSnowGroup;
@@ -182,13 +183,14 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($clouds_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $clouds = true;
+                $NsChshs = new AdditionalCloudInformationGroup($clouds_group);
             }
         } else {
             //ship report
         }
         if($clouds) {
             $this->updateReport($clouds_group, $raw_report);
-            return $this->putInSection($clouds_group) ? true : false;
+            return $this->putInSection($NsChshs) ? true : false;
         } else {
             return null;
         }
