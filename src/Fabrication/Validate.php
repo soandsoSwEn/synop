@@ -3,6 +3,8 @@
 namespace Synop\Fabrication;
 
 
+use Exception;
+
 /**
  * Description of Validate
  *
