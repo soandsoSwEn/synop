@@ -17,15 +17,15 @@ use Synop\Process\Pipeline;
  */
 class Report implements ReportInterface
 {
-    const GENERAL_SETION = 'General Section';
+    const GENERAL_SECTION = 'General Section';
 
     /**
-     * @var type sring
+     * @var string
      */
     private $report;
     
     /**
-     * @var type \Synop\Fabrication\RawReport
+     * @var \Synop\Fabrication\RawReport
      */
     private $raw_report;
 
@@ -80,7 +80,7 @@ class Report implements ReportInterface
         
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
-        $decoder = new GeneralDecoder(new Section(self::GENERAL_SETION));
+        $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION));
         $blocks =  $pipeline->process($this->raw_report, $decoder); var_dump($blocks);
     }
     
