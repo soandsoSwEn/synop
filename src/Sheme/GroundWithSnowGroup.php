@@ -134,9 +134,9 @@ class GroundWithSnowGroup implements GroupInterface
 
     /**
      * Returns state ground with snow value
-     * @return int|null State ground with snow
+     * @return string|null State ground with snow
      */
-    public function getStateValue() : ?int
+    public function getStateValue() : ?string
     {
         return $this->state;
     }
