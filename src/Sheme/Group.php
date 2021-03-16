@@ -2,6 +2,7 @@
 
 namespace Synop\Sheme;
 
+use Exception;
 use Synop\Sheme\GroupInterface;
 
 /**
