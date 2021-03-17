@@ -39,6 +39,36 @@ class DateGroup implements GroupInterface
             throw new Exception('Date group cannot be empty!');
         }
     }
+
+    public function setDayValue(string $day) : void
+    {
+        $this->day = $day;
+    }
+
+    public function setHourValue(string $hour) : void
+    {
+        $this->hour = $hour;
+    }
+
+    public function setIwValue(array $iw) : void
+    {
+        $this->iw = $iw;
+    }
+
+    public function getDayValue() : string
+    {
+        return $this->day;
+    }
+
+    public function getHourValue() : string
+    {
+        return $this->hour;
+    }
+
+    public function getIwValue() : array
+    {
+        return $this->iw;
+    }
     
     public function setDateGroup(GroupDecoderInterface $decoder)
     {
@@ -49,16 +79,16 @@ class DateGroup implements GroupInterface
 
     public function setDay(GroupDecoderInterface $decoder) : void
     {
-        $this->day = $decoder->getDay();
+        $this->setDayValue($decoder->getDay());
     }
     
     public function setHour(GroupDecoderInterface $decoder) : void
     {
-        $this->hour = $decoder->getHour();
+        $this->setHourValue($decoder->getHour());
     }
     
     public function setIw(GroupDecoderInterface $decoder) : void
     {
-        $this->iw = $decoder->getIw();
+        $this->setIwValue($decoder->getIw());
     }
 }
