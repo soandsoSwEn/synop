@@ -65,9 +65,9 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         }
     }
 
-    private function putInSection($data)
+    private function putInSection($data, $key = false)
     {
-        if($this->section->setBody($data)) {
+        if($this->section->setBody($data, $key)) {
             return true;
         } else {
             return false;
@@ -88,7 +88,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $this->ship_report = true;
         }
         $this->updateReport($type, $raw_report);
-        return $this->putInSection($type) ? true : false;
+        return $this->putInSection($type, 'type') ? true : false;
     }
     
     public function getShipSign(RawReportInterface $raw_report)
