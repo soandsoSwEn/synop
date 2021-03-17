@@ -154,7 +154,7 @@ class AmountRainfallGroup implements GroupInterface
     }
 
     /**
-     * Returns duration period of Amount of rainfall string value
+     * Returns duration period of rainfall string value
      * @return string|null Duration period of Amount of rainfall
      */
     public function getDurationPeriodValue() : ?string
