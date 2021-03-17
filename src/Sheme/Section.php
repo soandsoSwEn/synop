@@ -39,13 +39,29 @@ class Section implements SectionInterface
         }
     }
     
-    public function setBody($data) : void
+    public function setBody($data, $key = false) : void
     {
-        $this->body[] = $data;
+        if ($key) {
+            $this->body[$key] = $data;
+        } else {
+            $this->body[] = $data;
+        }
     }
     
     public function getBody()
     {
         return $this->body;
+    }
+
+    public function getBodyByTitle(string $titleSection)
+    {
+        $body =  $this->getBody();
+        foreach ($body as $key => $value) {
+            if (strcasecmp($titleSection, $value->title) == 0) {
+                return $body[$key];
+            }
+        }
+
+        return false;
     }
 }
