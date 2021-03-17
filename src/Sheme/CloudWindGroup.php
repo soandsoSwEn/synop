@@ -56,6 +56,60 @@ class CloudWindGroup implements GroupInterface
     }
 
     /**
+     * Sets total clouds value
+     * @param string $totalClouds Total clouds
+     */
+    public function setTotalCloudsValue(string $totalClouds) : void
+    {
+        $this->total_clouds = $totalClouds;
+    }
+
+    /**
+     * Sets direction of wind
+     * @param string $directionWind Direction of wind
+     */
+    public function setDirectionWindValue(string $directionWind) : void
+    {
+        $this->direction_wind = $directionWind;
+    }
+
+    /**
+     * Sets wind speed
+     * @param string $windSpeed Wind speed
+     */
+    public function setWindSpeedValue(string $windSpeed) : void
+    {
+        $this->wind_speed = $windSpeed;
+    }
+
+    /**
+     * Returns total clouds
+     * @return string Total clouds
+     */
+    public function getTotalCloudsValue() : string
+    {
+        return $this->total_clouds;
+    }
+
+    /**
+     * Returns direction of wind
+     * @return string Direction of wind
+     */
+    public function getDirectionWindValue() : string
+    {
+        return $this->direction_wind;
+    }
+
+    /**
+     * Returns wind speed
+     * @return string Wind speed
+     */
+    public function getWindSpeedValue() : string
+    {
+        return $this->wind_speed;
+    }
+
+    /**
      * Sets the group parameters of the total number of clouds and wind
      * @param GroupDecoderInterface $decoder
      * @return void
@@ -74,7 +128,7 @@ class CloudWindGroup implements GroupInterface
      */
     public function setTotalClouds(GroupDecoderInterface $decoder) : void
     {
-        $this->total_clouds = $decoder->getN();
+        $this->setTotalCloudsValue($decoder->getN());
     }
 
     /**
@@ -84,7 +138,7 @@ class CloudWindGroup implements GroupInterface
      */
     public function setDirectionWind(GroupDecoderInterface $decoder) : void
     {
-        $this->direction_wind = $decoder->getDd();
+        $this->setDirectionWindValue($decoder->getDd());
     }
 
     /**
@@ -94,6 +148,6 @@ class CloudWindGroup implements GroupInterface
      */
     public function setWindSpeed(GroupDecoderInterface $decoder) : void
     {
-        $this->wind_speed = $decoder->getVv();
+        $this->setWindSpeedValue($decoder->getVv());
     }
 }
