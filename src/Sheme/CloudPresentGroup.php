@@ -89,6 +89,132 @@ class CloudPresentGroup implements GroupInterface
     }
 
     /**
+     * Sets amount of low or middle cloud value
+     * @param string $amountLowCloud Amount of low or middle cloud value
+     */
+    public function setAmountLowCloudValue(string $amountLowCloud) : void
+    {
+        $this->amountLowCloud = $amountLowCloud;
+    }
+
+    /**
+     * Sets form of low cloud code symbol value
+     * @param string $formLowCloudSymbol Form of low cloud code symbol
+     */
+    public function setFormLowCloudSymbolValue(string $formLowCloudSymbol) : void
+    {
+        $this->formLowCloudSymbol = $formLowCloudSymbol;
+    }
+
+    /**
+     * Sets form of low cloud value
+     * @param string $formLowCloud Form of low cloud value
+     */
+    public function setFormLowCloudValue(string $formLowCloud) : void
+    {
+        $this->formLowCloud = $formLowCloud;
+    }
+
+    /**
+     * Sets form of medium cloud code symbol
+     * @param string $formMediumCloudSymbol Form of medium cloud code symbol
+     */
+    public function setFormMediumCloudSymbolValue(string $formMediumCloudSymbol) : void
+    {
+        $this->formMediumCloudSymbol = $formMediumCloudSymbol;
+    }
+
+    /**
+     * Sets form of medium cloud value
+     * @param string $formMediumCloud Form of medium cloud value
+     */
+    public function setFormMediumCloudValue(string $formMediumCloud) : void
+    {
+        $this->formMediumCloud = $formMediumCloud;
+    }
+
+    /**
+     * Sets form of high cloud code symbol
+     * @param string $formHighCloudSymbol Form of high cloud code symbol
+     */
+    public function setFormHighCloudSymbolValue(string $formHighCloudSymbol) : void
+    {
+        $this->formHighCloudSymbol = $formHighCloudSymbol;
+    }
+
+    /**
+     * Sets form of high cloud value
+     * @param string $formHighCloud Form of high cloud value
+     */
+    public function setFormHighCloudValue(string $formHighCloud) : void
+    {
+        $this->formHighCloud = $formHighCloud;
+    }
+
+    /**
+     * Returns amount of low or middle cloud value
+     * @return string Amount of low or middle cloud value
+     */
+    public function getAmountLowCloudValue() : string
+    {
+        return $this->amountLowCloud;
+    }
+
+    /**
+     * Returns form of low cloud code symbol
+     * @return string Form of low cloud code symbol
+     */
+    public function getFormLowCloudSymbolValue() : string
+    {
+        return $this->formLowCloudSymbol;
+    }
+
+    /**
+     * Returns form of low cloud value
+     * @return string Form of low cloud value
+     */
+    public function getFormLowCloudValue() : string
+    {
+        return $this->formLowCloud;
+    }
+
+    /**
+     * Returns form of medium cloud code symbol
+     * @return string Form of medium cloud code symbol
+     */
+    public function getFormMediumCloudSymbolValue() : string
+    {
+        return $this->formMediumCloudSymbol;
+    }
+
+    /**
+     * Returns form of medium cloud value
+     * @return string Form of medium cloud value
+     */
+    public function getFormMediumCloudValue() : string
+    {
+        return $this->formMediumCloud;
+    }
+
+    /**
+     * Returns form of high cloud code symbol
+     * @return string Form of high cloud code symbol
+     */
+    public function getFormHighCloudSymbolValue() : string
+    {
+        return $this->formHighCloudSymbol;
+    }
+
+    /**
+     * Returns form of high cloud value
+     * @return string Form of high cloud value
+     */
+    public function getFormHighCloudValue() : string
+    {
+        return $this->formHighCloud;
+    }
+
+    /**
      * Sets the parameters of cloud present group
      * @param GroupDecoderInterface $decoder
      */
@@ -145,9 +271,9 @@ class CloudPresentGroup implements GroupInterface
     public function setAmountLowCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->amountLowCloud = null;
+            $this->setAmountLowCloudValue(null);
         } else {
-            $this->amountLowCloud = $decoder->getAmountLowCloud();
+            $this->setAmountLowCloudValue($decoder->getAmountLowCloud());
         }
     }
 
@@ -158,9 +284,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormLowCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formLowCloudSymbol = null;
+            $this->setFormLowCloudSymbolValue(null);
         } else {
-            $this->formLowCloudSymbol = $decoder->getFormLowCloudSymbol();
+            $this->setFormLowCloudSymbolValue($decoder->getFormLowCloudSymbol());
         }
     }
 
@@ -171,9 +297,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormLowCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formLowCloud = null;
+            $this->setFormLowCloudValue(null);
         } else {
-            $this->formLowCloud = $decoder->getFormLowCloud();
+            $this->setFormLowCloudValue($decoder->getFormLowCloud());
         }
     }
 
@@ -184,9 +310,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormMediumCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formMediumCloudSymbol = null;
+            $this->setFormMediumCloudSymbolValue(null);
         } else {
-            $this->formMediumCloudSymbol = $decoder->getFormMediumCloudSymbol();
+            $this->setFormMediumCloudSymbolValue($decoder->getFormMediumCloudSymbol());
         }
     }
 
@@ -197,9 +323,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormMediumCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formMediumCloud = null;
+            $this->setFormMediumCloudValue(null);
         } else {
-            $this->formMediumCloud = $decoder->getFormMediumCloud();
+            $this->setFormMediumCloudValue($decoder->getFormMediumCloud());
         }
     }
 
@@ -210,9 +336,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormHighCloudSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formHighCloudSymbol = null;
+            $this->setFormHighCloudSymbolValue(null);
         } else {
-            $this->formHighCloudSymbol = $decoder->getFormHighCloudSymbol();
+            $this->setFormHighCloudSymbolValue($decoder->getFormHighCloudSymbol());
         }
     }
 
@@ -223,9 +349,9 @@ class CloudPresentGroup implements GroupInterface
     public function setFormHighCloud(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->formHighCloud = null;
+            $this->setFormHighCloudValue(null);
         } else {
-            $this->formHighCloud = $decoder->getFormHighCloud();
+            $this->setFormHighCloudValue($decoder->getFormHighCloud());
         }
     }
 }
