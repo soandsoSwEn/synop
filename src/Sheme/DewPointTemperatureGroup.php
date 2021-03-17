@@ -60,6 +60,60 @@ class DewPointTemperatureGroup implements GroupInterface
     }
 
     /**
+     * Sets dew point temperature sign value
+     * @param int $sign Dew point temperature sign
+     */
+    public function setSignValue(int $sign) : void
+    {
+        $this->sign = $sign;
+    }
+
+    /**
+     * Sets dew point temperature in tenths value
+     * @param float $dewPointTemperature Dew point temperature in tenths
+     */
+    public function setDewPointValue(float $dewPointTemperature) : void
+    {
+        $this->dewPoint = $dewPointTemperature;
+    }
+
+    /**
+     * Sets The resulting signed dew point temperature value
+     * @param float $resultDewPointTemperature Resulting signed dew point temperature
+     */
+    public function setResultDewPointValue(float $resultDewPointTemperature) : void
+    {
+        $this->dewPointValue = $resultDewPointTemperature;
+    }
+
+    /**
+     * Returns dew point temperature sign
+     * @return int Dew point temperature sign
+     */
+    public function getSignValue() : int
+    {
+        return $this->sign;
+    }
+
+    /**
+     * Returns dew point temperature in tenths
+     * @return float Dew point temperature in tenths
+     */
+    public function getDewPointValue() : float
+    {
+        return $this->dewPoint;
+    }
+
+    /**
+     * Returns resulting signed dew point temperature
+     * @return float Resulting signed dew point temperature
+     */
+    public function getResultDewPointValue() : float
+    {
+        return $this->dewPointValue;
+    }
+
+    /**
      * Sets the parameters of the dew point temperature group
      * @param GroupDecoderInterface $decoder
      */
