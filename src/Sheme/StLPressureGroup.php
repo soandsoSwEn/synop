@@ -51,6 +51,24 @@ class StLPressureGroup implements GroupInterface
     }
 
     /**
+     * Sets value atmospheric pressure at station level
+     * @param float $pressure Value atmospheric pressure at station level
+     */
+    public function setPressureValue(float $pressure) : void
+    {
+        $this->pressure = $pressure;
+    }
+
+    /**
+     * Returns value atmospheric pressure at station level
+     * @return float Value atmospheric pressure at station level
+     */
+    public function getPressureValue() : float
+    {
+        return $this->pressure;
+    }
+
+    /**
      * Sets the parameters of the Station level atmospheric pressure group
      * @param GroupDecoderInterface $decoder
      */
