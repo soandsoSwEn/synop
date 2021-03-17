@@ -19,17 +19,17 @@ class IndexGroup implements GroupInterface
     private $decoder;
     
     /**
-     * @var type string Meteorological Station Area Number
+     * @var string Meteorological Station Area Number
      */
     private $area_number;
     
     /**
-     * @var type string Meteorological station number within the area
+     * @var string Meteorological station number within the area
      */
     private $station_number;
     
     /**
-     * @var type string International weather station index
+     * @var string International weather station index
      */
     private $station_index;
     
@@ -48,6 +48,36 @@ class IndexGroup implements GroupInterface
             throw new Exception('Station index group cannot be empty!');
         }
     }
+
+    public function setAreaNumberValue(string $areaNumber) : void
+    {
+        $this->area_number = $areaNumber;
+    }
+
+    public function setStationNumberValue(string $stationNumber) : void
+    {
+        $this->station_number = $stationNumber;
+    }
+
+    public function setStationIndexValue(string $stationIndex) : void
+    {
+        $this->station_index = $stationIndex;
+    }
+
+    public function getAreaNumberValue() : string
+    {
+        return $this->area_number;
+    }
+
+    public function getStationNumberValue() : string
+    {
+        return $this->station_number;
+    }
+
+    public function getStationIndexValue() : string
+    {
+        return $this->station_index;
+    }
     
     public function setIndexGroup(GroupDecoderInterface $decoder) : void
     {
@@ -58,16 +88,16 @@ class IndexGroup implements GroupInterface
     
     public function setAreaNumber(GroupDecoderInterface $decoder) : void
     {
-        $this->area_number = $decoder->getArea();
+        $this->setAreaNumberValue($decoder->getArea());
     }
     
     public function setStationNumber(GroupDecoderInterface $decoder) : void
     {
-        $this->station_number = $decoder->getNumber();
+        $this->setStationNumberValue($decoder->getNumber());
     }
     
     public function setStationIndex(GroupDecoderInterface $decoder) : void
     {
-        $this->station_index = $decoder->getIndex();
+        $this->setStationIndexValue($decoder->getIndex());
     }
 }
