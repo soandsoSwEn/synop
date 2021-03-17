@@ -56,6 +56,46 @@ class LowCloudVisibilityGroup implements GroupInterface
             throw new Exception('LowCloudVisibility group cannot be empty!');
         }
     }
+
+    public function setIncPrecipValue(string $incPrecipGroup) : void
+    {
+        $this->inc_precip_group = $incPrecipGroup;
+    }
+
+    public function setIncWeatherValue(array $incWeatherGroup) : void
+    {
+        $this->inc_weather_group = $incWeatherGroup;
+    }
+
+    public function setHeightLowValue(string $heightLowClouds) : void
+    {
+        $this->height_low_clouds = $heightLowClouds;
+    }
+
+    public function setVisibilityValue(string $visibility)
+    {
+        $this->visibility = $visibility;
+    }
+
+    public function getIncPrecipValue() : string
+    {
+        return $this->inc_precip_group;
+    }
+
+    public function getIncWeatherValue() : array
+    {
+        return $this->inc_weather_group;
+    }
+
+    public function getHeightLowValue() : string
+    {
+        return $this->height_low_clouds;
+    }
+
+    public function getVisibilityValue() : string
+    {
+        return $this->visibility;
+    }
     
     /**
      * Sets the parameters of a group of cloud height and horizontal visibility
@@ -79,7 +119,7 @@ class LowCloudVisibilityGroup implements GroupInterface
      */
     public function setIncPrecip(GroupDecoderInterface $decoder) : void
     {
-        $this->inc_precip_group = $decoder->getIr();
+        $this->setIncPrecipValue($decoder->getIr());
     }
     
     /**
@@ -90,7 +130,7 @@ class LowCloudVisibilityGroup implements GroupInterface
      */
     public function setIncWeather(GroupDecoderInterface $decoder) : void
     {
-        $this->inc_weather_group = $decoder->getIx();
+        $this->setIncWeatherValue($decoder->getIx());
     }
     
     /**
@@ -101,7 +141,7 @@ class LowCloudVisibilityGroup implements GroupInterface
      */
     public function setHlowClouds(GroupDecoderInterface $decoder) : void
     {
-        $this->height_low_clouds = $decoder->getH();
+        $this->setHeightLowValue($decoder->getH());
     }
     
     /**
@@ -112,6 +152,6 @@ class LowCloudVisibilityGroup implements GroupInterface
      */
     public function setVisibility(GroupDecoderInterface $decoder) : void
     {
-        $this->visibility = $decoder->getVV();
+        $this->setVisibilityValue($decoder->getVV());
     }
 }
