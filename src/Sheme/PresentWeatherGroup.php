@@ -69,6 +69,78 @@ class PresentWeatherGroup implements GroupInterface
     }
 
     /**
+     * Sets the Present Weather symbolic value
+     * @param int $presentWeatherSymbol The present weather symbolic value
+     */
+    public function setPresentWeatherSymbolValue(int $presentWeatherSymbol) : void
+    {
+        $this->pastWeatherSymbol = $presentWeatherSymbol;
+    }
+
+    /**
+     * Sets present weather
+     * @param string $presentWeather The present weather
+     */
+    public function setPresentWeatherValue(string $presentWeather) : void
+    {
+        $this->presentWeather = $presentWeather;
+    }
+
+    /**
+     * Sets past weather symbolic value
+     * @param int $pastWeatherSymbol The past weather symbolic value
+     */
+    public function setPastWeatherSymbolValue(int $pastWeatherSymbol) : void
+    {
+        $this->pastWeatherSymbol = $pastWeatherSymbol;
+    }
+
+    /**
+     * Sets past weather
+     * @param array $pastWeather The past weather
+     */
+    public function setPastWeatherValue(array $pastWeather) : void
+    {
+        $this->pastWeather = $pastWeather;
+    }
+
+    /**
+     * Returns present weather symbolic value
+     * @return int The present weather symbolic value
+     */
+    public function getPresentWeatherSymbolValue() : int
+    {
+        return $this->presentWeatherSymbol;
+    }
+
+    /**
+     * Returns present weather
+     * @return string The present weather
+     */
+    public function getPresentWeatherValue() : string
+    {
+        return $this->presentWeather;
+    }
+
+    /**
+     * Returns past weather symbolic value
+     * @return int The past weather symbolic value
+     */
+    public function getPastWeatherSymbolValue() : int
+    {
+        return $this->pastWeatherSymbol;
+    }
+
+    /**
+     * Returns Past weather
+     * @return array The past weather
+     */
+    public function getPastWeatherValue() : array
+    {
+        return $this->pastWeather;
+    }
+
+    /**
      * Sets the parameters of Present weather group
      * @param GroupDecoderInterface $decoder
      */
@@ -104,9 +176,9 @@ class PresentWeatherGroup implements GroupInterface
     public function setPresentWeatherSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->presentWeatherSymbol = null;
+            $this->setPresentWeatherSymbolValue(null);
         } else {
-            $this->presentWeatherSymbol = $decoder->getPresentWeatherSymbol();
+            $this->setPresentWeatherSymbolValue($decoder->getPresentWeatherSymbol());
         }
     }
 
@@ -117,9 +189,9 @@ class PresentWeatherGroup implements GroupInterface
     public function setPresentWeather(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->presentWeather = null;
+            $this->setPresentWeatherValue(null);
         } else {
-            $this->presentWeather = $decoder->getPresentWeather();
+            $this->setPresentWeatherValue($decoder->getPresentWeather());
         }
     }
 
@@ -130,9 +202,9 @@ class PresentWeatherGroup implements GroupInterface
     public function setPastWeatherSymbol(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->pastWeatherSymbol = null;
+            $this->setPastWeatherSymbolValue(null);
         } else {
-            $this->pastWeatherSymbol = $decoder->getPastWeatherSymbol();
+            $this->setPastWeatherSymbolValue($decoder->getPastWeatherSymbol());
         }
     }
 
@@ -143,9 +215,9 @@ class PresentWeatherGroup implements GroupInterface
     public function setPastWeather(?GroupDecoderInterface $decoder) : void
     {
         if (is_null($decoder)) {
-            $this->pastWeather = null;
+            $this->setPastWeatherValue(null);
         } else {
-            $this->pastWeather = $decoder->getPastWeather();
+            $this->setPastWeatherValue($decoder->getPastWeather());
         }
     }
 }
