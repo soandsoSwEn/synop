@@ -24,7 +24,7 @@ interface PartDataInterface
      * @param string $titleSection Preset section
      * @return array
      */
-    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection) : array;
+    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection) : ?array;
 
     /**
      * Returns object of weather report group
