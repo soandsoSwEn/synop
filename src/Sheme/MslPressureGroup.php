@@ -51,6 +51,24 @@ class MslPressureGroup implements GroupInterface
     }
 
     /**
+     * Sets value of Air Pressure reduced to mean sea level
+     * @param float $pressure Value of Air Pressure reduced to mean sea level
+     */
+    public function setPressureValue(float $pressure) : void
+    {
+        $this->pressure = $pressure;
+    }
+
+    /**
+     * Returns value of Air Pressure reduced to mean sea level
+     * @return float Value of Air Pressure reduced to mean sea level
+     */
+    public function getPressureValue() : float
+    {
+        return $this->pressure;
+    }
+
+    /**
      * Sets the parameters of Air Pressure reduced to mean sea level
      * @param GroupDecoderInterface $decoder
      */
