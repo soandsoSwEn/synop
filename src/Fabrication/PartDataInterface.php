@@ -28,6 +28,7 @@ interface PartDataInterface
 
     /**
      * Returns object of weather report group
+     *
      * @param array $groupsData All groups of a specific section
      * @param string $groupItem The name of the class whose object you want to get
      * @return GroupInterface|null
