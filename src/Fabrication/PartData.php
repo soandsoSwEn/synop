@@ -912,7 +912,7 @@ class PartData implements PartDataInterface
      * Returns height of base of cloud layer (additional cloud information)
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
-     * @return null
+     * @return mixed|null
      */
     public function getHeightCloudReport(SectionInterface $rawBlocksData)
     {
