@@ -48,15 +48,23 @@ class DewPointTemperatureGroup implements GroupInterface
         $this->setData($data);
     }
 
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->raw_dp_temperature = $data;
-            $this->decoder = new DewPointTemperatureDecoder($this->raw_dp_temperature);
-            $this->setDwPtTemperatureGroup($this->decoder);
+            $this->setDecoder(new DewPointTemperatureDecoder($this->raw_dp_temperature));
+            $this->setDwPtTemperatureGroup($this->getDecoder());
         } else {
             throw new Exception('DewPointTemperatureGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -84,6 +92,14 @@ class DewPointTemperatureGroup implements GroupInterface
     public function setResultDewPointValue(float $resultDewPointTemperature) : void
     {
         $this->dewPointValue = $resultDewPointTemperature;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
