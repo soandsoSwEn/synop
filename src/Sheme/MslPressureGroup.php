@@ -43,11 +43,19 @@ class MslPressureGroup implements GroupInterface
     {
         if (!empty($data)) {
             $this->rawMlsPressure = $data;
-            $this->decoder = new MslPressureDecoder($this->rawMlsPressure);
-            $this->setMslPressureGroup($this->decoder);
+            $this->setDecoder(new MslPressureDecoder($this->rawMlsPressure));
+            $this->setMslPressureGroup($this->getDecoder());
         } else {
             throw new Exception('MslPressureGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -57,6 +65,14 @@ class MslPressureGroup implements GroupInterface
     public function setPressureValue(float $pressure) : void
     {
         $this->pressure = $pressure;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
