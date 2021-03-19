@@ -28,7 +28,7 @@ class MaxAirTemperatureGroup extends AirTemperatureGroup
      * @param string $data Maximum air temperature group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if(!empty($data)) {
             $this->setRawAirTemperature($data);
