@@ -53,7 +53,7 @@ class GroundWithSnowGroup implements GroupInterface
      * @param string $data state of ground with snow or measurable ice cover group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->setRawGroundWithSnow($data);
