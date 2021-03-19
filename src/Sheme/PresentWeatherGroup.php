@@ -61,11 +61,19 @@ class PresentWeatherGroup implements GroupInterface
     {
         if (!empty($data)) {
             $this->rawPresentWeather = $data;
-            $this->decoder = new PresentWeatherDecoder($this->rawPresentWeather);
-            $this->setPresentWeatherGroup($this->decoder);
+            $this->setDecoder(new PresentWeatherDecoder($this->rawPresentWeather));
+            $this->setPresentWeatherGroup($this->getDecoder());
         } else {
             throw new Exception('PresentWeatherGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -102,6 +110,14 @@ class PresentWeatherGroup implements GroupInterface
     public function setPastWeatherValue(array $pastWeather) : void
     {
         $this->pastWeather = $pastWeather;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
