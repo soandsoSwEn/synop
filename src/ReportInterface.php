@@ -13,13 +13,38 @@ namespace Synop;
  */
 interface ReportInterface
 {
+    /**
+     * Sets the initial value of the weather report
+     *
+     * @param string $report Meteorological weather report source code
+     */
     public function setReport(string $report) : void;
-    
+
+    /**
+     * Validates the original meteorological weather report
+     *
+     * @return bool
+     */
     public function validate() : bool;
-    
+
+    /**
+     * Get a type of weather station (Synop or Ship)
+     *
+     * @return string
+     */
     public function getType() : string;
-    
+
+    /**
+     * Get WMO station index
+     *
+     * @return string
+     */
     public function getWmo() : string;
 
-    public function parse();
+    /**
+     * Starts the decoding process for the meteorological report
+     *
+     * @return void
+     */
+    public function parse() : void;
 }
