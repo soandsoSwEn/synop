@@ -48,7 +48,7 @@ class SunshineRadiationDataGroup implements GroupInterface
      * @param string $data Duration of sunshine and radiation group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->setRawSunshineRadiation($data);
