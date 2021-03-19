@@ -48,7 +48,7 @@ class Section implements SectionInterface
         }
     }
     
-    public function getBody()
+    public function getBody() : array
     {
         return $this->body;
     }
