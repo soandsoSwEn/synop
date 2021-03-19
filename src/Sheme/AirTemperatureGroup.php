@@ -55,7 +55,7 @@ class AirTemperatureGroup implements GroupInterface
      * @param string $data Air temperature group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if(!empty($data)) {
             $this->raw_air_temperature = $data;
@@ -78,7 +78,7 @@ class AirTemperatureGroup implements GroupInterface
     /**
      * @param GroupDecoderInterface $decoder
      */
-    public function setDecoder(GroupDecoderInterface $decoder)
+    public function setDecoder(GroupDecoderInterface $decoder) : void
     {
         $this->decoder = $decoder;
     }
