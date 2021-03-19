@@ -63,7 +63,7 @@ class GroundWithoutSnowGroup implements GroupInterface
      * @param string $data state of ground group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->setRawGroundWithoutSnow($data);
@@ -87,7 +87,7 @@ class GroundWithoutSnowGroup implements GroupInterface
      * Sets an initialized decoder object for state of ground group
      * @param GroupDecoderInterface $decoder
      */
-    public function setDecoder(GroupDecoderInterface $decoder)
+    public function setDecoder(GroupDecoderInterface $decoder) : void
     {
         $this->decoder = $decoder;
     }
