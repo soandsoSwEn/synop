@@ -63,7 +63,7 @@ class AdditionalCloudInformationGroup implements GroupInterface
      * @param string $data Additional cloud information transfer group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->setRawAdditionCloudInformation($data);
