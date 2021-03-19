@@ -46,15 +46,23 @@ class LowCloudVisibilityGroup implements GroupInterface
         $this->setData($data);
     }
     
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if(!empty($data)) {
             $this->raw_cloud_vis = $data;
-            $this->decoder = new LowCloudVisibilityDecoder($this->raw_cloud_vis);
-            $this->setLcvGroup($this->decoder);
+            $this->setDecoder(new LowCloudVisibilityDecoder($this->raw_cloud_vis));
+            $this->setLcvGroup($this->getDecoder());
         } else {
             throw new Exception('LowCloudVisibility group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     public function setIncPrecipValue(string $incPrecipGroup) : void
@@ -75,6 +83,14 @@ class LowCloudVisibilityGroup implements GroupInterface
     public function setVisibilityValue(string $visibility)
     {
         $this->visibility = $visibility;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     public function getIncPrecipValue() : string
