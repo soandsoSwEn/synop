@@ -30,7 +30,7 @@ class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
      * @param string $data Amount of rainfall group data
      * @throws Exception
      */
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->setRawAmountRainfall($data);
