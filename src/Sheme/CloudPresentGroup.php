@@ -81,11 +81,19 @@ class CloudPresentGroup implements GroupInterface
     {
         if (!empty($data)) {
             $this->rawCloudPresent = $data;
-            $this->decoder = new CloudPresentDecoder($this->rawCloudPresent);
-            $this->setCloudPresentGroup($this->decoder);
+            $this->setDecoder(new CloudPresentDecoder($this->rawCloudPresent));
+            $this->setCloudPresentGroup($this->getDecoder());
         } else {
             throw new Exception('PresentWeatherGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -149,6 +157,14 @@ class CloudPresentGroup implements GroupInterface
     public function setFormHighCloudValue(string $formHighCloud) : void
     {
         $this->formHighCloud = $formHighCloud;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
