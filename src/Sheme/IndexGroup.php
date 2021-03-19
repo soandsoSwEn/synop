@@ -42,11 +42,19 @@ class IndexGroup implements GroupInterface
     {
         if(!empty($index)) {
             $this->raw_index = $index;
-            $this->decoder = new IndexDecoder($this->raw_index);
-            $this->setIndexGroup($this->decoder);
+            $this->setDecoder(new IndexDecoder($this->raw_index));
+            $this->setIndexGroup($this->getDecoder());
         } else {
             throw new Exception('Station index group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     public function setAreaNumberValue(string $areaNumber) : void
@@ -62,6 +70,14 @@ class IndexGroup implements GroupInterface
     public function setStationIndexValue(string $stationIndex) : void
     {
         $this->station_index = $stationIndex;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     public function getAreaNumberValue() : string
