@@ -39,15 +39,23 @@ class StLPressureGroup implements GroupInterface
         $this->setData($data);
     }
 
-    public function setData(string $data)
+    public function setData(string $data) : void
     {
         if (!empty($data)) {
             $this->raw_stl_pressure = $data;
-            $this->decoder = new StLPressureDecoder($this->raw_stl_pressure);
-            $this->setStLPressureGroup($this->decoder);
+            $this->setDecoder(new StLPressureDecoder($this->raw_stl_pressure));
+            $this->setStLPressureGroup($this->getDecoder());
         } else {
             throw new Exception('StLPressureGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -57,6 +65,14 @@ class StLPressureGroup implements GroupInterface
     public function setPressureValue(float $pressure) : void
     {
         $this->pressure = $pressure;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
