@@ -48,11 +48,19 @@ class CloudWindGroup implements GroupInterface
     {
         if (!empty($data)) {
             $this->raw_clouds_wind = $data;
-            $this->decoder = new CloudWindDecoder($this->raw_clouds_wind);
-            $this->setCloudWind($this->decoder);
+            $this->setDecoder(new CloudWindDecoder($this->raw_clouds_wind));
+            $this->setCloudWind($this->getDecoder());
         } else {
             throw new Exception('CloudWind group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -80,6 +88,14 @@ class CloudWindGroup implements GroupInterface
     public function setWindSpeedValue(string $windSpeed) : void
     {
         $this->wind_speed = $windSpeed;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
