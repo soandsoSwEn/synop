@@ -33,11 +33,16 @@ class DateGroup implements GroupInterface
     {
         if(!empty($date)) {
             $this->raw_date = $date;
-            $this->decoder = new DateDecoder($this->raw_date);
-            $this->setDateGroup($this->decoder);
+            $this->setDecoder(new DateDecoder($this->raw_date));
+            $this->setDateGroup($this->getDecoder());
         } else {
             throw new Exception('Date group cannot be empty!');
         }
+    }
+
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     public function setDayValue(string $day) : void
@@ -53,6 +58,14 @@ class DateGroup implements GroupInterface
     public function setIwValue(array $iw) : void
     {
         $this->iw = $iw;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     public function getDayValue() : string
