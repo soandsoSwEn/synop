@@ -56,11 +56,19 @@ class BaricTendencyGroup implements GroupInterface
     {
         if (!empty($data)) {
             $this->rawBaricTendency = $data;
-            $this->decoder = new BaricTendencyDecoder($this->rawBaricTendency);
-            $this->setBaricTendencyGroup($this->decoder);
+            $this->setDecoder(new BaricTendencyDecoder($this->rawBaricTendency));
+            $this->setBaricTendencyGroup($this->getDecoder());
         } else {
             throw new Exception('BaricTendencyGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * @param GroupDecoderInterface $decoder
+     */
+    public function setDecoder(GroupDecoderInterface $decoder) : void
+    {
+        $this->decoder = $decoder;
     }
 
     /**
@@ -88,6 +96,14 @@ class BaricTendencyGroup implements GroupInterface
     public function setTendencyValueData(float $tendencyValue) : void
     {
         $this->tendencyValue = $tendencyValue;
+    }
+
+    /**
+     * @return GroupDecoderInterface
+     */
+    public function getDecoder() : GroupDecoderInterface
+    {
+        return $this->decoder;
     }
 
     /**
