@@ -3,7 +3,7 @@
 namespace Synop;
 
 use Synop\Fabrication\PartData;
-use Synop\ReportInterface;
+use Synop\Fabrication\RawReportInterface;
 use Exception;
 use Synop\Fabrication\Validate;
 use Synop\Fabrication\RawReport;
@@ -22,22 +22,22 @@ class Report implements ReportInterface
     const GENERAL_SECTION = 'General Section';
 
     /**
-     * @var string
+     * @var string Meteorological weather report source code
      */
     private $report;
     
     /**
-     * @var \Synop\Fabrication\RawReport
+     * @var RawReport Object of meteorological report source code
      */
     private $raw_report;
 
     /**
-     * @var SectionInterface
+     * @var SectionInterface Data for all sections of the meteorological report
      */
     private $rawBlocksData;
 
     /**
-     * @var PartData
+     * @var PartData Instance class forming the final data of the output parameters of the meteorological report
      */
     private $partData;
 
@@ -48,6 +48,11 @@ class Report implements ReportInterface
         $this->partData = new PartData();
     }
 
+    /**
+     * Sets the initial value of the weather report
+     * @param string $report
+     * @throws Exception
+     */
     public function setReport(string $report): void
     {
         if (!empty($report)) {
@@ -57,7 +62,12 @@ class Report implements ReportInterface
             throw new Exception('Weather report cannot be an empty string!');
         }
     }
-    
+
+    /**
+     * Checking the validity of the source code of the meteorological report
+     * @return bool
+     * @throws Exception
+     */
     public function validate() : bool
     {
         if(!$this->report) {
@@ -66,38 +76,72 @@ class Report implements ReportInterface
         $validator = new Validate($this->report);
         return $validator->isValid();
     }
-    
+
+    /**
+     * Returns meteorological weather report source code value
+     * @return string
+     */
     public function getReport() : string
     {
         return $this->report;
     }
-    
-    public function getRawReport() : Fabrication\RawReportInterface
+
+    /**
+     * Returns instance class of meteorological report
+     * @return RawReportInterface
+     */
+    public function getRawReport() : RawReportInterface
     {
         return $this->raw_report;
     }
 
+    /**
+     * Get Type Of Station
+     * @return string
+     * @throws Exception
+     */
     public function getType(): string
     {
-        $decoder = new GeneralDecoder();
-    }
-    
-    public function getWmo() : string
-    {
-        //
+        $typeOfStation = $this->getTypeStation();
+        if (is_null($typeOfStation)) {
+            throw new Exception('Type Of Station index not defined');
+        }
     }
 
-    public function parse()
+    /**
+     * Get WMO station index
+     * @return string
+     * @throws Exception
+     */
+    public function getWmo() : string
+    {
+        $wmoIndex = $this->getStationIndex();
+        if (is_null($wmoIndex)) {
+            throw new Exception('WMO index not defined');
+        }
+
+        return $wmoIndex;
+    }
+
+    /**
+     * Starts the decoding process for the meteorological report
+     * @return void
+     */
+    public function parse() : void
     {
         $pipes = $this->getPipes();
         
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
         $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION));
-        $blocks =  $pipeline->process($this->raw_report, $decoder);
+        $blocks =  $pipeline->process($this->raw_report, $decoder); var_dump($blocks);
         $this->rawBlocksData = $blocks;
     }
-    
+
+    /**
+     * Code figure of the group of the general section, as well as indicators of additional groups
+     * @return string[]
+     */
     private function getPipes() : array
     {
         return [
@@ -139,7 +183,7 @@ class Report implements ReportInterface
      * Get a type of weather station
      * @return string|null
      */
-    public function getType1() : ?string
+    public function getTypeStation() : ?string
     {
         return $this->partData->getTypeStation($this->rawBlocksData);
     }
