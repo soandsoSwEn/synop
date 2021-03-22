@@ -58,6 +58,11 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         $this->raw_cloud_vis = $raw_cloud_vis;
     }
 
+    public function isGroup(): bool
+    {
+        // TODO: Implement isGroup() method.
+    }
+
     public function getIr() : string
     {
         $ir = substr($this->raw_cloud_vis, 0, 1);

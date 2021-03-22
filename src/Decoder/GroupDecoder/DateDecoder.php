@@ -24,7 +24,12 @@ class DateDecoder implements GroupDecoderInterface
     {
         $this->raw_date = $raw_date;
     }
-    
+
+    public function isGroup(): bool
+    {
+        // TODO: Implement isGroup() method.
+    }
+
     public function getDay() : string
     {
         return substr($this->raw_date, 0, 2);

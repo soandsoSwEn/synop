@@ -35,6 +35,11 @@ class CloudWindDecoder implements GroupDecoderInterface
         $this->raw_clouds_wind = $raw_clouds_wind;
     }
 
+    public function isGroup(): bool
+    {
+        // TODO: Implement isGroup() method.
+    }
+
     /**
      * Returns the number of clouds
      * @return string

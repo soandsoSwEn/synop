@@ -17,7 +17,12 @@ class IndexDecoder implements GroupDecoderInterface
     {
         $this->raw_index = $raw_index;
     }
-    
+
+    public function isGroup(): bool
+    {
+        // TODO: Implement isGroup() method.
+    }
+
     public function getArea() : string
     {
         return substr($this->raw_index, 0, 2);
