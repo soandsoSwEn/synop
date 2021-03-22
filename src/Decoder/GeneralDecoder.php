@@ -2,8 +2,6 @@
 
 namespace Synop\Decoder;
 
-use Synop\Decoder\Decoder;
-use Synop\Decoder\DecoderInterface;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\AmountRainfallGroup;
 use Synop\Sheme\BaricTendencyGroup;
@@ -17,9 +15,7 @@ use Synop\Sheme\SectionInterface;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
 use Synop\Process\Pipeline;
-use Synop\Decoder\SectionTwoDecoder;
 use Synop\Sheme\Section;
-use Synop\Decoder\SectionThreeDecoder;
 use Synop\Sheme\DateGroup;
 use Synop\Sheme\IndexGroup;
 use Synop\Sheme\StLPressureGroup;
@@ -32,16 +28,32 @@ use Synop\Sheme\StLPressureGroup;
  */
 class GeneralDecoder extends Decoder implements DecoderInterface
 {
+    /** Title of basic container for storing all sections of the meteorological report */
     const ALL_SECTIONS = 'All Sections';
-    
+
+    /**
+     * @var Section All sections of the meteorological report
+     */
     private $sections;
 
+    /**
+     * @var SectionInterface Current section of the weather report
+     */
     private $section;
-    
+
+    /**
+     * @var null Synop identifier for weather report type
+     */
     private $synop_report = null;
-    
+
+    /**
+     * @var null Ship identifier for weather report type
+     */
     private $ship_report = null;
-    
+
+    /**
+     * @var string[] Types of weather report
+     */
     private $type_report = ['AAXX', 'BBXX'];
     
     public function __construct(SectionInterface $section_title)
@@ -51,29 +63,46 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->putSection($this->section);
     }
 
+    /**
+     * Returns decoded data for all sections of the weather report
+     * @return SectionInterface
+     */
     public function parse() : SectionInterface
     {
         return $this->sections;
     }
-    
-    private function putSection($data)
+
+    /**
+     * Adds a new section to the base weather report container
+     * @param SectionInterface $data Section data of weather report
+     * @return bool
+     */
+    private function putSection(SectionInterface $data) : bool
     {
-        if($this->sections->setBody($data)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->sections->setBody($data);
+
+        return true;
     }
 
-    private function putInSection($data, $key = false)
+    /**
+     * Adds group data to the weather section
+     * @param $data mixed Group data
+     * @param false $key Title of group data
+     * @return bool
+     */
+    private function putInSection($data, $key = false) : bool
     {
-        if($this->section->setBody($data, $key)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->section->setBody($data, $key);
+
+        return true;
     }
 
+    /**
+     * Defines the type of weather report
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     * @throws Exception
+     */
     public function getType(RawReportInterface $raw_report) : bool
     {
         $type = $this->block($raw_report->getReport());
@@ -88,13 +117,19 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $this->ship_report = true;
         }
         $this->updateReport($type, $raw_report);
-        return $this->putInSection($type, 'type') ? true : false;
+        return $this->putInSection($type, 'type');
     }
-    
-    public function getShipSign(RawReportInterface $raw_report)
+
+    /**
+     * Defines the ship sign of weather report
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     * @throws Exception
+     */
+    public function getShipSign(RawReportInterface $raw_report) : bool
     {
         if($this->synop_report) {
-            return;
+            return false;
         }
         $ship_call = $this->block($raw_report->getReport());
         if(ctype_digit($ship_call)) {
@@ -104,8 +139,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             throw new Exception('Invalid ship call sign format!');
         }
     }
-    
-    public function getYYGGiw(RawReportInterface $raw_report)
+
+    /**
+     * Defines the date group of the weather report
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function getYYGGiw(RawReportInterface $raw_report) : bool
     {
         if($this->synop_report) {
             $date_group = $this->block($raw_report->getReport());
@@ -116,8 +156,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->updateReport($date_group, $raw_report);
         return $this->putInSection($date) ? true : false;
     }
-    
-    public function getIIiii(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of the international station index
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function getIIiii(RawReportInterface $raw_report) : bool
     {
         if($this->synop_report) {
             $station_index = $this->block($raw_report->getReport());
@@ -128,24 +173,39 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->updateReport($station_index, $raw_report);
         return $this->putInSection($index) ? true : false;
     }
-    
-    public function get99LaLaLa(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of the location of the ship (latittude)
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function get99LaLaLa(RawReportInterface $raw_report) : bool
     {
         if($this->ship_report) {
             //
         }
-        return;
+        return false;
     }
-    
-    public function getQcL0L0L0L0()
+
+    /**
+     * Defines the group of the location of the ship (longitude)
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function getQcL0L0L0L0(RawReportInterface $raw_report) : bool
     {
         if($this->ship_report) {
             //
         }
-        return;
+        return false;
     }
-    
-    public function getirixhVV(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group for the height of the cloud base
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function getirixhVV(RawReportInterface $raw_report) : bool
     {
         if($this->synop_report) {
             $cloud_visibility_group = $this->block($raw_report->getReport());
@@ -156,8 +216,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->updateReport($cloud_visibility_group, $raw_report);
         return $this->putInSection($iRIxHVV) ? true : false;
     }
-    
-    public function getNddff(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of the total amount of clouds
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function getNddff(RawReportInterface $raw_report) : bool
     {
         if($this->synop_report) {
             $cloud_wind_group = $this->block($raw_report->getReport());
@@ -168,8 +233,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->updateReport($cloud_wind_group, $raw_report);
         return $this->putInSection($Nddff) ? true : false;
     }
-    
-    public function get1SnTTT(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group air temperature
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get1SnTTT(RawReportInterface $raw_report) : ?bool
     {
         $temperature = false;
         if($this->synop_report) {
@@ -191,8 +261,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get2SnTdTdTd(RawReportInterface $raw_report)
+
+    /**
+     * Defines the dew point temperature group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get2SnTdTdTd(RawReportInterface $raw_report) : ?bool
     {
         $dew_point = false;
         if($this->synop_report) {
@@ -212,8 +287,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get3P0P0P0P0(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of atmospheric pressure at the station level
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get3P0P0P0P0(RawReportInterface $raw_report) : ?bool
     {
         $pressure_station = false;
         if($this->synop_report) {
@@ -233,8 +313,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get4PPPP(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group air Pressure reduced to mean sea level
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get4PPPP(RawReportInterface $raw_report) : ?bool
     {
         $pressure_sea_level = false;
         if($this->synop_report) {
@@ -254,8 +339,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get5appp(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of pressure change over last three hours
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get5appp(RawReportInterface $raw_report) : ?bool
     {
         $baric_tendency = false;
         if($this->synop_report) {
@@ -275,8 +365,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get6RRRtr(RawReportInterface $raw_report)
+
+    /**
+     * Defines the group of amount of rainfall
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get6RRRtr(RawReportInterface $raw_report) : ?bool
     {
         $precipitation = false;
         if($this->synop_report) {
@@ -296,8 +391,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get7wwW1W2(RawReportInterface $raw_report)
+
+    /**
+     * Defines the Present weather group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get7wwW1W2(RawReportInterface $raw_report) : ?bool
     {
         $weather = false;
         if($this->synop_report) {
@@ -317,8 +417,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get8NhClCmCh(RawReportInterface $raw_report)
+
+    /**
+     * Defines the cloud present group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get8NhClCmCh(RawReportInterface $raw_report) : ?bool
     {
         $cloud_characteristics = false;
         if($this->synop_report) {
@@ -338,8 +443,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get9hh(RawReportInterface $raw_report)
+
+    /**
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get9hh(RawReportInterface $raw_report) : ?bool
     {
         $cloud_height = false;
         if($this->synop_report) {
@@ -358,8 +467,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get222DsVs(RawReportInterface $raw_report)
+
+    /**
+     * Defines the groups of section 2
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function get222DsVs(RawReportInterface $raw_report) : bool
     {
         $section_two = false;
         //$st_blocks = [];
@@ -378,9 +492,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
-        return null;
     }
-    
+
+    /**
+     * Returns codes figure for groups of section 2
+     * @return string[]
+     */
     public function getTwoPipes() : array
     {
         return [
@@ -395,8 +512,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             'ISE'
         ];
     }
-    
-    public function get333(RawReportInterface $raw_report)
+
+    /**
+     * Defines the groups of section 3
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function get333(RawReportInterface $raw_report) : bool
     {
         $section_three_group = false;
         //$str_blocks = [];
@@ -416,7 +538,11 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
     }
-    
+
+    /**
+     * Returns codes figure for groups of section 3
+     * @return string[]
+     */
     public function getThreePipes() : array
     {
         return [
@@ -430,8 +556,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             '9SpSpspsp',
         ];
     }
-    
-    public function get444(RawReportInterface $raw_report)
+
+    /**
+     * Defines the groups of section 4
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool
+     */
+    public function get444(RawReportInterface $raw_report) : bool
     {
         $section_four_group = false;
         //$sf_blocks = [];
@@ -451,13 +582,22 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
     }
-    
+
+    /**
+     * Returns codes figure for groups of section 4
+     * @return string[]
+     */
     public function getFourPipes() : array
     {
         return ['NCHHCt'];
     }
-    
-    public function get555(RawReportInterface $raw_report)
+
+    /**
+     * Defines the groups of section 5
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get555(RawReportInterface $raw_report) : ?bool
     {
         $section_five_group = false;
         //$sv_blocks = [];
@@ -477,7 +617,11 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
     }
-    
+
+    /**
+     * Returns codes figure for groups of section 5
+     * @return string[]
+     */
     public function getFivePipes() : array
     {
         return [
