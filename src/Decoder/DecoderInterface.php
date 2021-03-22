@@ -15,7 +15,7 @@ interface DecoderInterface
     /**
      * Decodes a fragment of a meteorological report into a specific entity
      * 
-     * @return object
+     * @return SectionInterface
      */
     public function parse() : SectionInterface;
 }
