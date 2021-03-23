@@ -134,7 +134,7 @@ class Report implements ReportInterface
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
         $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION));
-        $blocks =  $pipeline->process($this->raw_report, $decoder); var_dump($blocks);
+        $blocks =  $pipeline->process($this->raw_report, $decoder);
         $this->rawBlocksData = $blocks;
     }
 

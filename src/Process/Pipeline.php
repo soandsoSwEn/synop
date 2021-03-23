@@ -4,33 +4,55 @@ namespace Synop\Process;
 
 use Synop\Fabrication\RawReportInterface;
 use Synop\Decoder\DecoderInterface;
+use Synop\Sheme\SectionInterface;
 
 /**
- * Description of Pipeline
+ * Class Pipeline contains methods for handling all groups code figure of weather report
+ *
+ * @package Synop\Process
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class Pipeline
+class Pipeline implements PipelineInterface
 {
+    /**
+     * @var array An ordered dataset of group names in a weather report
+     */
     private $pipes = [];
 
     public function __construct()
     {
         //
     }
-    
-    public function pipe($data)
+
+    /**
+     * Adds group names in the weather report
+     * @param $data array An ordered dataset of group names in a weather report
+     */
+    public function pipe(array $data) : void
     {
         $this->pipes = $data;
     }
-    
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder)
+
+    /**
+     * Returns all processed sections of the meteorological report
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param DecoderInterface $decoder Decoder object for group of weather report
+     * @return SectionInterface
+     */
+    public function process(RawReportInterface $raw_report, DecoderInterface $decoder) : SectionInterface
     {
         $this->step($raw_report, $decoder);
         return $decoder->parse();
     }
-    
-    public function step(RawReportInterface $raw_report, DecoderInterface $decoder)
+
+    /**
+     * Processes groups of all sections of a given weather report
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param DecoderInterface $decoder Decoder object for group of code of weather report
+     * @return false
+     */
+    private function step(RawReportInterface $raw_report, DecoderInterface $decoder)
     {
         if($current_step = array_shift($this->pipes)) {
             $getter = 'get' . $current_step;
