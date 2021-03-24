@@ -16,16 +16,25 @@ use Synop\Fabrication\RawReportInterface;
 use Synop\Sheme\SunshineRadiationDataGroup;
 
 /**
- * Description of SectionTheeDecoder
+ * Decodes the group code for section 3 of the weather report
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
 class SectionThreeDecoder extends Decoder implements DecoderInterface
 {
+    /**
+     * @var SectionInterface Current section of the weather report
+     */
     private $section;
-    
+
+    /**
+     * @var bool Synop identifier for weather report type
+     */
     private $synop_report = null;
-    
+
+    /**
+     * @var bool Ship identifier for weather report type
+     */
     private $ship_report = null;
     
     public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
@@ -34,22 +43,33 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
-    
+
+    /**
+     * @return SectionInterface Returns decoded data for this section of the weather report
+     */
     public function parse(): SectionInterface
     {
         return $this->section;
     }
-    
+
+    /**
+     * Adds group data to the weather section
+     * @param $data mixed Group data
+     * @return bool
+     */
     private function putInSection($data)
     {
-        if($this->section->setBody($data)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->section->setBody($data);
+
+        return true;
     }
-    
-    public function get1SnTxTxTx(RawReportInterface $raw_report)
+
+    /**
+     * Defines the air maximum temperature group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get1SnTxTxTx(RawReportInterface $raw_report) : ?bool
     {
         $maximum_temperature = false;
         if($this->synop_report) {
@@ -69,8 +89,13 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
-    public function get2SnTnTnTn(RawReportInterface $raw_report)
+
+    /**
+     * Defines the air minimum temperature group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
+    public function get2SnTnTnTn(RawReportInterface $raw_report) : ?bool
     {
         $minimum_temperature = false;
         if($this->synop_report) {
@@ -91,6 +116,11 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         }
     }
 
+    /**
+     * Defines data of state of ground without snow group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get3ESnTgTg(RawReportInterface $raw_report)
     {
         $stateGround = false;
@@ -112,6 +142,11 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         }
     }
 
+    /**
+     * Defines data of state of ground with snow group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get4Esss(RawReportInterface $raw_report)
     {
         $stateGroundSnow = false;
@@ -133,6 +168,11 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         }
     }
 
+    /**
+     * Defines duration of sunshine and radiation group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get55SSS(RawReportInterface $raw_report)
     {
         $sunshineRadiation = false;
@@ -153,7 +193,12 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
+
+    /**
+     * Defines amount of rainfall group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get6RRRtr(RawReportInterface $raw_report)
     {
         $precipitation = false;
@@ -174,7 +219,12 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
+
+    /**
+     * Defines additional cloud information transfer group
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get8NsChshs(RawReportInterface $raw_report)
     {
         $clouds = false;
@@ -195,7 +245,11 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             return null;
         }
     }
-    
+
+    /**
+     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @return bool|null
+     */
     public function get9SpSpspsp(RawReportInterface $raw_report)
     {
         $weather = false;
