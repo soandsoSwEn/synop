@@ -2,6 +2,7 @@
 
 namespace Synop\Decoder;
 
+use Synop\Fabrication\Unit;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\AmountRainfallGroup;
 use Synop\Sheme\BaricTendencyGroup;
@@ -55,10 +56,16 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @var string[] Types of weather report
      */
     private $type_report = ['AAXX', 'BBXX'];
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
     
-    public function __construct(SectionInterface $section_title)
+    public function __construct(SectionInterface $section_title, Unit $unit)
     {
         $this->section = $section_title;
+        $this->unit = $unit;
         $this->sections = new Section(self::ALL_SECTIONS);
         $this->putSection($this->section);
     }
@@ -209,7 +216,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     {
         if($this->synop_report) {
             $cloud_visibility_group = $this->block($raw_report->getReport());
-            $iRIxHVV = new LowCloudVisibilityGroup($cloud_visibility_group);
+            $iRIxHVV = new LowCloudVisibilityGroup($cloud_visibility_group, $this->unit);
         } else {
             //ship report
         }
@@ -226,7 +233,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     {
         if($this->synop_report) {
             $cloud_wind_group = $this->block($raw_report->getReport());
-            $Nddff = new CloudWindGroup($cloud_wind_group);
+            $Nddff = new CloudWindGroup($cloud_wind_group, $this->unit);
         } else {
             //ship report
         }
@@ -247,7 +254,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($air_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $temperature = true;
-                $SnTTT = new AirTemperatureGroup($air_temperature_group);
+                $SnTTT = new AirTemperatureGroup($air_temperature_group, $this->unit);
             } else {
                 $temperature = false;
             }
@@ -275,7 +282,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($dew_point_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $dew_point = true;
-                $SnTdTdTd = new DewPointTemperatureGroup($dew_point_group);
+                $SnTdTdTd = new DewPointTemperatureGroup($dew_point_group, $this->unit);
             }
         } else {
             //ship report
@@ -301,7 +308,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($pressure_station_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $pressure_station = true;
-                $P0P0P0P0 = new StLPressureGroup($pressure_station_group);
+                $P0P0P0P0 = new StLPressureGroup($pressure_station_group, $this->unit);
             }
         } else {
             //ship report
@@ -327,7 +334,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($pressure_sea_level_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $pressure_sea_level = true;
-                $PPPP = new MslPressureGroup($pressure_sea_level_group);
+                $PPPP = new MslPressureGroup($pressure_sea_level_group, $this->unit);
             }
         } else {
             //ship report
@@ -353,7 +360,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($baric_tendency_group, 0, 1);
             if(strcmp($distinguishing_digit, '5') == 0) {
                 $baric_tendency = true;
-                $appp = new BaricTendencyGroup($baric_tendency_group);
+                $appp = new BaricTendencyGroup($baric_tendency_group, $this->unit);
             }
         } else {
             //ship report
@@ -379,7 +386,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
-                $RRRtr = new AmountRainfallGroup($precipitation_group);
+                $RRRtr = new AmountRainfallGroup($precipitation_group, $this->unit);
             }
         } else {
             //ship report
@@ -530,7 +537,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
                 $str_pipelie = new Pipeline();
                 $pipes = $this->getThreePipes();
                 $str_pipelie->pipe($pipes);
-                $str_decoder = new SectionThreeDecoder(new Section(self::SECTION_THREE), $this->synop_report, $this->ship_report);
+                $str_decoder = new SectionThreeDecoder(new Section(self::SECTION_THREE), $this->synop_report, $this->ship_report, $this->unit);
                 $str_blocks = $str_pipelie->process($raw_report, $str_decoder);
                 return $this->putSection($str_blocks) ? true : false;
             }
