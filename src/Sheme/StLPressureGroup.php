@@ -3,9 +3,7 @@
 
 namespace Synop\Sheme;
 
-use Synop\Fabrication\Unit;
 use Synop\Fabrication\UnitInterface;
-use Synop\Sheme\GroupInterface;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\StLPressureDecoder;
@@ -19,17 +17,12 @@ use Synop\Decoder\GroupDecoder\StLPressureDecoder;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class StLPressureGroup implements GroupInterface
+class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
 {
     /**
      * @var string Station level atmospheric pressure
      */
     private $raw_stl_pressure;
-
-    /**
-     * @var Unit class instance of the entity Unit
-     */
-    private $unit;
 
     /**
      * @var GroupDecoderInterface
@@ -56,33 +49,6 @@ class StLPressureGroup implements GroupInterface
         } else {
             throw new Exception('StLPressureGroup group cannot be empty!');
         }
-    }
-
-    /**
-     * Sets the value of the Unit object
-     * @param UnitInterface $unit class instance of the entity Unit
-     */
-    public function setUnit(UnitInterface $unit): void
-    {
-        $this->unit = $unit;
-    }
-
-    /**
-     * Returns the value of the Unit object
-     * @return UnitInterface
-     */
-    public function getUnit() : UnitInterface
-    {
-        return $this->unit;
-    }
-
-    /**
-     * Returns unit data for the weather report group
-     * @return array|null
-     */
-    public function getUnitValue() : ?array
-    {
-        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

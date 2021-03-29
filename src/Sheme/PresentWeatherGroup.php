@@ -5,7 +5,6 @@ namespace Synop\Sheme;
 
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
-use Synop\Sheme\GroupInterface;
 use Exception;
 
 

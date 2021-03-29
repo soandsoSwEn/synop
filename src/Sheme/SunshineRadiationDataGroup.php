@@ -18,17 +18,12 @@ use Synop\Fabrication\UnitInterface;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class SunshineRadiationDataGroup implements GroupInterface
+class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInterface
 {
     /**
      * @var string Duration of sunshine and radiation group data
      */
     private $rawSunshineRadiation;
-
-    /**
-     * @var Unit class instance of the entity Unit
-     */
-    private $unit;
 
     /**
      * @var GroupDecoderInterface Initialized decoder object
@@ -65,33 +60,6 @@ class SunshineRadiationDataGroup implements GroupInterface
         } else {
             throw new Exception('SunshineRadiationDataGroup group cannot be empty!');
         }
-    }
-
-    /**
-     * Sets the value of the Unit object
-     * @param UnitInterface $unit class instance of the entity Unit
-     */
-    public function setUnit(UnitInterface $unit): void
-    {
-        $this->unit = $unit;
-    }
-
-    /**
-     * Returns the value of the Unit object
-     * @return UnitInterface
-     */
-    public function getUnit() : UnitInterface
-    {
-        return $this->unit;
-    }
-
-    /**
-     * Returns unit data for the weather report group
-     * @return array|null
-     */
-    public function getUnitValue() : ?array
-    {
-        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**
