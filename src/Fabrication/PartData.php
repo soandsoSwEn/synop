@@ -28,6 +28,13 @@ use Synop\Sheme\SunshineRadiationDataGroup;
 
 class PartData implements PartDataInterface
 {
+    private $unit;
+
+    public function setUnit(UnitInterface $unit)
+    {
+        $this->unit = $unit;
+    }
+
     /**
      * Returns all weather groups for a given section
      *
@@ -139,7 +146,10 @@ class PartData implements PartDataInterface
             return null;
         }
 
-        return $group->getIwValue()[1];
+        $unitWindSpeed = $group->getIwValue()[1];
+        $this->unit->setUnit(CloudWindGroup::class, 'ff', $unitWindSpeed);
+
+        return $unitWindSpeed;
     }
 
     /**
@@ -311,6 +321,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of base height of low clouds above sea level
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getHeightLowCloudUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getHeightLowCloudReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, LowCloudVisibilityGroup::class);
+
+        return $group->getUnitValue()['h'];
+    }
+
+    /**
      * Returns meteorological range of visibility
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -329,6 +357,23 @@ class PartData implements PartDataInterface
         }
 
         return $group->getVisibilityValue();
+    }
+
+    /**
+     * Returns unit of a meteorological range of visibility
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getVisibilityUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getVisibilityReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, LowCloudVisibilityGroup::class);
+
+        return $group->getUnitValue()['VV'];
     }
 
     /**
@@ -374,6 +419,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of direction of wind
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getWindDirectionUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getWindDirectionReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, CloudWindGroup::class);
+
+        return $group->getUnitValue()['dd'];
+    }
+
+    /**
      * Returns wind speed
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -392,6 +455,26 @@ class PartData implements PartDataInterface
         }
 
         return $group->getWindSpeedValue();
+    }
+
+    /**
+     * Returns of a wind speed
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return mixed|null
+     */
+    public function getWindSpeedUnitReport(SectionInterface $rawBlocksData)
+    {
+        if (is_null($this->getWindSpeedReport($rawBlocksData))) {
+            return null;
+        }
+
+        $this->getUnitWindReport($rawBlocksData);
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, CloudWindGroup::class);
+
+        return $group->getUnitValue()['ff'];
     }
 
     /**
@@ -416,6 +499,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of air temperature
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getAirTemperatureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, AirTemperatureGroup::class);
+
+        return $group->getUnitValue()['TTT'];
+    }
+
+    /**
      * Returns dew point temperature
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -434,6 +535,24 @@ class PartData implements PartDataInterface
         }
 
         return $group->getResultDewPointValue();
+    }
+
+    /**
+     * Returns unit of dew point temperature
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return mixed|null
+     */
+    public function getDewPointTemperatureUnitReport(SectionInterface $rawBlocksData)
+    {
+        if (is_null($this->getDewPointTemperatureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, DewPointTemperatureGroup::class);
+
+        return $group->getUnitValue()['TdTdTd'];
     }
 
     /**
@@ -458,6 +577,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of atmospheric pressure at station level
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getStationLevelPressureUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getStationLevelPressureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, StLPressureGroup::class);
+
+        return $group->getUnitValue()['PoPoPoPo'];
+    }
+
+    /**
      * Returns atmospheric pressure reduced to mean sea level
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -479,6 +616,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of atmospheric pressure reduced to mean sea level
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getSeaLevelPressureUnitReport(SectionInterface $rawBlocksData) :?string
+    {
+        if (is_null($this->getSeaLevelPressureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, MslPressureGroup::class);
+
+        return $group->getUnitValue()['PPPP'];
+    }
+
+    /**
      * Returns pressure change over last three hours
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -497,6 +652,24 @@ class PartData implements PartDataInterface
         }
 
         return $group->getTendencyValueData();
+    }
+
+    /**
+     * Returns unit of pressure change over last three hours
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return mixed|null
+     */
+    public function getBaricTendencyUnitReport(SectionInterface $rawBlocksData)
+    {
+        if (is_null($this->getBaricTendencyReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, BaricTendencyGroup::class);
+
+        return $group->getUnitValue()['ppp'];
     }
 
     /**
@@ -523,6 +696,24 @@ class PartData implements PartDataInterface
         }
 
         return $rainfallData[0];
+    }
+
+    /**
+     * Returns unit of amount of rainfall
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getAmountRainfallUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getAmountRainfallReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $group = $this->getGroupData($body, AmountRainfallGroup::class);
+
+        return $group->getUnitValue()['RRR'];
     }
 
     /**
@@ -694,6 +885,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of maximum air temperature
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getMaxAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getMaxAirTemperatureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, MaxAirTemperatureGroup::class);
+
+        return $group->getUnitValue()['TxTxTx'];
+    }
+
+    /**
      * Returns minimum air temperature
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -712,6 +921,24 @@ class PartData implements PartDataInterface
         }
 
         return $group->getTemperatureValue();
+    }
+
+    /**
+     * Returns unit of minimum air temperature
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getMinAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getMinAirTemperatureReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, MinAirTemperatureGroup::class);
+
+        return $group->getUnitValue()['TnTnTn'];
     }
 
     /**
@@ -757,6 +984,24 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns unit of grass minimum temperature for case ground without snow or measurable ice cover
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getMinTemperatureOfGroundWithoutSnowUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getMinTemperatureOfGroundWithoutSnowReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, GroundWithoutSnowGroup::class);
+
+        return $group->getUnitValue()['TgTg'];
+    }
+
+    /**
      * Return state of ground for case ground with snow or measurable ice cover
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -799,7 +1044,25 @@ class PartData implements PartDataInterface
     }
 
     /**
-     *  Returns duration of daily sunshine
+     * Returns unit of depth of snow
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getDepthSnowUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getDepthSnowReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, GroundWithSnowGroup::class);
+
+        return $group->getUnitValue()['sss'];
+    }
+
+    /**
+     * Returns duration of daily sunshine
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
@@ -817,6 +1080,24 @@ class PartData implements PartDataInterface
         }
 
         return $group->getSunshineValue();
+    }
+
+    /**
+     * Returns unit of duration of daily sunshine
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getDurationSunshineUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getDurationSunshineReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, SunshineRadiationDataGroup::class);
+
+        return $group->getUnitValue()['SSS'];
     }
 
     /**
@@ -843,6 +1124,24 @@ class PartData implements PartDataInterface
         }
 
         return $rainfallData[0];
+    }
+
+    /**
+     * Returns unit of amount of rainfall
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getRegionalExchangeAmountRainfallUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getRegionalExchangeAmountRainfallReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, RegionalExchangeAmountRainfallGroup::class);
+
+        return $group->getUnitValue()['RRR'];
     }
 
     /**
@@ -932,5 +1231,23 @@ class PartData implements PartDataInterface
         }
 
         return $heightCloudData['Height'];
+    }
+
+    /**
+     * Returns unit for height of base of cloud layer (additional cloud information)
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return string|null
+     */
+    public function getHeightCloudUnitReport(SectionInterface $rawBlocksData) : ?string
+    {
+        if (is_null($this->getHeightCloudReport($rawBlocksData))) {
+            return null;
+        }
+
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
+        $group = $this->getGroupData($body, AdditionalCloudInformationGroup::class);
+
+        return $group->getUnitValue()['hshs'];
     }
 }
