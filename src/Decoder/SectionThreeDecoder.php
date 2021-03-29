@@ -3,6 +3,7 @@
 namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
+use Synop\Fabrication\Unit;
 use Synop\Sheme\AdditionalCloudInformationGroup;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\GroundWithoutSnowGroup;
@@ -36,12 +37,18 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @var bool Ship identifier for weather report type
      */
     private $ship_report = null;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
     
-    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
+    public function __construct(SectionInterface $section_title, bool $synop, bool $ship, Unit $unit)
     {
         $this->section = $section_title;
         $this->synop_report = $synop;
         $this->ship_report = $ship;
+        $this->unit = $unit;
     }
 
     /**
@@ -77,7 +84,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($maximum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $maximum_temperature = true;
-                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group);
+                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group, $this->unit);
             }
         } else {
             //ship report
@@ -103,7 +110,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($minimum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $minimum_temperature = true;
-                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group);
+                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group, $this->unit);
             }
         } else {
             //ship report
@@ -129,7 +136,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($state_ground_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $stateGround = true;
-                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group);
+                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group, $this->unit);
             }
         } else {
             //ship report
@@ -155,7 +162,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($state_ground_with_snow_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $stateGroundSnow = true;
-                $Esss = new GroundWithSnowGroup($state_ground_with_snow_group);
+                $Esss = new GroundWithSnowGroup($state_ground_with_snow_group, $this->unit);
             }
         } else {
             //ship report
@@ -181,7 +188,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($sunshineRadiationGroup, 0, 2);
             if(strcmp($distinguishing_digit, '55') == 0) {
                 $sunshineRadiation = true;
-                $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup);
+                $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup, $this->unit);
             }
         } else {
             //ship report
@@ -207,7 +214,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
-                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group);
+                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group, $this->unit);
             }
         } else {
             //ship report
@@ -233,7 +240,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($clouds_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $clouds = true;
-                $NsChshs = new AdditionalCloudInformationGroup($clouds_group);
+                $NsChshs = new AdditionalCloudInformationGroup($clouds_group, $this->unit);
             }
         } else {
             //ship report
