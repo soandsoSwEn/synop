@@ -7,6 +7,7 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\UnitInterface;
 
 /**
  * Class MaxAirTemperatureGroup contains methods for working with a group of maximum air temperatures
@@ -18,9 +19,9 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
  */
 class MaxAirTemperatureGroup extends AirTemperatureGroup
 {
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
-        parent::__construct($data);
+        parent::__construct($data, $unit);
     }
 
     /**

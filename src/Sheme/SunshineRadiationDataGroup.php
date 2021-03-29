@@ -7,6 +7,8 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 
 /**
  * Class SunshineRadiationDataGroup contains methods for working with a duration of sunshine and radiation group
@@ -24,6 +26,11 @@ class SunshineRadiationDataGroup implements GroupInterface
     private $rawSunshineRadiation;
 
     /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
+
+    /**
      * @var GroupDecoderInterface Initialized decoder object
      */
     private $decoder;
@@ -38,9 +45,10 @@ class SunshineRadiationDataGroup implements GroupInterface
      */
     private $sunshine;
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     /**
@@ -57,6 +65,33 @@ class SunshineRadiationDataGroup implements GroupInterface
         } else {
             throw new Exception('SunshineRadiationDataGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

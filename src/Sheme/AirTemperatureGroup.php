@@ -5,6 +5,8 @@ namespace Synop\Sheme;
 
 use Synop\Decoder\DecoderInterface;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 use Synop\Sheme\GroupInterface;
 use Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
 use Exception;
@@ -23,6 +25,11 @@ class AirTemperatureGroup implements GroupInterface
      * @var string Air temperature group data
      */
     private $raw_air_temperature;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
 
     /**
      * @var GroupDecoderInterface
@@ -44,9 +51,10 @@ class AirTemperatureGroup implements GroupInterface
      */
     private $temperatureValue;
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     /**
@@ -64,6 +72,33 @@ class AirTemperatureGroup implements GroupInterface
         } else {
             throw new Exception('AirTemperatureGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

@@ -4,6 +4,8 @@
 namespace Synop\Sheme;
 
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 use Synop\Sheme\GroupInterface;
 use Synop\Decoder\GroupDecoder\MslPressureDecoder;
 use Exception;
@@ -25,6 +27,11 @@ class MslPressureGroup implements GroupInterface
     private $rawMlsPressure;
 
     /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
+
+    /**
      * @var GroupDecoderInterface
      */
     private $decoder;
@@ -34,9 +41,10 @@ class MslPressureGroup implements GroupInterface
      */
     private $pressure;
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     public function setData(string $data) : void
@@ -48,6 +56,33 @@ class MslPressureGroup implements GroupInterface
         } else {
             throw new Exception('MslPressureGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

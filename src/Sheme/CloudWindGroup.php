@@ -6,6 +6,8 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\CloudWindDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 
 /**
  * The CloudWindGroup class contains methods for working with a group of total number of clouds and wind - 'Nddff'
@@ -16,6 +18,11 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 class CloudWindGroup implements GroupInterface
 {
     private $raw_clouds_wind;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
 
     private $decoder;
 
@@ -34,9 +41,10 @@ class CloudWindGroup implements GroupInterface
      */
     private $wind_speed;
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     /**
@@ -53,6 +61,33 @@ class CloudWindGroup implements GroupInterface
         } else {
             throw new Exception('CloudWind group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

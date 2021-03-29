@@ -6,6 +6,8 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 
 
 /**
@@ -22,6 +24,11 @@ class BaricTendencyGroup implements GroupInterface
      * @var string Pressure change over last three hours data
      */
     private $rawBaricTendency;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
 
     /**
      * @var GroupDecoderInterface
@@ -47,9 +54,10 @@ class BaricTendencyGroup implements GroupInterface
         5, 6, 7, 8
     ];
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     public function setData(string $data) : void
@@ -61,6 +69,33 @@ class BaricTendencyGroup implements GroupInterface
         } else {
             throw new Exception('BaricTendencyGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

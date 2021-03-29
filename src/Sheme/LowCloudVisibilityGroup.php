@@ -2,7 +2,8 @@
 
 namespace Synop\Sheme;
 
-use Synop\Sheme\GroupInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
@@ -16,6 +17,11 @@ use Exception;
 class LowCloudVisibilityGroup implements GroupInterface
 {
     private $raw_cloud_vis;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
     
     private $decoder;
     
@@ -41,9 +47,10 @@ class LowCloudVisibilityGroup implements GroupInterface
     private $visibility;
 
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
     
     public function setData(string $data) : void
@@ -55,6 +62,33 @@ class LowCloudVisibilityGroup implements GroupInterface
         } else {
             throw new Exception('LowCloudVisibility group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**

@@ -6,6 +6,7 @@ namespace Synop\Sheme;
 
 use Exception;
 use Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
+use Synop\Fabrication\UnitInterface;
 
 /**
  * Class RegionalExchangeAmountRainfallGroup contains methods for working with a group of amount of rainfall
@@ -20,9 +21,9 @@ use Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
  */
 class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
 {
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
-        parent::__construct($data);
+        parent::__construct($data, $unit);
     }
 
     /**

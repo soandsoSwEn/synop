@@ -7,6 +7,8 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\Unit;
+use Synop\Fabrication\UnitInterface;
 
 /**
  * Class GroundWithoutSnowGroup contains methods for working with a group of state of the ground without snow
@@ -22,6 +24,11 @@ class GroundWithoutSnowGroup implements GroupInterface
      * @var string State of ground without snow or measurable ice cover group data
      */
     private $raw_ground_without_snow;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
 
     /**
      * @var GroupDecoderInterface
@@ -53,9 +60,10 @@ class GroundWithoutSnowGroup implements GroupInterface
      */
     private $minTemperatureValue;
 
-    public function __construct(string $data)
+    public function __construct(string $data, UnitInterface $unit)
     {
         $this->setData($data);
+        $this->setUnit($unit);
     }
 
     /**
@@ -72,6 +80,33 @@ class GroundWithoutSnowGroup implements GroupInterface
         } else {
             throw new Exception('GroundWithoutSnowGroup group cannot be empty!');
         }
+    }
+
+    /**
+     * Sets the value of the Unit object
+     * @param UnitInterface $unit class instance of the entity Unit
+     */
+    public function setUnit(UnitInterface $unit): void
+    {
+        $this->unit = $unit;
+    }
+
+    /**
+     * Returns the value of the Unit object
+     * @return UnitInterface
+     */
+    public function getUnit() : UnitInterface
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Returns unit data for the weather report group
+     * @return array|null
+     */
+    public function getUnitValue() : ?array
+    {
+        return $this->getUnit()->getUnitByGroup(get_class($this));
     }
 
     /**
