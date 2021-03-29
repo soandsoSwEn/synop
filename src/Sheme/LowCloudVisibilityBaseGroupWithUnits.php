@@ -14,9 +14,14 @@ use Exception;
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterface
+class LowCloudVisibilityGroup extends Group implements GroupInterface
 {
     private $raw_cloud_vis;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
     
     private $decoder;
     
