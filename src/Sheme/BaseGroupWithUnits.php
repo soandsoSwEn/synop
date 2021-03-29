@@ -8,7 +8,7 @@ use Synop\Fabrication\UnitInterface;
 use Synop\Sheme\GroupInterface;
 
 /**
- * Description of BaseGroupWithUnits
+ * BaseGroupWithUnits class contains methods for working with the current group with units
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */

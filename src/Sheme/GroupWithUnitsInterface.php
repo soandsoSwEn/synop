@@ -6,6 +6,13 @@ namespace Synop\Sheme;
 
 use Synop\Fabrication\UnitInterface;
 
+/**
+ * Interface GroupWithUnitsInterface must be implemented by a class that allows the group to work with units.
+ *
+ * @package Synop\Sheme
+ *
+ * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
+ */
 interface GroupWithUnitsInterface
 {
     /**
