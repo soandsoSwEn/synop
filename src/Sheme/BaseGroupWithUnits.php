@@ -8,11 +8,11 @@ use Synop\Fabrication\UnitInterface;
 use Synop\Sheme\GroupInterface;
 
 /**
- * Description of Group
+ * Description of BaseGroupWithUnits
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
-class Group implements GroupWithUnitsInterface
+class BaseGroupWithUnits implements GroupWithUnitsInterface
 {
     /**
      * @var Unit class instance of the entity Unit
