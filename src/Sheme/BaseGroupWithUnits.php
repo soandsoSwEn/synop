@@ -2,10 +2,8 @@
 
 namespace Synop\Sheme;
 
-use Exception;
 use Synop\Fabrication\Unit;
 use Synop\Fabrication\UnitInterface;
-use Synop\Sheme\GroupInterface;
 
 /**
  * BaseGroupWithUnits class contains methods for working with the current group with units
