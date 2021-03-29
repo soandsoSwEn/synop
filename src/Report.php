@@ -5,6 +5,7 @@ namespace Synop;
 use Synop\Fabrication\PartData;
 use Synop\Fabrication\RawReportInterface;
 use Exception;
+use Synop\Fabrication\Unit;
 use Synop\Fabrication\Validate;
 use Synop\Fabrication\RawReport;
 use Synop\Decoder\GeneralDecoder;
@@ -25,6 +26,11 @@ class Report implements ReportInterface
      * @var string Meteorological weather report source code
      */
     private $report;
+
+    /**
+     * @var Unit class instance of the entity Unit
+     */
+    private $unit;
     
     /**
      * @var RawReport Object of meteorological report source code
@@ -46,6 +52,8 @@ class Report implements ReportInterface
     {
         $this->setReport($report);
         $this->partData = new PartData();
+        $this->unit = new Unit();
+        $this->partData->setUnit($this->unit);
     }
 
     /**
@@ -133,7 +141,7 @@ class Report implements ReportInterface
         
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
-        $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION));
+        $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION), $this->unit);
         $blocks =  $pipeline->process($this->raw_report, $decoder);
         $this->rawBlocksData = $blocks;
     }
@@ -292,12 +300,30 @@ class Report implements ReportInterface
     }
 
     /**
+     * Get unit for a base height of low clouds above sea level
+     * @return mixed|null
+     */
+    public function getHeightLowCloudUnit()
+    {
+        return $this->partData->getHeightLowCloudUnitReport($this->rawBlocksData);
+    }
+
+    /**
      * Get a meteorological range of visibility
      * @return string|null
      */
     public function getVisibility() : ?string
     {
         return $this->partData->getVisibilityReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for a meteorological range of visibility
+     * @return string|null
+     */
+    public function getVisibilityUnit() : ?string
+    {
+        return $this->partData->getVisibilityUnitReport($this->rawBlocksData);
     }
 
     //Group NDDff
@@ -321,12 +347,30 @@ class Report implements ReportInterface
     }
 
     /**
+     * Get unit for direction of wind
+     * @return string|null
+     */
+    public function getWindDirectionUnit() : ?string
+    {
+        return $this->partData->getWindDirectionUnitReport($this->rawBlocksData);
+    }
+
+    /**
      * Get wind speed
      * @return string|null
      */
     public function getWindSpeed() : ?string
     {
         return $this->partData->getWindSpeedReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for wind speed
+     * @return string|null
+     */
+    public function getWindSpeedUnit() : ?string
+    {
+        return $this->partData->getWindSpeedUnitReport($this->rawBlocksData);
     }
 
     //Group 1SnTTT
@@ -340,6 +384,15 @@ class Report implements ReportInterface
         return $this->partData->getAirTemperatureReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for air temperature
+     * @return string|null
+     */
+    public function getAirTemperatureUnit() : ?string
+    {
+        return $this->partData->getAirTemperatureUnitReport($this->rawBlocksData);
+    }
+
     //Group 2SnTdTdTd
 
     /**
@@ -349,6 +402,15 @@ class Report implements ReportInterface
     public function getDewPointTemperature() : ?float
     {
         return $this->partData->getDewPointTemperatureReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for dew point temperature
+     * @return string|null
+     */
+    public function getDewPointTemperatureUnit()  :?string
+    {
+        return $this->partData->getDewPointTemperatureUnitReport($this->rawBlocksData);
     }
 
     //Group 3P0P0P0
@@ -362,6 +424,15 @@ class Report implements ReportInterface
         return $this->partData->getStationLevelPressureReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for atmospheric pressure at station level
+     * @return string|null
+     */
+    public function getStationLevelPressureUnit() : ?string
+    {
+        return $this->partData->getStationLevelPressureUnitReport($this->rawBlocksData);
+    }
+
     //Group 4PPPP
 
     /**
@@ -371,6 +442,15 @@ class Report implements ReportInterface
     public function getSeaLevelPressure() : ?float
     {
         return $this->partData->getSeaLevelPressureReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for atmospheric pressure reduced to mean sea level
+     * @return string|null
+     */
+    public function getSeaLevelPressureUnit() : ?string
+    {
+        return $this->partData->getSeaLevelPressureUnitReport($this->rawBlocksData);
     }
 
     //Group 5appp
@@ -384,6 +464,15 @@ class Report implements ReportInterface
         return $this->partData->getBaricTendencyReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for pressure change over last three hours
+     * @return string|null
+     */
+    public function getBaricTendencyUnit() : ?string
+    {
+        return $this->partData->getBaricTendencyUnitReport($this->rawBlocksData);
+    }
+
     //Group 6RRRtr
 
     /**
@@ -393,6 +482,15 @@ class Report implements ReportInterface
     public function getAmountRainfall()
     {
         return $this->partData->getAmountRainfallReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for amount of rainfall
+     * @return string|null
+     */
+    public function getAmountRainfallUnit() : ?string
+    {
+        return $this->partData->getAmountRainfallUnitReport($this->rawBlocksData);
     }
 
     /**
@@ -474,6 +572,15 @@ class Report implements ReportInterface
         return $this->partData->getMaxAirTemperatureReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for maximum air temperature
+     * @return string|null
+     */
+    public function getMaxAirTemperatureUnit() : ?string
+    {
+        return $this->partData->getMaxAirTemperatureUnitReport($this->rawBlocksData);
+    }
+
     //Group 2SnTnTnTn
 
     /**
@@ -483,6 +590,15 @@ class Report implements ReportInterface
     public function getMinAirTemperature() : ?float
     {
         return $this->partData->getMinAirTemperatureReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for minimum air temperature
+     * @return string|null
+     */
+    public function getMinAirTemperatureUnit() : ?string
+    {
+        return $this->partData->getMinAirTemperatureUnitReport($this->rawBlocksData);
     }
 
     //Group 3ESnTgTg
@@ -505,6 +621,15 @@ class Report implements ReportInterface
         return $this->partData->getMinTemperatureOfGroundWithoutSnowReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for grass minimum temperature for case ground without snow or measurable ice cover
+     * @return string|null
+     */
+    public function getMinTemperatureOfGroundWithoutSnowUnit() : ?string
+    {
+        return $this->partData->getMinTemperatureOfGroundWithoutSnowUnitReport($this->rawBlocksData);
+    }
+
     //Group 4Esss
 
     /**
@@ -525,6 +650,15 @@ class Report implements ReportInterface
         return $this->partData->getDepthSnowReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for depth of snow
+     * @return string|null
+     */
+    public function getDepthSnowUnit() : ?string
+    {
+        return $this->partData->getDepthSnowUnitReport($this->rawBlocksData);
+    }
+
     //Group 55SSS
 
     /**
@@ -536,6 +670,15 @@ class Report implements ReportInterface
         return $this->partData->getDurationSunshineReport($this->rawBlocksData);
     }
 
+    /**
+     * Get unit for a duration of daily sunshine
+     * @return string|null
+     */
+    public function getDurationSunshineUnit() : ?string
+    {
+        return $this->partData->getDurationSunshineUnitReport($this->rawBlocksData);
+    }
+
     //Group 6RRRtr
 
     /**
@@ -545,6 +688,15 @@ class Report implements ReportInterface
     public function getRegionalExchangeAmountRainfall() : ?int
     {
         return $this->partData->getRegionalExchangeAmountRainfallReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for amount of rainfall
+     * @return string|null
+     */
+    public function getRegionalExchangeAmountRainfallUnit() : ?string
+    {
+        return $this->partData->getRegionalExchangeAmountRainfallUnitReport($this->rawBlocksData);
     }
 
     /**
@@ -583,6 +735,15 @@ class Report implements ReportInterface
     public function getHeightCloud()
     {
         return $this->partData->getHeightCloudReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get unit for a form of cloud (additional cloud information)
+     * @return string|null
+     */
+    public function getHeightCloudUnit() : ?string
+    {
+        return $this->partData->getHeightCloudUnitReport($this->rawBlocksData);
     }
 
 }
