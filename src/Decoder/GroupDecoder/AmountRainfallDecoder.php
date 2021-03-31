@@ -53,7 +53,7 @@ class AmountRainfallDecoder implements GroupDecoderInterface
         $RRR = substr($this->rawAmountRainfall, 1, 3);
 
         if (intval($RRR) >= 990 && intval($RRR) <= 999) {
-            return $this->valueW​ithTenths($RRR);
+            return $this->valueWithTenths($RRR);
         } else {
             return $this->integerValues($RRR);
         }
@@ -84,7 +84,7 @@ class AmountRainfallDecoder implements GroupDecoderInterface
      * @param string $rainfallData String of Amount of rainfall
      * @return array
      */
-    public function valueW​ithTenths(string $rainfallData) : array
+    public function valueWithTenths(string $rainfallData) : array
     {
         $stringOfAmountRain = substr($rainfallData, 2, 1);
 

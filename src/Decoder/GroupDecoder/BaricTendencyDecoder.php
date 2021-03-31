@@ -3,7 +3,6 @@
 
 namespace Synop\Decoder\GroupDecoder;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 
 
 /**

@@ -71,7 +71,7 @@ class CloudWindDecoder implements GroupDecoderInterface
     }
 
     /**
-     * Returns all values ​​for the number of clouds
+     * Returns all values for the number of clouds
      * @return array|string[]
      */
     private function getNData() : array

@@ -2,7 +2,6 @@
 
 namespace Synop\Decoder\GroupDecoder;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
 
 /**
@@ -15,7 +14,7 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
 {
     private $raw_cloud_vis;
     
-    /** @var type array Indices precipitation group inclusion 6RRRtr */
+    /** @var array Indices precipitation group inclusion 6RRRtr */
     private $i_r = [
         1 => 'Included in section 1',
         2 => 'Included in section 3',
@@ -24,7 +23,7 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
     ];
     
     /** 
-     * @var type array Values ​​of the type indicator of the station, as well
+     * @var array Values of the type indicator of the station, as well
      *  as inclusion in the group report 7wwW1W2
      */
     private $i_x = [
@@ -37,7 +36,7 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
     ];
     
     /**
-     * @var type array Values ​​for the height of the base of the lowest clouds 
+     * @var array Values for the height of the base of the lowest clouds
      * above the surface of the earth (sea)
      */
     private $h = [
