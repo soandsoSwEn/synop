@@ -30,8 +30,7 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
     private $groundStateMap = [
         '0' => 'Ground predominantly covered by ice',
         '1' => 'Compact or wet snow (with or without ice) covering less than one-half of the ground',
-        '2' => 'Compact or wet snow (with or without ice) covering at least one-half of the ground but ground not
-                completely covered',
+        '2' => 'Compact or wet snow (with or without ice) covering at least one-half of the ground but ground not completely covered',
         '3' => 'Even layer of compact or wet snow covering ground completely',
         '4' => 'Uneven layer of compact or wet snow covering ground completely',
         '5' => 'Loose dry snow covering less than one-half of the ground',
