@@ -20,6 +20,7 @@ use Synop\Sheme\Section;
 use Synop\Sheme\DateGroup;
 use Synop\Sheme\IndexGroup;
 use Synop\Sheme\StLPressureGroup;
+use Synop\Sheme\TypeGroup;
 
 /**
  * Identifies decoding and determines the meta information of the weather
@@ -98,17 +99,16 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     /**
      * Adds group data to the weather section
      * @param $data mixed Group data
-     * @param false $key Title of group data
      * @param string|false $sectionTitle Title of section
      * @return bool
      */
-    private function putInSection($data, $key = false, $sectionTitle = false) : bool
+    private function putInSection($data, $sectionTitle = false) : bool
     {
         if (!$sectionTitle) {
-            $this->section->setBody($data, $key);
+            $this->section->setBody($data);
         } else {
             $selectSection = $this->getSectionByTitle($sectionTitle);
-            $selectSection->setBody($data, $key);
+            $selectSection->setBody($data);
         }
 
         return true;
@@ -132,19 +132,16 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      */
     public function getType(RawReportInterface $raw_report) : bool
     {
-        $type = $this->block($raw_report->getReport());
-        if(!in_array($type, $this->type_report)) {
+        $typeGroup = $this->block($raw_report->getReport());
+        if(!in_array($typeGroup, $this->type_report)) {
             throw new Exception('Weather report type not set correctly!');
         }
-        if(strcmp($type, 'AAXX') == 0) {
-            $this->synop_report = true;
-            $this->ship_report = false;
-        } elseif(strcmp($type, 'BBXX') == 0) {
-            $this->synop_report = false;
-            $this->ship_report = true;
-        }
-        $this->updateReport($type, $raw_report);
-        return $this->putInSection($type, 'type', self::SECTION_ZERO);
+        $type = new TypeGroup($typeGroup);
+        $this->synop_report = $type->isSynop();
+        $this->ship_report = $type->isShip();
+
+        $this->updateReport($typeGroup, $raw_report);
+        return $this->putInSection($type, self::SECTION_ZERO);
     }
 
     /**
@@ -161,7 +158,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $ship_call = $this->block($raw_report->getReport());
         if(ctype_digit($ship_call)) {
             $this->updateReport($ship_call, $raw_report);
-            return $this->putInSection($ship_call, false, self::SECTION_ZERO) ? true : false;
+            return $this->putInSection($ship_call, self::SECTION_ZERO) ? true : false;
         } else {
             throw new Exception('Invalid ship call sign format!');
         }
@@ -181,7 +178,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($date_group, $raw_report);
-        return $this->putInSection($date, false, self::SECTION_ZERO) ? true : false;
+        return $this->putInSection($date, self::SECTION_ZERO) ? true : false;
     }
 
     /**
@@ -198,7 +195,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($station_index, $raw_report);
-        return $this->putInSection($index, false, self::SECTION_ZERO) ? true : false;
+        return $this->putInSection($index, self::SECTION_ZERO) ? true : false;
     }
 
     /**

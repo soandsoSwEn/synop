@@ -25,6 +25,7 @@ use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
 use Synop\Sheme\SectionInterface;
 use Synop\Sheme\StLPressureGroup;
 use Synop\Sheme\SunshineRadiationDataGroup;
+use Synop\Sheme\TypeGroup;
 
 class PartData implements PartDataInterface
 {
@@ -73,17 +74,17 @@ class PartData implements PartDataInterface
      */
     public function getTypeStation(SectionInterface $rawBlocksData)
     {
-        //$body = $rawBlocksData->getBodyByTitle('General Section')->getBody();
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
 
-        if (array_key_exists('type', $body)) {
-            return $body['type'];
+        $group = $this->getGroupData($body, TypeGroup::class);
+        if (is_null($group)) {
+            return null;
         }
 
-        return null;
+        return $group->getType();
     }
 
     /**
