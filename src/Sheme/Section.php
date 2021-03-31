@@ -58,15 +58,10 @@ class Section implements SectionInterface
     /**
      * Adds a data for the section of the meteorological report
      * @param array|string $data Data of the section of the meteorological report
-     * @param false $key
      */
-    public function setBody($data, $key = false) : void
+    public function setBody($data) : void
     {
-        if ($key) {
-            $this->body[$key] = $data;
-        } else {
-            $this->body[] = $data;
-        }
+        $this->body[] = $data;
     }
 
     /**
