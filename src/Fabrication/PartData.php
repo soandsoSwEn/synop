@@ -74,7 +74,7 @@ class PartData implements PartDataInterface
     public function getTypeStation(SectionInterface $rawBlocksData)
     {
         //$body = $rawBlocksData->getBodyByTitle('General Section')->getBody();
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -94,7 +94,7 @@ class PartData implements PartDataInterface
      */
     public function getDayReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -115,7 +115,7 @@ class PartData implements PartDataInterface
      */
     public function getHourReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -136,7 +136,7 @@ class PartData implements PartDataInterface
      */
     public function getUnitWindReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -160,7 +160,7 @@ class PartData implements PartDataInterface
      */
     public function getWindDetectionReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -181,7 +181,7 @@ class PartData implements PartDataInterface
      */
     public function getAreaNumberReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -202,7 +202,7 @@ class PartData implements PartDataInterface
      */
     public function getStationNumberReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }
@@ -223,7 +223,7 @@ class PartData implements PartDataInterface
      */
     public function getStationIndexReport(SectionInterface $rawBlocksData) : ?string
     {
-        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
             return null;
         }

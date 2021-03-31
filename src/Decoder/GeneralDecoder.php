@@ -32,6 +32,9 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     /** Title of basic container for storing all sections of the meteorological report */
     const ALL_SECTIONS = 'All Sections';
 
+    /** Title for Section 0 of weather report */
+    const SECTION_ZERO = 'Section Zero';
+
     /**
      * @var Section All sections of the meteorological report
      */
@@ -67,6 +70,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->section = $section_title;
         $this->unit = $unit;
         $this->sections = new Section(self::ALL_SECTIONS);
+        $this->putSection(new Section(self::SECTION_ZERO));
         $this->putSection($this->section);
     }
 
@@ -95,13 +99,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * Adds group data to the weather section
      * @param $data mixed Group data
      * @param false $key Title of group data
+     * @param string|false $sectionTitle Title of section
      * @return bool
      */
-    private function putInSection($data, $key = false) : bool
+    private function putInSection($data, $key = false, $sectionTitle = false) : bool
     {
-        $this->section->setBody($data, $key);
+        if (!$sectionTitle) {
+            $this->section->setBody($data, $key);
+        } else {
+            $selectSection = $this->getSectionByTitle($sectionTitle);
+            $selectSection->setBody($data, $key);
+        }
 
         return true;
+    }
+
+    /**
+     * Returns object of section for weather report
+     * @param string $sectionTitle
+     * @return false|SectionInterface
+     */
+    private function getSectionByTitle(string $sectionTitle) : SectionInterface
+    {
+        return $this->sections->getBodyByTitle($sectionTitle);
     }
 
     /**
@@ -124,7 +144,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             $this->ship_report = true;
         }
         $this->updateReport($type, $raw_report);
-        return $this->putInSection($type, 'type');
+        return $this->putInSection($type, 'type', self::SECTION_ZERO);
     }
 
     /**
@@ -141,7 +161,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $ship_call = $this->block($raw_report->getReport());
         if(ctype_digit($ship_call)) {
             $this->updateReport($ship_call, $raw_report);
-            return $this->putInSection($ship_call) ? true : false;
+            return $this->putInSection($ship_call, false, self::SECTION_ZERO) ? true : false;
         } else {
             throw new Exception('Invalid ship call sign format!');
         }
@@ -161,7 +181,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($date_group, $raw_report);
-        return $this->putInSection($date) ? true : false;
+        return $this->putInSection($date, false, self::SECTION_ZERO) ? true : false;
     }
 
     /**
@@ -178,7 +198,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             //ship report
         }
         $this->updateReport($station_index, $raw_report);
-        return $this->putInSection($index) ? true : false;
+        return $this->putInSection($index, false, self::SECTION_ZERO) ? true : false;
     }
 
     /**
