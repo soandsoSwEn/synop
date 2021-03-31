@@ -6,11 +6,11 @@ namespace Synop\Sheme;
  * SectionInterface an interface that should be implemented by a class that works with sections of the weather report
  *
  * The code form is divided into a number of sections as follows:
- * - General Section (Section 0).
+ * - Section 0.
  *   Data for reporting identification (type, ship’s call sign/buoy identifier, date, time, location)
  *   and units of wind speed used
  *
- * - Section 1
+ * - General Section (Section 1)
  *   Data for global exchange which are common to the SYNOP, SHIP and SYNOP MOBIL code forms
  *
  * - Section 2
@@ -43,9 +43,8 @@ interface SectionInterface
      * Adds a data for the section of the meteorological report
      *
      * @param $data array|string The data contained in the section "All sections" or in a specific section
-     * @param false $key Name for data set
      */
-    public function setBody($data, $key = false) : void;
+    public function setBody($data) : void;
 
     /**
      * Returns title of the section of the meteorological report
