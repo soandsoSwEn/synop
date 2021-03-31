@@ -34,26 +34,19 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '04' => 'Visibility reduced by smoke, e.g. veld or forest fires, industrial smoke or volcanic ashes',
         '05' => 'Haze',
         '06' => 'Widespread dust in suspension in thr air, not raised by wind at or near the station at the time of observation',
-        '07' => 'Dust or sand raised by the wind at or near the station at the time of observation, but no well-developed
-                 dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen: or, in the case of ships blowing
-                 spray at the station',
-        '08' => 'Well-developed dust whirl(s) or sand or sand whirl(s) seen at or near the station during the preceding
-                 hour or at the time of observation, but no duststorm or sandstorm',
+        '07' => 'Dust or sand raised by the wind at or near the station at the time of observation, but no well-developed dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen: or, in the case of ships blowing spray at the station',
+        '08' => 'Well-developed dust whirl(s) or sand or sand whirl(s) seen at or near the station during the preceding hour or at the time of observation, but no duststorm or sandstorm',
         '09' => 'Duststorm or sandstorm within sight at the time of observation, or at the station during the preceding hour',
         '10' => 'Mist',
-        '11' => 'Patches of shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters
-                 or land or 10 meters of sea',
-        '12' => 'More or less continuous shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters
-                 or land or 10 meters of sea',
+        '11' => 'Patches of shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters or land or 10 meters of sea',
+        '12' => 'More or less continuous shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters or land or 10 meters of sea',
         '13' => 'Lightning visible, no thunder heard',
         '14' => 'Precipitation within sight, not reaching the ground or the surface of the sea',
-        '15' => 'Precipitation within sight reaching the ground or the surface of the sea, but distant, i.e. estimated
-                 to be more than 5 km from the station',
+        '15' => 'Precipitation within sight reaching the ground or the surface of the sea, but distant, i.e. estimated to be more than 5 km from the station',
         '16' => 'Precipitation within sight reaching the ground of the surface of the sea, near to, but not at the station',
         '17' => 'Thunderstorm, but no precipitation at the time observation',
         '18' => 'Squalls at or within sight of the station during the preceding hour or at the time of observation',
-        '19' => 'Funnel cloud(s) or tuba at or within sight of the station during the preceding hour or at the time 
-                 of observation',
+        '19' => 'Funnel cloud(s) or tuba at or within sight of the station during the preceding hour or at the time of observation',
         '20' => 'Drizzle (not freezing) or snow grains not falling as shower(s)',
         '21' => 'Rain (not freezing) not falling as shower(s)',
         '22' => 'Snow not falling as shower(s)',
@@ -74,8 +67,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '37' => 'Heavy drifting snow generally low (below eye level)',
         '38' => 'Slight or moderate blowing snow generally high (above eye level)',
         '39' => 'Heavy blowing snow generally high (above eye level)',
-        '40' => 'Fog or ice fog at a distance at the time of observation, but not at the station during the preceding
-                 hour, the fog or ice fog extending to a level above that of the observer',
+        '40' => 'Fog or ice fog at a distance at the time of observation, but not at the station during the preceding hour, the fog or ice fog extending to a level above that of the observer',
         '41' => 'Fog or ice fog in patches',
         '42' => 'Fog or ice fog, sky visible has become thinner during the preceding hour',
         '43' => 'Fog or ice fog, sky invisible has become thinner during the preceding hour',
@@ -142,8 +134,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
      */
     private $pastWeatherMap = [
         '0' => 'Cloud covering 1/2 or less of the sky throughout the appropriate period',
-        '1' => 'Cloud covering more than 1/2 of the sky during part of the appropriate period and covering 1/2 or less
-                during part of the period',
+        '1' => 'Cloud covering more than 1/2 of the sky during part of the appropriate period and covering 1/2 or less during part of the period',
         '2' => 'Cloud covering more than 1/2 of the sky throughout the appropriate period',
         '3' => 'Sandstorm, duststorm or blowing snow',
         '4' => 'Fog or ice fog or thick haze (visibility less than 1,000 m)',
