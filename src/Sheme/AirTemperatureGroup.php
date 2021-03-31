@@ -155,7 +155,7 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * Sets the values ​​for the air temperature group variables
+     * Sets the values for the air temperature group variables
      *
      * @param GroupDecoderInterface $decoder
      */

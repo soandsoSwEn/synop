@@ -6,7 +6,6 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\CloudPresentDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Sheme\GroupInterface;
 
 
 /**

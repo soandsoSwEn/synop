@@ -2,7 +2,6 @@
 
 namespace Synop\Sheme;
 
-use Synop\Sheme\GroupInterface;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\DateDecoder;
 use Exception;

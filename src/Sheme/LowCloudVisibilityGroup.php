@@ -2,7 +2,6 @@
 
 namespace Synop\Sheme;
 
-use Synop\Fabrication\Unit;
 use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
