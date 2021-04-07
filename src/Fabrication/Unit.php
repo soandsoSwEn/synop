@@ -30,7 +30,7 @@ class Unit implements UnitInterface
      * @var array Default units for meteorological fields
      */
     private $defaultUnits = [
-        LowCloudVisibilityGroup::class => ['h' => 'm', 'VV' => 'm'],
+        LowCloudVisibilityGroup::class => ['h' => 'm', 'VV' => 'km'],
         CloudWindGroup::class => ['dd' => 'degrees', 'ff' => 'm/s'],
         AirTemperatureGroup::class => ['TTT' => 'degree C'],
         DewPointTemperatureGroup::class => ['TdTdTd' => 'degree C'],
