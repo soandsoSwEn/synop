@@ -151,6 +151,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $this->synop_report = $type->isSynop();
         $this->ship_report = $type->isShip();
 
+        //TODO in this version synop only
+        if ($type->isShip()) {
+            die('The weather report is in SHIP format. This version supports weather reports only in SYNOP format!');
+        }
+
+
         $this->updateReport($typeGroup, $raw_report);
         return $this->putInSection($type, self::SECTION_ZERO);
     }
