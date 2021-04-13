@@ -18,4 +18,13 @@ interface DecoderInterface
      * @return SectionInterface
      */
     public function parse() : SectionInterface;
+
+    /**
+     * Checks whether a given group of codes corresponds to a specific group of meteorological reports
+     *
+     * @param string $codeFigure Meteorological report group symbolic code
+     * @param int $size Meteorological report group size
+     * @return bool
+     */
+    public function isGroup(string $codeFigure, int $size) : bool;
 }
