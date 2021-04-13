@@ -497,7 +497,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get222DsVs(RawReportInterface $raw_report) : bool
+    public function get222DsVs(RawReportInterface $raw_report) : ?bool
     {
         $section_two = false;
         //$st_blocks = [];
@@ -516,6 +516,8 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
+
+        return $section_two ? true : null;
     }
 
     /**
@@ -542,7 +544,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get333(RawReportInterface $raw_report) : bool
+    public function get333(RawReportInterface $raw_report) : ?bool
     {
         $section_three_group = false;
         //$str_blocks = [];
@@ -561,6 +563,8 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
+
+        return $section_three_group ? true : null;
     }
 
     /**
@@ -586,7 +590,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get444(RawReportInterface $raw_report) : bool
+    public function get444(RawReportInterface $raw_report) : ?bool
     {
         $section_four_group = false;
         //$sf_blocks = [];
@@ -605,6 +609,8 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
+
+        return $section_four_group ? true : null;
     }
 
     /**
@@ -640,6 +646,8 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
+
+        return $section_five_group ? true : null;
     }
 
     /**
