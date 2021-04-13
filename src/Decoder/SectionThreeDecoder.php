@@ -52,6 +52,17 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
     }
 
     /**
+     * Returns the result of checking if the group of the code matches the group of the weather report
+     * @param string $codeFigure
+     * @param int $size Weather group size
+     * @return bool
+     */
+    public function isGroup(string $codeFigure, int $size) : bool
+    {
+        return mb_strlen($codeFigure) === $size;
+    }
+
+    /**
      * @return SectionInterface Returns decoded data for this section of the weather report
      */
     public function parse(): SectionInterface
@@ -81,6 +92,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $maximum_temperature = false;
         if($this->synop_report) {
             $maximum_temperature_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($maximum_temperature_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($maximum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $maximum_temperature = true;
@@ -107,6 +122,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $minimum_temperature = false;
         if($this->synop_report) {
             $minimum_temperature_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($minimum_temperature_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($minimum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $minimum_temperature = true;
@@ -133,6 +152,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $stateGround = false;
         if($this->synop_report) {
             $state_ground_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($state_ground_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($state_ground_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $stateGround = true;
@@ -159,6 +182,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $stateGroundSnow = false;
         if($this->synop_report) {
             $state_ground_with_snow_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($state_ground_with_snow_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($state_ground_with_snow_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $stateGroundSnow = true;
@@ -185,6 +212,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $sunshineRadiation = false;
         if($this->synop_report) {
             $sunshineRadiationGroup = $this->block($raw_report->getReport());
+            if (!$this->isGroup($sunshineRadiationGroup, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($sunshineRadiationGroup, 0, 2);
             if(strcmp($distinguishing_digit, '55') == 0) {
                 $sunshineRadiation = true;
@@ -211,6 +242,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $precipitation = false;
         if($this->synop_report) {
             $precipitation_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($precipitation_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
@@ -237,6 +272,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $clouds = false;
         if($this->synop_report) {
             $clouds_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($clouds_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($clouds_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $clouds = true;
@@ -262,6 +301,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
         $weather = false;
         if($this->synop_report) {
             $weather_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($weather_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($weather_group, 0, 1);
             if(strcmp($distinguishing_digit, '9') == 0) {
                 $weather = true;
