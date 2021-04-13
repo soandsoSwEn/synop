@@ -525,7 +525,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
             }
 
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
-            if(strcmp($distinguishing_digit, '8') == 0) {
+            if(strcmp($distinguishing_digit, '9') == 0) {
                 $cloud_height = true;
             }
         } else {
