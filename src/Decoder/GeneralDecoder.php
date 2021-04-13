@@ -76,6 +76,17 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     }
 
     /**
+     * Returns the result of checking if the group of the code matches the group of the weather report
+     * @param string $codeFigure
+     * @param int $size Weather group size
+     * @return bool
+     */
+    public function isGroup(string $codeFigure, int $size) : bool
+    {
+        return mb_strlen($codeFigure) === $size;
+    }
+
+    /**
      * Returns decoded data for all sections of the weather report
      * @return SectionInterface
      */
@@ -268,6 +279,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $temperature = false;
         if($this->synop_report) {
             $air_temperature_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($air_temperature_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($air_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $temperature = true;
@@ -296,6 +311,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $dew_point = false;
         if($this->synop_report) {
             $dew_point_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($dew_point_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($dew_point_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $dew_point = true;
@@ -322,6 +341,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $pressure_station = false;
         if($this->synop_report) {
             $pressure_station_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($pressure_station_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($pressure_station_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $pressure_station = true;
@@ -348,6 +371,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $pressure_sea_level = false;
         if($this->synop_report) {
             $pressure_sea_level_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($pressure_sea_level_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($pressure_sea_level_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $pressure_sea_level = true;
@@ -374,6 +401,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $baric_tendency = false;
         if($this->synop_report) {
             $baric_tendency_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($baric_tendency_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($baric_tendency_group, 0, 1);
             if(strcmp($distinguishing_digit, '5') == 0) {
                 $baric_tendency = true;
@@ -400,6 +431,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $precipitation = false;
         if($this->synop_report) {
             $precipitation_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($precipitation_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
@@ -426,6 +461,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $weather = false;
         if($this->synop_report) {
             $weather_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($weather_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($weather_group, 0, 1);
             if(strcmp($distinguishing_digit, '7') == 0) {
                 $weather = true;
@@ -452,6 +491,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $cloud_characteristics = false;
         if($this->synop_report) {
             $cloud_characteristics_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($cloud_characteristics_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $cloud_characteristics = true;
@@ -477,6 +520,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         $cloud_height = false;
         if($this->synop_report) {
             $cloud_characteristics_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($cloud_characteristics_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $cloud_height = true;
