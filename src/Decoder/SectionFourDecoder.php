@@ -26,6 +26,11 @@ class SectionFourDecoder extends Decoder implements DecoderInterface
         $this->synop_report = $synop;
         $this->ship_report = $ship;
     }
+
+    public function isGroup(string $codeFigure, int $size) : bool
+    {
+        return mb_strlen($codeFigure) === $size;
+    }
     
     public function parse(): SectionInterface
     {
@@ -46,11 +51,17 @@ class SectionFourDecoder extends Decoder implements DecoderInterface
         $mountain_stations = false;
         if($this->synop_report) {
             $mountain_weather_stations = $this->block($raw_report->getReport());
+            if (!$this->isGroup($mountain_weather_stations, 5)) {
+                return null;
+            }
+
             $mountain_stations = true;
             $this->updateReport($mountain_weather_stations, $raw_report);
             return $this->putInSection($mountain_weather_stations) ? true : false;
         } else {
             //ship report
         }
+
+        return $mountain_stations ? true : null;
     }
 }
