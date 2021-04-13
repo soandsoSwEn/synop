@@ -548,20 +548,20 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     {
         $section_two = false;
         //$st_blocks = [];
-        if($this->synop_report) {
+        if($this->ship_report) {
             $section_two_group = $this->block($raw_report->getReport());
             $distinguishing_digit = substr($section_two_group, 0, 3);
             if(strcmp($distinguishing_digit, '222') == 0) {
                 $section_two = true;
-                $st_pipelie = new Pipeline();
+                $st_pipeline = new Pipeline();
                 $pipes = $this->getTwoPipes();
-                $st_pipelie->pipe($pipes);
+                $st_pipeline->pipe($pipes);
                 $st_decoder = new SectionTwoDecoder(new Section(self::SECTION_TWO), $this->synop_report, $this->ship_report);
-                $st_blocks = $st_pipelie->process($raw_report, $st_decoder);
+                $st_blocks = $st_pipeline->process($raw_report, $st_decoder);
                 return $this->putSection($st_blocks) ? true : false;
             }
         } else {
-            //ship report
+            return false;
         }
 
         return $section_two ? true : null;
