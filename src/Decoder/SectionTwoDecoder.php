@@ -27,6 +27,17 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $this->ship_report = $ship;
     }
 
+    /**
+     * Returns the result of checking if the group of the code matches the group of the weather report
+     * @param string $codeFigure
+     * @param int $size Weather group size
+     * @return bool
+     */
+    public function isGroup(string $codeFigure, int $size): bool
+    {
+        return mb_strlen($codeFigure) === $size;
+    }
+
     public function parse(): SectionInterface
     {
         return $this->section;
@@ -46,6 +57,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $section_two = false;
         if($this->synop_report) {
             $section_two_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($section_two_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($section_two_group, 0, 3);
             if(strcmp($distinguishing_digit, '222') == 0) {
                 $section_two = true;
@@ -66,6 +81,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $sea_temperature = true;
         if($this->synop_report) {
             $sea_temperature_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($sea_temperature_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($sea_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '0') == 0) {
                 $sea_temperature = true;
@@ -86,6 +105,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $sea_wave = false;
         if($this->synop_report) {
             $sea_wave_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($sea_wave_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($sea_wave_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $sea_wave = true;
@@ -106,6 +129,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $wind_waves = false;
         if($this->synop_report) {
             $wind_waves_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($wind_waves_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($wind_waves_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $wind_waves = true;
@@ -126,6 +153,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $wave_transference = false;
         if($this->synop_report) {
             $wave_transference_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($wave_transference_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($wave_transference_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $wave_transference = true;
@@ -146,6 +177,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $period_height_wave = false;
         if($this->synop_report) {
             $period_height_wind_wave_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($period_height_wind_wave_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($period_height_wind_wave_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $period_height_wave = true;
@@ -166,6 +201,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $period_and_height_wave = false;
         if($this->synop_report) {
             $period_height_wave_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($period_height_wave_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($period_height_wave_group, 0, 1);
             if(strcmp($distinguishing_digit, '5') == 0) {
                 $period_and_height_wave = true;
@@ -186,6 +225,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $period_and_height_wave = false;
         if($this->synop_report) {
             $vessel_icing_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($vessel_icing_group, 5)) {
+                return null;
+            }
+
             $distinguishing_digit = substr($vessel_icing_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $period_and_height_wave = true;
@@ -206,6 +249,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         $ice = false;
         if($this->synop_report) {
             $distinguishing_word_ice = $this->block($raw_report->getReport());
+            if (!$this->isGroup($distinguishing_word_ice, 3)) {
+                return null;
+            }
+
             if(strcmp($distinguishing_word_ice, 'ICE') == 0) {
                 $ice = true;
                 $this->updateReport($distinguishing_word_ice, $raw_report);
@@ -222,6 +269,10 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     {
         if($this->synop_report) {
             $ice_group = $this->block($raw_report->getReport());
+            if (!$this->isGroup($ice_group, 5)) {
+                return null;
+            }
+
         } else {
             //ship report
         }
