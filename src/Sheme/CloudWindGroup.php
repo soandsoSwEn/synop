@@ -7,6 +7,7 @@ use Exception;
 use Synop\Decoder\GroupDecoder\CloudWindDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * The CloudWindGroup class contains methods for working with a group of total number of clouds and wind - 'Nddff'
@@ -35,23 +36,24 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $wind_speed;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
     /**
      * Sets the parameters of a group of total number of clouds and wind
      * @param string $data
+     * @param ValidateInterface $validate
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->raw_clouds_wind = $data;
             $this->setDecoder(new CloudWindDecoder($this->raw_clouds_wind));
-            $this->setCloudWind($this->getDecoder());
+            $this->setCloudWind($this->getDecoder(), $validate);
         } else {
             throw new Exception('CloudWind group cannot be empty!');
         }
@@ -130,13 +132,19 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the group parameters of the total number of clouds and wind
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return void
+     * @throws Exception
      */
-    public function setCloudWind(GroupDecoderInterface $decoder) : void
+    public function setCloudWind(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        $this->setTotalClouds($decoder);
-        $this->setDirectionWind($decoder);
-        $this->setWindSpeed($decoder);
+        if ($decoder->isGroup($validate)) {
+            $this->setTotalClouds($decoder);
+            $this->setDirectionWind($decoder);
+            $this->setWindSpeed($decoder);
+        } else {
+            throw new Exception('Critical data format error! Cloud and wind data group incorrectly specified');
+        }
     }
 
     /**

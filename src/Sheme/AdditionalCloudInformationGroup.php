@@ -8,6 +8,7 @@ use Exception;
 use Synop\Decoder\GroupDecoder\AdditionalCloudInformationDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class AdditionalCloudInformationGroup contains methods for working with a group Additional cloud information
@@ -54,9 +55,9 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
      */
     private $heightCloud;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -65,12 +66,12 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
      * @param string $data Additional cloud information transfer group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawAdditionCloudInformation($data);
             $this->setDecoder(new AdditionalCloudInformationDecoder($this->getRawAdditionCloudInformation()));
-            $this->setAdditionalCloudInformationGroup($this->getDecoder());
+            $this->setAdditionalCloudInformationGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('AdditionalCloudInformationGroup group cannot be empty!');
         }
@@ -202,9 +203,9 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
         return $this->heightCloud;
     }
 
-    public function setAdditionalCloudInformationGroup(GroupDecoderInterface $decoder) : void
+    public function setAdditionalCloudInformationGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isAddCloudGroup($decoder)) {
+        if ($this->isAddCloudGroup($decoder, $validate)) {
             $this->setCodeAmountCloud($decoder);
             $this->setAmountCloud($decoder);
             $this->setFormCloud($decoder);
@@ -222,11 +223,12 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
     /**
      * Returns whether the given group is an additional cloud information transfer group
      * @param GroupDecoderInterface $decoder Initialized decoder object
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isAddCloudGroup(GroupDecoderInterface $decoder) : bool
+    public function isAddCloudGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

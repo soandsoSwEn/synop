@@ -7,8 +7,8 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
-use Synop\Fabrication\Unit;
 use Synop\Fabrication\UnitInterface;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class SunshineRadiationDataGroup contains methods for working with a duration of sunshine and radiation group
@@ -40,9 +40,9 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
      */
     private $sunshine;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -51,12 +51,12 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
      * @param string $data Duration of sunshine and radiation group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawSunshineRadiation($data);
             $this->setDecoder(new SunshineRadiationDataDecoder($this->getRawSunshineRadiation()));
-            $this->setSunshineRadiationGroup($this->getDecoder());
+            $this->setSunshineRadiationGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('SunshineRadiationDataGroup group cannot be empty!');
         }
@@ -138,9 +138,9 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
      * Sets values for the state of the duration of sunshine and radiation group variables
      * @param GroupDecoderInterface $decoder Decoder object for duration of sunshine and radiation group
      */
-    public function setSunshineRadiationGroup(GroupDecoderInterface $decoder)
+    public function setSunshineRadiationGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isSunshineRadiationGroup($decoder)) {
+        if ($this->isSunshineRadiationGroup($decoder, $validate)) {
             $this->setCodeSunshine($decoder);
             $this->setSunshine($decoder);
         } else {
@@ -154,9 +154,9 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
      * @param GroupDecoderInterface $decoder Decoder object for duration of sunshine and radiation group
      * @return bool
      */
-    public function isSunshineRadiationGroup(GroupDecoderInterface $decoder) : bool
+    public function isSunshineRadiationGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

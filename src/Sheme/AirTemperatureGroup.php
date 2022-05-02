@@ -7,6 +7,7 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -43,9 +44,9 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $temperatureValue;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -55,12 +56,12 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
      * @param string $data Air temperature group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if(!empty($data)) {
             $this->raw_air_temperature = $data;
             $this->decoder = new AirTemperatureDecoder($this->raw_air_temperature);
-            $this->setAirTempGroup($this->decoder);
+            $this->setAirTempGroup($this->decoder, $validate);
         } else {
             throw new Exception('AirTemperatureGroup group cannot be empty!');
         }
@@ -158,10 +159,11 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
      * Sets the values for the air temperature group variables
      *
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setAirTempGroup(GroupDecoderInterface $decoder) : void
+    public function setAirTempGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isAirTempGroup($decoder)) {
+        if ($this->isAirTempGroup($decoder, $validate)) {
             $this->setSign($decoder);
             $this->setTemperature($decoder);
             $this->buildAirTemperature($this->sign, $this->temperature);
@@ -176,11 +178,12 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
      * Returns whether the given group is an air temperature group
      *
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isAirTempGroup(GroupDecoderInterface $decoder) : bool
+    public function isAirTempGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

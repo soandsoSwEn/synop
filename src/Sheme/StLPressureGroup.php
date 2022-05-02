@@ -7,6 +7,7 @@ use Synop\Fabrication\UnitInterface;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\StLPressureDecoder;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -34,18 +35,18 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $pressure;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->raw_stl_pressure = $data;
             $this->setDecoder(new StLPressureDecoder($this->raw_stl_pressure));
-            $this->setStLPressureGroup($this->getDecoder());
+            $this->setStLPressureGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('StLPressureGroup group cannot be empty!');
         }
@@ -89,9 +90,9 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
      * Sets the parameters of the Station level atmospheric pressure group
      * @param GroupDecoderInterface $decoder
      */
-    public function setStLPressureGroup(GroupDecoderInterface $decoder)
+    public function setStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isStLPressureGroup($decoder)) {
+        if ($this->isStLPressureGroup($decoder, $validate)) {
             $this->setStLPressure($decoder);
         } else {
             $this->setStLPressure(null);
@@ -103,9 +104,9 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
      * @param GroupDecoderInterface $decoder
      * @return bool
      */
-    public function isStLPressureGroup(GroupDecoderInterface $decoder) : bool
+    public function isStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

@@ -12,7 +12,7 @@ use Synop\Fabrication\RawReportInterface;
 class RawReport implements RawReportInterface
 {
     /**
-     * @var type string Weather report
+     * @var string Weather report
      */
     private $report;
     

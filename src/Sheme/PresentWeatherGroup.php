@@ -6,6 +6,7 @@ namespace Synop\Sheme;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -47,21 +48,21 @@ class PresentWeatherGroup implements GroupInterface
      */
     private $pastWeather;
 
-    public function __construct(string $data)
+    public function __construct(string $data, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
     }
 
     /**
      * @param string $data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->rawPresentWeather = $data;
             $this->setDecoder(new PresentWeatherDecoder($this->rawPresentWeather));
-            $this->setPresentWeatherGroup($this->getDecoder());
+            $this->setPresentWeatherGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('PresentWeatherGroup group cannot be empty!');
         }
@@ -158,10 +159,11 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets the parameters of Present weather group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setPresentWeatherGroup(GroupDecoderInterface $decoder)
+    public function setPresentWeatherGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isPresentWeatherGroup($decoder)) {
+        if ($this->isPresentWeatherGroup($decoder, $validate)) {
             $this->setPresentWeatherSymbol($decoder);
             $this->setPresentWeather($decoder);
             $this->setPastWeatherSymbol($decoder);
@@ -179,9 +181,9 @@ class PresentWeatherGroup implements GroupInterface
      * @param GroupDecoderInterface $decoder
      * @return bool
      */
-    public function isPresentWeatherGroup(GroupDecoderInterface $decoder) : bool
+    public function isPresentWeatherGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

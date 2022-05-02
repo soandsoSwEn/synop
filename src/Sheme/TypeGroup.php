@@ -7,6 +7,7 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\TypeDecoder;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class TypeGroup contains methods for working with a group such as a weather report AAXX/BBXX
@@ -42,9 +43,9 @@ class TypeGroup implements GroupInterface
      */
     private $isShip;
 
-    public function __construct(string $data)
+    public function __construct(string $data, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
     }
 
     /**
@@ -58,12 +59,12 @@ class TypeGroup implements GroupInterface
     /**
      * @inheritDoc
      */
-    public function setData(string $data): void
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
             $this->rawTypeData = $data;
             $this->setDecoder(new TypeDecoder($this->rawTypeData));
-            $this->setTypeGroup($this->getDecoder());
+            $this->setTypeGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('Type group cannot be empty!');
         }
@@ -77,11 +78,15 @@ class TypeGroup implements GroupInterface
         return $this->decoder;
     }
 
-    public function setTypeGroup(GroupDecoderInterface $decoder) : void
+    public function setTypeGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        $this->setType($decoder);
-        $this->setSynop($decoder);
-        $this->setShip($decoder);
+        if ($this->isTypeGroup($decoder, $validate)) {
+            $this->setType($decoder);
+            $this->setSynop($decoder);
+            $this->setShip($decoder);
+        } else {
+            throw new Exception('Error determining the type of weather report');
+        }
     }
 
     /**
@@ -146,5 +151,16 @@ class TypeGroup implements GroupInterface
         }
 
         return $this->isShip;
+    }
+
+    /**
+     * Returns whether the given group is an type report
+     * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
+     * @return bool
+     */
+    public function isTypeGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
+    {
+        return $decoder->isGroup($validate);
     }
 }

@@ -6,6 +6,7 @@ use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * The LowCloudVisibilityGroup class contains methods for working with 
@@ -41,18 +42,18 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
     private $visibility;
 
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
     
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if(!empty($data)) {
             $this->raw_cloud_vis = $data;
             $this->setDecoder(new LowCloudVisibilityDecoder($this->raw_cloud_vis));
-            $this->setLcvGroup($this->getDecoder());
+            $this->setLcvGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('LowCloudVisibility group cannot be empty!');
         }
@@ -113,18 +114,26 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
     {
         return $this->visibility;
     }
-    
+
     /**
      * Sets the parameters of a group of cloud height and horizontal visibility
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return void
      */
-    public function setLcvGroup(GroupDecoderInterface $decoder) : void
+    public function setLcvGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        $this->setIncPrecip($decoder);
-        $this->setIncWeather($decoder);
-        $this->setHlowClouds($decoder);
-        $this->setVisibility($decoder);
+        if ($decoder->isGroup($validate)) {
+            $this->setIncPrecip($decoder);
+            $this->setIncWeather($decoder);
+            $this->setHlowClouds($decoder);
+            $this->setVisibility($decoder);
+        } else {
+            $this->setIncPrecip(null);
+            $this->setIncWeather(null);
+            $this->setHlowClouds(null);
+            $this->setVisibility(null);
+        }
     }
     
     /**

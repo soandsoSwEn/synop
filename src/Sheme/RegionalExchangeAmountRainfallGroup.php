@@ -7,6 +7,7 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
 use Synop\Fabrication\UnitInterface;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class RegionalExchangeAmountRainfallGroup contains methods for working with a group of amount of rainfall
@@ -21,9 +22,9 @@ use Synop\Fabrication\UnitInterface;
  */
 class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
 {
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        parent::__construct($data, $unit);
+        parent::__construct($data, $unit, $validate);
     }
 
     /**
@@ -31,12 +32,12 @@ class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
      * @param string $data Amount of rainfall group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawAmountRainfall($data);
             $this->setDecoder(new AmountRainfallDecoder($this->getRawAmountRainfall()));
-            $this->setAmountRainfallGroup($this->getDecoder());
+            $this->setAmountRainfallGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('RegionalExchangeAmountRainfallGroup group cannot be empty!');
         }

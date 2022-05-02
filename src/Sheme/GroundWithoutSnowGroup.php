@@ -8,6 +8,7 @@ use Exception;
 use Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithoutSnowGroup contains methods for working with a group of state of the ground without snow
@@ -54,9 +55,9 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
      */
     private $minTemperatureValue;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -65,12 +66,12 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
      * @param string $data state of ground group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawGroundWithoutSnow($data);
             $this->setDecoder(new GroundWithoutSnowDecoder($this->getRawGroundWithoutSnow()));
-            $this->setGroundWithoutSnowGroup($this->getDecoder());
+            $this->setGroundWithoutSnowGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('GroundWithoutSnowGroup group cannot be empty!');
         }
@@ -206,9 +207,9 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
      * Sets values for the state of the ground group variables
      * @param GroupDecoderInterface $decoder Initialized decoder object for state of ground group
      */
-    public function setGroundWithoutSnowGroup(GroupDecoderInterface $decoder)
+    public function setGroundWithoutSnowGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isDrWtSnGroup($decoder)) {
+        if ($this->isDrWtSnGroup($decoder, $validate)) {
             $this->setCodeState($decoder);
             $this->setState($decoder);
             $this->setSign($decoder);
@@ -226,11 +227,12 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
     /**
      * Returns whether the given group is a state of ground group
      * @param GroupDecoderInterface $decoder Initialized decoder object
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isDrWtSnGroup(GroupDecoderInterface $decoder) : bool
+    public function isDrWtSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

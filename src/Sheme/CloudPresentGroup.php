@@ -6,6 +6,7 @@ namespace Synop\Sheme;
 use Exception;
 use Synop\Decoder\GroupDecoder\CloudPresentDecoder;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -67,21 +68,21 @@ class CloudPresentGroup implements GroupInterface
      */
     private $formHighCloud;
 
-    public function __construct(string $data)
+    public function __construct(string $data, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
     }
 
     /**
      * @param string $data Code block of cloud present group
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->rawCloudPresent = $data;
             $this->setDecoder(new CloudPresentDecoder($this->rawCloudPresent));
-            $this->setCloudPresentGroup($this->getDecoder());
+            $this->setCloudPresentGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('PresentWeatherGroup group cannot be empty!');
         }
@@ -232,10 +233,11 @@ class CloudPresentGroup implements GroupInterface
     /**
      * Sets the parameters of cloud present group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setCloudPresentGroup(GroupDecoderInterface $decoder)
+    public function setCloudPresentGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isCloudPresentGroup($decoder)) {
+        if ($this->isCloudPresentGroup($decoder, $validate)) {
             $this->setAmountLowCloudSymbol($decoder);
             $this->setAmountLowCloud($decoder);
             $this->setFormLowCloudSymbol($decoder);
@@ -259,11 +261,12 @@ class CloudPresentGroup implements GroupInterface
     /**
      * Validates a block of code against a cloud present group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isCloudPresentGroup(GroupDecoderInterface $decoder) : bool
+    public function isCloudPresentGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

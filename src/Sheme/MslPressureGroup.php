@@ -7,6 +7,7 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\MslPressureDecoder;
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -34,18 +35,18 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $pressure;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->rawMlsPressure = $data;
             $this->setDecoder(new MslPressureDecoder($this->rawMlsPressure));
-            $this->setMslPressureGroup($this->getDecoder());
+            $this->setMslPressureGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('MslPressureGroup group cannot be empty!');
         }
@@ -89,9 +90,9 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
      * Sets the parameters of Air Pressure reduced to mean sea level
      * @param GroupDecoderInterface $decoder
      */
-    public function setMslPressureGroup(GroupDecoderInterface $decoder) : void
+    public function setMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isMslPressureGroup($decoder)) {
+        if ($this->isMslPressureGroup($decoder, $validate)) {
             $this->setMslPressure($decoder);
         } else {
             $this->setMslPressure(null);
@@ -103,9 +104,9 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
      * @param GroupDecoderInterface $decoder
      * @return bool
      */
-    public function isMslPressureGroup(GroupDecoderInterface $decoder) : bool
+    public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

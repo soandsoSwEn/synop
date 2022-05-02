@@ -6,6 +6,7 @@ namespace Synop\Process;
 
 use Synop\Decoder\DecoderInterface;
 use Synop\Fabrication\RawReportInterface;
+use Synop\Fabrication\ValidateInterface;
 use Synop\Sheme\SectionInterface;
 
 /**
@@ -30,7 +31,8 @@ interface PipelineInterface
      *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of code of weather report
+     * @param ValidateInterface $validate Object for decoding meteorological report
      * @return SectionInterface
      */
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder) : SectionInterface;
+    public function process(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate) : SectionInterface;
 }

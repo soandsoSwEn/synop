@@ -7,6 +7,7 @@ use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Fabrication\UnitInterface;
 use Exception;
 use Synop\Decoder\GroupDecoder\DewPointTemperatureDecoder;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -22,6 +23,8 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
      * @var string Dew point temperature group data
      */
     private $raw_dp_temperature;
+
+    private $validate;
 
     /**
      * @var GroupDecoderInterface
@@ -43,18 +46,18 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
      */
     private $dewPointValue;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->raw_dp_temperature = $data;
             $this->setDecoder(new DewPointTemperatureDecoder($this->raw_dp_temperature));
-            $this->setDwPtTemperatureGroup($this->getDecoder());
+            $this->setDwPtTemperatureGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('DewPointTemperatureGroup group cannot be empty!');
         }
@@ -133,10 +136,11 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
     /**
      * Sets the parameters of the dew point temperature group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setDwPtTemperatureGroup(GroupDecoderInterface $decoder) : void
+    public function setDwPtTemperatureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isDwPtTemperatureGroup($decoder)) {
+        if ($this->isDwPtTemperatureGroup($decoder, $validate)) {
             $this->setSign($decoder);
             $this->setDewPointTemperature($decoder);
             $this->buildDewPointTemperature($this->sign, $this->dewPoint);
@@ -150,11 +154,12 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
     /**
      * Validates a block of code against a dew point temperature group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isDwPtTemperatureGroup(GroupDecoderInterface $decoder) : bool
+    public function isDwPtTemperatureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

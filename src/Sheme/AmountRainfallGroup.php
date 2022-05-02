@@ -7,6 +7,7 @@ use Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
 use Synop\Fabrication\UnitInterface;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -43,9 +44,9 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $amountRainfall;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -54,12 +55,12 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
      * @param string $data Amount of rainfall group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawAmountRainfall($data);
             $this->setDecoder(new AmountRainfallDecoder($this->getRawAmountRainfall()));
-            $this->setAmountRainfallGroup($this->getDecoder());
+            $this->setAmountRainfallGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('AmountRainfallGroup group cannot be empty!');
         }
@@ -68,10 +69,11 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the parameters of Amount of rainfall group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setAmountRainfallGroup(GroupDecoderInterface $decoder)
+    public function setAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isAmountRainfallGroup($decoder)) {
+        if ($this->isAmountRainfallGroup($decoder, $validate)) {
             $this->setAmountRainfall($decoder);
             $this->setDurationPeriodNumber($decoder);
             $this->setDurationPeriod($decoder);
@@ -175,11 +177,12 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Validates a block of code against a Amount of rainfall
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isAmountRainfallGroup(GroupDecoderInterface $decoder) : bool
+    public function isAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

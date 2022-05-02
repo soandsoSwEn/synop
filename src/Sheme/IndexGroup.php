@@ -2,6 +2,7 @@
 
 namespace Synop\Sheme;
 
+use Synop\Fabrication\ValidateInterface;
 use Synop\Sheme\GroupInterface;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Synop\Decoder\GroupDecoder\IndexDecoder;
@@ -33,17 +34,17 @@ class IndexGroup implements GroupInterface
      */
     private $station_index;
     
-    public function __construct(string $index)
+    public function __construct(string $index, ValidateInterface $validate)
     {
-        $this->setData($index);
+        $this->setData($index, $validate);
     }
     
-    public function setData(string $index) : void
+    public function setData(string $index, ValidateInterface $validate) : void
     {
         if(!empty($index)) {
             $this->raw_index = $index;
             $this->setDecoder(new IndexDecoder($this->raw_index));
-            $this->setIndexGroup($this->getDecoder());
+            $this->setIndexGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('Station index group cannot be empty!');
         }
@@ -95,11 +96,15 @@ class IndexGroup implements GroupInterface
         return $this->station_index;
     }
     
-    public function setIndexGroup(GroupDecoderInterface $decoder) : void
+    public function setIndexGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        $this->setAreaNumber($decoder);
-        $this->setStationNumber($decoder);
-        $this->setStationIndex($decoder);
+        if ($decoder->isGroup($validate)) {
+            $this->setAreaNumber($decoder);
+            $this->setStationNumber($decoder);
+            $this->setStationIndex($decoder);
+        } else {
+            throw new Exception('Error specifying station number');
+        }
     }
     
     public function setAreaNumber(GroupDecoderInterface $decoder) : void
