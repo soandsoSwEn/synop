@@ -5,6 +5,7 @@ namespace Synop\Decoder\GroupDecoder;
 
 use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -98,13 +99,23 @@ class CloudPresentDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawCloudPresent, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigure(), $this->getAmountLowCloudSymbol(), $this->getFormLowCloudSymbol(),
+                $this->getFormMediumCloudSymbol(), $this->getFormHighCloudSymbol()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -201,5 +212,15 @@ class CloudPresentDecoder implements GroupDecoderInterface
         } else {
             throw new Exception('Invalid data of Form of high cloud');
         }
+    }
+
+    /**
+     * Return code figure of cloud present group
+     *
+     * @return false|string
+     */
+    private function getCodeFigure()
+    {
+        return substr($this->rawCloudPresent, 0, 1);
     }
 }

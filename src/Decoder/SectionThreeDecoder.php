@@ -4,6 +4,7 @@ namespace Synop\Decoder;
 
 use Synop\Decoder\Decoder;
 use Synop\Fabrication\Unit;
+use Synop\Fabrication\ValidateInterface;
 use Synop\Sheme\AdditionalCloudInformationGroup;
 use Synop\Sheme\AirTemperatureGroup;
 use Synop\Sheme\GroundWithoutSnowGroup;
@@ -85,9 +86,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
     /**
      * Defines the air maximum temperature group
      * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get1SnTxTxTx(RawReportInterface $raw_report) : ?bool
+    public function get1SnTxTxTx(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
     {
         $maximum_temperature = false;
         if($this->synop_report) {
@@ -99,7 +101,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($maximum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '1') == 0) {
                 $maximum_temperature = true;
-                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group, $this->unit);
+                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -115,9 +117,10 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
     /**
      * Defines the air minimum temperature group
      * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get2SnTnTnTn(RawReportInterface $raw_report) : ?bool
+    public function get2SnTnTnTn(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
     {
         $minimum_temperature = false;
         if($this->synop_report) {
@@ -129,7 +132,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($minimum_temperature_group, 0, 1);
             if(strcmp($distinguishing_digit, '2') == 0) {
                 $minimum_temperature = true;
-                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group, $this->unit);
+                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -147,7 +150,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get3ESnTgTg(RawReportInterface $raw_report)
+    public function get3ESnTgTg(RawReportInterface $raw_report, ValidateInterface $validate)
     {
         $stateGround = false;
         if($this->synop_report) {
@@ -159,7 +162,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($state_ground_group, 0, 1);
             if(strcmp($distinguishing_digit, '3') == 0) {
                 $stateGround = true;
-                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group, $this->unit);
+                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -177,7 +180,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get4Esss(RawReportInterface $raw_report)
+    public function get4Esss(RawReportInterface $raw_report, ValidateInterface $validate)
     {
         $stateGroundSnow = false;
         if($this->synop_report) {
@@ -189,7 +192,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($state_ground_with_snow_group, 0, 1);
             if(strcmp($distinguishing_digit, '4') == 0) {
                 $stateGroundSnow = true;
-                $Esss = new GroundWithSnowGroup($state_ground_with_snow_group, $this->unit);
+                $Esss = new GroundWithSnowGroup($state_ground_with_snow_group, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -207,7 +210,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get55SSS(RawReportInterface $raw_report)
+    public function get55SSS(RawReportInterface $raw_report, ValidateInterface $validate)
     {
         $sunshineRadiation = false;
         if($this->synop_report) {
@@ -219,7 +222,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($sunshineRadiationGroup, 0, 2);
             if(strcmp($distinguishing_digit, '55') == 0) {
                 $sunshineRadiation = true;
-                $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup, $this->unit);
+                $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -237,7 +240,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get6RRRtr(RawReportInterface $raw_report)
+    public function get6RRRtr(RawReportInterface $raw_report, ValidateInterface $validate)
     {
         $precipitation = false;
         if($this->synop_report) {
@@ -249,7 +252,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($precipitation_group, 0, 1);
             if(strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
-                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group, $this->unit);
+                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group, $this->unit, $validate);
             }
         } else {
             //ship report
@@ -267,7 +270,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get8NsChshs(RawReportInterface $raw_report)
+    public function get8NsChshs(RawReportInterface $raw_report, ValidateInterface $validate)
     {
         $clouds = false;
         if($this->synop_report) {
@@ -279,7 +282,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
             $distinguishing_digit = substr($clouds_group, 0, 1);
             if(strcmp($distinguishing_digit, '8') == 0) {
                 $clouds = true;
-                $NsChshs = new AdditionalCloudInformationGroup($clouds_group, $this->unit);
+                $NsChshs = new AdditionalCloudInformationGroup($clouds_group, $this->unit, $validate);
             }
         } else {
             //ship report

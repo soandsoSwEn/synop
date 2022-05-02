@@ -5,6 +5,7 @@ namespace Synop\Decoder\GroupDecoder;
 
 
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class AdditionalCloudInformationDecoder contains methods for decoding a group of Additional cloud
@@ -77,13 +78,23 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawAdditionCloudInformation, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigureIndicator(), $this->getCodeFigureAmount(), $this->getCodeFigureForm(),
+                $this->getCodeFigureHeight()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -211,5 +222,45 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
         }
 
         return ($intValueOfHshs - 80) * 1500 + 9000;
+    }
+
+    /**
+     * Return code figure of indicator of Additional cloud group
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawAdditionCloudInformation, 0, 1);
+    }
+
+    /**
+     * Return code figure of amount of individual cloud layer
+     *
+     * @return false|string
+     */
+    private function getCodeFigureAmount()
+    {
+        return substr($this->rawAdditionCloudInformation, 1, 1);
+    }
+
+    /**
+     * Return code figure of form of cloud
+     *
+     * @return false|string
+     */
+    private function getCodeFigureForm()
+    {
+        return substr($this->rawAdditionCloudInformation, 2, 1);
+    }
+
+    /**
+     * Return code figure height of base of cloud layer
+     *
+     * @return false|string
+     */
+    private function getCodeFigureHeight()
+    {
+        return substr($this->rawAdditionCloudInformation, 3, 2);
     }
 }

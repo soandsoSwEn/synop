@@ -3,7 +3,9 @@
 
 namespace Synop\Decoder\GroupDecoder;
 
+use Exception;
 use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -38,13 +40,22 @@ class AmountRainfallDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawAmountRainfall, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigureIndicator(), $this->getCodeFigureAmount(), $this->getCodeFigurePeriod()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     public function getAmountRainfall() : array
@@ -107,5 +118,35 @@ class AmountRainfallDecoder implements GroupDecoderInterface
         }
 
         return [null, intval($rainfallData)];
+    }
+
+    /**
+     * Return code figure of Amount of rainfall group
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawAmountRainfall, 0, 1);
+    }
+
+    /**
+     * Return code figure of Amount of rainfall data
+     *
+     * @return false|string
+     */
+    private function getCodeFigureAmount()
+    {
+        return substr($this->rawAmountRainfall, 1, 3);
+    }
+
+    /**
+     * Return code figure of duration period
+     *
+     * @return false|string
+     */
+    private function getCodeFigurePeriod()
+    {
+        return substr($this->rawAmountRainfall, 4, 1);
     }
 }

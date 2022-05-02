@@ -5,6 +5,7 @@ namespace Synop\Decoder\GroupDecoder;
 
 
 use Exception;
+use Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithoutSnowDecoder contains methods for decoding a group of state of the ground without snow
@@ -47,13 +48,23 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawGroundWithoutSnow, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigureIndicator(), $this->getCodeFigureStateGround(), $this->getCodeFigureSignTemperature(),
+                $this->getCodeFigureMinTemperature()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -104,5 +115,45 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
         $minGrassTemperature = substr($this->rawGroundWithoutSnow, 3, 2);
 
         return intval($minGrassTemperature);
+    }
+
+    /**
+     * Return code figure of indicator of ground without snow group
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawGroundWithoutSnow, 0, 1);
+    }
+
+    /**
+     * Return code figure of state of ground
+     *
+     * @return false|string
+     */
+    private function getCodeFigureStateGround()
+    {
+        return substr($this->rawGroundWithoutSnow, 1, 1);
+    }
+
+    /**
+     * Return code figure of sign temperature
+     *
+     * @return false|string
+     */
+    private function getCodeFigureSignTemperature()
+    {
+        return substr($this->rawGroundWithoutSnow, 2, 1);
+    }
+
+    /**
+     * Return code figure minimum temperature
+     *
+     * @return false|string
+     */
+    private function getCodeFigureMinTemperature()
+    {
+        return substr($this->rawGroundWithoutSnow, 3, 2);
     }
 }

@@ -5,6 +5,9 @@ namespace Synop\Decoder\GroupDecoder;
 
 
 
+use Exception;
+use Synop\Fabrication\ValidateInterface;
+
 /**
  * Class MslPressureDecoder contains methods for decoding a group of Air Pressure reduced to mean sea level
  *
@@ -29,13 +32,20 @@ class MslPressureDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawMlsPressure, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -57,5 +67,25 @@ class MslPressureDecoder implements GroupDecoderInterface
         }
 
         return $seaLevelPressure;
+    }
+
+    /**
+     * Return code figure of indicator of air Pressure reduced to mean sea level value
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawMlsPressure, 0, 1);
+    }
+
+    /**
+     * Return code figure of air Pressure reduced to mean sea level value
+     *
+     * @return false|string
+     */
+    private function getCodeFigurePressure()
+    {
+        return substr($this->rawMlsPressure, 1, 4);
     }
 }

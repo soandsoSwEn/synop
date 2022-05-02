@@ -5,6 +5,8 @@ namespace Synop\Decoder\GroupDecoder;
 
 
 
+use Synop\Fabrication\ValidateInterface;
+
 /**
  * Class AirTemperatureDecoder contains methods for decoding an air temperature group
  *
@@ -36,13 +38,22 @@ class AirTemperatureDecoder implements GroupDecoderInterface
     /**
      * Returns the result of checking the validity of the group
      *
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws \Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishing_digit = substr($this->raw_air_temperature, 0, 1);
 
-        return strcasecmp($distinguishing_digit, $this->currentDigit) == 0 ? true : false;
+        if (strcasecmp($distinguishing_digit, $this->currentDigit) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigureDistNumber(), $this->getCodeFigureSignTemperature(), $this->getCodeFigureTemperature()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -67,5 +78,35 @@ class AirTemperatureDecoder implements GroupDecoderInterface
         $airTemperature = $integerOfNumber . '.' . $fractionalOfNumber;
 
         return floatval($airTemperature);
+    }
+
+    /**
+     * Return code figure of distinctive number of air temperature group
+     *
+     * @return false|string
+     */
+    public function getCodeFigureDistNumber()
+    {
+        return substr($this->raw_air_temperature, 0, 1);
+    }
+
+    /**
+     * Return code figure of sign of temperature
+     *
+     * @return false|string
+     */
+    public function getCodeFigureSignTemperature()
+    {
+        return substr($this->raw_air_temperature, 1, 1);
+    }
+
+    /**
+     * Return code figure of air temperature
+     *
+     * @return false|string
+     */
+    public function getCodeFigureTemperature()
+    {
+        return substr($this->raw_air_temperature, 2, 3);
     }
 }
