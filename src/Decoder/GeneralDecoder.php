@@ -1,27 +1,27 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\ValidateInterface;
-use Synop\Sheme\AirTemperatureGroup;
-use Synop\Sheme\AmountRainfallGroup;
-use Synop\Sheme\BaricTendencyGroup;
-use Synop\Sheme\CloudPresentGroup;
-use Synop\Sheme\CloudWindGroup;
-use Synop\Sheme\DewPointTemperatureGroup;
-use Synop\Sheme\LowCloudVisibilityGroup;
-use Synop\Sheme\MslPressureGroup;
-use Synop\Sheme\PresentWeatherGroup;
-use Synop\Sheme\SectionInterface;
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Sheme\AirTemperatureGroup;
+use Soandso\Synop\Sheme\AmountRainfallGroup;
+use Soandso\Synop\Sheme\BaricTendencyGroup;
+use Soandso\Synop\Sheme\CloudPresentGroup;
+use Soandso\Synop\Sheme\CloudWindGroup;
+use Soandso\Synop\Sheme\DewPointTemperatureGroup;
+use Soandso\Synop\Sheme\LowCloudVisibilityGroup;
+use Soandso\Synop\Sheme\MslPressureGroup;
+use Soandso\Synop\Sheme\PresentWeatherGroup;
+use Soandso\Synop\Sheme\SectionInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 use Exception;
-use Synop\Process\Pipeline;
-use Synop\Sheme\Section;
-use Synop\Sheme\DateGroup;
-use Synop\Sheme\IndexGroup;
-use Synop\Sheme\StLPressureGroup;
-use Synop\Sheme\TypeGroup;
+use Soandso\Synop\Process\Pipeline;
+use Soandso\Synop\Sheme\Section;
+use Soandso\Synop\Sheme\DateGroup;
+use Soandso\Synop\Sheme\IndexGroup;
+use Soandso\Synop\Sheme\StLPressureGroup;
+use Soandso\Synop\Sheme\TypeGroup;
 
 /**
  * Identifies decoding and determines the meta information of the weather

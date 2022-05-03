@@ -1,12 +1,12 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Fabrication\UnitInterface;
-use Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * The LowCloudVisibilityGroup class contains methods for working with 

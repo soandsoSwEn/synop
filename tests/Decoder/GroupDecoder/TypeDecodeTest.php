@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Synop\Tests\Decoder\GroupDecoder;
+namespace Soandso\Synop\Tests\Decoder\GroupDecoder;
 
 
 use PHPUnit\Framework\TestCase;
-use Synop\Decoder\GroupDecoder\TypeDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
 
 class TypeDecodeTest extends TestCase
 {

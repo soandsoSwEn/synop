@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class TypeDecoder methods for defining the type of the weather report type

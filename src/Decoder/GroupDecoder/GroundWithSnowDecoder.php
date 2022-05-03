@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
 use Exception;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithSnowDecoder contains methods for decoding a group of state of the ground with snow

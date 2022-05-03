@@ -1,11 +1,11 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Decoder\Decoder;
-use Synop\Sheme\SectionInterface;
-use Synop\Decoder\DecoderInterface;
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Decoder\Decoder;
+use Soandso\Synop\Sheme\SectionInterface;
+use Soandso\Synop\Decoder\DecoderInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
  * Description of SectionFiveDecoder

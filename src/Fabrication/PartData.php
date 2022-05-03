@@ -1,31 +1,31 @@
 <?php
 
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 
-use Synop\Sheme\AdditionalCloudInformationGroup;
-use Synop\Sheme\AirTemperatureGroup;
-use Synop\Sheme\AmountRainfallGroup;
-use Synop\Sheme\BaricTendencyGroup;
-use Synop\Sheme\CloudPresentGroup;
-use Synop\Sheme\CloudWindGroup;
-use Synop\Sheme\DateGroup;
-use Synop\Sheme\DewPointTemperatureGroup;
-use Synop\Sheme\GroundWithoutSnowGroup;
-use Synop\Sheme\GroundWithSnowGroup;
-use Synop\Sheme\GroupInterface;
-use Synop\Sheme\IndexGroup;
-use Synop\Sheme\LowCloudVisibilityGroup;
-use Synop\Sheme\MaxAirTemperatureGroup;
-use Synop\Sheme\MinAirTemperatureGroup;
-use Synop\Sheme\MslPressureGroup;
-use Synop\Sheme\PresentWeatherGroup;
-use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
-use Synop\Sheme\SectionInterface;
-use Synop\Sheme\StLPressureGroup;
-use Synop\Sheme\SunshineRadiationDataGroup;
-use Synop\Sheme\TypeGroup;
+use Soandso\Synop\Sheme\AdditionalCloudInformationGroup;
+use Soandso\Synop\Sheme\AirTemperatureGroup;
+use Soandso\Synop\Sheme\AmountRainfallGroup;
+use Soandso\Synop\Sheme\BaricTendencyGroup;
+use Soandso\Synop\Sheme\CloudPresentGroup;
+use Soandso\Synop\Sheme\CloudWindGroup;
+use Soandso\Synop\Sheme\DateGroup;
+use Soandso\Synop\Sheme\DewPointTemperatureGroup;
+use Soandso\Synop\Sheme\GroundWithoutSnowGroup;
+use Soandso\Synop\Sheme\GroundWithSnowGroup;
+use Soandso\Synop\Sheme\GroupInterface;
+use Soandso\Synop\Sheme\IndexGroup;
+use Soandso\Synop\Sheme\LowCloudVisibilityGroup;
+use Soandso\Synop\Sheme\MaxAirTemperatureGroup;
+use Soandso\Synop\Sheme\MinAirTemperatureGroup;
+use Soandso\Synop\Sheme\MslPressureGroup;
+use Soandso\Synop\Sheme\PresentWeatherGroup;
+use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
+use Soandso\Synop\Sheme\SectionInterface;
+use Soandso\Synop\Sheme\StLPressureGroup;
+use Soandso\Synop\Sheme\SunshineRadiationDataGroup;
+use Soandso\Synop\Sheme\TypeGroup;
 
 class PartData implements PartDataInterface
 {

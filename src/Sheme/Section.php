@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 use Exception;
 
 /**

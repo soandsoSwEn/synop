@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Decoder\GroupDecoder\TypeDecoder;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class TypeGroup contains methods for working with a group such as a weather report AAXX/BBXX

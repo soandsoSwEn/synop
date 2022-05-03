@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 use Exception;
-use Synop\Decoder\GroupDecoder\CloudWindDecoder;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\UnitInterface;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\CloudWindDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * The CloudWindGroup class contains methods for working with a group of total number of clouds and wind - 'Nddff'

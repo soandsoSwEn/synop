@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
 use Exception;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Decoder\GroupDecoder\StLPressureDecoder;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 
 /**

@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
 
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class AirTemperatureDecoder contains methods for decoding an air temperature group

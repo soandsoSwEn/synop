@@ -1,21 +1,21 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Decoder\Decoder;
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\ValidateInterface;
-use Synop\Sheme\AdditionalCloudInformationGroup;
-use Synop\Sheme\AirTemperatureGroup;
-use Synop\Sheme\GroundWithoutSnowGroup;
-use Synop\Sheme\GroundWithSnowGroup;
-use Synop\Sheme\MaxAirTemperatureGroup;
-use Synop\Sheme\MinAirTemperatureGroup;
-use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
-use Synop\Sheme\SectionInterface;
-use Synop\Decoder\DecoderInterface;
-use Synop\Fabrication\RawReportInterface;
-use Synop\Sheme\SunshineRadiationDataGroup;
+use Soandso\Synop\Decoder\Decoder;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Sheme\AdditionalCloudInformationGroup;
+use Soandso\Synop\Sheme\AirTemperatureGroup;
+use Soandso\Synop\Sheme\GroundWithoutSnowGroup;
+use Soandso\Synop\Sheme\GroundWithSnowGroup;
+use Soandso\Synop\Sheme\MaxAirTemperatureGroup;
+use Soandso\Synop\Sheme\MinAirTemperatureGroup;
+use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
+use Soandso\Synop\Sheme\SectionInterface;
+use Soandso\Synop\Decoder\DecoderInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Sheme\SunshineRadiationDataGroup;
 
 /**
  * Decodes the group code for section 3 of the weather report

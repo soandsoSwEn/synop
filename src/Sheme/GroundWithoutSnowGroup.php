@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\UnitInterface;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithoutSnowGroup contains methods for working with a group of state of the ground without snow

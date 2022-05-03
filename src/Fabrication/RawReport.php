@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
  * RawReport provides access and manipulation of the native weather report

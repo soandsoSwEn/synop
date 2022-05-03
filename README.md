@@ -73,7 +73,7 @@ Available Methods of the Report Object
 ```php
 require_once dirname(__FILE__) . '/vendor/autoload.php';
 
-use Synop\Report;
+use Soandso\Synop\Report;
 
 $report = new Report('AAXX 07181 33837 11583 83102 10039 21007 30049 40101 52035 60012 70282 8255/ 333 10091 555 1/004=');
 

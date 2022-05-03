@@ -1,9 +1,9 @@
 <?php
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 use Exception;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * The LowCloudVisibilityDecoder class contains methods for decoding elements 

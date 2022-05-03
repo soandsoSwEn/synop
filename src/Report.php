@@ -1,17 +1,17 @@
 <?php
 
-namespace Synop;
+namespace Soandso\Synop;
 
-use Synop\Fabrication\PartData;
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\PartData;
+use Soandso\Synop\Fabrication\RawReportInterface;
 use Exception;
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\Validate;
-use Synop\Fabrication\RawReport;
-use Synop\Decoder\GeneralDecoder;
-use Synop\Sheme\Section;
-use Synop\Process\Pipeline;
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\Validate;
+use Soandso\Synop\Fabrication\RawReport;
+use Soandso\Synop\Decoder\GeneralDecoder;
+use Soandso\Synop\Sheme\Section;
+use Soandso\Synop\Process\Pipeline;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * Weather report initial processing

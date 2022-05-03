@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
 
 use Exception;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class BaricTendencyDecoder contains methods for decoding a group Pressure change over last three hours

@@ -1,9 +1,9 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * This interface should be implemented by a class that creates a group of code of weather report.

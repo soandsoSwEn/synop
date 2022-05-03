@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
-use Synop\Fabrication\DateInterface;
+use Soandso\Synop\Fabrication\DateInterface;
 
 /**
  * Description of Date

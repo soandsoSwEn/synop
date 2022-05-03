@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
-use Synop\Fabrication\UnitInterface;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class SunshineRadiationDataGroup contains methods for working with a duration of sunshine and radiation group

@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * The interface must be implemented in a class that performs decoding

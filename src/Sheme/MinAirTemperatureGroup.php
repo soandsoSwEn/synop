@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class MinAirTemperatureGroup contains methods for working with a group of minimum air temperatures

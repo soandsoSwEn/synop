@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
-use Synop\Sheme\GroupInterface;
+use Soandso\Synop\Sheme\GroupInterface;
 
 /**
  * UnitInterface must be implemented by a class that works with the units of measurement of meteorological parameters

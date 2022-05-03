@@ -1,29 +1,29 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\AdditionalCloudInformationDecoder;
-use Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
-use Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
-use Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
-use Synop\Decoder\GroupDecoder\CloudPresentDecoder;
-use Synop\Decoder\GroupDecoder\CloudWindDecoder;
-use Synop\Decoder\GroupDecoder\DateDecoder;
-use Synop\Decoder\GroupDecoder\DewPointTemperatureDecoder;
-use Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
-use Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
-use Synop\Decoder\GroupDecoder\IndexDecoder;
-use Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
-use Synop\Decoder\GroupDecoder\MslPressureDecoder;
-use Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
-use Synop\Decoder\GroupDecoder\StLPressureDecoder;
-use Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
-use Synop\Decoder\GroupDecoder\TypeDecoder;
-use Synop\Sheme\MaxAirTemperatureGroup;
-use Synop\Sheme\MinAirTemperatureGroup;
-use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
+use Soandso\Synop\Decoder\GroupDecoder\AdditionalCloudInformationDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\CloudPresentDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\CloudWindDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\DateDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\DewPointTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\IndexDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
+use Soandso\Synop\Sheme\MaxAirTemperatureGroup;
+use Soandso\Synop\Sheme\MinAirTemperatureGroup;
+use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
 
 /**
  * Description of Validate

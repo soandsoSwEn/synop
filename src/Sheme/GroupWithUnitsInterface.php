@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
-use Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
 
 /**
  * Interface GroupWithUnitsInterface must be implemented by a class that allows the group to work with units.

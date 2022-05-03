@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 
 class ValidateBase

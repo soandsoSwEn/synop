@@ -17,12 +17,12 @@
     },
     "autoload" : {
         "psr-4" : {
-            "Synop\\" : "src"
+            "Soandso\\Synop\\" : "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Synop\\Tests\\": "tests"
+            "Soandso\\Synop\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",

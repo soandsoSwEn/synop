@@ -1,6 +1,6 @@
 <?php
 
-namespace Synop;
+namespace Soandso\Synop;
 
 /**
  * This interface describes basic operations with the weather report 

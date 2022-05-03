@@ -1,6 +1,6 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 /**
  * This interface describes methods for working with a native weather report

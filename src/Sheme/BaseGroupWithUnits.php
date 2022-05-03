@@ -1,9 +1,9 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\UnitInterface;
 
 /**
  * BaseGroupWithUnits class contains methods for working with the current group with units

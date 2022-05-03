@@ -1,6 +1,6 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 /**
  * SectionInterface an interface that should be implemented by a class that works with sections of the weather report

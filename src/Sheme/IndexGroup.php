@@ -1,11 +1,11 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Fabrication\ValidateInterface;
-use Synop\Sheme\GroupInterface;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Decoder\GroupDecoder\IndexDecoder;
+use Soandso\Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Sheme\GroupInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\IndexDecoder;
 use Exception;
 
 /**

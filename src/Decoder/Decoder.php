@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
  * Base class for working with decoding weather report groups
