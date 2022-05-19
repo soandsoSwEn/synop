@@ -51,9 +51,9 @@ class DateDecoder implements GroupDecoderInterface
         return null;
     }
     
-    private function getIwElement(string $raw_data) : string
+    private function getIwElement() : string
     {
-        return substr($raw_data, 4, 1);
+        return substr($this->raw_date, 4, 1);
     }
        
     private function getIwData()
