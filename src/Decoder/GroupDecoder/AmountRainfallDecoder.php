@@ -97,9 +97,9 @@ class AmountRainfallDecoder implements GroupDecoderInterface
      */
     public function valueWithTenths(string $rainfallData) : array
     {
-        $stringOfAmountRain = substr($rainfallData, 2, 1);
+        //$stringOfAmountRain = substr($rainfallData, 2, 1);
 
-        if (strcasecmp($stringOfAmountRain, '990') == 0) {
+        if (strcasecmp($rainfallData, '990') == 0) {
             return ['Trace', null];
         }
 
