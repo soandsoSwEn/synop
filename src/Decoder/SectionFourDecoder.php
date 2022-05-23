@@ -36,14 +36,12 @@ class SectionFourDecoder extends Decoder implements DecoderInterface
     {
         return $this->section;
     }
-    
+
     private function putInSection($data)
     {
-        if($this->section->setBody($data)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->section->setBody($data);
+
+        return true;
     }
     
     public function getNCHHCt(RawReportInterface $raw_report)
