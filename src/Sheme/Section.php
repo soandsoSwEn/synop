@@ -46,7 +46,7 @@ class Section implements SectionInterface
      * @return string
      * @throws Exception
      */
-    public function getTile() : string
+    public function getTitle() : string
     {
         if(!is_null($this->title) && !empty($this->title)) {
             return $this->title;

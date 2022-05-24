@@ -51,7 +51,7 @@ interface SectionInterface
      *
      * @return string
      */
-    public function getTile() : string;
+    public function getTitle() : string;
 
     /**
      * Returns the data for all sections of the meteorological report
