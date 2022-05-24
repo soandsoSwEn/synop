@@ -39,11 +39,9 @@ class SectionFiveDecoder extends Decoder implements DecoderInterface
     
     private function putInSection($data)
     {
-        if($this->section->setBody($data)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->section->setBody($data);
+
+        return true;
     }
     
     public function get1SnT24T24T24(RawReportInterface $raw_report)
