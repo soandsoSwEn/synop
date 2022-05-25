@@ -45,6 +45,7 @@ class Decoder
         return strstr($report_data, '=', true);
     }
 
+    //TODO return bool value
     /**
      * Refreshes the current state of the weather report
      * @param string $group Processed group code figure of weather report
