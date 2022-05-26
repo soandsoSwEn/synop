@@ -62,8 +62,8 @@ class Pipeline implements PipelineInterface
                 $decoder->$getter($raw_report, $validate);
             }
             $this->step($raw_report, $decoder, $validate);
-        } else {
-            return false;
         }
+
+        return false;
     }
 }
