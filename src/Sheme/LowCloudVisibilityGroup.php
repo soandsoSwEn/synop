@@ -21,23 +21,23 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
     private $decoder;
     
     /** 
-     * @var string index of the point of inclusion in the metrological report
+     * @var string|null index of the point of inclusion in the metrological report
      * of the precipitation group 6RRRtr 
      */
     private $inc_precip_group;
     
     /**
-     * @var array weather indicator inclusion index 7wwW1W2
+     * @var array|null weather indicator inclusion index 7wwW1W2
      */
     private $inc_weather_group;
     
     /**
-     * @var string base height of low clouds above sea level 
+     * @var string|null base height of low clouds above sea level
      */
     private $height_low_clouds;
     
     /**
-     * @var string meteorological range of visibility
+     * @var string|null meteorological range of visibility
      */
     private $visibility;
 
@@ -67,22 +67,23 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
         $this->decoder = $decoder;
     }
 
-    public function setIncPrecipValue(string $incPrecipGroup) : void
+    public function setIncPrecipValue(?string $incPrecipGroup) : void
     {
         $this->inc_precip_group = $incPrecipGroup;
     }
 
-    public function setIncWeatherValue(array $incWeatherGroup) : void
+    public function setIncWeatherValue(?array $incWeatherGroup) : void
     {
         $this->inc_weather_group = $incWeatherGroup;
     }
 
-    public function setHeightLowValue(string $heightLowClouds) : void
+    public function setHeightLowValue(?string $heightLowClouds) : void
     {
         $this->height_low_clouds = $heightLowClouds;
     }
 
-    public function setVisibilityValue(string $visibility)
+    //TODO string or integer value
+    public function setVisibilityValue(?string $visibility)
     {
         $this->visibility = $visibility;
     }
@@ -143,9 +144,13 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      * @param GroupDecoderInterface $decoder
      * @return void
      */
-    public function setIncPrecip(GroupDecoderInterface $decoder) : void
+    public function setIncPrecip(?GroupDecoderInterface $decoder) : void
     {
-        $this->setIncPrecipValue($decoder->getIr());
+        if (is_null($decoder)) {
+            $this->setIncPrecipValue(null);
+        } else {
+            $this->setIncPrecipValue($decoder->getIr());
+        }
     }
     
     /**
@@ -154,9 +159,13 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      * @param GroupDecoderInterface $decoder
      * @return void
      */
-    public function setIncWeather(GroupDecoderInterface $decoder) : void
+    public function setIncWeather(?GroupDecoderInterface $decoder) : void
     {
-        $this->setIncWeatherValue($decoder->getIx());
+        if (is_null($decoder)) {
+            $this->setIncWeatherValue(null);
+        } else {
+            $this->setIncWeatherValue($decoder->getIx());
+        }
     }
     
     /**
@@ -165,9 +174,13 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      * @param GroupDecoderInterface $decoder
      * @return void
      */
-    public function setHlowClouds(GroupDecoderInterface $decoder) : void
+    public function setHlowClouds(?GroupDecoderInterface $decoder) : void
     {
-        $this->setHeightLowValue($decoder->getH());
+        if (is_null($decoder)) {
+            $this->setHeightLowValue(null);
+        } else {
+            $this->setHeightLowValue($decoder->getH());
+        }
     }
     
     /**
@@ -176,8 +189,12 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      * @param GroupDecoderInterface $decoder
      * @return void
      */
-    public function setVisibility(GroupDecoderInterface $decoder) : void
+    public function setVisibility(?GroupDecoderInterface $decoder) : void
     {
-        $this->setVisibilityValue($decoder->getVV());
+        if (is_null($decoder)) {
+            $this->setVisibilityValue(null);
+        } else {
+            $this->setVisibilityValue($decoder->getVV());
+        }
     }
 }
