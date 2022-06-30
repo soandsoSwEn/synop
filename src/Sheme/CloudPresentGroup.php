@@ -98,63 +98,63 @@ class CloudPresentGroup implements GroupInterface
 
     /**
      * Sets amount of low or middle cloud value
-     * @param string $amountLowCloud Amount of low or middle cloud value
+     * @param string|null $amountLowCloud Amount of low or middle cloud value
      */
-    public function setAmountLowCloudValue(string $amountLowCloud) : void
+    public function setAmountLowCloudValue(?string $amountLowCloud) : void
     {
         $this->amountLowCloud = $amountLowCloud;
     }
 
     /**
      * Sets form of low cloud code symbol value
-     * @param string $formLowCloudSymbol Form of low cloud code symbol
+     * @param string|null $formLowCloudSymbol Form of low cloud code symbol
      */
-    public function setFormLowCloudSymbolValue(string $formLowCloudSymbol) : void
+    public function setFormLowCloudSymbolValue(?string $formLowCloudSymbol) : void
     {
         $this->formLowCloudSymbol = $formLowCloudSymbol;
     }
 
     /**
      * Sets form of low cloud value
-     * @param string $formLowCloud Form of low cloud value
+     * @param string|null $formLowCloud Form of low cloud value
      */
-    public function setFormLowCloudValue(string $formLowCloud) : void
+    public function setFormLowCloudValue(?string $formLowCloud) : void
     {
         $this->formLowCloud = $formLowCloud;
     }
 
     /**
      * Sets form of medium cloud code symbol
-     * @param string $formMediumCloudSymbol Form of medium cloud code symbol
+     * @param string|null $formMediumCloudSymbol Form of medium cloud code symbol
      */
-    public function setFormMediumCloudSymbolValue(string $formMediumCloudSymbol) : void
+    public function setFormMediumCloudSymbolValue(?string $formMediumCloudSymbol) : void
     {
         $this->formMediumCloudSymbol = $formMediumCloudSymbol;
     }
 
     /**
      * Sets form of medium cloud value
-     * @param string $formMediumCloud Form of medium cloud value
+     * @param string|null $formMediumCloud Form of medium cloud value
      */
-    public function setFormMediumCloudValue(string $formMediumCloud) : void
+    public function setFormMediumCloudValue(?string $formMediumCloud) : void
     {
         $this->formMediumCloud = $formMediumCloud;
     }
 
     /**
      * Sets form of high cloud code symbol
-     * @param string $formHighCloudSymbol Form of high cloud code symbol
+     * @param string|null $formHighCloudSymbol Form of high cloud code symbol
      */
-    public function setFormHighCloudSymbolValue(string $formHighCloudSymbol) : void
+    public function setFormHighCloudSymbolValue(?string $formHighCloudSymbol) : void
     {
         $this->formHighCloudSymbol = $formHighCloudSymbol;
     }
 
     /**
      * Sets form of high cloud value
-     * @param string $formHighCloud Form of high cloud value
+     * @param string|null $formHighCloud Form of high cloud value
      */
-    public function setFormHighCloudValue(string $formHighCloud) : void
+    public function setFormHighCloudValue(?string $formHighCloud) : void
     {
         $this->formHighCloud = $formHighCloud;
     }
