@@ -127,6 +127,7 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
         return $this->tendency;
     }
 
+    //TODO string or float type value
     /**
      * Returns the resulting signed Pressure change over last three hours in millibars and tenths
      * @return string The resulting signed Pressure change over last three hours in millibars and tenths
@@ -176,13 +177,14 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
         }
     }
 
+    //TODO set $this->tendencyValue = null if is_null($decoder)
     /**
      * Sets the value of Pressure change over last three hours in millibars and tenths
      * @param GroupDecoderInterface|null $decoder
      */
     public function setBaricTendency(?GroupDecoderInterface $decoder) : void
     {
-        if (is_null($this->characteristicChange || is_null($decoder))) {
+        if (is_null($this->characteristicChange) || is_null($decoder)) {
             $this->tendency = null;
         } else {
             $this->tendency = $decoder->getBaricTendency();
