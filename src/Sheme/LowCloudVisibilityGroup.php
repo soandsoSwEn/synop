@@ -136,12 +136,12 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
             $this->setVisibility(null);
         }
     }
-    
+
     /**
      * Sets index of the point of inclusion in the metrological report
      * of the precipitation group 6RRRtr
-     * 
-     * @param GroupDecoderInterface $decoder
+     *
+     * @param GroupDecoderInterface|null $decoder
      * @return void
      */
     public function setIncPrecip(?GroupDecoderInterface $decoder) : void
@@ -152,11 +152,11 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
             $this->setIncPrecipValue($decoder->getIr());
         }
     }
-    
+
     /**
      * Sets weather indicator inclusion index 7wwW1W2
-     * 
-     * @param GroupDecoderInterface $decoder
+     *
+     * @param GroupDecoderInterface|null $decoder
      * @return void
      */
     public function setIncWeather(?GroupDecoderInterface $decoder) : void
@@ -167,11 +167,11 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
             $this->setIncWeatherValue($decoder->getIx());
         }
     }
-    
+
     /**
      * Sets base height of low clouds above sea level
-     * 
-     * @param GroupDecoderInterface $decoder
+     *
+     * @param GroupDecoderInterface|null $decoder
      * @return void
      */
     public function setHlowClouds(?GroupDecoderInterface $decoder) : void
@@ -182,11 +182,11 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
             $this->setHeightLowValue($decoder->getH());
         }
     }
-    
+
     /**
      * Sets meteorological range of visibility
-     * 
-     * @param GroupDecoderInterface $decoder
+     *
+     * @param GroupDecoderInterface|null $decoder
      * @return void
      */
     public function setVisibility(?GroupDecoderInterface $decoder) : void

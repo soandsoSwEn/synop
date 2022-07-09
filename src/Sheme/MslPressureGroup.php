@@ -12,7 +12,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class MslPressureGroup contains methods for working with the atmospheric pressure group
- * at mean sea level level - 4P0P0P0P0
+ * at mean sea level - 4P0P0P0P0
  *
  * @package Synop\Sheme
  *
@@ -89,6 +89,7 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the parameters of Air Pressure reduced to mean sea level
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
     public function setMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
@@ -102,6 +103,7 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Validates a block of code against a Air Pressure reduced to mean sea level group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
     public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool

@@ -89,6 +89,7 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the parameters of the Station level atmospheric pressure group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
     public function setStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
@@ -100,8 +101,9 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * validates a block of code against a Station level atmospheric pressure group
+     * Validates a block of code against a Station level atmospheric pressure group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
     public function isStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool

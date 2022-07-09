@@ -57,7 +57,7 @@ class Section implements SectionInterface
 
     /**
      * Adds a data for the section of the meteorological report
-     * @param array|string $data Data of the section of the meteorological report
+     * @param array|string|Section $data Data of the section of the meteorological report
      */
     public function setBody($data) : void
     {

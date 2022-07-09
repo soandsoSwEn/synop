@@ -152,6 +152,7 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
     /**
      * Returns whether the given group is the duration of sunshine and radiation group
      * @param GroupDecoderInterface $decoder Decoder object for duration of sunshine and radiation group
+     * @param ValidateInterface $validate
      * @return bool
      */
     public function isSunshineRadiationGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool

@@ -93,6 +93,7 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
         $this->sign = $singValue;
     }
 
+    //TODO null|float $temperature
     /**
      * Sets air temperature in tenths value
      * @param float $temperature air temperature value
@@ -102,6 +103,7 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
         $this->temperature = $temperature;
     }
 
+    //TODO null|float $temperatureValue
     /**
      * Sets resulting signed air temperature
      * @param float $temperatureValue resulting signed air temperature
