@@ -223,8 +223,10 @@ class Validate extends ValidateBase implements ValidateInterface
         }
 
         if (is_null($groupData[2]) || !is_array($groupData[2])) {
-            $this->setError($groupData[2], "Incorrect index of wind speed units and how to determine it - {$groupData[2]}");
+            $this->setError(json_encode($groupData[2]), "Incorrect index of wind speed units and how to determine it - {$groupData[2][0]} => {$groupData[2][1]}");
         }
+
+        $groupData[2] = json_encode($groupData[2]);
 
         return $this->notExistsError($groupData);
     }
