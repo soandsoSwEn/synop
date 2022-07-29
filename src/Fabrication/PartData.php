@@ -45,6 +45,10 @@ class PartData implements PartDataInterface
      */
     public function getBodyOfSection(SectionInterface $sectionData, string $titleSection) : ?array
     {
+        if ($sectionData->getBodyByTitle($titleSection) === false) {
+            return null;
+        }
+
         return $sectionData->getBodyByTitle($titleSection)->getBody();
     }
 
