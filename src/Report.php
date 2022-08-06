@@ -171,6 +171,8 @@ class Report implements ReportInterface
         if (is_null($typeOfStation)) {
             throw new Exception('Type Of Station index not defined');
         }
+
+        return $typeOfStation;
     }
 
     /**
