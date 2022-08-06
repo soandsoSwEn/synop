@@ -663,9 +663,9 @@ class PartData implements PartDataInterface
      * Returns unit of pressure change over last three hours
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
-     * @return mixed|null
+     * @return string|null
      */
-    public function getBaricTendencyUnitReport(SectionInterface $rawBlocksData)
+    public function getBaricTendencyUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getBaricTendencyReport($rawBlocksData))) {
             return null;

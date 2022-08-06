@@ -57,7 +57,9 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
     public function isGroup(ValidateInterface $validate) : bool
     {
