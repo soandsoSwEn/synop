@@ -96,6 +96,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         return $this->sections;
     }
 
+    //TODO Analyse $data param
     /**
      * Adds a new section to the base weather report container
      * @param SectionInterface $data Section data of weather report

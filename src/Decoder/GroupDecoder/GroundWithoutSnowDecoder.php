@@ -97,6 +97,7 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
         }
     }
 
+    //TODO string or int return sign analyse
     /**
      * Returns the sign of grass minimum temperature
      * @return false|string Sign of grass minimum temperature
