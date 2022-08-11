@@ -1,23 +1,23 @@
 <?php
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 use Exception;
-use Synop\Sheme\AdditionalCloudInformationGroup;
-use Synop\Sheme\AirTemperatureGroup;
-use Synop\Sheme\AmountRainfallGroup;
-use Synop\Sheme\BaricTendencyGroup;
-use Synop\Sheme\CloudWindGroup;
-use Synop\Sheme\DewPointTemperatureGroup;
-use Synop\Sheme\GroundWithoutSnowGroup;
-use Synop\Sheme\GroundWithSnowGroup;
-use Synop\Sheme\LowCloudVisibilityGroup;
-use Synop\Sheme\MaxAirTemperatureGroup;
-use Synop\Sheme\MinAirTemperatureGroup;
-use Synop\Sheme\MslPressureGroup;
-use Synop\Sheme\RegionalExchangeAmountRainfallGroup;
-use Synop\Sheme\StLPressureGroup;
-use Synop\Sheme\SunshineRadiationDataGroup;
+use Soandso\Synop\Sheme\AdditionalCloudInformationGroup;
+use Soandso\Synop\Sheme\AirTemperatureGroup;
+use Soandso\Synop\Sheme\AmountRainfallGroup;
+use Soandso\Synop\Sheme\BaricTendencyGroup;
+use Soandso\Synop\Sheme\CloudWindGroup;
+use Soandso\Synop\Sheme\DewPointTemperatureGroup;
+use Soandso\Synop\Sheme\GroundWithoutSnowGroup;
+use Soandso\Synop\Sheme\GroundWithSnowGroup;
+use Soandso\Synop\Sheme\LowCloudVisibilityGroup;
+use Soandso\Synop\Sheme\MaxAirTemperatureGroup;
+use Soandso\Synop\Sheme\MinAirTemperatureGroup;
+use Soandso\Synop\Sheme\MslPressureGroup;
+use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
+use Soandso\Synop\Sheme\StLPressureGroup;
+use Soandso\Synop\Sheme\SunshineRadiationDataGroup;
 
 /**
  * Class Unit contains methods for working with unit data for all weather report groups

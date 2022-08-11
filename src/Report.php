@@ -1,17 +1,17 @@
 <?php
 
-namespace Synop;
+namespace Soandso\Synop;
 
-use Synop\Fabrication\PartData;
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\PartData;
+use Soandso\Synop\Fabrication\RawReportInterface;
 use Exception;
-use Synop\Fabrication\Unit;
-use Synop\Fabrication\Validate;
-use Synop\Fabrication\RawReport;
-use Synop\Decoder\GeneralDecoder;
-use Synop\Sheme\Section;
-use Synop\Process\Pipeline;
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Fabrication\Unit;
+use Soandso\Synop\Fabrication\Validate;
+use Soandso\Synop\Fabrication\RawReport;
+use Soandso\Synop\Decoder\GeneralDecoder;
+use Soandso\Synop\Sheme\Section;
+use Soandso\Synop\Process\Pipeline;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * Weather report initial processing
@@ -38,6 +38,11 @@ class Report implements ReportInterface
     private $raw_report;
 
     /**
+     * @var Validate Object for decoding meteorological report
+     */
+    private $validate;
+
+    /**
      * @var SectionInterface Data for all sections of the meteorological report
      */
     private $rawBlocksData;
@@ -51,6 +56,8 @@ class Report implements ReportInterface
     public function __construct(string $report)
     {
         $this->setReport($report);
+        $this->initValidator($this->raw_report->getReport());
+        $this->prepareReport();
         $this->partData = new PartData();
         $this->unit = new Unit();
         $this->partData->setUnit($this->unit);
@@ -72,17 +79,67 @@ class Report implements ReportInterface
     }
 
     /**
+     * Initialize the meteorological weather report validation class
+     * @param string $report
+     * @return void
+     * @throws Exception
+     */
+    public function initValidator(string $report)
+    {
+        $this->validate = new Validate($report);
+        if ($this->validate->isValid() === false) {
+            throw new Exception('Wrong weather report format');
+        }
+    }
+
+    /**
+     * Prepares meteorological weather report for decoding process
+     *
+     * @return void
+     */
+    public function prepareReport()
+    {
+        $this->raw_report->updateReport($this->validate->preparation($this->raw_report->getReport()));
+    }
+
+    /**
      * Checking the validity of the source code of the meteorological report
      * @return bool
      * @throws Exception
      */
     public function validate() : bool
     {
+        if(!$this->validate) {
+            throw new Exception('The meteorological weather report validation class has not been initialized!');
+        }
+
+        if (count($this->validate->getErrors()) == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns errors in meteorological weather report
+     * @return array|false
+     * @throws Exception
+     */
+    public function getErrors()
+    {
         if(!$this->report) {
             throw new Exception('Meteorological weather report not defined!');
         }
-        $validator = new Validate($this->report);
-        return $validator->isValid();
+
+        if(!$this->validate) {
+            throw new Exception('The meteorological weather report validation class has not been initialized!');
+        }
+
+        if (count($this->validate->getErrors()) == 0) {
+            return false;
+        }
+
+        return $this->validate->getErrors();
     }
 
     /**
@@ -114,6 +171,8 @@ class Report implements ReportInterface
         if (is_null($typeOfStation)) {
             throw new Exception('Type Of Station index not defined');
         }
+
+        return $typeOfStation;
     }
 
     /**
@@ -142,7 +201,7 @@ class Report implements ReportInterface
         $pipeline = new Pipeline();
         $pipeline->pipe($pipes);
         $decoder = new GeneralDecoder(new Section(self::GENERAL_SECTION), $this->unit);
-        $blocks =  $pipeline->process($this->raw_report, $decoder);
+        $blocks =  $pipeline->process($this->raw_report, $decoder, $this->validate);
         $this->rawBlocksData = $blocks;
     }
 

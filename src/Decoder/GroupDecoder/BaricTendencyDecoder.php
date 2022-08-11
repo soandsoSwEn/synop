@@ -1,9 +1,12 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
+
+use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class BaricTendencyDecoder contains methods for decoding a group Pressure change over last three hours
@@ -29,13 +32,20 @@ class BaricTendencyDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the code group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawBaricTendency, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeFigureCharacteristic(), $this->getCodeFigureChange()]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -59,5 +69,35 @@ class BaricTendencyDecoder implements GroupDecoderInterface
         $baricTendency = $integerOfNumber . '.' . $fractionalOfNumber;
 
         return floatval($baricTendency);
+    }
+
+    /**
+     * Return code figure of indicator of Pressure change over last three hours
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawBaricTendency, 0, 1);
+    }
+
+    /**
+     * Return code figure of Characteristic of Pressure change
+     *
+     * @return false|string
+     */
+    private function getCodeFigureCharacteristic()
+    {
+        return substr($this->rawBaricTendency, 1, 1);
+    }
+
+    /**
+     * Return code figure of Pressure change over last three hours
+     *
+     * @return false|string
+     */
+    private function getCodeFigureChange()
+    {
+        return substr($this->rawBaricTendency, 2, 3);
     }
 }

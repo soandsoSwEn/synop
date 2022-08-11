@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
 use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithSnowDecoder contains methods for decoding a group of state of the ground with snow
@@ -56,13 +57,22 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawGroundWithSnow, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [
+                $this->getCodeFigureIndicator(), $this->getCodeFigureStateGround(), $this->getCodeFigureDepthSnow()
+            ]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -107,5 +117,34 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
         }
 
         return ['value' => intval($sss)];
+    }
+
+    /**
+     * Return code figure indicator of group of state ground with snow
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawGroundWithSnow, 0, 1);
+    }
+
+    /**
+     * Return code figure of state of ground with snow
+     * @return false|string
+     */
+    private function getCodeFigureStateGround()
+    {
+        return substr($this->rawGroundWithSnow, 1, 1);
+    }
+
+    /**
+     * Return code figure of depth snow
+     *
+     * @return false|string
+     */
+    private function getCodeFigureDepthSnow()
+    {
+        return substr($this->rawGroundWithSnow, 2, 3);
     }
 }

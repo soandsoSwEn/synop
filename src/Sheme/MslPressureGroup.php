@@ -1,17 +1,18 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\UnitInterface;
-use Synop\Decoder\GroupDecoder\MslPressureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder;
 use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 
 /**
  * Class MslPressureGroup contains methods for working with the atmospheric pressure group
- * at mean sea level level - 4P0P0P0P0
+ * at mean sea level - 4P0P0P0P0
  *
  * @package Synop\Sheme
  *
@@ -34,18 +35,18 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $pressure;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->rawMlsPressure = $data;
             $this->setDecoder(new MslPressureDecoder($this->rawMlsPressure));
-            $this->setMslPressureGroup($this->getDecoder());
+            $this->setMslPressureGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('MslPressureGroup group cannot be empty!');
         }
@@ -88,10 +89,11 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the parameters of Air Pressure reduced to mean sea level
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setMslPressureGroup(GroupDecoderInterface $decoder) : void
+    public function setMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isMslPressureGroup($decoder)) {
+        if ($this->isMslPressureGroup($decoder, $validate)) {
             $this->setMslPressure($decoder);
         } else {
             $this->setMslPressure(null);
@@ -101,11 +103,12 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Validates a block of code against a Air Pressure reduced to mean sea level group
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isMslPressureGroup(GroupDecoderInterface $decoder) : bool
+    public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

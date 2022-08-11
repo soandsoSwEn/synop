@@ -1,10 +1,11 @@
 <?php
 
-namespace Synop\Process;
+namespace Soandso\Synop\Process;
 
-use Synop\Fabrication\RawReportInterface;
-use Synop\Decoder\DecoderInterface;
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Decoder\DecoderInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * Class Pipeline contains methods for handling all groups code figure of weather report
@@ -38,11 +39,12 @@ class Pipeline implements PipelineInterface
      * Returns all processed sections of the meteorological report
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of weather report
+     * @param ValidateInterface $validate
      * @return SectionInterface
      */
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder) : SectionInterface
+    public function process(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate) : SectionInterface
     {
-        $this->step($raw_report, $decoder);
+        $this->step($raw_report, $decoder, $validate);
         return $decoder->parse();
     }
 
@@ -52,16 +54,16 @@ class Pipeline implements PipelineInterface
      * @param DecoderInterface $decoder Decoder object for group of code of weather report
      * @return false
      */
-    private function step(RawReportInterface $raw_report, DecoderInterface $decoder)
+    private function step(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate)
     {
         if($current_step = array_shift($this->pipes)) {
             $getter = 'get' . $current_step;
             if(method_exists($decoder, $getter)) {
-                $decoder->$getter($raw_report);
+                $decoder->$getter($raw_report, $validate);
             }
-            $this->step($raw_report, $decoder);
-        } else {
-            return false;
+            $this->step($raw_report, $decoder, $validate);
         }
+
+        return false;
     }
 }

@@ -17,16 +17,20 @@
     },
     "autoload" : {
         "psr-4" : {
-            "Synop\\" : "src"
+            "Soandso\\Synop\\" : "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Synop\\Tests\\": "tests"
+            "Soandso\\Synop\\Tests\\": "tests"
         }
     },
+    "minimum-stability": "dev",
     "require": {
-        "php": "^7.2"
+        "php": "^7.4"
     },
-    "minimum-stability": "dev"
+    "require-dev": {
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "9.5.x-dev"
+    }
 }

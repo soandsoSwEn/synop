@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 
 use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class PresentWeatherDecoder contains methods for decoding a group of Present weather
@@ -152,15 +153,23 @@ class PresentWeatherDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawPresentWeather, 0, 1);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0 ? true : false;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeFigurePresentWeather(), $this->getCodeFigurePastWeather()]);
+            return true;
+        }
+
+        return false;
     }
 
+    //TODO Refactoring
     /**
      * Returns the Present Weather symbol value
      * @return string
@@ -185,6 +194,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         }
     }
 
+    //TODO refactoring
     /**
      * Returns the Past Weather symbol value
      * @return string
@@ -211,5 +221,35 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         } else {
             throw new Exception('Invalid data of Past Weather');
         }
+    }
+
+    /**
+     * Return code figure of weather group data
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawPresentWeather, 0, 1);
+    }
+
+    /**
+     * Return code figure of Present weather
+     *
+     * @return false|string
+     */
+    private function getCodeFigurePresentWeather()
+    {
+        return substr($this->rawPresentWeather, 1, 2);
+    }
+
+    /**
+     * Return code figure of Past weather
+     *
+     * @return false|string
+     */
+    private function getCodeFigurePastWeather()
+    {
+        return substr($this->rawPresentWeather, 3, 2);
     }
 }

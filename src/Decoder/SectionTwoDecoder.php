@@ -1,11 +1,11 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Decoder\Decoder;
-use Synop\Sheme\SectionInterface;
-use Synop\Decoder\DecoderInterface;
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Decoder\Decoder;
+use Soandso\Synop\Sheme\SectionInterface;
+use Soandso\Synop\Decoder\DecoderInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
  * Description of SectionTwoDecoder
@@ -45,17 +45,15 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     
     private function putInSection($data)
     {
-        if($this->section->setBody($data)) {
-            return true;
-        } else {
-            return false;
-        }
+        $this->section->setBody($data);
+
+        return true;
     }
     
     public function get222DsVs(RawReportInterface $raw_report)
     {
         $section_two = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $section_two_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($section_two_group, 5)) {
                 return null;
@@ -66,7 +64,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $section_two = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($section_two) {
             $this->updateReport($section_two_group, $raw_report);
@@ -79,7 +77,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get0SnTwTwTw(RawReportInterface $raw_report)
     {
         $sea_temperature = true;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $sea_temperature_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($sea_temperature_group, 5)) {
                 return null;
@@ -90,7 +88,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $sea_temperature = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($sea_temperature) {
             $this->updateReport($sea_temperature_group, $raw_report);
@@ -103,7 +101,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get1PwaPwaHwaHwa(RawReportInterface $raw_report)
     {
         $sea_wave = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $sea_wave_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($sea_wave_group, 5)) {
                 return null;
@@ -114,7 +112,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $sea_wave = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($sea_wave) {
             $this->updateReport($sea_wave_group, $raw_report);
@@ -127,7 +125,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get2PwPwHwHw(RawReportInterface $raw_report)
     {
         $wind_waves = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $wind_waves_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($wind_waves_group, 5)) {
                 return null;
@@ -138,7 +136,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $wind_waves = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($wind_waves) {
             $this->updateReport($wind_waves_group, $raw_report);
@@ -151,7 +149,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get3dw1dw1dw2dw2(RawReportInterface $raw_report)
     {
         $wave_transference = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $wave_transference_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($wave_transference_group, 5)) {
                 return null;
@@ -162,7 +160,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $wave_transference = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($wave_transference) {
             $this->updateReport($wave_transference_group, $raw_report);
@@ -175,7 +173,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get4Pw1Pw1Hw1Hw1(RawReportInterface $raw_report)
     {
         $period_height_wave = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $period_height_wind_wave_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($period_height_wind_wave_group, 5)) {
                 return null;
@@ -186,7 +184,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $period_height_wave = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($period_height_wave) {
             $this->updateReport($period_height_wind_wave_group, $raw_report);
@@ -199,7 +197,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get5Pw2Pw2Hw2Hw2(RawReportInterface $raw_report)
     {
         $period_and_height_wave = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $period_height_wave_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($period_height_wave_group, 5)) {
                 return null;
@@ -210,7 +208,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $period_and_height_wave = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($period_and_height_wave) {
             $this->updateReport($period_height_wave_group, $raw_report);
@@ -223,7 +221,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function get6IsEsEsPs(RawReportInterface $raw_report)
     {
         $period_and_height_wave = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $vessel_icing_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($vessel_icing_group, 5)) {
                 return null;
@@ -234,7 +232,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 $period_and_height_wave = true;
             }
         } else {
-            //ship report
+            //synop report
         }
         if($period_and_height_wave) {
             $this->updateReport($vessel_icing_group, $raw_report);
@@ -247,7 +245,7 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
     public function getISE(RawReportInterface $raw_report)
     {
         $ice = false;
-        if($this->synop_report) {
+        if($this->ship_report) {
             $distinguishing_word_ice = $this->block($raw_report->getReport());
             if (!$this->isGroup($distinguishing_word_ice, 3)) {
                 return null;
@@ -260,21 +258,21 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
                 return $this->putInSection($ice_group) ? true : false;
             }
         } else {
-            //ship report
+            //synop report
         }
         return null;
     }
     
     public function getciSibiDizi(RawReportInterface $raw_report)
     {
-        if($this->synop_report) {
+        if($this->ship_report) {
             $ice_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($ice_group, 5)) {
                 return null;
             }
 
         } else {
-            //ship report
+            //synop report
         }
         $this->updateReport($ice_group, $raw_report);
         return $ice_group;

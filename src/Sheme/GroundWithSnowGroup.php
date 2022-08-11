@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 
 use Exception;
-use Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class GroundWithSnowGroup contains methods for working with a group of state of the ground with snow
@@ -44,9 +45,9 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
      */
     private $depthSnow;
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
@@ -55,12 +56,12 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
      * @param string $data state of ground with snow or measurable ice cover group data
      * @throws Exception
      */
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->setRawGroundWithSnow($data);
             $this->setDecoder(new GroundWithSnowDecoder($this->getRawGroundWithSnow()));
-            $this->setGroundWithSnowGroup($this->getDecoder());
+            $this->setGroundWithSnowGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('GroundWithSnowGroup group cannot be empty!');
         }
@@ -156,9 +157,9 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
      * Returns whether the given group is a state of ground with snow group
      * @param GroupDecoderInterface $decoder Initialized decoder object for state of ground with snow group
      */
-    public function setGroundWithSnowGroup(GroupDecoderInterface $decoder)
+    public function setGroundWithSnowGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
-        if ($this->isDrWthSnGroup($decoder)) {
+        if ($this->isDrWthSnGroup($decoder, $validate)) {
             $this->setCodeState($decoder);
             $this->setState($decoder);
             $this->setDepthSnow($decoder);
@@ -172,11 +173,12 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns whether the given group is a state of ground with snow group
      * @param GroupDecoderInterface $decoder Initialized decoder object
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isDrWthSnGroup(GroupDecoderInterface $decoder) : bool
+    public function isDrWthSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**

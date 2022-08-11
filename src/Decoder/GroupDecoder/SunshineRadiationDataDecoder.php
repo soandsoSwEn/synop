@@ -1,8 +1,11 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
+
+use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class SunshineRadiationDataDecoder contains methods for decoding a group duration of sunshine and radiation
@@ -28,13 +31,20 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     * @param ValidateInterface $validate
      * @return bool
+     * @throws Exception
      */
-    public function isGroup() : bool
+    public function isGroup(ValidateInterface $validate) : bool
     {
         $distinguishingDigit = substr($this->rawSunshineRadiation, 0, 2);
 
-        return strcasecmp($distinguishingDigit, self::DIGIT) == 0;
+        if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
+            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeSunshineData()]);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -57,5 +67,10 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
         $fractionalPartString = substr($SSS, 2, 1);
 
         return floatval($integerPartString . '.' . $fractionalPartString);
+    }
+
+    private function getCodeFigureIndicator()
+    {
+        return substr($this->rawSunshineRadiation, 0, 2);
     }
 }

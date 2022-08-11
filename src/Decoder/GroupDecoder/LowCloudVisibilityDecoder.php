@@ -1,8 +1,9 @@
 <?php
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
 use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * The LowCloudVisibilityDecoder class contains methods for decoding elements 
@@ -57,25 +58,29 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         $this->raw_cloud_vis = $raw_cloud_vis;
     }
 
-    public function isGroup(): bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        // TODO: Implement isGroup() method.
+        return $validate->isValidGroup(get_class($this), [$this->getCodeFigureIr(), $this->getCodeFigureIx(), $this->getCodeFigureH(), $this->getCodeFigureVV()]);
     }
 
-    public function getIr() : string
+    public function getIr() : ?string
     {
         $ir = substr($this->raw_cloud_vis, 0, 1);
         if (array_key_exists($ir, $this->getIrData())) {
             return $this->getIrData()[$ir];
         }
+
+        return null;
     }
 
-    public function getIx() : array
+    public function getIx() : ?array
     {
         $ix = substr($this->raw_cloud_vis, 1, 1);
         if (array_key_exists($ix, $this->getIxData())) {
             return $this->getIxData()[$ix];
         }
+
+        return null;
     }
 
     public function getH()
@@ -84,6 +89,8 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         if (array_key_exists($h, $this->getHData())) {
             return $this->getHData()[$h];
         }
+
+        return null;
     }
 
     public function getVV()
@@ -169,5 +176,43 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
     private function getHData() : array
     {
         return $this->h;
+    }
+
+    /**
+     * Return code figure of precipitation group inclusion 6RRRtr
+     *
+     * @return false|string
+     */
+    private function getCodeFigureIr(): string
+    {
+        return substr($this->raw_cloud_vis, 0, 1);
+    }
+
+    /**
+     * Return code figure type indicator of the station, as well as inclusion in the group report 7wwW1W2
+     * @return false|string
+     */
+    private function getCodeFigureIx(): string
+    {
+        return substr($this->raw_cloud_vis, 1, 1);
+    }
+
+    /**
+     * Return code figure of height of the base of the lowest clouds above the surface of the earth (sea)
+     * @return string
+     */
+    private function getCodeFigureH(): string
+    {
+        return substr($this->raw_cloud_vis, 2, 1);
+    }
+
+    /**
+     * Return code figure of horizontal visibility
+     *
+     * @return false|string
+     */
+    private function getCodeFigureVV()
+    {
+        return substr($this->raw_cloud_vis, 3, 2);
     }
 }

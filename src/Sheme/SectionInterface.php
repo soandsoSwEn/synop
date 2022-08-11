@@ -1,6 +1,6 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 /**
  * SectionInterface an interface that should be implemented by a class that works with sections of the weather report
@@ -51,7 +51,7 @@ interface SectionInterface
      *
      * @return string
      */
-    public function getTile() : string;
+    public function getTitle() : string;
 
     /**
      * Returns the data for all sections of the meteorological report

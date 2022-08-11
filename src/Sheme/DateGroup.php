@@ -1,10 +1,11 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Decoder\GroupDecoder\DateDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\DateDecoder;
 use Exception;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Description of DateGroup
@@ -23,17 +24,17 @@ class DateGroup implements GroupInterface
     
     private $iw;
 
-    public function __construct(string $date)
+    public function __construct(string $date, ValidateInterface $validate)
     {
-        $this->setData($date);
+        $this->setData($date, $validate);
     }
     
-    public function setData(string $date) : void
+    public function setData(string $date, ValidateInterface $validate) : void
     {
         if(!empty($date)) {
             $this->raw_date = $date;
             $this->setDecoder(new DateDecoder($this->raw_date));
-            $this->setDateGroup($this->getDecoder());
+            $this->setDateGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('Date group cannot be empty!');
         }
@@ -82,8 +83,9 @@ class DateGroup implements GroupInterface
         return $this->iw;
     }
     
-    public function setDateGroup(GroupDecoderInterface $decoder)
+    public function setDateGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
+        $this->isDateGroup($decoder, $validate);
         $this->setDay($decoder);
         $this->setHour($decoder);
         $this->setIw($decoder);
@@ -102,5 +104,10 @@ class DateGroup implements GroupInterface
     public function setIw(GroupDecoderInterface $decoder) : void
     {
         $this->setIwValue($decoder->getIw());
+    }
+
+    public function isDateGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
+    {
+        return $decoder->isGroup($validate);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 use Exception;
 
 /**
@@ -46,7 +46,7 @@ class Section implements SectionInterface
      * @return string
      * @throws Exception
      */
-    public function getTile() : string
+    public function getTitle() : string
     {
         if(!is_null($this->title) && !empty($this->title)) {
             return $this->title;
@@ -57,7 +57,7 @@ class Section implements SectionInterface
 
     /**
      * Adds a data for the section of the meteorological report
-     * @param array|string $data Data of the section of the meteorological report
+     * @param array|string|Section $data Data of the section of the meteorological report
      */
     public function setBody($data) : void
     {

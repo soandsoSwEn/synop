@@ -1,7 +1,9 @@
 <?php
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
+
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Description of DateDecoder
@@ -24,9 +26,9 @@ class DateDecoder implements GroupDecoderInterface
         $this->raw_date = $raw_date;
     }
 
-    public function isGroup(): bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        // TODO: Implement isGroup() method.
+        return $validate->isValidGroup(get_class($this), [$this->getDay(), $this->getHour(), $this->getIw()]);
     }
 
     public function getDay() : string
@@ -39,17 +41,19 @@ class DateDecoder implements GroupDecoderInterface
         return substr($this->raw_date, 2, 2);
     }
     
-    public function getIw()
+    public function getIw() : ?array
     {
         $i_w = $this->getIwElement($this->raw_date);
         if(array_key_exists($i_w, $this->getIwData())) {
             return $this->getIwData()[$i_w];
         }
+
+        return null;
     }
     
-    private function getIwElement(string $raw_data) : string
+    private function getIwElement() : string
     {
-        return substr($raw_data, 4, 1);
+        return substr($this->raw_date, 4, 1);
     }
        
     private function getIwData()

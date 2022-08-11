@@ -1,7 +1,9 @@
 <?php
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
+
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Description of IndexDecoder
@@ -17,9 +19,9 @@ class IndexDecoder implements GroupDecoderInterface
         $this->raw_index = $raw_index;
     }
 
-    public function isGroup(): bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        // TODO: Implement isGroup() method.
+        return $validate->isValidGroup(get_class($this), [$this->getArea(), $this->getNumber()]);
     }
 
     public function getArea() : string

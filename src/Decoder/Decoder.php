@@ -1,8 +1,8 @@
 <?php
 
-namespace Synop\Decoder;
+namespace Soandso\Synop\Decoder;
 
-use Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
  * Base class for working with decoding weather report groups
@@ -45,6 +45,7 @@ class Decoder
         return strstr($report_data, '=', true);
     }
 
+    //TODO return bool value
     /**
      * Refreshes the current state of the weather report
      * @param string $group Processed group code figure of weather report

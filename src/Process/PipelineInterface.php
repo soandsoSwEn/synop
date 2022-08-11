@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Synop\Process;
+namespace Soandso\Synop\Process;
 
 
-use Synop\Decoder\DecoderInterface;
-use Synop\Fabrication\RawReportInterface;
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Decoder\DecoderInterface;
+use Soandso\Synop\Fabrication\RawReportInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * Interface PipelineInterface must be implemented by a class that implements the processing of all blocks
@@ -30,7 +31,8 @@ interface PipelineInterface
      *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of code of weather report
+     * @param ValidateInterface $validate Object for decoding meteorological report
      * @return SectionInterface
      */
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder) : SectionInterface;
+    public function process(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate) : SectionInterface;
 }

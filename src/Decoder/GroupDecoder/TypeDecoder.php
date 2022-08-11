@@ -1,8 +1,10 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
 
+
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class TypeDecoder methods for defining the type of the weather report type
@@ -31,9 +33,9 @@ class TypeDecoder implements GroupDecoderInterface
     /**
      * @inheritDoc
      */
-    public function isGroup(): bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        // TODO: Implement isGroup() method.
+        return $validate->isValidGroup(get_class($this), [$this->getTypeValue()]);
     }
 
     /**

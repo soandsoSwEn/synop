@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
 use Exception;
-use Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
-use Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\UnitInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 
 /**
@@ -48,18 +49,18 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
         5, 6, 7, 8
     ];
 
-    public function __construct(string $data, UnitInterface $unit)
+    public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
-        $this->setData($data);
+        $this->setData($data, $validate);
         $this->setUnit($unit);
     }
 
-    public function setData(string $data) : void
+    public function setData(string $data, ValidateInterface $validate) : void
     {
         if (!empty($data)) {
             $this->rawBaricTendency = $data;
             $this->setDecoder(new BaricTendencyDecoder($this->rawBaricTendency));
-            $this->setBaricTendencyGroup($this->getDecoder());
+            $this->setBaricTendencyGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('BaricTendencyGroup group cannot be empty!');
         }
@@ -126,6 +127,7 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
         return $this->tendency;
     }
 
+    //TODO string or float type value
     /**
      * Returns the resulting signed Pressure change over last three hours in millibars and tenths
      * @return string The resulting signed Pressure change over last three hours in millibars and tenths
@@ -138,10 +140,11 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets parameters of Pressure change over last three hours
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      */
-    public function setBaricTendencyGroup(GroupDecoderInterface $decoder) : void
+    public function setBaricTendencyGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
     {
-        if ($this->isBaricTendencyGroup($decoder)) {
+        if ($this->isBaricTendencyGroup($decoder, $validate)) {
             $this->setCharacteristicChange($decoder);
             $this->setBaricTendency($decoder);
         } else {
@@ -153,11 +156,12 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Validates a block of code against a Pressure change over last three hours
      * @param GroupDecoderInterface $decoder
+     * @param ValidateInterface $validate
      * @return bool
      */
-    public function isBaricTendencyGroup(GroupDecoderInterface $decoder) : bool
+    public function isBaricTendencyGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
     {
-        return $decoder->isGroup();
+        return $decoder->isGroup($validate);
     }
 
     /**
@@ -173,13 +177,14 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
         }
     }
 
+    //TODO set $this->tendencyValue = null if is_null($decoder)
     /**
      * Sets the value of Pressure change over last three hours in millibars and tenths
      * @param GroupDecoderInterface|null $decoder
      */
     public function setBaricTendency(?GroupDecoderInterface $decoder) : void
     {
-        if (is_null($this->characteristicChange || is_null($decoder))) {
+        if (is_null($this->characteristicChange) || is_null($decoder)) {
             $this->tendency = null;
         } else {
             $this->tendency = $decoder->getBaricTendency();

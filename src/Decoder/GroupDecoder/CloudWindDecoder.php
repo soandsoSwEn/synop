@@ -1,7 +1,9 @@
 <?php
 
 
-namespace Synop\Decoder\GroupDecoder;
+namespace Soandso\Synop\Decoder\GroupDecoder;
+
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * The CloudWindDecoder contains methods for decoding a group of total clouds and wind
@@ -35,21 +37,25 @@ class CloudWindDecoder implements GroupDecoderInterface
         $this->raw_clouds_wind = $raw_clouds_wind;
     }
 
-    public function isGroup(): bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        // TODO: Implement isGroup() method.
+        return $validate->isValidGroup(get_class($this), [
+            $this->getCodeFigureN(), $this->getCodeFigureDd(), $this->getCodeFigureVv()
+        ]);
     }
 
     /**
      * Returns the number of clouds
      * @return string
      */
-    public function getN() : string
+    public function getN() : ?string
     {
         $N = substr($this->raw_clouds_wind, 0, 1);
         if (array_key_exists($N, $this->getNData())) {
             return $this->getNData()[$N];
         }
+
+        return null;
     }
 
     /**
@@ -77,5 +83,35 @@ class CloudWindDecoder implements GroupDecoderInterface
     private function getNData() : array
     {
         return $this->N;
+    }
+
+    /**
+     * Return code figure of number of clouds
+     *
+     * @return string
+     */
+    private function getCodeFigureN(): string
+    {
+        return substr($this->raw_clouds_wind, 0, 1);
+    }
+
+    /**
+     * Return code figure of wind direction
+     *
+     * @return string
+     */
+    private function getCodeFigureDd(): string
+    {
+        return substr($this->raw_clouds_wind, 1, 2);
+    }
+
+    /**
+     * Return code figure of wind speed
+     *
+     * @return string
+     */
+    private function getCodeFigureVv(): string
+    {
+        return substr($this->raw_clouds_wind, 3, 2);
     }
 }

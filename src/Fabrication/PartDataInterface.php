@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Synop\Fabrication;
+namespace Soandso\Synop\Fabrication;
 
 
-use Synop\Sheme\GroupInterface;
-use Synop\Sheme\SectionInterface;
+use Soandso\Synop\Sheme\GroupInterface;
+use Soandso\Synop\Sheme\SectionInterface;
 
 /**
  * This interface should be implemented by a class that generates the individual data of

@@ -1,8 +1,9 @@
 <?php
 
-namespace Synop\Sheme;
+namespace Soandso\Synop\Sheme;
 
-use Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * This interface should be implemented by a class that creates a group of code of weather report.
@@ -24,8 +25,9 @@ interface GroupInterface
      * Sets the initial data for a weather report group and prepares for use
      *
      * @param string $data Raw symbol data of group of weather report
+     * @param ValidateInterface $validate Object for decoding meteorological report
      */
-    public function setData(string $data) : void;
+    public function setData(string $data, ValidateInterface $validate) : void;
 
     /**
      * Returns decoder object for the given group of code of weather report
