@@ -30,7 +30,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --ignore-platform-reqs --prefer-dist --no-progress
       
     - name: Execute tests
       run: vendor/bin/phpunit
