@@ -29,7 +29,17 @@ class SunshineRadiationDataDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->sunshineRadiation);
 
-        $this->assertEquals($result, '55');
+        $this->assertEquals('55', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(SunshineRadiationDataDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->sunshineRadiation);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -39,27 +49,37 @@ class SunshineRadiationDataDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->sunshineRadiation);
 
-        $this->assertNotEquals($result, '58');
+        $this->assertNotEquals('58', $result);
     }
 
     public function testSuccessGetCodeSunshineData()
     {
-        $this->assertEquals($this->sunshineRadiation->getCodeSunshineData(), '118');
+        $this->assertEquals('118', $this->sunshineRadiation->getCodeSunshineData());
+    }
+
+    public function testSuccessIsStringGetCodeSunshineData()
+    {
+        $this->assertIsString($this->sunshineRadiation->getCodeSunshineData());
     }
 
     public function testErrorGetCodeSunshineData()
     {
-        $this->assertNotEquals($this->sunshineRadiation->getCodeSunshineData(), '115');
+        $this->assertNotEquals('115', $this->sunshineRadiation->getCodeSunshineData());
     }
 
     public function testSuccessGetSunshineData()
     {
-        $this->assertEquals($this->sunshineRadiation->getSunshineData(), 11.8);
+        $this->assertEquals(11.8, $this->sunshineRadiation->getSunshineData());
+    }
+
+    public function testSuccessIsFloatGetSunshineData()
+    {
+        $this->assertIsFloat($this->sunshineRadiation->getSunshineData());
     }
 
     public function testErrorGetSunshineData()
     {
-        $this->assertNotEquals($this->sunshineRadiation->getSunshineData(), 11.5);
+        $this->assertNotEquals(11.5, $this->sunshineRadiation->getSunshineData());
     }
 
     public function testSuccessIsGroup()

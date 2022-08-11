@@ -29,7 +29,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->additionalCloudInformationDecoder);
 
-        $this->assertEquals($result, '8');
+        $this->assertEquals('8', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(AdditionalCloudInformationDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->additionalCloudInformationDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -40,7 +50,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($additionalCloudInformationDecoder);
 
-        $this->assertNotEquals($result, '8');
+        $this->assertNotEquals('8', $result);
     }
 
     public function testSuccessGetCodeFigureAmount()
@@ -50,7 +60,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->additionalCloudInformationDecoder);
 
-        $this->assertEquals($result, '8');
+        $this->assertEquals('8', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureAmount()
+    {
+        $reflector = new \ReflectionClass(AdditionalCloudInformationDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureAmount');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->additionalCloudInformationDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureAmount()
@@ -61,7 +81,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($additionalCloudInformationDecoder);
 
-        $this->assertNotEquals($result, '8');
+        $this->assertNotEquals('8', $result);
     }
 
     public function testSuccessGetCodeFigureForm()
@@ -71,7 +91,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->additionalCloudInformationDecoder);
 
-        $this->assertEquals($result, '5');
+        $this->assertEquals('5', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureForm()
+    {
+        $reflector = new \ReflectionClass(AdditionalCloudInformationDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureForm');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->additionalCloudInformationDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureForm()
@@ -82,7 +112,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($additionalCloudInformationDecoder);
 
-        $this->assertNotEquals($result, '5');
+        $this->assertNotEquals('5', $result);
     }
 
     public function testSuccessGetCodeFigureHeight()
@@ -92,7 +122,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->additionalCloudInformationDecoder);
 
-        $this->assertEquals($result, '18');
+        $this->assertEquals('18', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureHeight()
+    {
+        $reflector = new \ReflectionClass(AdditionalCloudInformationDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureHeight');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->additionalCloudInformationDecoder);
+
+        $this->assertIsString( $result);
     }
 
     public function testErrorGetCodeFigureHeight()
@@ -103,58 +143,58 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($additionalCloudInformationDecoder);
 
-        $this->assertNotEquals($result, '18');
+        $this->assertNotEquals('18', $result);
     }
 
     public function testSuccessGet8189Height()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->get8189Height(84), 15000);
+        $this->assertEquals(15000, $this->additionalCloudInformationDecoder->get8189Height(84));
     }
 
     public function testSuccess89Get8189Height()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->get8189Height(89), '> 21000');
+        $this->assertEquals('> 21000', $this->additionalCloudInformationDecoder->get8189Height(89));
     }
 
     public function testErrorGet8189Height()
     {
-        $this->assertNotEquals($this->additionalCloudInformationDecoder->get8189Height(82), 15000);
+        $this->assertNotEquals(15000, $this->additionalCloudInformationDecoder->get8189Height(82));
     }
 
     public function testSuccessGet5080Height()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->get5080Height(60), 3000);
+        $this->assertEquals(3000, $this->additionalCloudInformationDecoder->get5080Height(60));
     }
 
     public function testErrorGet5080Height()
     {
-        $this->assertNotEquals($this->additionalCloudInformationDecoder->get5080Height(65), 3000);
+        $this->assertNotEquals(3000, $this->additionalCloudInformationDecoder->get5080Height(65));
     }
 
     public function testSuccessGet0050Height()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->get0050Height(18), 540);
+        $this->assertEquals(540, $this->additionalCloudInformationDecoder->get0050Height(18));
     }
 
     public function testSuccess30Get0050Height()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->get0050Height(0), '< 30');
+        $this->assertEquals('< 30', $this->additionalCloudInformationDecoder->get0050Height(0));
     }
 
     public function testErrorGet0050Height()
     {
-        $this->assertNotEquals($this->additionalCloudInformationDecoder->get0050Height(18), '< 30');
+        $this->assertNotEquals('< 30', $this->additionalCloudInformationDecoder->get0050Height(18));
     }
 
     public function testSuccessGetHeightCloud()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->getHeightCloud(), ['Height' => 540]);
+        $this->assertEquals(['Height' => 540], $this->additionalCloudInformationDecoder->getHeightCloud());
     }
 
     public function testSuccess90GetHeightCloud()
     {
         $additionalCloudInformationDecoder = new AdditionalCloudInformationDecoder('88592');
-        $this->assertEquals($additionalCloudInformationDecoder->getHeightCloud(), ['Height' => '100-200']);
+        $this->assertEquals(['Height' => '100-200'], $additionalCloudInformationDecoder->getHeightCloud());
     }
 
     public function testSuccessNullGetHeightCloud()
@@ -174,12 +214,12 @@ class AdditionalCloudInformationDecoderTest extends TestCase
     public function testErrorGetHeightCloud()
     {
         $additionalCloudInformationDecoder = new AdditionalCloudInformationDecoder('8////');
-        $this->assertNotEquals($additionalCloudInformationDecoder->getHeightCloud(), 570);
+        $this->assertNotEquals(570, $additionalCloudInformationDecoder->getHeightCloud());
     }
 
     public function testSuccessGetCodeHeightCloud()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->getCodeHeightCloud(), '18');
+        $this->assertEquals('18', $this->additionalCloudInformationDecoder->getCodeHeightCloud());
     }
 
     public function testSuccessIsStringGetCodeHeightCloud()
@@ -196,12 +236,12 @@ class AdditionalCloudInformationDecoderTest extends TestCase
     public function testErrorGetCodeHeightCloud()
     {
         $additionalCloudInformationDecoder = new AdditionalCloudInformationDecoder('8////');
-        $this->assertNotEquals($additionalCloudInformationDecoder->getCodeHeightCloud(), '18');
+        $this->assertNotEquals('18', $additionalCloudInformationDecoder->getCodeHeightCloud());
     }
 
     public function testSuccessGetFormCloud()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->getFormCloud(), 'Nimbostratus (Ns)');
+        $this->assertEquals('Nimbostratus (Ns)', $this->additionalCloudInformationDecoder->getFormCloud());
     }
 
     public function testSuccessStringGetFormCloud()
@@ -220,12 +260,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
     public function testErrorGetFormCloud()
     {
         $additionalCloudInformationDecoder = new AdditionalCloudInformationDecoder('88418');
-        $this->assertNotEquals($additionalCloudInformationDecoder->getFormCloud(), 'Nimbostratus (Ns)');
+        $this->assertNotEquals('Nimbostratus (Ns)', $additionalCloudInformationDecoder->getFormCloud());
     }
 
     public function testSuccessGetAmountCloud()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->getAmountCloud(), 'Sky completely covered');
+        $this->assertEquals('Sky completely covered', $this->additionalCloudInformationDecoder->getAmountCloud());
+    }
+
+    public function testSuccessIsStringGetAmountCloud()
+    {
+        $this->assertIsString($this->additionalCloudInformationDecoder->getAmountCloud());
     }
 
     public function testNullGetAmountCloud()
@@ -237,12 +282,17 @@ class AdditionalCloudInformationDecoderTest extends TestCase
     public function testErrorGetAmountCloud()
     {
         $additionalCloudInformationDecoder = new AdditionalCloudInformationDecoder('85518');
-        $this->assertNotEquals($additionalCloudInformationDecoder->getAmountCloud(), 'Sky completely covered');
+        $this->assertNotEquals('Sky completely covered', $additionalCloudInformationDecoder->getAmountCloud());
     }
 
     public function testSuccessGetCodeAmountCloud()
     {
-        $this->assertEquals($this->additionalCloudInformationDecoder->getCodeAmountCloud(), '8');
+        $this->assertEquals('8', $this->additionalCloudInformationDecoder->getCodeAmountCloud());
+    }
+
+    public function testSuccessIsStringGetCodeAmountCloud()
+    {
+        $this->assertIsString($this->additionalCloudInformationDecoder->getCodeAmountCloud());
     }
 
     public function testNullGetCodeAmountCloud()

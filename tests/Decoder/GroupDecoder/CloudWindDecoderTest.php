@@ -29,7 +29,17 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertEquals($result, '8');
+        $this->assertEquals('8', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureN()
+    {
+        $reflector = new \ReflectionClass(CloudWindDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureN');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->cloudWindDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureN()
@@ -39,7 +49,7 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertNotEquals($result, '5');
+        $this->assertNotEquals('5', $result);
     }
 
     public function testSuccessGetCodeFigureDd()
@@ -49,7 +59,17 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertEquals($result, '31');
+        $this->assertEquals('31', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureDd()
+    {
+        $reflector = new \ReflectionClass(CloudWindDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureDd');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->cloudWindDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureDd()
@@ -59,7 +79,7 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertNotEquals($result, '02');
+        $this->assertNotEquals('02', $result);
     }
 
     public function testSuccessGetCodeFigureVv()
@@ -69,7 +89,17 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertEquals($result, '02');
+        $this->assertEquals('02', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureVv()
+    {
+        $reflector = new \ReflectionClass(CloudWindDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureVv');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->cloudWindDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureVv()
@@ -79,42 +109,66 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertNotEquals($result, '31');
+        $this->assertNotEquals('31', $result);
     }
 
     public function testSuccessGetN()
     {
-        $this->assertEquals($this->cloudWindDecoder->getN(), '10');
+        $this->assertEquals('10', $this->cloudWindDecoder->getN());
+    }
+
+    public function testSuccessIsStringGetN()
+    {
+        $this->assertIsString($this->cloudWindDecoder->getN());
+    }
+
+    public function testNullGetN()
+    {
+        $reflectorProperty = new \ReflectionProperty(CloudWindDecoder::class, 'raw_clouds_wind');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->cloudWindDecoder, 'A3102');
+
+        $this->assertNull($this->cloudWindDecoder->getN());
     }
 
     public function testErrorGetN()
     {
-        $this->assertNotEquals($this->cloudWindDecoder->getN(), '8');
+        $this->assertNotEquals('8', $this->cloudWindDecoder->getN());
     }
 
     public function testSuccessGetDd()
     {
-        $this->assertEquals($this->cloudWindDecoder->getDd(), 310);
+        $this->assertEquals(310, $this->cloudWindDecoder->getDd());
+    }
+
+    public function testSuccessIsIntGetDd()
+    {
+        $this->assertIsInt($this->cloudWindDecoder->getDd());
     }
 
     public function testErrorGetDd()
     {
-        $this->assertNotEquals($this->cloudWindDecoder->getDd(), 31);
+        $this->assertNotEquals(31, $this->cloudWindDecoder->getDd());
     }
 
     public function testSuccessGetVv()
     {
-        $this->assertEquals($this->cloudWindDecoder->getVv(), 2);
+        $this->assertEquals(2, $this->cloudWindDecoder->getVv());
+    }
+
+    public function testSuccessIsIntGetVv()
+    {
+        $this->assertIsInt($this->cloudWindDecoder->getVv());
     }
 
     public function testErrorGetVv()
     {
-        $this->assertNotEquals($this->cloudWindDecoder->getVv(), 0.2);
+        $this->assertNotEquals(0.2, $this->cloudWindDecoder->getVv());
     }
 
     public function testSuccessGetNData()
     {
-        $actual = [
+        $expected = [
             '0' => '0',
             '1' => '1',
             '2' => '2-3',
@@ -133,12 +187,22 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertEquals($result, $actual);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSuccessIsArrayGetNData()
+    {
+        $reflector = new \ReflectionClass(CloudWindDecoder::class);
+        $method = $reflector->getMethod('getNData');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->cloudWindDecoder);
+
+        $this->assertIsArray($result);
     }
 
     public function testSErrorGetNData()
     {
-        $actual = [
+        $expected = [
             '0' => '0',
             '1' => '1',
             '2' => '2-3',
@@ -155,7 +219,7 @@ class CloudWindDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudWindDecoder);
 
-        $this->assertNotEquals($result, $actual);
+        $this->assertNotEquals($expected, $result);
     }
 
     public function testSuccessIsGroup()

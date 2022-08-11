@@ -43,7 +43,7 @@ class GeneralDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invokeArgs($this->generalDecoder, ['General Section']);
 
-        $this->assertEquals($result->getTitle(), 'General Section');
+        $this->assertEquals('General Section', $result->getTitle());
     }
 
     public function testSuccessGetType()
@@ -916,7 +916,7 @@ class GeneralDecoderTest extends TestCase
 
     public function testSuccessGetTwoPipes()
     {
-        $actual = [
+        $expected = [
             '222DsVs',
             '0SnTwTwTw',
             '1PwaPwaHwaHwa',
@@ -928,12 +928,12 @@ class GeneralDecoderTest extends TestCase
             'ISE'
         ];
 
-        $this->assertEquals($this->generalDecoder->getTwoPipes(), $actual);
+        $this->assertEquals($expected, $this->generalDecoder->getTwoPipes());
     }
 
     public function testErrorGetTwoPipes()
     {
-        $actual = [
+        $expected = [
             '1SnTxTxTx',
             '2SnTnTnTn',
             '3ESnTgTg',
@@ -944,7 +944,7 @@ class GeneralDecoderTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $this->assertNotEquals($this->generalDecoder->getTwoPipes(), $actual);
+        $this->assertNotEquals($expected, $this->generalDecoder->getTwoPipes());
     }
 
     public function testSuccessGet333()
@@ -989,7 +989,7 @@ class GeneralDecoderTest extends TestCase
 
     public function testSuccessGetThreePipes()
     {
-        $actual = [
+        $expected = [
             '1SnTxTxTx',
             '2SnTnTnTn',
             '3ESnTgTg',
@@ -1000,12 +1000,12 @@ class GeneralDecoderTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $this->assertEquals($this->generalDecoder->getThreePipes(), $actual);
+        $this->assertEquals($expected, $this->generalDecoder->getThreePipes());
     }
 
     public function testErrorGetThreePipes()
     {
-        $actual = [
+        $expected = [
             '1SnT24T24T24',
             '3SnTgTg',
             '4Esss',
@@ -1014,7 +1014,7 @@ class GeneralDecoderTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $this->assertNotEquals($this->generalDecoder->getThreePipes(), $actual);
+        $this->assertNotEquals($expected, $this->generalDecoder->getThreePipes());
     }
 
     public function testSuccessGet444()
@@ -1045,16 +1045,16 @@ class GeneralDecoderTest extends TestCase
 
     public function testSuccessGetFourPipes()
     {
-        $actual = [
+        $expected = [
             'NCHHCt'
         ];
 
-        $this->assertEquals($this->generalDecoder->getFourPipes(), $actual);
+        $this->assertEquals($expected, $this->generalDecoder->getFourPipes());
     }
 
     public function testErrorGetFourPipes()
     {
-        $actual = [
+        $expected = [
             '1SnT24T24T24',
             '3SnTgTg',
             '4Esss',
@@ -1063,7 +1063,7 @@ class GeneralDecoderTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $this->assertNotEquals($this->generalDecoder->getFourPipes(), $actual);
+        $this->assertNotEquals($expected, $this->generalDecoder->getFourPipes());
     }
 
     public function testSuccessGet555()
@@ -1104,7 +1104,7 @@ class GeneralDecoderTest extends TestCase
 
     public function testSuccessGetFivePipes()
     {
-        $actual = [
+        $expected = [
             '1SnT24T24T24',
             '3SnTgTg',
             '4Esss',
@@ -1113,15 +1113,15 @@ class GeneralDecoderTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $this->assertEquals($this->generalDecoder->getFivePipes(), $actual);
+        $this->assertEquals($expected, $this->generalDecoder->getFivePipes());
     }
 
     public function testErrorGetFivePipes()
     {
-        $actual = [
+        $expected = [
             'NCHHCt'
         ];
 
-        $this->assertNotEquals($this->generalDecoder->getFivePipes(), $actual);
+        $this->assertNotEquals($expected, $this->generalDecoder->getFivePipes());
     }
 }

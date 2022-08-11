@@ -22,14 +22,24 @@ class GroundWithSnowDecoderTest extends TestCase
         Mockery::close();
     }
 
-    public function testSuccessgetCodeFigureIndicator()
+    public function testSuccessGetCodeFigureIndicator()
     {
         $reflector = new \ReflectionClass(GroundWithSnowDecoder::class);
         $method = $reflector->getMethod('getCodeFigureIndicator');
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithSnow);
 
-        $this->assertEquals($result, '4');
+        $this->assertEquals('4', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(GroundWithSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithSnow);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -40,7 +50,7 @@ class GroundWithSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithSnow);
 
-        $this->assertNotEquals($result, '4');
+        $this->assertNotEquals('4', $result);
     }
 
     public function testSuccessGetCodeFigureStateGround()
@@ -50,7 +60,17 @@ class GroundWithSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithSnow);
 
-        $this->assertEquals($result, '9');
+        $this->assertEquals('9', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureStateGround()
+    {
+        $reflector = new \ReflectionClass(GroundWithSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureStateGround');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithSnow);
+
+        $this->assertEquals('9', $result);
     }
 
     public function testErrorGetCodeFigureStateGround()
@@ -61,7 +81,7 @@ class GroundWithSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithSnow);
 
-        $this->assertNotEquals($result, '9');
+        $this->assertNotEquals('9', $result);
     }
 
     public function testSuccessGetCodeFigureDepthSnow()
@@ -71,7 +91,17 @@ class GroundWithSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithSnow);
 
-        $this->assertEquals($result, '998');
+        $this->assertEquals('998', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureDepthSnow()
+    {
+        $reflector = new \ReflectionClass(GroundWithSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureDepthSnow');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithSnow);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureDepthSnow()
@@ -82,17 +112,22 @@ class GroundWithSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithSnow);
 
-        $this->assertNotEquals($result, '998');
+        $this->assertNotEquals('998', $result);
     }
 
     public function testSuccessGetCodeGroundState()
     {
-        $this->assertEquals($this->groundWithSnow->getCodeGroundState(), 9);
+        $this->assertEquals(9, $this->groundWithSnow->getCodeGroundState());
+    }
+
+    public function testSuccessIsIntGetCodeGroundState()
+    {
+        $this->assertIsInt($this->groundWithSnow->getCodeGroundState());
     }
 
     public function testErrorGetCodeGroundState()
     {
-        $this->assertNotEquals($this->groundWithSnow->getCodeGroundState(), 'nine');
+        $this->assertNotEquals('nine', $this->groundWithSnow->getCodeGroundState());
     }
 
     public function testExceptionGetCodeGroundState()
@@ -105,12 +140,20 @@ class GroundWithSnowDecoderTest extends TestCase
 
     public function testSuccessGetGroundState()
     {
-        $this->assertEquals($this->groundWithSnow->getGroundState(), 'Snow covering ground completely; deep drifts');
+        $this->assertEquals('Snow covering ground completely; deep drifts', $this->groundWithSnow->getGroundState());
+    }
+
+    public function testSuccessIsStringGetGroundState()
+    {
+        $this->assertIsString($this->groundWithSnow->getGroundState());
     }
 
     public function testErrorGetGroundState()
     {
-        $this->assertNotEquals($this->groundWithSnow->getGroundState(), 'Loose dry snow covering less than one-half of the ground');
+        $this->assertNotEquals(
+            'Loose dry snow covering less than one-half of the ground',
+            $this->groundWithSnow->getGroundState()
+        );
     }
 
     public function testExceptionGetGroundState()
@@ -121,26 +164,31 @@ class GroundWithSnowDecoderTest extends TestCase
         $groundWithSnow->getGroundState();
     }
 
-    public function testSuccessStringGetDepthSnow()
+    public function testSuccessGetDepthSnow()
     {
-        $this->assertEquals($this->groundWithSnow->getDepthSnow(), ['value' => 'Snow cover, not continuous']);
+        $this->assertEquals(['value' => 'Snow cover, not continuous'], $this->groundWithSnow->getDepthSnow());
+    }
+
+    public function testSuccessIsArrayGetDepthSnow()
+    {
+        $this->assertIsArray($this->groundWithSnow->getDepthSnow());
     }
 
     public function testErrorStringGetDepthSnow()
     {
-        $this->assertNotEquals($this->groundWithSnow->getDepthSnow(), ['value' => 'Measurement impossible or inaccurate']);
+        $this->assertNotEquals(['value' => 'Measurement impossible or inaccurate'], $this->groundWithSnow->getDepthSnow());
     }
 
     public function testSuccessIntegerGetDepthSnow()
     {
         $groundWithSnow = new GroundWithSnowDecoder('49025');
-        $this->assertEquals($groundWithSnow->getDepthSnow(), ['value' => 25]);
+        $this->assertEquals(['value' => 25], $groundWithSnow->getDepthSnow());
     }
 
     public function testErrorIntegerGetDepthSnow()
     {
         $groundWithSnow = new GroundWithSnowDecoder('49020');
-        $this->assertNotEquals($groundWithSnow->getDepthSnow(), ['value' => 25]);
+        $this->assertNotEquals(['value' => 25], $groundWithSnow->getDepthSnow());
     }
 
     public function testSuccessIsGroup()

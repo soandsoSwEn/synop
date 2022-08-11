@@ -24,66 +24,81 @@ class AirTemperatureDecoderTest extends TestCase
 
     public function testSuccessGetCodeFigureDistNumber()
     {
-        $this->assertEquals($this->airTemperatureDecoder->getCodeFigureDistNumber(), '1');
+        $this->assertEquals('1', $this->airTemperatureDecoder->getCodeFigureDistNumber());
+    }
+
+    public function testSuccessIsStringGetCodeFigureDistNumber()
+    {
+        $this->assertIsString($this->airTemperatureDecoder->getCodeFigureDistNumber());
     }
 
     public function testErrorGetCodeFigureDistNumber()
     {
         $airTemperatureDecoder = new AirTemperatureDecoder('21007');
-        $this->assertNotEquals($airTemperatureDecoder->getCodeFigureDistNumber(), '1');
+        $this->assertNotEquals('1', $airTemperatureDecoder->getCodeFigureDistNumber());
     }
 
     public function testSuccessGetCodeFigureSignTemperature()
     {
-        $this->assertEquals($this->airTemperatureDecoder->getCodeFigureSignTemperature(), '0');
+        $this->assertEquals('0', $this->airTemperatureDecoder->getCodeFigureSignTemperature());
+    }
+
+    public function testSuccessIsStringGetCodeFigureSignTemperature()
+    {
+        $this->assertIsString($this->airTemperatureDecoder->getCodeFigureSignTemperature());
     }
 
     public function testErrorGetCodeFigureSignTemperature()
     {
-        $this->assertNotEquals($this->airTemperatureDecoder->getCodeFigureSignTemperature(), '1');
+        $this->assertNotEquals('1', $this->airTemperatureDecoder->getCodeFigureSignTemperature());
     }
 
     public function testSuccessGetCodeFigureTemperature()
     {
-        $this->assertEquals($this->airTemperatureDecoder->getCodeFigureTemperature(), '039');
+        $this->assertEquals('039', $this->airTemperatureDecoder->getCodeFigureTemperature());
+    }
+
+    public function testSuccessIsStringGetCodeFigureTemperature()
+    {
+        $this->assertIsString($this->airTemperatureDecoder->getCodeFigureTemperature());
     }
 
     public function testErrorGetCodeFigureTemperature()
     {
         $airTemperatureDecoder = new AirTemperatureDecoder('21007');
-        $this->assertNotEquals($airTemperatureDecoder->getCodeFigureTemperature(), '039');
+        $this->assertNotEquals('039', $airTemperatureDecoder->getCodeFigureTemperature());
     }
 
     public function testSuccessGetSignTemperature()
     {
-        $this->assertEquals($this->airTemperatureDecoder->getSignTemperature(), 0);
+        $this->assertEquals(0, $this->airTemperatureDecoder->getSignTemperature());
     }
 
     public function testSuccessIntegerGetSignTemperature()
     {
-        $this->assertIsInt(0, $this->airTemperatureDecoder->getSignTemperature());
+        $this->assertIsInt($this->airTemperatureDecoder->getSignTemperature());
     }
 
     public function testErrorGetSignTemperature()
     {
         $airTemperatureDecoder = new AirTemperatureDecoder('11039');
-        $this->assertNotEquals($airTemperatureDecoder->getSignTemperature(), 0);
+        $this->assertNotEquals(0, $airTemperatureDecoder->getSignTemperature());
     }
 
     public function testSuccessGetTemperatureValue()
     {
-        $this->assertEquals($this->airTemperatureDecoder->getTemperatureValue(), 3.9);
+        $this->assertEquals(3.9, $this->airTemperatureDecoder->getTemperatureValue());
     }
 
     public function testFloatGetTemperatureValue()
     {
-        $this->assertIsFloat($this->airTemperatureDecoder->getTemperatureValue(), 3.9);
+        $this->assertIsFloat($this->airTemperatureDecoder->getTemperatureValue());
     }
 
     public function testErrorGetTemperatureValue()
     {
         $airTemperatureDecoder = new AirTemperatureDecoder('10038');
-        $this->assertNotEquals($airTemperatureDecoder->getTemperatureValue(), 3.9);
+        $this->assertNotEquals(3.9, $airTemperatureDecoder->getTemperatureValue());
     }
 
     public function testSuccessIsGroup()

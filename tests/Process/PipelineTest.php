@@ -45,7 +45,7 @@ class PipelineTest extends TestCase
         $property->setAccessible(true);
         $value = $property->getValue($this->pipeline);
 
-        $this->assertEquals($value, $pipes);
+        $this->assertEquals($pipes, $value);
     }
 
     public function testErrorPipe()
@@ -59,7 +59,7 @@ class PipelineTest extends TestCase
             '9SpSpspsp',
         ];
 
-        $actual = [
+        $expected = [
             '1SnTxTxTx',
             '2SnTnTnTn',
             '3ESnTgTg',
@@ -77,7 +77,7 @@ class PipelineTest extends TestCase
         $property->setAccessible(true);
         $value = $property->getValue($this->pipeline);
 
-        $this->assertNotEquals($value, $actual);
+        $this->assertNotEquals($expected, $value);
     }
 
     public function testSuccessProcess()

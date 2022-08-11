@@ -24,35 +24,50 @@ class IndexDecoderTest extends TestCase
 
     public function testSuccessGetArea()
     {
-        $this->assertEquals($this->rawIndex->getArea(), '33');
+        $this->assertEquals('33', $this->rawIndex->getArea());
+    }
+
+    public function testSuccessIsStringGetArea()
+    {
+        $this->assertIsString($this->rawIndex->getArea());
     }
 
     public function testErrorGetArea()
     {
         $rawIndex = new IndexDecoder('11583');
-        $this->assertNotEquals($rawIndex->getArea(), '33');
+        $this->assertNotEquals('33', $rawIndex->getArea());
     }
 
     public function testSuccessGetNumber()
     {
-        $this->assertEquals($this->rawIndex->getNumber(), '837');
+        $this->assertEquals('837', $this->rawIndex->getNumber());
+    }
+
+    public function testSuccessIsStringGetNumber()
+    {
+        $this->assertIsString($this->rawIndex->getNumber());
     }
 
     public function testErrorGetNumber()
     {
         $rawIndex = new IndexDecoder('11583');
-        $this->assertNotEquals($rawIndex->getNumber(), '837');
+        $this->assertNotEquals('837', $rawIndex->getNumber());
     }
 
     public function testSuccessGetIndex()
     {
-        $this->assertEquals($this->rawIndex->getIndex(), '33837');
+        $this->assertEquals('33837', $this->rawIndex->getIndex());
+    }
+
+    public function testSuccessIsStringGetIndex()
+    {
+        $this->assertIsString($this->rawIndex->getIndex());
     }
 
     public function testErrorGetIndex()
     {
         $rawIndex = new IndexDecoder('11583');
-        $this->assertNotEquals($rawIndex->getIndex(), '33837');
+        $this->assertNotEquals('33837', $rawIndex->getIndex());
     }
 
     public function testSuccessIsGroup()

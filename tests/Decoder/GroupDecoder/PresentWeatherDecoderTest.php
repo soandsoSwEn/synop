@@ -29,7 +29,17 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->presentWeather);
 
-        $this->assertEquals($result, '7');
+        $this->assertEquals('7', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(PresentWeatherDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->presentWeather);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -40,7 +50,7 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($presentWeather);
 
-        $this->assertNotEquals($result, '7');
+        $this->assertNotEquals('7', $result);
     }
 
     public function testSuccessGetCodeFigurePresentWeather()
@@ -50,7 +60,17 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->presentWeather);
 
-        $this->assertEquals($result, '02');
+        $this->assertEquals('02', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigurePresentWeather()
+    {
+        $reflector = new \ReflectionClass(PresentWeatherDecoder::class);
+        $method = $reflector->getMethod('getCodeFigurePresentWeather');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->presentWeather);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigurePresentWeather()
@@ -61,7 +81,7 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($presentWeather);
 
-        $this->assertNotEquals($result, '02');
+        $this->assertNotEquals('02', $result);
     }
 
     public function testSuccessGetCodeFigurePastWeather()
@@ -71,7 +91,17 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->presentWeather);
 
-        $this->assertEquals($result, '82');
+        $this->assertEquals('82', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigurePastWeather()
+    {
+        $reflector = new \ReflectionClass(PresentWeatherDecoder::class);
+        $method = $reflector->getMethod('getCodeFigurePastWeather');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->presentWeather);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigurePastWeather()
@@ -82,57 +112,85 @@ class PresentWeatherDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($presentWeather);
 
-        $this->assertNotEquals($result, '82');
+        $this->assertNotEquals('82', $result);
     }
 
     public function testSuccessGetPastWeather()
     {
-        $actual = [
+        $expected = [
             'W1' => 'Shower(s)',
             'W2' => 'Cloud covering more than 1/2 of the sky throughout the appropriate period',
         ];
 
-        $this->assertEquals($this->presentWeather->getPastWeather(), $actual);
+        $this->assertEquals($expected, $this->presentWeather->getPastWeather());
+    }
+
+    public function testSuccessIsArrayGetPastWeather()
+    {
+        $expected = [
+            'W1' => 'Shower(s)',
+            'W2' => 'Cloud covering more than 1/2 of the sky throughout the appropriate period',
+        ];
+
+        $this->assertIsArray($this->presentWeather->getPastWeather());
     }
 
     public function testErrorGetPastWeather()
     {
-        $actual = [
+        $expected = [
             'W1' => 'Shower(s)',
             'W2' => 'Fog or ice fog or thick haze (visibility less than 1,000 m)',
         ];
 
-        $this->assertNotEquals($this->presentWeather->getPastWeather(), $actual);
+        $this->assertNotEquals($expected, $this->presentWeather->getPastWeather());
     }
 
     public function testSuccessGetPastWeatherSymbol()
     {
-        $this->assertEquals($this->presentWeather->getPastWeatherSymbol(), '82');
+        $this->assertEquals('82', $this->presentWeather->getPastWeatherSymbol());
+    }
+
+    public function testSuccessIsStringGetPastWeatherSymbol()
+    {
+        $this->assertIsString($this->presentWeather->getPastWeatherSymbol());
     }
 
     public function testErrorGetPastWeatherSymbol()
     {
-        $this->assertNotEquals($this->presentWeather->getPastWeatherSymbol(), '85');
+        $this->assertNotEquals('85', $this->presentWeather->getPastWeatherSymbol());
     }
 
     public function testSuccessGetPresentWeather()
     {
-        $this->assertEquals($this->presentWeather->getPresentWeather(), 'State of sky on the whole unchanged');
+        $this->assertEquals('State of sky on the whole unchanged', $this->presentWeather->getPresentWeather());
+    }
+
+    public function testSuccessIsStringGetPresentWeather()
+    {
+        $this->assertIsString($this->presentWeather->getPresentWeather());
     }
 
     public function testErrorGetPresentWeather()
     {
-        $this->assertNotEquals($this->presentWeather->getPresentWeather(), 'recipitation within sight, not reaching the ground or the surface of the sea');
+        $this->assertNotEquals(
+            'recipitation within sight, not reaching the ground or the surface of the sea',
+            $this->presentWeather->getPresentWeather()
+        );
     }
 
     public function testSuccesGetPresentWeatherSymbol()
     {
-        $this->assertEquals($this->presentWeather->getPresentWeatherSymbol(), '02');
+        $this->assertEquals('02', $this->presentWeather->getPresentWeatherSymbol());
+    }
+
+    public function testSuccesIsStringGetPresentWeatherSymbol()
+    {
+        $this->assertIsString($this->presentWeather->getPresentWeatherSymbol());
     }
 
     public function testErrorGetPresentWeatherSymbol()
     {
-        $this->assertNotEquals($this->presentWeather->getPresentWeatherSymbol(), '05');
+        $this->assertNotEquals('05', $this->presentWeather->getPresentWeatherSymbol());
     }
 
     public function testSuccessIsGroup()

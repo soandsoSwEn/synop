@@ -29,7 +29,17 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, '1');
+        $this->assertEquals('1', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIr()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIr');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIr()
@@ -40,7 +50,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($lowCloudVisibility);
 
-        $this->assertNotEquals($result, '1');
+        $this->assertNotEquals('1', $result);
     }
 
     public function testSuccessGetCodeFigureIx()
@@ -50,7 +60,17 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, '1');
+        $this->assertEquals('1', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIx()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIx');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIx()
@@ -61,7 +81,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($lowCloudVisibility);
 
-        $this->assertNotEquals($result, '1');
+        $this->assertNotEquals('1', $result);
     }
 
     public function testSuccessGetCodeFigureH()
@@ -71,7 +91,17 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, '5');
+        $this->assertEquals('5', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureH()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureH');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureH()
@@ -82,7 +112,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($lowCloudVisibility);
 
-        $this->assertNotEquals($result, '5');
+        $this->assertNotEquals('5', $result);
     }
 
     public function testSuccessGetCodeFigureVV()
@@ -92,7 +122,17 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, '83');
+        $this->assertEquals('83', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureVV()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureVV');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureVV()
@@ -103,12 +143,12 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($lowCloudVisibility);
 
-        $this->assertNotEquals($result, '83');
+        $this->assertNotEquals('83', $result);
     }
 
     public function testSuccessGetHData()
     {
-        $actual = [
+        $expected = [
             0 => '<50',
             1 => '500-100',
             2 => '100-200',
@@ -126,12 +166,22 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, $actual);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSuccessIsArrayGetHData()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getHData');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsArray($result);
     }
 
     public function testErrorGetHData()
     {
-        $actual = [
+        $expected = [
             0 => '<50',
             1 => '500-100',
             2 => '100-200',
@@ -149,12 +199,12 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertNotEquals($result, $actual);
+        $this->assertNotEquals($expected, $result);
     }
 
     public function testSuccessGetIxData()
     {
-        $actual = [
+        $expected = [
             1 => ['Included', 'Manned'],
             2 => ['Omitted (no significant phenomenon to report)', 'Manned'],
             3 => ['Omitted (not observed, data not available)', 'Manned'],
@@ -168,12 +218,22 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, $actual);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSuccessIsAraayGetIxData()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getIxData');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsArray($result);
     }
 
     public function testErrorGetIxData()
     {
-        $actual = [
+        $expected = [
             1 => ['Included', 'Manned'],
             2 => ['Omitted (no significant phenomenon to report)', 'Manned'],
             3 => ['Omitted (not observed, data not available)', 'Manned'],
@@ -187,12 +247,12 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertNotEquals($result, $actual);
+        $this->assertNotEquals($expected, $result);
     }
 
     public function testSuccessGetIrData()
     {
-        $actual = [
+        $expected = [
             1 => 'Included in section 1',
             2 => 'Included in section 3',
             3 => 'Omitted (precipitation amount = 0)',
@@ -204,12 +264,22 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertEquals($result, $actual);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSuccessIsArrayGetIrData()
+    {
+        $reflector = new \ReflectionClass(LowCloudVisibilityDecoder::class);
+        $method = $reflector->getMethod('getIrData');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->lowCloudVisibility);
+
+        $this->assertIsArray($result);
     }
 
     public function testErrorGetIrData()
     {
-        $actual = [
+        $expected = [
             1 => ['Included', 'Manned'],
             2 => ['Omitted (no significant phenomenon to report)', 'Manned'],
             3 => ['Omitted (not observed, data not available)', 'Manned'],
@@ -223,7 +293,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->lowCloudVisibility);
 
-        $this->assertNotEquals($result, $actual);
+        $this->assertNotEquals($expected, $result);
     }
 
     public function testSuccessGetVisValue()
@@ -233,7 +303,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invokeArgs($this->lowCloudVisibility, ['83']);
 
-        $this->assertEquals($result, 45);
+        $this->assertEquals(45, $result);
     }
 
     public function testErrorGetVisValue()
@@ -244,49 +314,71 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invokeArgs($lowCloudVisibility, ['02']);
 
-        $this->assertNotEquals($result, 45);
+        $this->assertNotEquals(45, $result);
     }
 
     public function testSuccessGetVV()
     {
-        $this->assertEquals($this->lowCloudVisibility->getVV(), 45);
+        $this->assertEquals(45, $this->lowCloudVisibility->getVV());
     }
 
     public function testErrorGetVV()
     {
         $lowCloudVisibility = new LowCloudVisibilityDecoder('83102');
-        $this->assertNotEquals($lowCloudVisibility->getVV(), 45);
+        $this->assertNotEquals(45, $lowCloudVisibility->getVV());
     }
 
     public function testSuccessGetH()
     {
-        $this->assertEquals($this->lowCloudVisibility->getH(), '600-1000');
+        $this->assertEquals('600-1000', $this->lowCloudVisibility->getH());
     }
 
     public function testErrorGetH()
     {
         $lowCloudVisibility = new LowCloudVisibilityDecoder('83102');
-        $this->assertNotEquals($lowCloudVisibility->getH(), '600-1000');
+        $this->assertNotEquals('600-1000', $lowCloudVisibility->getH());
     }
 
     public function testSuccessGetIx()
     {
-        $this->assertEquals($this->lowCloudVisibility->getIx(), ['Included', 'Manned']);
+        $this->assertEquals(['Included', 'Manned'], $this->lowCloudVisibility->getIx());
+    }
+
+    public function testSuccessIsArrayGetIx()
+    {
+        $this->assertIsArray($this->lowCloudVisibility->getIx());
     }
 
     public function testErrorGetIx()
     {
-        $this->assertNotEquals($this->lowCloudVisibility->getIx(), ['Omitted (no significant phenomenon to report)', 'Manned']);
+        $this->assertNotEquals(
+            ['Omitted (no significant phenomenon to report)', 'Manned'],
+            $this->lowCloudVisibility->getIx()
+        );
     }
 
     public function testSuccessGetIr()
     {
-        $this->assertEquals($this->lowCloudVisibility->getIr(), 'Included in section 1');
+        $this->assertEquals('Included in section 1', $this->lowCloudVisibility->getIr());
+    }
+
+    public function testSuccessIsStringGetIr()
+    {
+        $this->assertIsString($this->lowCloudVisibility->getIr());
+    }
+
+    public function testNullGetIr()
+    {
+        $reflectorProperty = new \ReflectionProperty(LowCloudVisibilityDecoder::class, 'raw_cloud_vis');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->lowCloudVisibility, '5');
+
+        $this->assertNull($this->lowCloudVisibility->getIr());
     }
 
     public function testErrorGetIr()
     {
-        $this->assertNotEquals($this->lowCloudVisibility->getIr(), 'Omitted (precipitation not amount available)');
+        $this->assertNotEquals('Omitted (precipitation not amount available)', $this->lowCloudVisibility->getIr());
     }
 
     public function testSuccessIsGroup()

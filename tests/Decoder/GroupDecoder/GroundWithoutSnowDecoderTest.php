@@ -30,7 +30,17 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithoutSnowDecoder);
 
-        $this->assertEquals($result, '3');
+        $this->assertEquals('3', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(GroundWithoutSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithoutSnowDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -41,7 +51,7 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithoutSnowDecoder);
 
-        $this->assertNotEquals($result, '3');
+        $this->assertNotEquals('3', $result);
     }
 
     public function testSuccessGetCodeFigureStateGround()
@@ -51,7 +61,17 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithoutSnowDecoder);
 
-        $this->assertEquals($result, '4');
+        $this->assertEquals('4', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureStateGround()
+    {
+        $reflector = new \ReflectionClass(GroundWithoutSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureStateGround');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithoutSnowDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureStateGround()
@@ -62,7 +82,7 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithoutSnowDecoder);
 
-        $this->assertNotEquals($result, '4');
+        $this->assertNotEquals('4', $result);
     }
 
     public function testSuccessGetCodeFigureSignTemperature()
@@ -72,7 +92,17 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithoutSnowDecoder);
 
-        $this->assertEquals($result, '0');
+        $this->assertEquals('0', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureSignTemperature()
+    {
+        $reflector = new \ReflectionClass(GroundWithoutSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureSignTemperature');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithoutSnowDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureSignTemperature()
@@ -83,7 +113,7 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithoutSnowDecoder);
 
-        $this->assertNotEquals($result, '0');
+        $this->assertNotEquals('0', $result);
     }
 
     public function testSuccessGetCodeFigureMinTemperature()
@@ -93,7 +123,17 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->groundWithoutSnowDecoder);
 
-        $this->assertEquals($result, '08');
+        $this->assertEquals('08', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureMinTemperature()
+    {
+        $reflector = new \ReflectionClass(GroundWithoutSnowDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureMinTemperature');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->groundWithoutSnowDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureMinTemperature()
@@ -104,17 +144,22 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($groundWithoutSnowDecoder);
 
-        $this->assertNotEquals($result, '08');
+        $this->assertNotEquals('08', $result);
     }
 
     public function testSuccessGetCodeGroundState()
     {
-        $this->assertEquals($this->groundWithoutSnowDecoder->getCodeGroundState(), 4);
+        $this->assertEquals(4, $this->groundWithoutSnowDecoder->getCodeGroundState());
+    }
+
+    public function testSuccessIsStringGetCodeGroundState()
+    {
+        $this->assertIsInt($this->groundWithoutSnowDecoder->getCodeGroundState());
     }
 
     public function testErrorGetCodeGroundState()
     {
-        $this->assertNotEquals($this->groundWithoutSnowDecoder->getCodeGroundState(), 8);
+        $this->assertNotEquals(8, $this->groundWithoutSnowDecoder->getCodeGroundState());
     }
 
     public function testExceptionGetCodeGroundState()
@@ -127,12 +172,20 @@ class GroundWithoutSnowDecoderTest extends TestCase
 
     public function testSuccessGetGroundState()
     {
-        $this->assertEquals($this->groundWithoutSnowDecoder->getGroundState(), 'Surface of ground frozen');
+        $this->assertEquals('Surface of ground frozen', $this->groundWithoutSnowDecoder->getGroundState());
+    }
+
+    public function testSuccessIsStringGetGroundState()
+    {
+        $this->assertIsString($this->groundWithoutSnowDecoder->getGroundState());
     }
 
     public function testErrorGetGroundState()
     {
-        $this->assertNotEquals($this->groundWithoutSnowDecoder->getGroundState(), 'Moderate or thick cover of loose dry dust or sand covering ground completely');
+        $this->assertNotEquals(
+            'Moderate or thick cover of loose dry dust or sand covering ground completely',
+            $this->groundWithoutSnowDecoder->getGroundState()
+        );
     }
 
     public function testExceptionGetGroundState()
@@ -145,22 +198,32 @@ class GroundWithoutSnowDecoderTest extends TestCase
 
     public function testSuccessGetGroundSignTemperature()
     {
-        $this->assertEquals($this->groundWithoutSnowDecoder->getGroundSignTemperature(), '0');
+        $this->assertEquals('0', $this->groundWithoutSnowDecoder->getGroundSignTemperature());
+    }
+
+    public function testSuccessIsStringGetGroundSignTemperature()
+    {
+        $this->assertIsString($this->groundWithoutSnowDecoder->getGroundSignTemperature());
     }
 
     public function testErrorGetGroundSignTemperature()
     {
-        $this->assertNotEquals($this->groundWithoutSnowDecoder->getGroundSignTemperature(), '1');
+        $this->assertNotEquals('1', $this->groundWithoutSnowDecoder->getGroundSignTemperature());
     }
 
     public function testSuccessGetGroundMinTemperature()
     {
-        $this->assertEquals($this->groundWithoutSnowDecoder->getGroundMinTemperature(), 8);
+        $this->assertEquals(8, $this->groundWithoutSnowDecoder->getGroundMinTemperature());
+    }
+
+    public function testSuccessIsStringGetGroundMinTemperature()
+    {
+        $this->assertIsInt($this->groundWithoutSnowDecoder->getGroundMinTemperature());
     }
 
     public function testErrorGetGroundMinTemperature()
     {
-        $this->assertNotEquals($this->groundWithoutSnowDecoder->getGroundMinTemperature(), 15);
+        $this->assertNotEquals(15, $this->groundWithoutSnowDecoder->getGroundMinTemperature());
     }
 
     public function testSuccessIsGroup()

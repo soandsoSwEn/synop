@@ -29,7 +29,17 @@ class DateDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->dateDecoder);
 
-        $this->assertEquals($result, '1');
+        $this->assertEquals('1', $result);
+    }
+
+    public function testSuccessIsStringGetIwElement()
+    {
+        $reflector = new \ReflectionClass(DateDecoder::class);
+        $method = $reflector->getMethod('getIwElement');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->dateDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetIwElement()
@@ -40,12 +50,12 @@ class DateDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($dataDecoder);
 
-        $this->assertNotEquals($result, '1');
+        $this->assertNotEquals('1', $result);
     }
 
     public function testSuccessGetIwData()
     {
-        $actual = [
+        $expected = [
             0 => ['Visual', 'm/s'],
             1 => ['Instrumental', 'm/s'],
             3 => ['Visual', 'knot'],
@@ -57,12 +67,22 @@ class DateDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->dateDecoder);
 
-        $this->assertEquals($result, $actual);
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testSuccessIsArrayGetIwData()
+    {
+        $reflector = new \ReflectionClass(DateDecoder::class);
+        $method = $reflector->getMethod('getIwData');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->dateDecoder);
+
+        $this->assertIsArray($result);
     }
 
     public function testErrorGetIwData()
     {
-        $actual = [
+        $expected = [
             0 => ['Visual', 'm/s'],
             1 => ['Instrumental', 'm/s'],
         ];
@@ -72,37 +92,47 @@ class DateDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->dateDecoder);
 
-        $this->assertNotEquals($result, $actual);
+        $this->assertNotEquals($expected, $result);
     }
 
     public function testSuccessGetIw()
     {
-        $this->assertEquals($this->dateDecoder->getIw(), ['Instrumental', 'm/s']);
+        $this->assertEquals(['Instrumental', 'm/s'], $this->dateDecoder->getIw());
+    }
+
+    public function testSuccessIsArrayGetIw()
+    {
+        $this->assertIsArray($this->dateDecoder->getIw());
     }
 
     public function testErrorGetIw()
     {
-        $this->assertNotEquals($this->dateDecoder->getIw(), ['Visual', 'm/s']);
+        $this->assertNotEquals(['Visual', 'm/s'], $this->dateDecoder->getIw());
     }
 
     public function testSuccessGetDay()
     {
-        $this->assertEquals($this->dateDecoder->getDay(), '07');
+        $this->assertEquals('07', $this->dateDecoder->getDay());
+    }
+
+    public function testSuccessIsStringGetDay()
+    {
+        $this->assertIsString($this->dateDecoder->getDay());
     }
 
     public function testErrorGetDay()
     {
-        $this->assertNotEquals($this->dateDecoder->getDay(), '81');
+        $this->assertNotEquals('81', $this->dateDecoder->getDay());
     }
 
-    public function testSuccessGetHour()
+    public function testSuccessIsStringGetHour()
     {
-        $this->assertEquals($this->dateDecoder->getHour(), '18');
+        $this->assertIsString($this->dateDecoder->getHour());
     }
 
     public function testErrorGetHour()
     {
-        $this->assertNotEquals($this->dateDecoder->getHour(), '25');
+        $this->assertNotEquals('25', $this->dateDecoder->getHour());
     }
 
     public function testSuccessIsGroup()

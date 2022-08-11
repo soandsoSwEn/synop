@@ -29,7 +29,17 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertEquals($result, '5');
+        $this->assertEquals('5', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(BaricTendencyDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->baricTendencyDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -39,7 +49,7 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertNotEquals($result, 'A');
+        $this->assertNotEquals('A', $result);
     }
 
     public function testSuccessGetCodeFigureCharacteristic()
@@ -49,7 +59,17 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertEquals($result, '2');
+        $this->assertEquals('2', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureCharacteristic()
+    {
+        $reflector = new \ReflectionClass(BaricTendencyDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureCharacteristic');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->baricTendencyDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureCharacteristic()
@@ -59,7 +79,7 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertNotEquals($result, '10');
+        $this->assertNotEquals('10', $result);
     }
 
     public function testSuccessGetCodeFigureChange()
@@ -69,7 +89,17 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertEquals($result, '035');
+        $this->assertEquals('035', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureChange()
+    {
+        $reflector = new \ReflectionClass(BaricTendencyDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureChange');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->baricTendencyDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureChange()
@@ -79,27 +109,37 @@ class BaricTendencyDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->baricTendencyDecoder);
 
-        $this->assertNotEquals($result, '35');
+        $this->assertNotEquals('35', $result);
     }
 
     public function testSuccessGetCharacteristicChange()
     {
-        $this->assertEquals($this->baricTendencyDecoder->getCharacteristicChange(), 2);
+        $this->assertEquals(2, $this->baricTendencyDecoder->getCharacteristicChange());
+    }
+
+    public function testSuccessIsIntGetCharacteristicChange()
+    {
+        $this->assertIsInt($this->baricTendencyDecoder->getCharacteristicChange());
     }
 
     public function testErrorGetCharacteristicChange()
     {
-        $this->assertNotEquals($this->baricTendencyDecoder->getCharacteristicChange(), '');
+        $this->assertNotEquals('', $this->baricTendencyDecoder->getCharacteristicChange());
     }
 
     public function testSuccessGetBaricTendency()
     {
-        $this->assertEquals($this->baricTendencyDecoder->getBaricTendency(), 3.5);
+        $this->assertEquals(3.5, $this->baricTendencyDecoder->getBaricTendency());
+    }
+
+    public function testSuccessIsFloatGetBaricTendency()
+    {
+        $this->assertIsFloat($this->baricTendencyDecoder->getBaricTendency());
     }
 
     public function testErrorGetBaricTendency()
     {
-        $this->assertNotEquals($this->baricTendencyDecoder->getBaricTendency(), '035');
+        $this->assertNotEquals('035', $this->baricTendencyDecoder->getBaricTendency());
     }
 
     public function testSuccessIsGroup()

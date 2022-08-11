@@ -24,57 +24,82 @@ class DewPointTemperatureDecoderTest extends TestCase
 
     public function testSuccessGetCodeFigureDistNumber()
     {
-        $this->assertEquals($this->dewPointTemperatureDecoder->getCodeFigureDistNumber(), '2');
+        $this->assertEquals('2', $this->dewPointTemperatureDecoder->getCodeFigureDistNumber());
+    }
+
+    public function testSuccessIsStringGetCodeFigureDistNumber()
+    {
+        $this->assertIsString($this->dewPointTemperatureDecoder->getCodeFigureDistNumber());
     }
 
     public function testErrorGetCodeFigureDistNumber()
     {
         $dewPointTemperatureDecoder = new DewPointTemperatureDecoder('10039');
-        $this->assertNotEquals($dewPointTemperatureDecoder->getCodeFigureDistNumber(), '2');
+        $this->assertNotEquals('2', $dewPointTemperatureDecoder->getCodeFigureDistNumber());
     }
 
     public function testSuccessGetCodeFigureSignDwPTemperature()
     {
-        $this->assertEquals($this->dewPointTemperatureDecoder->getCodeFigureSignDwPTemperature(), '1');
+        $this->assertEquals('1', $this->dewPointTemperatureDecoder->getCodeFigureSignDwPTemperature());
+    }
+
+    public function testSuccessIsStringGetCodeFigureSignDwPTemperature()
+    {
+        $this->assertIsString($this->dewPointTemperatureDecoder->getCodeFigureSignDwPTemperature());
     }
 
     public function testErrorGetCodeFigureSignDwPTemperature()
     {
         $dewPointTemperatureDecoder = new DewPointTemperatureDecoder('10039');
-        $this->assertNotEquals($dewPointTemperatureDecoder->getCodeFigureSignDwPTemperature(), '1');
+        $this->assertNotEquals('1', $dewPointTemperatureDecoder->getCodeFigureSignDwPTemperature());
     }
 
     public function testSuccessGetCodeFigureDwPTemperature()
     {
-        $this->assertEquals($this->dewPointTemperatureDecoder->getCodeFigureDwPTemperature(), '007');
+        $this->assertEquals('007', $this->dewPointTemperatureDecoder->getCodeFigureDwPTemperature());
+    }
+
+    public function testSuccessIsStringGetCodeFigureDwPTemperature()
+    {
+        $this->assertIsString($this->dewPointTemperatureDecoder->getCodeFigureDwPTemperature());
     }
 
     public function testErrorGetCodeFigureDwPTemperature()
     {
         $dewPointTemperatureDecoder = new DewPointTemperatureDecoder('10039');
-        $this->assertNotEquals($dewPointTemperatureDecoder->getCodeFigureDwPTemperature(), '007');
+        $this->assertNotEquals('007', $dewPointTemperatureDecoder->getCodeFigureDwPTemperature());
     }
 
     public function testSuccessGetDewPointTemperature()
     {
-        $this->assertEquals($this->dewPointTemperatureDecoder->getDewPointTemperature(), 0.7);
+        $this->assertEquals(0.7, $this->dewPointTemperatureDecoder->getDewPointTemperature());
+    }
+
+    public function testSuccessIsStringGetDewPointTemperature()
+    {
+        $this->assertIsFloat($this->dewPointTemperatureDecoder->getDewPointTemperature());
     }
 
     public function testErrorGetDewPointTemperature()
     {
         $dewPointTemperatureDecoder = new DewPointTemperatureDecoder('10039');
-        $this->assertNotEquals($dewPointTemperatureDecoder->getDewPointTemperature(), 0.7);
+        $this->assertNotEquals(0.7, $dewPointTemperatureDecoder->getDewPointTemperature());
     }
 
     public function testSuccessGetSignDewPointTemperature()
     {
-        $this->assertEquals($this->dewPointTemperatureDecoder->getSignDewPointTemperature(), '1');
+        $this->assertEquals(1, $this->dewPointTemperatureDecoder->getSignDewPointTemperature());
+    }
+
+    public function testSuccessIsIntGetSignDewPointTemperature()
+    {
+        $this->assertIsInt($this->dewPointTemperatureDecoder->getSignDewPointTemperature());
     }
 
     public function testErrorGetSignDewPointTemperature()
     {
         $dewPointTemperatureDecoder = new DewPointTemperatureDecoder('10039');
-        $this->assertNotEquals($dewPointTemperatureDecoder->getSignDewPointTemperature(), '1');
+        $this->assertNotEquals('1', $dewPointTemperatureDecoder->getSignDewPointTemperature());
     }
 
     public function testSuccessIsGroup()

@@ -29,7 +29,17 @@ class StLPressureDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->stlPressure);
 
-        $this->assertEquals($result, '3');
+        $this->assertEquals('3', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(StLPressureDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->stlPressure);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -40,7 +50,7 @@ class StLPressureDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($stlPressure);
 
-        $this->assertNotEquals($result, '3');
+        $this->assertNotEquals('3', $result);
     }
 
     public function testSuccessGetCodeFigurePressure()
@@ -50,7 +60,17 @@ class StLPressureDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->stlPressure);
 
-        $this->assertEquals($result, '0049');
+        $this->assertEquals('0049', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigurePressure()
+    {
+        $reflector = new \ReflectionClass(StLPressureDecoder::class);
+        $method = $reflector->getMethod('getCodeFigurePressure');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->stlPressure);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigurePressure()
@@ -61,17 +81,22 @@ class StLPressureDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($stlPressure);
 
-        $this->assertNotEquals($result, '0049');
+        $this->assertNotEquals('0049', $result);
     }
 
     public function testSuccessGetStLPressure()
     {
-        $this->assertEquals($this->stlPressure->getStLPressure(), 1004.9);
+        $this->assertEquals(1004.9, $this->stlPressure->getStLPressure());
+    }
+
+    public function testSuccessIsFloatGetStLPressure()
+    {
+        $this->assertIsFloat($this->stlPressure->getStLPressure());
     }
 
     public function testErrorGetStLPressure()
     {
-        $this->assertNotEquals($this->stlPressure->getStLPressure(), 998.5);
+        $this->assertNotEquals(998.5, $this->stlPressure->getStLPressure());
     }
 
     public function testSuccessIsGroup()

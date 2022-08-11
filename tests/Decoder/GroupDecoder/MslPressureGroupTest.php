@@ -29,7 +29,17 @@ class MslPressureGroupTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->mlsPressure);
 
-        $this->assertEquals($result, '4');
+        $this->assertEquals('4', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigureIndicator()
+    {
+        $reflector = new \ReflectionClass(MslPressureDecoder::class);
+        $method = $reflector->getMethod('getCodeFigureIndicator');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->mlsPressure);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigureIndicator()
@@ -40,7 +50,7 @@ class MslPressureGroupTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($mlsPressure);
 
-        $this->assertNotEquals($result, '4');
+        $this->assertNotEquals('4', $result);
     }
 
     public function testSuccessGetCodeFigurePressure()
@@ -50,7 +60,17 @@ class MslPressureGroupTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->mlsPressure);
 
-        $this->assertEquals($result, '0101');
+        $this->assertEquals('0101', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigurePressure()
+    {
+        $reflector = new \ReflectionClass(MslPressureDecoder::class);
+        $method = $reflector->getMethod('getCodeFigurePressure');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->mlsPressure);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigurePressure()
@@ -61,18 +81,23 @@ class MslPressureGroupTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($mlsPressure);
 
-        $this->assertNotEquals($result, '0101');
+        $this->assertNotEquals('0101', $result);
     }
 
     public function testSuccessGetMslPressure()
     {
-        $this->assertEquals($this->mlsPressure->getMslPressure(), 1010.1);
+        $this->assertEquals(1010.1, $this->mlsPressure->getMslPressure());
+    }
+
+    public function testSuccessIsStringGetMslPressure()
+    {
+        $this->assertIsFloat($this->mlsPressure->getMslPressure());
     }
 
     public function testErrorGetMslPressure()
     {
         $mlsPressure = new MslPressureDecoder('30049');
-        $this->assertNotEquals($mlsPressure->getMslPressure(), 1010.1);
+        $this->assertNotEquals(1010.1, $mlsPressure->getMslPressure());
     }
 
     public function testSuccessIsGroup()

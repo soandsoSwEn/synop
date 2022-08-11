@@ -29,7 +29,17 @@ class CloudPresentDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudPresentDecoder);
 
-        $this->assertEquals($result, '8');
+        $this->assertEquals('8', $result);
+    }
+
+    public function testSuccessIsStringGetCodeFigure()
+    {
+        $reflector = new \ReflectionClass(CloudPresentDecoder::class);
+        $method = $reflector->getMethod('getCodeFigure');
+        $method->setAccessible(true);
+        $result = $method->invoke($this->cloudPresentDecoder);
+
+        $this->assertIsString($result);
     }
 
     public function testErrorGetCodeFigure()
@@ -39,27 +49,40 @@ class CloudPresentDecoderTest extends TestCase
         $method->setAccessible(true);
         $result = $method->invoke($this->cloudPresentDecoder);
 
-        $this->assertNotEquals($result, 'A');
+        $this->assertNotEquals('A', $result);
     }
 
     public function testSuccessGetAmountLowCloudSymbol()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getAmountLowCloudSymbol(), '2');
+        $this->assertEquals('2', $this->cloudPresentDecoder->getAmountLowCloudSymbol());
+    }
+
+    public function testSuccessIsStringGetAmountLowCloudSymbol()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getAmountLowCloudSymbol());
     }
 
     public function testErrorGetAmountLowCloudSymbol()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getAmountLowCloudSymbol(), '/');
+        $this->assertNotEquals('/', $this->cloudPresentDecoder->getAmountLowCloudSymbol());
     }
 
     public function testSuccessGetAmountLowCloud()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getAmountLowCloud(), '2 eight of sky covered');
+        $this->assertEquals('2 eight of sky covered', $this->cloudPresentDecoder->getAmountLowCloud());
+    }
+
+    public function testSuccessIsStringGetAmountLowCloud()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getAmountLowCloud());
     }
 
     public function testErrorGetAmountLowCloud()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getAmountLowCloud(), '1 eight of sky covered, or less, but not zero');
+        $this->assertNotEquals(
+            '1 eight of sky covered, or less, but not zero',
+            $this->cloudPresentDecoder->getAmountLowCloud()
+        );
     }
 
     public function testExceptionGetAmountLowCloud()
@@ -72,22 +95,38 @@ class CloudPresentDecoderTest extends TestCase
 
     public function testSuccessGetFormLowCloudSymbol()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormLowCloudSymbol(), '5');
+        $this->assertEquals('5', $this->cloudPresentDecoder->getFormLowCloudSymbol());
+    }
+
+    public function testSuccessIsStringGetFormLowCloudSymbol()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormLowCloudSymbol());
     }
 
     public function testErrorGetFormLowCloudSymbol()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormLowCloudSymbol(), '/');
+        $this->assertNotEquals('/', $this->cloudPresentDecoder->getFormLowCloudSymbol());
     }
 
     public function testSuccessGetFormLowCloud()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormLowCloud(), 'Stratocumulus not resulting from the spreading out of Cumulus');
+        $this->assertEquals(
+            'Stratocumulus not resulting from the spreading out of Cumulus',
+            $this->cloudPresentDecoder->getFormLowCloud()
+        );
+    }
+
+    public function testSuccessIsStringGetFormLowCloud()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormLowCloud());
     }
 
     public function testErrorGetFormLowCloud()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormLowCloud(), 'Cumulus moderate or string vertical extent, generally with protuberances in the form of domes or towers either accompanied or not by other Cumulus or by Stratocumulus, all having their bases at the same level');
+        $this->assertNotEquals(
+            'Cumulus moderate or string vertical extent, generally with protuberances in the form of domes or towers either accompanied or not by other Cumulus or by Stratocumulus, all having their bases at the same level',
+            $this->cloudPresentDecoder->getFormLowCloud()
+        );
     }
 
     public function testExceptionGetFormLowCloud()
@@ -100,42 +139,74 @@ class CloudPresentDecoderTest extends TestCase
 
     public function testSuccessGetFormMediumCloudSymbol()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormMediumCloudSymbol(), '5');
+        $this->assertEquals('5', $this->cloudPresentDecoder->getFormMediumCloudSymbol());
+    }
+
+    public function testSuccessIsStringGetFormMediumCloudSymbol()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormMediumCloudSymbol());
     }
 
     public function testErrorGetFormMediumCloudSymbol()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormMediumCloudSymbol(), '//');
+        $this->assertNotEquals('//', $this->cloudPresentDecoder->getFormMediumCloudSymbol());
     }
 
     public function testSuccessGetFormMediumCloud()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormMediumCloud(), 'Semi-transparent Altocumulus in bands, or Altocumulus in one or more fairly continuous layers (semi-transparent or opaque), progressively invading the sky; these Altocumulus clouds generally thicken as a whole');
+        $this->assertEquals(
+            'Semi-transparent Altocumulus in bands, or Altocumulus in one or more fairly continuous layers (semi-transparent or opaque), progressively invading the sky; these Altocumulus clouds generally thicken as a whole',
+            $this->cloudPresentDecoder->getFormMediumCloud()
+        );
+    }
+
+    public function testSuccessIsStringGetFormMediumCloud()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormMediumCloud());
     }
 
     public function testErrorGetFormMediumCloud()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormMediumCloud(), 'Altocumulus of a chaotic sky, generally at several levels');
+        $this->assertNotEquals(
+            'Altocumulus of a chaotic sky, generally at several levels',
+            $this->cloudPresentDecoder->getFormMediumCloud()
+        );
     }
 
     public function testSuccessGetFormHighCloudSymbol()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormHighCloudSymbol(), '/');
+        $this->assertEquals('/', $this->cloudPresentDecoder->getFormHighCloudSymbol());
+    }
+
+    public function testSuccessIsStringGetFormHighCloudSymbol()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormHighCloudSymbol());
     }
 
     public function testErrorGetFormHighCloudSymbol()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormHighCloudSymbol(), '1');
+        $this->assertNotEquals('1', $this->cloudPresentDecoder->getFormHighCloudSymbol());
     }
 
     public function testSuccessGetFormHighCloud()
     {
-        $this->assertEquals($this->cloudPresentDecoder->getFormHighCloud(), 'Cirrus, Cirrocumulus and Cirrostartus invisible owing to darkness, fog, blowing dust or sand, or other similar phenomena or more often because of the presence of a continuous layer of lower clouds');
+        $this->assertEquals(
+            'Cirrus, Cirrocumulus and Cirrostartus invisible owing to darkness, fog, blowing dust or sand, or other similar phenomena or more often because of the presence of a continuous layer of lower clouds',
+            $this->cloudPresentDecoder->getFormHighCloud()
+        );
+    }
+
+    public function testSuccessIsStringGetFormHighCloud()
+    {
+        $this->assertIsString($this->cloudPresentDecoder->getFormHighCloud());
     }
 
     public function testErrorGetFormHighCloud()
     {
-        $this->assertNotEquals($this->cloudPresentDecoder->getFormHighCloud(), 'No Cirrus, Cirrocumulus or Cirrostartus');
+        $this->assertNotEquals(
+            'No Cirrus, Cirrocumulus or Cirrostartus',
+            $this->cloudPresentDecoder->getFormHighCloud()
+        );
     }
 
     public function testExceptionGetFormHighCloud()
