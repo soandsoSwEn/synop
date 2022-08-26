@@ -75,21 +75,21 @@ class SectionFiveDecoder extends Decoder implements DecoderInterface
     {
         $averageTemperature = false;
         if ($this->synopReport) {
-            $averageTemperature = $this->block($rawReport->getReport());
-            if (!$this->isGroup($averageTemperature, 5)) {
+            $averageDailyTemperature = $this->block($rawReport->getReport());
+            if (!$this->isGroup($averageDailyTemperature, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($averageTemperature, 0, 1);
-            if (strcmp($distinguishing_digit, '1') == 0) {
-                $average_temperature = true;
+            $distinguishingDigit = substr($averageDailyTemperature, 0, 1);
+            if (strcmp($distinguishingDigit, '1') == 0) {
+                $averageTemperature = true;
             }
         } else {
             //ship report
         }
-        if ($average_temperature) {
-            $this->updateReport($averageTemperature, $rawReport);
-            return $this->putInSection($averageTemperature) ? true : false;
+        if ($averageTemperature) {
+            $this->updateReport($averageDailyTemperature, $rawReport);
+            return $this->putInSection($averageDailyTemperature) ? true : false;
         } else {
             return null;
         }
