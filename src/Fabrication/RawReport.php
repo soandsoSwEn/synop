@@ -23,6 +23,7 @@ class RawReport implements RawReportInterface
 
     /**
      * Sets the value of the weather report
+     *
      * @param string $report
      * @return void
      */
@@ -33,7 +34,8 @@ class RawReport implements RawReportInterface
     
     /**
      * Returns the value of the weather report
-     * @return string
+     *
+     * @return string Weather report
      */
     public function getReport(): string
     {
@@ -42,6 +44,7 @@ class RawReport implements RawReportInterface
     
     /**
      * Updates weather report value
+     *
      * @param string $report
      * @return void
      */
@@ -52,20 +55,22 @@ class RawReport implements RawReportInterface
     
     /**
      * Clears meteorological data from random errors
+     *
      * @param string $report
      * @return string
      */
-    public function cleanReport(string $report) : string
+    public function cleanReport(string $report): string
     {
         return $this->clearDoubleSpacing($report);
     }
     
     /**
      * Removes double spaces in the text of the weather report
+     *
      * @param string $report
      * @return string
      */
-    public function clearDoubleSpacing(string $report) : string
+    public function clearDoubleSpacing(string $report): string
     {
         return preg_replace("/[  ]+/", " ", $report);
     }

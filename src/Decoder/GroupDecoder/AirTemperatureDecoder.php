@@ -1,9 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
-
 
 use Soandso\Synop\Fabrication\ValidateInterface;
 
@@ -17,10 +14,10 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class AirTemperatureDecoder implements GroupDecoderInterface
 {
     /** Value distinctive number of air temperature group */
-    const DIGIT = '1';
+    protected const DIGIT = '1';
 
     /** Value distinctive number of minimum air temperature group */
-    const MINIMUM_TEMP_DIGIT = '2';
+    protected const MINIMUM_TEMP_DIGIT = '2';
 
     private $currentDigit = null;
 
@@ -42,14 +39,17 @@ class AirTemperatureDecoder implements GroupDecoderInterface
      * @return bool
      * @throws \Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishing_digit = substr($this->raw_air_temperature, 0, 1);
 
         if (strcasecmp($distinguishing_digit, $this->currentDigit) == 0) {
             $validate->isValidGroup(get_class($this), [
-                $this->getCodeFigureDistNumber(), $this->getCodeFigureSignTemperature(), $this->getCodeFigureTemperature()
+                $this->getCodeFigureDistNumber(),
+                $this->getCodeFigureSignTemperature(),
+                $this->getCodeFigureTemperature()
             ]);
+
             return true;
         }
 
@@ -58,9 +58,10 @@ class AirTemperatureDecoder implements GroupDecoderInterface
 
     /**
      * Returns the sign of the temperature
+     *
      * @return int
      */
-    public function getSignTemperature() : int
+    public function getSignTemperature(): int
     {
         return intval(substr($this->raw_air_temperature, 1, 1));
     }
@@ -70,7 +71,7 @@ class AirTemperatureDecoder implements GroupDecoderInterface
      *
      * @return float
      */
-    public function getTemperatureValue() : float
+    public function getTemperatureValue(): float
     {
         $stringOfTemperature = substr($this->raw_air_temperature, 2, 3);
         $integerOfNumber = substr($stringOfTemperature, 0, 2);

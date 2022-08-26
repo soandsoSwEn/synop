@@ -37,7 +37,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setWindSpeed($decoder);
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('wind_speed');
+        $property = $reflector->getProperty('windSpeed');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -52,7 +52,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setDirectionWind($decoder);
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('direction_wind');
+        $property = $reflector->getProperty('directionWind');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -67,7 +67,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setTotalClouds($decoder);
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('total_clouds');
+        $property = $reflector->getProperty('totalClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -86,15 +86,15 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setCloudWind($decoder, $validate);
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $propertyTotalClouds = $reflector->getProperty('total_clouds');
+        $propertyTotalClouds = $reflector->getProperty('totalClouds');
         $propertyTotalClouds->setAccessible(true);
         $valueTotalClouds = $propertyTotalClouds->getValue($this->cloudWindGroup);
 
-        $propertyDirectionWind = $reflector->getProperty('direction_wind');
+        $propertyDirectionWind = $reflector->getProperty('directionWind');
         $propertyDirectionWind->setAccessible(true);
         $valueDirectionWind = $propertyDirectionWind->getValue($this->cloudWindGroup);
 
-        $propertyWindSpeed = $reflector->getProperty('wind_speed');
+        $propertyWindSpeed = $reflector->getProperty('windSpeed');
         $propertyWindSpeed->setAccessible(true);
         $valueWindSpeed = $propertyWindSpeed->getValue($this->cloudWindGroup);
 
@@ -139,7 +139,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setWindSpeedValue('5');
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('wind_speed');
+        $property = $reflector->getProperty('windSpeed');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -151,7 +151,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setDirectionWindValue('150');
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('direction_wind');
+        $property = $reflector->getProperty('directionWind');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -163,7 +163,7 @@ class CloudWindGroupTest extends TestCase
         $this->cloudWindGroup->setTotalCloudsValue('8');
 
         $reflector = new \ReflectionClass(CloudWindGroup::class);
-        $property = $reflector->getProperty('total_clouds');
+        $property = $reflector->getProperty('totalClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->cloudWindGroup);
 
@@ -194,15 +194,15 @@ class CloudWindGroupTest extends TestCase
         $propertyDec->setAccessible(true);
         $valueDec = $propertyDec->getValue($this->cloudWindGroup);
 
-        $propertyTotalClouds = $reflector->getProperty('total_clouds');
+        $propertyTotalClouds = $reflector->getProperty('totalClouds');
         $propertyTotalClouds->setAccessible(true);
         $valueTotalClouds = $propertyTotalClouds->getValue($this->cloudWindGroup);
 
-        $propertyDirectionWind = $reflector->getProperty('direction_wind');
+        $propertyDirectionWind = $reflector->getProperty('directionWind');
         $propertyDirectionWind->setAccessible(true);
         $valueDirectionWind = $propertyDirectionWind->getValue($this->cloudWindGroup);
 
-        $propertyWindSpeed = $reflector->getProperty('wind_speed');
+        $propertyWindSpeed = $reflector->getProperty('windSpeed');
         $propertyWindSpeed->setAccessible(true);
         $valueWindSpeed = $propertyWindSpeed->getValue($this->cloudWindGroup);
 

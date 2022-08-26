@@ -1,9 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -18,7 +15,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class MslPressureDecoder implements GroupDecoderInterface
 {
     /** Value distinctive number of Air Pressure reduced to mean sea level */
-    const DIGIT = '4';
+    protected const DIGIT = '4';
 
     /**
      * @var string Air Pressure reduced to mean sea level data
@@ -32,16 +29,21 @@ class MslPressureDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
-     * @param ValidateInterface $validate
+     *
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawMlsPressure, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]);
+            $validate->isValidGroup(
+                get_class($this),
+                [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]
+            );
+
             return true;
         }
 
@@ -50,9 +52,10 @@ class MslPressureDecoder implements GroupDecoderInterface
 
     /**
      * Returns the Air Pressure reduced to mean sea level value
+     *
      * @return float
      */
-    public function getMslPressure() : float
+    public function getMslPressure(): float
     {
         $PPPP = substr($this->rawMlsPressure, 1, 4);
         $seaLevelPressure = null;

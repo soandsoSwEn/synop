@@ -23,7 +23,7 @@ class SectionTwoDecoderTest extends TestCase
     public function testIsSynopTypeReport()
     {
         $reflector = new \ReflectionClass(SectionTwoDecoder::class);
-        $property = $reflector->getProperty('synop_report');
+        $property = $reflector->getProperty('synopReport');
         $property->setAccessible(true);
         $value = $property->getValue($this->sectionTwoDecoder);
 
@@ -33,7 +33,7 @@ class SectionTwoDecoderTest extends TestCase
     public function testIsShipTypeReport()
     {
         $reflector = new \ReflectionClass(SectionTwoDecoder::class);
-        $property = $reflector->getProperty('ship_report');
+        $property = $reflector->getProperty('shipReport');
         $property->setAccessible(true);
         $value = $property->getValue($this->sectionTwoDecoder);
 

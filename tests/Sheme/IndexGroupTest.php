@@ -34,7 +34,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndex($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -49,7 +49,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndex($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -64,7 +64,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndex($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -79,7 +79,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -94,7 +94,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -109,7 +109,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -124,7 +124,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -139,7 +139,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -154,7 +154,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumber($decoder);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -174,15 +174,15 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setIndexGroup($decoder, $validate);
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $propertyAreaNum = $reflector->getProperty('area_number');
+        $propertyAreaNum = $reflector->getProperty('areaNumber');
         $propertyAreaNum->setAccessible(true);
         $valueAreaNum = $propertyAreaNum->getValue($this->indexGroup);
 
-        $propertyStNum = $reflector->getProperty('station_number');
+        $propertyStNum = $reflector->getProperty('stationNumber');
         $propertyStNum->setAccessible(true);
         $valueStNum = $propertyStNum->getValue($this->indexGroup);
 
-        $propertyStIn = $reflector->getProperty('station_index');
+        $propertyStIn = $reflector->getProperty('stationIndex');
         $propertyStIn->setAccessible(true);
         $valueStIn = $propertyStIn->getValue($this->indexGroup);
 
@@ -256,7 +256,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndexValue('33835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -268,7 +268,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndexValue('33835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -280,7 +280,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationIndexValue('33835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_index');
+        $property = $reflector->getProperty('stationIndex');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -292,7 +292,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumberValue('835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -304,7 +304,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumberValue('835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -316,7 +316,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setStationNumberValue('835');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('station_number');
+        $property = $reflector->getProperty('stationNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -328,7 +328,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumberValue('34');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -340,7 +340,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumberValue('34');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -352,7 +352,7 @@ class IndexGroupTest extends TestCase
         $this->indexGroup->setAreaNumberValue('34');
 
         $reflector = new \ReflectionClass(IndexGroup::class);
-        $property = $reflector->getProperty('area_number');
+        $property = $reflector->getProperty('areaNumber');
         $property->setAccessible(true);
         $value = $property->getValue($this->indexGroup);
 
@@ -385,15 +385,15 @@ class IndexGroupTest extends TestCase
         $propertyDec->setAccessible(true);
         $valueDec = $propertyDec->getValue($this->indexGroup);
 
-        $propertyAreaNum = $reflector->getProperty('area_number');
+        $propertyAreaNum = $reflector->getProperty('areaNumber');
         $propertyAreaNum->setAccessible(true);
         $valueAreaNum = $propertyAreaNum->getValue($this->indexGroup);
 
-        $propertyStNum = $reflector->getProperty('station_number');
+        $propertyStNum = $reflector->getProperty('stationNumber');
         $propertyStNum->setAccessible(true);
         $valueStNum = $propertyStNum->getValue($this->indexGroup);
 
-        $propertyStIn = $reflector->getProperty('station_index');
+        $propertyStIn = $reflector->getProperty('stationIndex');
         $propertyStIn->setAccessible(true);
         $valueStIn = $propertyStIn->getValue($this->indexGroup);
 

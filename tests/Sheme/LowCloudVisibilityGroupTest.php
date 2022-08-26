@@ -67,7 +67,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHlowClouds($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -82,7 +82,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHlowClouds($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -97,7 +97,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHlowClouds($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -112,7 +112,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeather($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -127,7 +127,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeather($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -142,7 +142,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeather($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -157,7 +157,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecip($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -172,7 +172,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecip($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -187,7 +187,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecip($decoder);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -212,15 +212,15 @@ class LowCloudVisibilityGroupTest extends TestCase
         $propertyVis->setAccessible(true);
         $valueVis = $propertyVis->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyHlc = $reflector->getProperty('height_low_clouds');
+        $propertyHlc = $reflector->getProperty('heightLowClouds');
         $propertyHlc->setAccessible(true);
         $valueHlc = $propertyHlc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyInc = $reflector->getProperty('inc_weather_group');
+        $propertyInc = $reflector->getProperty('incWeatherGroup');
         $propertyInc->setAccessible(true);
         $valueInc = $propertyInc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyIncPr = $reflector->getProperty('inc_precip_group');
+        $propertyIncPr = $reflector->getProperty('incPrecipGroup');
         $propertyIncPr->setAccessible(true);
         $valueIncPr = $propertyIncPr->getValue($this->lowCloudVisibilityGroup);
 
@@ -248,15 +248,15 @@ class LowCloudVisibilityGroupTest extends TestCase
         $propertyVis->setAccessible(true);
         $valueVis = $propertyVis->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyHlc = $reflector->getProperty('height_low_clouds');
+        $propertyHlc = $reflector->getProperty('heightLowClouds');
         $propertyHlc->setAccessible(true);
         $valueHlc = $propertyHlc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyInc = $reflector->getProperty('inc_weather_group');
+        $propertyInc = $reflector->getProperty('incWeatherGroup');
         $propertyInc->setAccessible(true);
         $valueInc = $propertyInc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyIncPr = $reflector->getProperty('inc_precip_group');
+        $propertyIncPr = $reflector->getProperty('incPrecipGroup');
         $propertyIncPr->setAccessible(true);
         $valueIncPr = $propertyIncPr->getValue($this->lowCloudVisibilityGroup);
 
@@ -361,7 +361,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHeightLowValue('1000-1500');
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -373,7 +373,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHeightLowValue(null);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -385,7 +385,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setHeightLowValue('1000-1500');
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('height_low_clouds');
+        $property = $reflector->getProperty('heightLowClouds');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -397,7 +397,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeatherValue(['Omitted (no significant phenomenon to report)', 'Manned']);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -409,7 +409,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeatherValue(['Omitted (no significant phenomenon to report)', 'Manned']);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -421,7 +421,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeatherValue(null);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -433,7 +433,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncWeatherValue(['Omitted (no significant phenomenon to report)', 'Manned']);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_weather_group');
+        $property = $reflector->getProperty('incWeatherGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -445,7 +445,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecipValue('Included in section 3');
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -457,7 +457,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecipValue('Included in section 3');
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -469,7 +469,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecipValue(null);
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -481,7 +481,7 @@ class LowCloudVisibilityGroupTest extends TestCase
         $this->lowCloudVisibilityGroup->setIncPrecipValue('Included in section 3');
 
         $reflector = new \ReflectionClass(LowCloudVisibilityGroup::class);
-        $property = $reflector->getProperty('inc_precip_group');
+        $property = $reflector->getProperty('incPrecipGroup');
         $property->setAccessible(true);
         $value = $property->getValue($this->lowCloudVisibilityGroup);
 
@@ -514,15 +514,15 @@ class LowCloudVisibilityGroupTest extends TestCase
         $propertyVis->setAccessible(true);
         $valueVis = $propertyVis->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyHlc = $reflector->getProperty('height_low_clouds');
+        $propertyHlc = $reflector->getProperty('heightLowClouds');
         $propertyHlc->setAccessible(true);
         $valueHlc = $propertyHlc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyInc = $reflector->getProperty('inc_weather_group');
+        $propertyInc = $reflector->getProperty('incWeatherGroup');
         $propertyInc->setAccessible(true);
         $valueInc = $propertyInc->getValue($this->lowCloudVisibilityGroup);
 
-        $propertyIncPr = $reflector->getProperty('inc_precip_group');
+        $propertyIncPr = $reflector->getProperty('incPrecipGroup');
         $propertyIncPr->setAccessible(true);
         $valueIncPr = $propertyIncPr->getValue($this->lowCloudVisibilityGroup);
 

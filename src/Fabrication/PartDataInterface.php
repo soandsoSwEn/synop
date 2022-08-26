@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Fabrication;
-
 
 use Soandso\Synop\Sheme\GroupInterface;
 use Soandso\Synop\Sheme\SectionInterface;
@@ -24,7 +22,7 @@ interface PartDataInterface
      * @param string $titleSection Preset section
      * @return array
      */
-    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection) : ?array;
+    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection): ?array;
 
     /**
      * Returns object of weather report group
@@ -33,5 +31,5 @@ interface PartDataInterface
      * @param string $groupItem The name of the class whose object you want to get
      * @return GroupInterface|null
      */
-    public function getGroupData(array $groupsData, string $groupItem) : ?GroupInterface;
+    public function getGroupData(array $groupsData, string $groupItem): ?GroupInterface;
 }

@@ -1,9 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -18,32 +15,36 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class DewPointTemperatureDecoder implements GroupDecoderInterface
 {
     /** Value distinctive number of dew point temperature group */
-    const DIGIT = '2';
+    protected const DIGIT = '2';
 
     /**
      * @var string Dew point temperature group data
      */
-    private $raw_dp_temperature;
+    private $rawDpTemperature;
 
-    public function __construct(string $raw_dp_temperature)
+    public function __construct(string $rawDpTemperature)
     {
-        $this->raw_dp_temperature = $raw_dp_temperature;
+        $this->rawDpTemperature = $rawDpTemperature;
     }
 
     /**
      * Returns the result of checking the validity of the group
+     *
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
-        $distinguishingDigit = substr($this->raw_dp_temperature, 0, 1);
+        $distinguishingDigit = substr($this->rawDpTemperature, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(get_class($this), [
-                $this->getCodeFigureDistNumber(), $this->getCodeFigureSignDwPTemperature(), $this->getCodeFigureDwPTemperature()
+                $this->getCodeFigureDistNumber(),
+                $this->getCodeFigureSignDwPTemperature(),
+                $this->getCodeFigureDwPTemperature()
             ]);
+
             return true;
         }
 
@@ -52,20 +53,21 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
 
     /**
      * Returns the sign of the dew point temperature
+     *
      * @return int
      */
-    public function getSignDewPointTemperature() : int
+    public function getSignDewPointTemperature(): int
     {
-        return intval(substr($this->raw_dp_temperature, 1, 1));
+        return intval(substr($this->rawDpTemperature, 1, 1));
     }
 
     /**
      * Returns the dew point temperature value
      * @return float
      */
-    public function getDewPointTemperature() : float
+    public function getDewPointTemperature(): float
     {
-        $stringOfDewPoint = substr($this->raw_dp_temperature, 2, 3);
+        $stringOfDewPoint = substr($this->rawDpTemperature, 2, 3);
         $integerOfDewPoint = substr($stringOfDewPoint, 0, 2);
         $fractionalOfNumber = substr($stringOfDewPoint, 2, 1);
         $dewPoint = $integerOfDewPoint . '.' . $fractionalOfNumber;
@@ -80,7 +82,7 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
      */
     public function getCodeFigureDistNumber()
     {
-        return substr($this->raw_dp_temperature, 0, 1);
+        return substr($this->rawDpTemperature, 0, 1);
     }
 
     /**
@@ -90,7 +92,7 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
      */
     public function getCodeFigureSignDwPTemperature()
     {
-        return substr($this->raw_dp_temperature, 1, 1);
+        return substr($this->rawDpTemperature, 1, 1);
     }
 
     /**
@@ -100,6 +102,6 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
      */
     public function getCodeFigureDwPTemperature()
     {
-        return substr($this->raw_dp_temperature, 2, 3);
+        return substr($this->rawDpTemperature, 2, 3);
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
-
 
 use Soandso\Synop\Fabrication\UnitInterface;
 
@@ -20,19 +18,19 @@ interface GroupWithUnitsInterface
      *
      * @param UnitInterface $unit The current instance of the Unit object
      */
-    public function setUnit(UnitInterface $unit) : void;
+    public function setUnit(UnitInterface $unit): void;
 
     /**
      * Returns the current instance of the Unit for the weather report
      *
      * @return UnitInterface The current instance of the Unit object
      */
-    public function getUnit() : UnitInterface;
+    public function getUnit(): UnitInterface;
 
     /**
      * Returns the units of measurement for the parameters of this group
      *
      * @return array|null
      */
-    public function getUnitValue() : ?array;
+    public function getUnitValue(): ?array;
 }

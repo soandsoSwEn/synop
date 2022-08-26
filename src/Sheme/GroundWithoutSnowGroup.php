@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
-
 
 use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
@@ -23,10 +21,10 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
     /**
      * @var string State of ground without snow or measurable ice cover group data
      */
-    private $raw_ground_without_snow;
+    private $rawGroundWithoutSnow;
 
     /**
-     * @var GroupDecoderInterface
+     * @var GroupDecoderInterface Decoder object for state of the ground without snow group
      */
     private $decoder;
 
@@ -63,10 +61,11 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets the initial data for state of ground group
+     *
      * @param string $data state of ground group data
      * @throws Exception
      */
-    public function setData(string $data, ValidateInterface $validate) : void
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
             $this->setRawGroundWithoutSnow($data);
@@ -79,24 +78,27 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets state of ground group data
-     * @param string $data
+     *
+     * @param string $data state of ground group data
      */
-    public function setRawGroundWithoutSnow(string $data) : void
+    public function setRawGroundWithoutSnow(string $data): void
     {
-        $this->raw_ground_without_snow = $data;
+        $this->rawGroundWithoutSnow = $data;
     }
 
     /**
      * Sets an initialized decoder object for state of ground group
+     *
      * @param GroupDecoderInterface $decoder
      */
-    public function setDecoder(GroupDecoderInterface $decoder) : void
+    public function setDecoder(GroupDecoderInterface $decoder): void
     {
         $this->decoder = $decoder;
     }
 
     /**
      * Sets code figure of state ground group
+     *
      * @param int|null $codeState Code figure of state ground
      */
     public function setCodeStateValue(?int $codeState)
@@ -106,6 +108,7 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets state ground value
+     *
      * @param string|null $state State ground
      */
     public function setStateValue(?string $state)
@@ -115,6 +118,7 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets grass minimum temperature sign
+     *
      * @param int|null $sign Grass minimum temperature sign
      */
     public function setSignValue(?int $sign)
@@ -124,7 +128,8 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets grass minimum temperature
-     * @param int|null $minTemperature Grass minimum temperature (rounded to nearest whole degree)
+     *
+     * @param int|null $minTemperature Grass minimum temperature (rounded to the nearest whole degree)
      */
     public function setMinTemperatureValue(?int $minTemperature)
     {
@@ -133,7 +138,9 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets resulting signed grass minimum temperature
-     * @param int|null $resultMinTemperature resulting signed grass minimum temperature (rounded to nearest whole degree)
+     *
+     * @param int|null $resultMinTemperature resulting signed grass minimum temperature
+     * (rounded to the nearest whole degree)
      */
     public function setResultMinTemperature(?int $resultMinTemperature)
     {
@@ -142,70 +149,79 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Returns state of ground without snow or measurable ice cover group data
+     *
      * @return string State of ground without snow or measurable ice cover group
      */
-    public function getRawGroundWithoutSnow() : string
+    public function getRawGroundWithoutSnow(): string
     {
-        return $this->raw_ground_without_snow;
+        return $this->rawGroundWithoutSnow;
     }
 
     /**
      * Returns initialized decoder object for state of ground group
+     *
      * @return GroupDecoderInterface Initialized decoder object for state of ground group
      */
-    public function getDecoder() : GroupDecoderInterface
+    public function getDecoder(): GroupDecoderInterface
     {
         return $this->decoder;
     }
 
     /**
      * Returns code figure of state ground group
+     *
      * @return int|null
      */
-    public function getCodeStateValue() : ?int
+    public function getCodeStateValue(): ?int
     {
         return $this->codeState;
     }
 
     /**
      * Return state ground value
+     *
      * @return string|null
      */
-    public function getStateValue() : ?string
+    public function getStateValue(): ?string
     {
         return $this->state;
     }
 
     /**
      * Returns grass minimum temperature sign
+     *
      * @return int|null
      */
-    public function getSignValue() : ?int
+    public function getSignValue(): ?int
     {
         return $this->sign;
     }
 
     /**
      * Returns grass minimum temperature
-     * @return int|null Grass minimum temperature (rounded to nearest whole degree)
+     *
+     * @return int|null Grass minimum temperature (rounded to the nearest whole degree)
      */
-    public function getMinTemperatureValue() : ?int
+    public function getMinTemperatureValue(): ?int
     {
         return $this->minTemperature;
     }
 
     /**
      * Returns resulting signed grass minimum temperature
-     * @return int|null resulting signed grass minimum temperature (rounded to nearest whole degree)
+     *
+     * @return int|null resulting signed grass minimum temperature (rounded to the nearest whole degree)
      */
-    public function getResultMinTemperature() : ?int
+    public function getResultMinTemperature(): ?int
     {
         return $this->minTemperatureValue;
     }
 
     /**
      * Sets values for the state of the ground group variables
+     *
      * @param GroupDecoderInterface $decoder Initialized decoder object for state of ground group
+     * @param ValidateInterface $validate Object for weather data validation
      */
     public function setGroundWithoutSnowGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
@@ -226,20 +242,22 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Returns whether the given group is a state of ground group
+     *
      * @param GroupDecoderInterface $decoder Initialized decoder object
-     * @param ValidateInterface $validate
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool
      */
-    public function isDrWtSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
+    public function isDrWtSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
         return $decoder->isGroup($validate);
     }
 
     /**
      * Sets Code figure of state ground
+     *
      * @param GroupDecoderInterface|null $decoder Initialized decoder object
      */
-    public function setCodeState(?GroupDecoderInterface $decoder) : void
+    public function setCodeState(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setCodeStateValue(null);
@@ -250,9 +268,10 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets state ground
+     *
      * @param GroupDecoderInterface|null $decoder Initialized decoder object
      */
-    public function setState(?GroupDecoderInterface $decoder) : void
+    public function setState(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setStateValue(null);
@@ -263,9 +282,10 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets the grass minimum temperature sign value
+     *
      * @param GroupDecoderInterface|null $decoder Initialized decoder object
      */
-    public function setSign(?GroupDecoderInterface $decoder) : void
+    public function setSign(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setSignValue(null);
@@ -276,6 +296,7 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets the grass minimum temperature value
+     *
      * @param GroupDecoderInterface|null $decoder Initialized decoder object
      */
     public function setMinTemperature(?GroupDecoderInterface $decoder)
@@ -289,8 +310,9 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
 
     /**
      * Sets the full value of the signed grass minimum temperature
+     *
      * @param int|null $sign Sign of temperature
-     * @param int|null $temperature Grass minimum temperature (rounded to nearest whole degree)
+     * @param int|null $temperature Grass minimum temperature (rounded to the nearest whole degree)
      */
     public function buildMinTemperature(?int $sign, ?int $temperature)
     {

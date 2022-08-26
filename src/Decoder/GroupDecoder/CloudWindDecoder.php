@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
 
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -13,7 +12,10 @@ use Soandso\Synop\Fabrication\ValidateInterface;
  */
 class CloudWindDecoder implements GroupDecoderInterface
 {
-    private $raw_clouds_wind;
+    /**
+     * @var string Data of total clouds and wind
+     */
+    private $rawCloudsWind;
 
     /**
      * @var string[] Cloud Values
@@ -32,9 +34,9 @@ class CloudWindDecoder implements GroupDecoderInterface
         '/' => ''
     ];
 
-    public function __construct(string $raw_clouds_wind)
+    public function __construct(string $rawCloudsWind)
     {
-        $this->raw_clouds_wind = $raw_clouds_wind;
+        $this->rawCloudsWind = $rawCloudsWind;
     }
 
     public function isGroup(ValidateInterface $validate): bool
@@ -46,11 +48,12 @@ class CloudWindDecoder implements GroupDecoderInterface
 
     /**
      * Returns the number of clouds
+     *
      * @return string
      */
-    public function getN() : ?string
+    public function getN(): ?string
     {
-        $N = substr($this->raw_clouds_wind, 0, 1);
+        $N = substr($this->rawCloudsWind, 0, 1);
         if (array_key_exists($N, $this->getNData())) {
             return $this->getNData()[$N];
         }
@@ -60,27 +63,30 @@ class CloudWindDecoder implements GroupDecoderInterface
 
     /**
      * Returns wind direction
+     *
      * @return int
      */
-    public function getDd() : int
+    public function getDd(): int
     {
-        return intval(substr($this->raw_clouds_wind, 1, 2)) * 10;
+        return intval(substr($this->rawCloudsWind, 1, 2)) * 10;
     }
 
     /**
      * Returns the value of wind speed
+     *
      * @return int
      */
-    public function getVv() : int
+    public function getVv(): int
     {
-        return intval(substr($this->raw_clouds_wind, 3, 2));
+        return intval(substr($this->rawCloudsWind, 3, 2));
     }
 
     /**
      * Returns all values for the number of clouds
+     *
      * @return array|string[]
      */
-    private function getNData() : array
+    private function getNData(): array
     {
         return $this->N;
     }
@@ -92,7 +98,7 @@ class CloudWindDecoder implements GroupDecoderInterface
      */
     private function getCodeFigureN(): string
     {
-        return substr($this->raw_clouds_wind, 0, 1);
+        return substr($this->rawCloudsWind, 0, 1);
     }
 
     /**
@@ -102,7 +108,7 @@ class CloudWindDecoder implements GroupDecoderInterface
      */
     private function getCodeFigureDd(): string
     {
-        return substr($this->raw_clouds_wind, 1, 2);
+        return substr($this->rawCloudsWind, 1, 2);
     }
 
     /**
@@ -112,6 +118,6 @@ class CloudWindDecoder implements GroupDecoderInterface
      */
     private function getCodeFigureVv(): string
     {
-        return substr($this->raw_clouds_wind, 3, 2);
+        return substr($this->rawCloudsWind, 3, 2);
     }
 }

@@ -19,7 +19,7 @@ interface UnitInterface
      * @param string $parameter Meteorological parameter of this weather report group
      * @param string $value Parameter value
      */
-    public function setUnit(string $group, string $parameter, string $value) : void;
+    public function setUnit(string $group, string $parameter, string $value): void;
 
     /**
      * Returns the unit of measure for all parameters of the given weather group
@@ -29,5 +29,5 @@ interface UnitInterface
      * @param string $group Fully-qualified name for a class of group of weather report
      * @return array|null
      */
-    public function getUnitByGroup(string $group) : ?array;
+    public function getUnitByGroup(string $group): ?array;
 }

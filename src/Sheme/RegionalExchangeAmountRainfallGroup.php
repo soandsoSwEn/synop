@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
-
 
 use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
@@ -29,10 +27,11 @@ class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
 
     /**
      * Sets the initial data for the amount of rainfall group in section three
+     *
      * @param string $data Amount of rainfall group data
      * @throws Exception
      */
-    public function setData(string $data, ValidateInterface $validate) : void
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
             $this->setRawAmountRainfall($data);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -18,7 +16,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class GroundWithoutSnowDecoder implements GroupDecoderInterface
 {
     /** Distinctive digit of state of ground without snow or measurable ice cover group */
-    const DIGIT = '3';
+    protected const DIGIT = '3';
 
     /**
      * @var string State of ground without snow data
@@ -48,19 +46,23 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     *
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawGroundWithoutSnow, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(get_class($this), [
-                $this->getCodeFigureIndicator(), $this->getCodeFigureStateGround(), $this->getCodeFigureSignTemperature(),
+                $this->getCodeFigureIndicator(),
+                $this->getCodeFigureStateGround(),
+                $this->getCodeFigureSignTemperature(),
                 $this->getCodeFigureMinTemperature()
             ]);
+
             return true;
         }
 
@@ -69,10 +71,11 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
 
     /**
      * Return code figure of state ground
+     *
      * @return int Code figure of state of the ground without snow or measurable ice cover
      * @throws Exception
      */
-    public function getCodeGroundState() : int
+    public function getCodeGroundState(): int
     {
         $E = substr($this->rawGroundWithoutSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -84,10 +87,11 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
 
     /**
      * Return state of ground title
+     *
      * @return string State of ground without snow or measurable ice cover
      * @throws Exception
      */
-    public function getGroundState() : string
+    public function getGroundState(): string
     {
         $E = substr($this->rawGroundWithoutSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -100,6 +104,7 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
     //TODO string or int return sign analyse
     /**
      * Returns the sign of grass minimum temperature
+     *
      * @return false|string Sign of grass minimum temperature
      */
     public function getGroundSignTemperature()
@@ -109,9 +114,10 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns grass minimum temperature (rounded to nearest whole degree)
+     *
      * @return int Grass minimum temperature
      */
-    public function getGroundMinTemperature() : int
+    public function getGroundMinTemperature(): int
     {
         $minGrassTemperature = substr($this->rawGroundWithoutSnow, 3, 2);
 

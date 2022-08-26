@@ -2,7 +2,6 @@
 
 namespace Soandso\Synop\Fabrication;
 
-
 use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\AdditionalCloudInformationDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
@@ -43,7 +42,8 @@ class Validate extends ValidateBase implements ValidateInterface
     private $errors = [];
 
     /**
-     * @var array  Correspondence map of decoding classes and methods of validation of constituent parts of weather report groups
+     * @var array  Correspondence map of decoding classes and methods of validation of constituent parts
+     * of weather report groups
      */
     private $groups = [
         TypeDecoder::class => ['check' => 'typeValid'],
@@ -143,6 +143,7 @@ class Validate extends ValidateBase implements ValidateInterface
 
     /**
      * Performs initial preparation of weather reports for decoding
+     *
      * @param string $report Weather report source code
      * @return string
      */
@@ -159,7 +160,7 @@ class Validate extends ValidateBase implements ValidateInterface
      */
     public function isValid(): bool
     {
-        if(!$this->report) {
+        if (!$this->report) {
             throw new Exception('Meteorological weather report not defined!');
         }
         return $this->isEndEqualSign($this->report) && $this->isCountSymbol($this->report);
@@ -201,7 +202,11 @@ class Validate extends ValidateBase implements ValidateInterface
             }
         }
 
-        $this->setError($groupData[0], "The summary type group data does not match the specified format; Code group - {$groupData[0]}");
+        $this->setError(
+            $groupData[0],
+            "The summary type group data does not match the specified format; Code group - {$groupData[0]}"
+        );
+
         return false;
     }
 
@@ -223,7 +228,10 @@ class Validate extends ValidateBase implements ValidateInterface
         }
 
         if (is_null($groupData[2]) || !is_array($groupData[2])) {
-            $this->setError(json_encode($groupData[2]), "Incorrect index of wind speed units and how to determine it - {$groupData[2][0]} => {$groupData[2][1]}");
+            $this->setError(
+                json_encode($groupData[2]),
+                "Incorrect index of wind speed units and how to determine it - {$groupData[2][0]} => {$groupData[2][1]}"
+            );
         }
 
         $groupData[2] = json_encode($groupData[2]);
@@ -267,12 +275,20 @@ class Validate extends ValidateBase implements ValidateInterface
 
         $patternIx = '/^[1-6]$/';
         if (!preg_match($patternIx, $groupData[1])) {
-            $this->setError($groupData[1], "Wrong Values of the type indicator of the station, as well as inclusion in the group report 7wwW1W2 - {$groupData[1]}");
+            $this->setError(
+                $groupData[1],
+                "Wrong Values of the type indicator of the station, as well as inclusion in the group '
+                 . 'report 7wwW1W2 - {$groupData[1]}"
+            );
         }
 
         $patternH = '/^\d$/';
         if (!preg_match($patternH, $groupData[2])) {
-            $this->setError($groupData[2], "Wrong Value for the height of the base of the lowest clouds above the surface of the earth (sea) - {$groupData[2]}");
+            $this->setError(
+                $groupData[2],
+                "Wrong Value for the height of the base of the lowest clouds above the surface of '
+                 . 'the earth (sea) - {$groupData[2]}"
+            );
         }
 
         $patternVV = '/^\d{2}$/';
@@ -323,7 +339,10 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternDn = '/^1$/';
         if (!preg_match($patternDn, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong distinctive number of air temperature group 1SnTTT - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong distinctive number of air temperature group 1SnTTT - {$groupData[0]}"
+            );
         }
 
         $patternSt = '/^[0-1]$|^\/$/';
@@ -349,7 +368,10 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternDdw = '/^2$/';
         if (!preg_match($patternDdw, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong distinctive number of dew point temperature group 2SnTdTdTd - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong distinctive number of dew point temperature group 2SnTdTdTd - {$groupData[0]}"
+            );
         }
 
         $patternSdw = '/^[0-1]$|^\/$/';
@@ -375,12 +397,18 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternSp = '/^3$/';
         if (!preg_match($patternSp, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong of indicator of atmospheric pressure at the station level group 3P0P0P0P0 - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong of indicator of atmospheric pressure at the station level group 3P0P0P0P0 - {$groupData[0]}"
+            );
         }
 
         $patternSp = '/^\d{4}$|^\/\/\/\/$/';
         if (!preg_match($patternSp, $groupData[1])) {
-            $this->setError($groupData[1], "Wrong atmospheric pressure at the station level group 3P0P0P0P0 - {$groupData[1]}");
+            $this->setError(
+                $groupData[1],
+                "Wrong atmospheric pressure at the station level group 3P0P0P0P0 - {$groupData[1]}"
+            );
         }
 
         return $this->notExistsError($groupData);
@@ -396,12 +424,18 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternSp = '/^4$/';
         if (!preg_match($patternSp, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong of indicator of air Pressure reduced to mean sea level group 4PPPP - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong of indicator of air Pressure reduced to mean sea level group 4PPPP - {$groupData[0]}"
+            );
         }
 
         $patternSp = '/^\d{4}$|^\/\/\/\/$/';
         if (!preg_match($patternSp, $groupData[1])) {
-            $this->setError($groupData[1], "Wrong air Pressure reduced to mean sea level group 4PPPP - {$groupData[1]}");
+            $this->setError(
+                $groupData[1],
+                "Wrong air Pressure reduced to mean sea level group 4PPPP - {$groupData[1]}"
+            );
         }
 
         return $this->notExistsError($groupData);
@@ -417,7 +451,10 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternIn = '/^5$/';
         if (!preg_match($patternIn, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong of indicator of Pressure change over last three hours group 5appp - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong of indicator of Pressure change over last three hours group 5appp - {$groupData[0]}"
+            );
         }
 
         $patternCh = '/^[0-8]$|^\/$/';
@@ -610,22 +647,37 @@ class Validate extends ValidateBase implements ValidateInterface
     {
         $patternIn = '/^8$/';
         if (!preg_match($patternIn, $groupData[0])) {
-            $this->setError($groupData[0], "Wrong indicator of group Additional cloud information transfer data of section three - {$groupData[0]}");
+            $this->setError(
+                $groupData[0],
+                "Wrong indicator of group Additional cloud information transfer data of section three - {$groupData[0]}"
+            );
         }
 
         $patternA = '/^\d$|^\/$/';
         if (!preg_match($patternA, $groupData[1])) {
-            $this->setError($groupData[1], "Wrong amount of individual cloud layer of group Additional cloud information transfer data of section three - {$groupData[1]}");
+            $this->setError(
+                $groupData[1],
+                "Wrong amount of individual cloud layer of group Additional cloud information transfer data '
+                 . 'of section three - {$groupData[1]}"
+            );
         }
 
         $patternF = '/^\d$|^\/$/';
         if (!preg_match($patternF, $groupData[2])) {
-            $this->setError($groupData[2], "Wrong form of cloud of group Additional cloud information transfer data of section three - {$groupData[2]}");
+            $this->setError(
+                $groupData[2],
+                "Wrong form of cloud of group Additional cloud information transfer data of '
+                 . 'section three - {$groupData[2]}"
+            );
         }
 
         $patternF = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternF, $groupData[3])) {
-            $this->setError($groupData[3], "Wrong height of base cloud of group Additional cloud information transfer data of section three - {$groupData[3]}");
+            $this->setError(
+                $groupData[3],
+                "Wrong height of base cloud of group Additional cloud information transfer data '
+                 . 'of section three - {$groupData[3]}"
+            );
         }
 
         return $this->notExistsError($groupData);

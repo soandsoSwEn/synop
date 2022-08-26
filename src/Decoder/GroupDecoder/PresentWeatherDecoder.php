@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -17,7 +15,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class PresentWeatherDecoder implements GroupDecoderInterface
 {
     /** Distinctive digit of the Present weather group */
-    const DIGIT = '7';
+    protected const DIGIT = '7';
 
     /**
      * @var string Present weather data
@@ -34,20 +32,30 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '03' => 'Clouds generally forming or developing',
         '04' => 'Visibility reduced by smoke, e.g. veld or forest fires, industrial smoke or volcanic ashes',
         '05' => 'Haze',
-        '06' => 'Widespread dust in suspension in thr air, not raised by wind at or near the station at the time of observation',
-        '07' => 'Dust or sand raised by the wind at or near the station at the time of observation, but no well-developed dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen: or, in the case of ships blowing spray at the station',
-        '08' => 'Well-developed dust whirl(s) or sand or sand whirl(s) seen at or near the station during the preceding hour or at the time of observation, but no duststorm or sandstorm',
-        '09' => 'Duststorm or sandstorm within sight at the time of observation, or at the station during the preceding hour',
+        '06' => 'Widespread dust in suspension in thr air, not raised by wind at or near the station at the time '
+                 . 'of observation',
+        '07' => 'Dust or sand raised by the wind at or near the station at the time of observation, but no '
+                 . 'well-developed dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen: or, in '
+                 . 'the case of ships blowing spray at the station',
+        '08' => 'Well-developed dust whirl(s) or sand or sand whirl(s) seen at or near the station during the '
+                 . 'preceding hour or at the time of observation, but no duststorm or sandstorm',
+        '09' => 'Duststorm or sandstorm within sight at the time of observation, or at the station during '
+                 . 'the preceding hour',
         '10' => 'Mist',
-        '11' => 'Patches of shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters or land or 10 meters of sea',
-        '12' => 'More or less continuous shallow fog or ice fog a t the station whether or lan d sea, not deeper that about 2 meters or land or 10 meters of sea',
+        '11' => 'Patches of shallow fog or ice fog a t the station whether or lan d sea, not deeper that about '
+                 . '2 meters or land or 10 meters of sea',
+        '12' => 'More or less continuous shallow fog or ice fog a t the station whether or lan d sea, not deeper '
+                 . 'that about 2 meters or land or 10 meters of sea',
         '13' => 'Lightning visible, no thunder heard',
         '14' => 'Precipitation within sight, not reaching the ground or the surface of the sea',
-        '15' => 'Precipitation within sight reaching the ground or the surface of the sea, but distant, i.e. estimated to be more than 5 km from the station',
-        '16' => 'Precipitation within sight reaching the ground of the surface of the sea, near to, but not at the station',
+        '15' => 'Precipitation within sight reaching the ground or the surface of the sea, but distant, i.e. '
+                 . 'estimated to be more than 5 km from the station',
+        '16' => 'Precipitation within sight reaching the ground of the surface of the sea, near to, but not '
+                 . 'at the station',
         '17' => 'Thunderstorm, but no precipitation at the time observation',
         '18' => 'Squalls at or within sight of the station during the preceding hour or at the time of observation',
-        '19' => 'Funnel cloud(s) or tuba at or within sight of the station during the preceding hour or at the time of observation',
+        '19' => 'Funnel cloud(s) or tuba at or within sight of the station during the preceding hour or at the '
+                 . 'time of observation',
         '20' => 'Drizzle (not freezing) or snow grains not falling as shower(s)',
         '21' => 'Rain (not freezing) not falling as shower(s)',
         '22' => 'Snow not falling as shower(s)',
@@ -68,7 +76,8 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '37' => 'Heavy drifting snow generally low (below eye level)',
         '38' => 'Slight or moderate blowing snow generally high (above eye level)',
         '39' => 'Heavy blowing snow generally high (above eye level)',
-        '40' => 'Fog or ice fog at a distance at the time of observation, but not at the station during the preceding hour, the fog or ice fog extending to a level above that of the observer',
+        '40' => 'Fog or ice fog at a distance at the time of observation, but not at the station during the '
+                 . 'preceding hour, the fog or ice fog extending to a level above that of the observer',
         '41' => 'Fog or ice fog in patches',
         '42' => 'Fog or ice fog, sky visible has become thinner during the preceding hour',
         '43' => 'Fog or ice fog, sky invisible has become thinner during the preceding hour',
@@ -118,7 +127,8 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '87' => 'Shower(s) of snow pellets or small hail, with or without rain and snow mixed slight',
         '88' => 'Shower(s) of snow pellets or small hail, with or without rain and snow mixed moderate or heavy',
         '89' => 'Shower(s) of snow with or without rain or rain and snow mixed not associated with thunder slight',
-        '90' => 'Shower(s) of snow with or without rain or rain and snow mixed not associated with thunder moderate or heavy',
+        '90' => 'Shower(s) of snow with or without rain or rain and snow mixed not associated with thunder moderate '
+                 . 'or heavy',
         '91' => 'Slight rain at time of observation',
         '92' => 'Moderate or heavy rain at time of observation',
         '93' => 'Slight now or rain and snow mixed, or hail at time observation',
@@ -135,7 +145,8 @@ class PresentWeatherDecoder implements GroupDecoderInterface
      */
     private $pastWeatherMap = [
         '0' => 'Cloud covering 1/2 or less of the sky throughout the appropriate period',
-        '1' => 'Cloud covering more than 1/2 of the sky during part of the appropriate period and covering 1/2 or less during part of the period',
+        '1' => 'Cloud covering more than 1/2 of the sky during part of the appropriate period and covering 1/2 or '
+                . 'less during part of the period',
         '2' => 'Cloud covering more than 1/2 of the sky throughout the appropriate period',
         '3' => 'Sandstorm, duststorm or blowing snow',
         '4' => 'Fog or ice fog or thick haze (visibility less than 1,000 m)',
@@ -153,16 +164,25 @@ class PresentWeatherDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     *
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawPresentWeather, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeFigurePresentWeather(), $this->getCodeFigurePastWeather()]);
+            $validate->isValidGroup(
+                get_class($this),
+                [
+                    $this->getCodeFigureIndicator(),
+                    $this->getCodeFigurePresentWeather(),
+                    $this->getCodeFigurePastWeather()
+                ]
+            );
+
             return true;
         }
 
@@ -174,17 +194,18 @@ class PresentWeatherDecoder implements GroupDecoderInterface
      * Returns the Present Weather symbol value
      * @return string
      */
-    public function getPresentWeatherSymbol() : string
+    public function getPresentWeatherSymbol(): string
     {
         return substr($this->rawPresentWeather, 1, 2);
     }
 
     /**
      * Returns the Present Weather value
+     *
      * @return string
      * @throws Exception
      */
-    public function getPresentWeather() : string
+    public function getPresentWeather(): string
     {
         $ww = substr($this->rawPresentWeather, 1, 2);
         if (array_key_exists($ww, $this->presentWeatherMap)) {
@@ -197,19 +218,21 @@ class PresentWeatherDecoder implements GroupDecoderInterface
     //TODO refactoring
     /**
      * Returns the Past Weather symbol value
+     *
      * @return string
      */
-    public function getPastWeatherSymbol() : string
+    public function getPastWeatherSymbol(): string
     {
         return substr($this->rawPresentWeather, 3, 2);
     }
 
     /**
      * Returns the Past Weather symbol value
+     *
      * @return string[]
      * @throws Exception
      */
-    public function getPastWeather() : array
+    public function getPastWeather(): array
     {
         $W1W2 = substr($this->rawPresentWeather, 3, 2);
         $W1 = substr($W1W2, 0, 1);

@@ -2,21 +2,23 @@
 
 namespace Soandso\Synop\Decoder\GroupDecoder;
 
-
 use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
- * Description of IndexDecoder
+ * Class IndexDecoder contains methods for decoding station index
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
 class IndexDecoder implements GroupDecoderInterface
 {
-    private $raw_index;
-    
-    public function __construct(string $raw_index)
+    /**
+     * @var string Station number source code
+     */
+    private $rawIndex;
+
+    public function __construct(string $rawIndex)
     {
-        $this->raw_index = $raw_index;
+        $this->rawIndex = $rawIndex;
     }
 
     public function isGroup(ValidateInterface $validate): bool
@@ -24,18 +26,33 @@ class IndexDecoder implements GroupDecoderInterface
         return $validate->isValidGroup(get_class($this), [$this->getArea(), $this->getNumber()]);
     }
 
-    public function getArea() : string
+    /**
+     * Return area station
+     *
+     * @return string
+     */
+    public function getArea(): string
     {
-        return substr($this->raw_index, 0, 2);
+        return substr($this->rawIndex, 0, 2);
     }
-    
-    public function getNumber() : string
+
+    /**
+     * Return station number
+     *
+     * @return string
+     */
+    public function getNumber(): string
     {
-        return substr($this->raw_index, 2, 3);
+        return substr($this->rawIndex, 2, 3);
     }
-    
-    public function getIndex() : string
+
+    /**
+     * Return station index
+     *
+     * @return string
+     */
+    public function getIndex(): string
     {
-        return $this->raw_index;
+        return $this->rawIndex;
     }
 }

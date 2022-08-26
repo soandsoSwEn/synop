@@ -28,40 +28,46 @@ class Pipeline implements PipelineInterface
 
     /**
      * Adds group names in the weather report
+     *
      * @param $data array An ordered dataset of group names in a weather report
      */
-    public function pipe(array $data) : void
+    public function pipe(array $data): void
     {
         $this->pipes = $data;
     }
 
     /**
      * Returns all processed sections of the meteorological report
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of weather report
      * @param ValidateInterface $validate
      * @return SectionInterface
      */
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate) : SectionInterface
-    {
-        $this->step($raw_report, $decoder, $validate);
+    public function process(
+        RawReportInterface $rawReport,
+        DecoderInterface $decoder,
+        ValidateInterface $validate
+    ): SectionInterface {
+        $this->step($rawReport, $decoder, $validate);
         return $decoder->parse();
     }
 
     /**
      * Processes groups of all sections of a given weather report
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of code of weather report
      * @return false
      */
-    private function step(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate)
+    private function step(RawReportInterface $rawReport, DecoderInterface $decoder, ValidateInterface $validate)
     {
-        if($current_step = array_shift($this->pipes)) {
+        if ($current_step = array_shift($this->pipes)) {
             $getter = 'get' . $current_step;
-            if(method_exists($decoder, $getter)) {
-                $decoder->$getter($raw_report, $validate);
+            if (method_exists($decoder, $getter)) {
+                $decoder->$getter($rawReport, $validate);
             }
-            $this->step($raw_report, $decoder, $validate);
+            $this->step($rawReport, $decoder, $validate);
         }
 
         return false;

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Process;
-
 
 use Soandso\Synop\Decoder\DecoderInterface;
 use Soandso\Synop\Fabrication\RawReportInterface;
@@ -24,15 +22,19 @@ interface PipelineInterface
      *
      * @param array $data An ordered dataset of group names in a weather report
      */
-    public function pipe(array $data) : void;
+    public function pipe(array $data): void;
 
     /**
      * Returns all processed sections of the meteorological report
      *
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param RawReportInterface $rawReport Object of meteorological report source code
      * @param DecoderInterface $decoder Decoder object for group of code of weather report
      * @param ValidateInterface $validate Object for decoding meteorological report
      * @return SectionInterface
      */
-    public function process(RawReportInterface $raw_report, DecoderInterface $decoder, ValidateInterface $validate) : SectionInterface;
+    public function process(
+        RawReportInterface $rawReport,
+        DecoderInterface $decoder,
+        ValidateInterface $validate
+    ): SectionInterface;
 }

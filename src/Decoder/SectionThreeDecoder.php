@@ -32,39 +32,42 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
     /**
      * @var bool Synop identifier for weather report type
      */
-    private $synop_report = null;
+    private $synopReport = null;
 
     /**
      * @var bool Ship identifier for weather report type
      */
-    private $ship_report = null;
+    private $shipReport = null;
 
     /**
      * @var Unit class instance of the entity Unit
      */
     private $unit;
     
-    public function __construct(SectionInterface $section_title, bool $synop, bool $ship, Unit $unit)
+    public function __construct(SectionInterface $sectionTitle, bool $synop, bool $ship, Unit $unit)
     {
-        $this->section = $section_title;
-        $this->synop_report = $synop;
-        $this->ship_report = $ship;
+        $this->section = $sectionTitle;
+        $this->synopReport = $synop;
+        $this->shipReport = $ship;
         $this->unit = $unit;
     }
 
     /**
      * Returns the result of checking if the group of the code matches the group of the weather report
-     * @param string $codeFigure
+     *
+     * @param string $codeFigure Code figure of single group of the section
      * @param int $size Weather group size
      * @return bool
      */
-    public function isGroup(string $codeFigure, int $size) : bool
+    public function isGroup(string $codeFigure, int $size): bool
     {
         return mb_strlen($codeFigure) === $size;
     }
 
     /**
-     * @return SectionInterface Returns decoded data for this section of the weather report
+     * Returns decoded data for this section of the weather report
+     *
+     * @return SectionInterface Decoded data for this section
      */
     public function parse(): SectionInterface
     {
@@ -73,6 +76,7 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Adds group data to the weather section
+     *
      * @param $data mixed Group data
      * @return bool
      */
@@ -85,29 +89,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the air maximum temperature group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
-     * @param ValidateInterface $validate
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get1SnTxTxTx(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get1SnTxTxTx(RawReportInterface $rawReport, ValidateInterface $validate): ?bool
     {
-        $maximum_temperature = false;
-        if($this->synop_report) {
-            $maximum_temperature_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($maximum_temperature_group, 5)) {
+        $maximumTemperature = false;
+        if ($this->synopReport) {
+            $maximumTemperatureGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($maximumTemperatureGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($maximum_temperature_group, 0, 1);
-            if(strcmp($distinguishing_digit, '1') == 0) {
-                $maximum_temperature = true;
-                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximum_temperature_group, $this->unit, $validate);
+            $distinguishingDigit = substr($maximumTemperatureGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '1') == 0) {
+                $maximumTemperature = true;
+                $SnTxTxTxMax = new MaxAirTemperatureGroup($maximumTemperatureGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($maximum_temperature) {
-            $this->updateReport($maximum_temperature_group, $raw_report);
+
+        if ($maximumTemperature) {
+            $this->updateReport($maximumTemperatureGroup, $rawReport);
             return $this->putInSection($SnTxTxTxMax) ? true : false;
         } else {
             return null;
@@ -116,29 +122,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the air minimum temperature group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
-     * @param ValidateInterface $validate
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get2SnTnTnTn(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get2SnTnTnTn(RawReportInterface $rawReport, ValidateInterface $validate): ?bool
     {
-        $minimum_temperature = false;
-        if($this->synop_report) {
-            $minimum_temperature_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($minimum_temperature_group, 5)) {
+        $minimumTemperature = false;
+        if ($this->synopReport) {
+            $minimumTemperatureGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($minimumTemperatureGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($minimum_temperature_group, 0, 1);
-            if(strcmp($distinguishing_digit, '2') == 0) {
-                $minimum_temperature = true;
-                $SnTxTxTxMin = new MinAirTemperatureGroup($minimum_temperature_group, $this->unit, $validate);
+            $distinguishingDigit = substr($minimumTemperatureGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '2') == 0) {
+                $minimumTemperature = true;
+                $SnTxTxTxMin = new MinAirTemperatureGroup($minimumTemperatureGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($minimum_temperature) {
-            $this->updateReport($minimum_temperature_group, $raw_report);
+
+        if ($minimumTemperature) {
+            $this->updateReport($minimumTemperatureGroup, $rawReport);
             return $this->putInSection($SnTxTxTxMin) ? true : false;
         } else {
             return null;
@@ -147,28 +155,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines data of state of ground without snow group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get3ESnTgTg(RawReportInterface $raw_report, ValidateInterface $validate)
+    public function get3ESnTgTg(RawReportInterface $rawReport, ValidateInterface $validate): ?bool
     {
         $stateGround = false;
-        if($this->synop_report) {
-            $state_ground_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($state_ground_group, 5)) {
+        if ($this->synopReport) {
+            $stateGroundGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($stateGroundGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($state_ground_group, 0, 1);
-            if(strcmp($distinguishing_digit, '3') == 0) {
+            $distinguishingDigit = substr($stateGroundGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '3') == 0) {
                 $stateGround = true;
-                $ESnTgTg = new GroundWithoutSnowGroup($state_ground_group, $this->unit, $validate);
+                $ESnTgTg = new GroundWithoutSnowGroup($stateGroundGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($stateGround) {
-            $this->updateReport($state_ground_group, $raw_report);
+
+        if ($stateGround) {
+            $this->updateReport($stateGroundGroup, $rawReport);
             return $this->putInSection($ESnTgTg) ? true : false;
         } else {
             return null;
@@ -177,28 +188,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines data of state of ground with snow group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get4Esss(RawReportInterface $raw_report, ValidateInterface $validate)
+    public function get4Esss(RawReportInterface $rawReport, ValidateInterface $validate)
     {
         $stateGroundSnow = false;
-        if($this->synop_report) {
-            $state_ground_with_snow_group = $this->block($raw_report->getReport());
+        if ($this->synopReport) {
+            $state_ground_with_snow_group = $this->block($rawReport->getReport());
             if (!$this->isGroup($state_ground_with_snow_group, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($state_ground_with_snow_group, 0, 1);
-            if(strcmp($distinguishing_digit, '4') == 0) {
+            $distinguishingDigit = substr($state_ground_with_snow_group, 0, 1);
+            if (strcmp($distinguishingDigit, '4') == 0) {
                 $stateGroundSnow = true;
                 $Esss = new GroundWithSnowGroup($state_ground_with_snow_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($stateGroundSnow) {
-            $this->updateReport($state_ground_with_snow_group, $raw_report);
+
+        if ($stateGroundSnow) {
+            $this->updateReport($state_ground_with_snow_group, $rawReport);
             return $this->putInSection($Esss) ? true : false;
         } else {
             return null;
@@ -207,28 +221,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines duration of sunshine and radiation group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get55SSS(RawReportInterface $raw_report, ValidateInterface $validate)
+    public function get55SSS(RawReportInterface $rawReport, ValidateInterface $validate)
     {
         $sunshineRadiation = false;
-        if($this->synop_report) {
-            $sunshineRadiationGroup = $this->block($raw_report->getReport());
+        if ($this->synopReport) {
+            $sunshineRadiationGroup = $this->block($rawReport->getReport());
             if (!$this->isGroup($sunshineRadiationGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($sunshineRadiationGroup, 0, 2);
-            if(strcmp($distinguishing_digit, '55') == 0) {
+            $distinguishingDigit = substr($sunshineRadiationGroup, 0, 2);
+            if (strcmp($distinguishingDigit, '55') == 0) {
                 $sunshineRadiation = true;
                 $SSS = new SunshineRadiationDataGroup($sunshineRadiationGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($sunshineRadiation) {
-            $this->updateReport($sunshineRadiationGroup, $raw_report);
+
+        if ($sunshineRadiation) {
+            $this->updateReport($sunshineRadiationGroup, $rawReport);
             return $this->putInSection($SSS) ? true : false;
         } else {
             return null;
@@ -237,28 +254,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines amount of rainfall group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get6RRRtr(RawReportInterface $raw_report, ValidateInterface $validate)
+    public function get6RRRtr(RawReportInterface $rawReport, ValidateInterface $validate)
     {
         $precipitation = false;
-        if($this->synop_report) {
-            $precipitation_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($precipitation_group, 5)) {
+        if ($this->synopReport) {
+            $precipitationGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($precipitationGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($precipitation_group, 0, 1);
-            if(strcmp($distinguishing_digit, '6') == 0) {
+            $distinguishingDigit = substr($precipitationGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '6') == 0) {
                 $precipitation = true;
-                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitation_group, $this->unit, $validate);
+                $RRRtr = new RegionalExchangeAmountRainfallGroup($precipitationGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($precipitation) {
-            $this->updateReport($precipitation_group, $raw_report);
+
+        if ($precipitation) {
+            $this->updateReport($precipitationGroup, $rawReport);
             return $this->putInSection($RRRtr) ? true : false;
         } else {
             return null;
@@ -267,28 +287,31 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines additional cloud information transfer group
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     *
+     * @param RawReportInterface $rawReport Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get8NsChshs(RawReportInterface $raw_report, ValidateInterface $validate)
+    public function get8NsChshs(RawReportInterface $rawReport, ValidateInterface $validate)
     {
         $clouds = false;
-        if($this->synop_report) {
-            $clouds_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($clouds_group, 5)) {
+        if ($this->synopReport) {
+            $cloudsGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($cloudsGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($clouds_group, 0, 1);
-            if(strcmp($distinguishing_digit, '8') == 0) {
+            $distinguishingDigit = substr($cloudsGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '8') == 0) {
                 $clouds = true;
-                $NsChshs = new AdditionalCloudInformationGroup($clouds_group, $this->unit, $validate);
+                $NsChshs = new AdditionalCloudInformationGroup($cloudsGroup, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($clouds) {
-            $this->updateReport($clouds_group, $raw_report);
+
+        if ($clouds) {
+            $this->updateReport($cloudsGroup, $rawReport);
             return $this->putInSection($NsChshs) ? true : false;
         } else {
             return null;
@@ -296,28 +319,29 @@ class SectionThreeDecoder extends Decoder implements DecoderInterface
     }
 
     /**
-     * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param RawReportInterface $rawReport Object of meteorological report source code
      * @return bool|null
      */
-    public function get9SpSpspsp(RawReportInterface $raw_report)
+    public function get9SpSpspsp(RawReportInterface $rawReport)
     {
         $weather = false;
-        if($this->synop_report) {
-            $weather_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($weather_group, 5)) {
+        if ($this->synopReport) {
+            $weatherGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($weatherGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($weather_group, 0, 1);
-            if(strcmp($distinguishing_digit, '9') == 0) {
+            $distinguishingDigit = substr($weatherGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '9') == 0) {
                 $weather = true;
             }
         } else {
             //ship report
         }
-        if($weather) {
-            $this->updateReport($weather_group, $raw_report);
-            return $this->putInSection($weather_group) ? true : false;
+
+        if ($weather) {
+            $this->updateReport($weatherGroup, $rawReport);
+            return $this->putInSection($weatherGroup) ? true : false;
         } else {
             return null;
         }

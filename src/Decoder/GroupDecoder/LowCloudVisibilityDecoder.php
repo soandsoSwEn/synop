@@ -6,15 +6,18 @@ use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
- * The LowCloudVisibilityDecoder class contains methods for decoding elements 
+ * The LowCloudVisibilityDecoder class contains methods for decoding elements
  * of a group of cloud height and horizontal visibility
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
 class LowCloudVisibilityDecoder implements GroupDecoderInterface
 {
-    private $raw_cloud_vis;
-    
+    /**
+     * @var string Cloud height and horizontal visibility source code
+     */
+    private $rawCloudVis;
+
     /** @var array Indices precipitation group inclusion 6RRRtr */
     private $i_r = [
         1 => 'Included in section 1',
@@ -22,8 +25,8 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         3 => 'Omitted (precipitation amount = 0)',
         4 => 'Omitted (precipitation not amount available)'
     ];
-    
-    /** 
+
+    /**
      * @var array Values of the type indicator of the station, as well
      *  as inclusion in the group report 7wwW1W2
      */
@@ -35,7 +38,7 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         5 => ['Omitted (no significant phenomenon to report)', 'Automatic'],
         6 => ['Omitted (not observed, data not available)', 'Automatic']
     ];
-    
+
     /**
      * @var array Values for the height of the base of the lowest clouds
      * above the surface of the earth (sea)
@@ -53,19 +56,27 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         9 => 'no clouds below 2500'
     ];
 
-    public function __construct(string $raw_cloud_vis)
+    public function __construct(string $rawCloudVis)
     {
-        $this->raw_cloud_vis = $raw_cloud_vis;
+        $this->rawCloudVis = $rawCloudVis;
     }
 
     public function isGroup(ValidateInterface $validate): bool
     {
-        return $validate->isValidGroup(get_class($this), [$this->getCodeFigureIr(), $this->getCodeFigureIx(), $this->getCodeFigureH(), $this->getCodeFigureVV()]);
+        return $validate->isValidGroup(
+            get_class($this),
+            [
+                $this->getCodeFigureIr(),
+                $this->getCodeFigureIx(),
+                $this->getCodeFigureH(),
+                $this->getCodeFigureVV()
+            ]
+        );
     }
 
-    public function getIr() : ?string
+    public function getIr(): ?string
     {
-        $ir = substr($this->raw_cloud_vis, 0, 1);
+        $ir = substr($this->rawCloudVis, 0, 1);
         if (array_key_exists($ir, $this->getIrData())) {
             return $this->getIrData()[$ir];
         }
@@ -73,9 +84,9 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         return null;
     }
 
-    public function getIx() : ?array
+    public function getIx(): ?array
     {
-        $ix = substr($this->raw_cloud_vis, 1, 1);
+        $ix = substr($this->rawCloudVis, 1, 1);
         if (array_key_exists($ix, $this->getIxData())) {
             return $this->getIxData()[$ix];
         }
@@ -85,7 +96,7 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
 
     public function getH()
     {
-        $h = substr($this->raw_cloud_vis, 2, 1);
+        $h = substr($this->rawCloudVis, 2, 1);
         if (array_key_exists($h, $this->getHData())) {
             return $this->getHData()[$h];
         }
@@ -95,12 +106,13 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
 
     public function getVV()
     {
-        $vv = substr($this->raw_cloud_vis, 3, 2);
+        $vv = substr($this->rawCloudVis, 3, 2);
         return $this->getVisValue($vv);
     }
 
     /**
      * Returns the meteorological range of visibility
+     *
      * @param string $data
      * @return float|int|string
      * @throws Exception
@@ -108,19 +120,19 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
     private function getVisValue(string $data)
     {
         $data = intval($data);
-        if($data == 0) {
+        if ($data == 0) {
             return '<0.1';
         } elseif ($data > 0 && $data < 50) {
-            return $data/10;
-        } elseif ($data == 50 ) {
+            return $data / 10;
+        } elseif ($data == 50) {
             return 5;
         } elseif ($data >= 56 && $data <= 80) {
-            return $data-50;
+            return $data - 50;
         } elseif ($data >= 81 && $data <= 88) {
-            if($data == 81) {
+            if ($data == 81) {
                 return 35;
             } else {
-                return (($data-81)*5)+35;
+                return (($data - 81) * 5) + 35;
             }
         } elseif ($data == 89) {
             return '>70';
@@ -140,16 +152,16 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
             if ($data == 94) {
                 return 1;
             }
-            if($data == 95) {
+            if ($data == 95) {
                 return 2;
             }
-            if($data == 96) {
+            if ($data == 96) {
                 return 4;
             }
-            if($data == 97) {
+            if ($data == 97) {
                 return 10;
             }
-            if($data == 98) {
+            if ($data == 98) {
                 return 20;
             }
         } elseif ($data == 99) {
@@ -159,21 +171,22 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         }
     }
 
-    private function getIrData() : array
+    private function getIrData(): array
     {
         return $this->i_r;
     }
 
-    private function getIxData() : array
+    private function getIxData(): array
     {
         return $this->i_x;
     }
 
     /**
      * Returns the height value of the lower cloud cover
+     *
      * @return array|string[]
      */
-    private function getHData() : array
+    private function getHData(): array
     {
         return $this->h;
     }
@@ -185,25 +198,27 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
      */
     private function getCodeFigureIr(): string
     {
-        return substr($this->raw_cloud_vis, 0, 1);
+        return substr($this->rawCloudVis, 0, 1);
     }
 
     /**
      * Return code figure type indicator of the station, as well as inclusion in the group report 7wwW1W2
+     *
      * @return false|string
      */
     private function getCodeFigureIx(): string
     {
-        return substr($this->raw_cloud_vis, 1, 1);
+        return substr($this->rawCloudVis, 1, 1);
     }
 
     /**
      * Return code figure of height of the base of the lowest clouds above the surface of the earth (sea)
+     *
      * @return string
      */
     private function getCodeFigureH(): string
     {
-        return substr($this->raw_cloud_vis, 2, 1);
+        return substr($this->rawCloudVis, 2, 1);
     }
 
     /**
@@ -213,6 +228,6 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
      */
     private function getCodeFigureVV()
     {
-        return substr($this->raw_cloud_vis, 3, 2);
+        return substr($this->rawCloudVis, 3, 2);
     }
 }

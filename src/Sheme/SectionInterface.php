@@ -37,28 +37,28 @@ interface SectionInterface
      *
      * @param string $title Ешду of ф section of the meteorological report
      */
-    public function setTitle(string $title) : void;
+    public function setTitle(string $title): void;
 
     /**
      * Adds a data for the section of the meteorological report
      *
      * @param $data array|string The data contained in the section "All sections" or in a specific section
      */
-    public function setBody($data) : void;
+    public function setBody($data): void;
 
     /**
      * Returns title of the section of the meteorological report
      *
      * @return string
      */
-    public function getTitle() : string;
+    public function getTitle(): string;
 
     /**
      * Returns the data for all sections of the meteorological report
      *
      * @return array
      */
-    public function getBody() : array;
+    public function getBody(): array;
 
     /**
      * Returns data for a section by its title

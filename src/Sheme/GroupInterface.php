@@ -19,7 +19,7 @@ interface GroupInterface
      *
      * @param GroupDecoderInterface $decoder Decoder object for the group of code of weather report
      */
-    public function setDecoder(GroupDecoderInterface $decoder) : void;
+    public function setDecoder(GroupDecoderInterface $decoder): void;
 
     /**
      * Sets the initial data for a weather report group and prepares for use
@@ -27,13 +27,12 @@ interface GroupInterface
      * @param string $data Raw symbol data of group of weather report
      * @param ValidateInterface $validate Object for decoding meteorological report
      */
-    public function setData(string $data, ValidateInterface $validate) : void;
+    public function setData(string $data, ValidateInterface $validate): void;
 
     /**
      * Returns decoder object for the given group of code of weather report
      *
      * @return GroupDecoderInterface Decoder object for the group of code of weather report
      */
-    public function getDecoder() : GroupDecoderInterface;
-
+    public function getDecoder(): GroupDecoderInterface;
 }

@@ -1,36 +1,63 @@
 <?php
 
-
 namespace Soandso\Synop\Fabrication;
 
-
+/**
+ * Class Validate contains base methods for validating meteorological groups
+ */
 class ValidateBase
 {
+    /**
+     * @var string Weather report source code
+     */
     private $report;
 
-    private $distinctive_groups = [
+    /**
+     * @var string[] Code figure of distinctive groups
+     */
+    private $distinctiveGroups = [
         'AAXX', 'BBXX', '222', 'ICE', '333', '444', '555'
     ];
 
-    public function clearDoubleSpacing(string $report) : string
+    /**
+     * Returns the processed weather report
+     *
+     * Clears the meteorological summary of extra spaces between groups
+     *
+     * @param string $report Weather report source code
+     * @return string
+     */
+    public function clearDoubleSpacing(string $report): string
     {
         return preg_replace("/[  ]+/", " ", $report);
     }
 
-    public function isEndEqualSign(string $report) : bool
+    /**
+     * Checks the meteorological weather report for an indication of the end of the report
+     *
+     * @param string $report Weather report source code
+     * @return bool
+     */
+    public function isEndEqualSign(string $report): bool
     {
-        $count_submbol_report = iconv_strlen($report);
-        $end_sumbol_position = stripos( $report, "=");
+        $countSubmbolReport = iconv_strlen($report);
+        $endSumbolPosition = stripos($report, "=");
 
-        return ($count_submbol_report-1) == $end_sumbol_position;
+        return ($countSubmbolReport - 1) == $endSumbolPosition;
     }
 
-    public function isCountSymbol(string $report) : bool
+    /**
+     * Checks the correctness of the meteorological report based on the number of characters in individual groups
+     *
+     * @param string $report Weather report source code
+     * @return bool
+     */
+    public function isCountSymbol(string $report): bool
     {
         $this->report = str_replace('=', '', $report);
         $groups = explode(' ', $this->report);
         foreach ($groups as $group) {
-            if(!$this->isGroup($group)) {
+            if (!$this->isGroup($group)) {
                 return false;
             }
         }
@@ -38,21 +65,33 @@ class ValidateBase
         return true;
     }
 
-    public function isGroup(string $group) : bool
+    /**
+     * Checks the validity of a single group of meteorological reports based on the number of characters
+     *
+     * @param string $group Code figure of single weather report group
+     * @return bool
+     */
+    public function isGroup(string $group): bool
     {
-        if(iconv_strlen($group) == 5) {
+        if (iconv_strlen($group) == 5) {
             return true;
-        } elseif($this->isSpecificGroup($group)) {
+        } elseif ($this->isSpecificGroup($group)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public function isSpecificGroup(string $group) : bool
+    /**
+     * Checks if the weather report group is special
+     *
+     * @param string $group Code figure of single weather report group
+     * @return bool
+     */
+    public function isSpecificGroup(string $group): bool
     {
-        foreach ($this->distinctive_groups as $groups) {
-            if(strcmp($groups, $group) == 0) {
+        foreach ($this->distinctiveGroups as $groups) {
+            if (strcmp($groups, $group) == 0) {
                 return true;
             }
         }

@@ -27,6 +27,12 @@ phpunit.phar
 /phpunit.xml
 
 tests/_output/*
+
 tests/_support/_generated
+
 /composer.lock
+
 /.phpunit.result.cache
+
+# local phpcs config
+/phpcs.xml
