@@ -13,12 +13,13 @@ use Soandso\Synop\Fabrication\UnitInterface;
 class BaseGroupWithUnits implements GroupWithUnitsInterface
 {
     /**
-     * @var Unit class instance of the entity Unit
+     * @var Unit Class instance of the entity Unit
      */
     private $unit;
 
     /**
      * Sets the value of the Unit object
+     *
      * @param UnitInterface $unit class instance of the entity Unit
      */
     public function setUnit(UnitInterface $unit): void
@@ -28,18 +29,20 @@ class BaseGroupWithUnits implements GroupWithUnitsInterface
 
     /**
      * Returns the value of the Unit object
-     * @return UnitInterface
+     *
+     * @return UnitInterface Class instance of the entity Unit
      */
-    public function getUnit() : UnitInterface
+    public function getUnit(): UnitInterface
     {
         return $this->unit;
     }
 
     /**
      * Returns unit data for the weather report group
+     *
      * @return array|null
      */
-    public function getUnitValue() : ?array
+    public function getUnitValue(): ?array
     {
         return $this->getUnit()->getUnitByGroup(get_class($this));
     }

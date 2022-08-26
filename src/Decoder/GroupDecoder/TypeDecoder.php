@@ -1,13 +1,12 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
 
-
+use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
- * Class TypeDecoder methods for defining the type of the weather report type
+ * Class TypeDecoder contains methods for defining the type of the weather report type
  *
  * @package Synop\Decoder\GroupDecoder
  *
@@ -31,7 +30,11 @@ class TypeDecoder implements GroupDecoderInterface
     }
 
     /**
-     * @inheritDoc
+     * Returns the result of checking the validity of the group
+     *
+     * @param ValidateInterface $validate Object for weather data validation
+     * @return bool
+     * @throws Exception
      */
     public function isGroup(ValidateInterface $validate): bool
     {
@@ -40,9 +43,10 @@ class TypeDecoder implements GroupDecoderInterface
 
     /**
      * Return type of weather report
+     *
      * @return string|null
      */
-    public function getTypeValue() : ?string
+    public function getTypeValue(): ?string
     {
         foreach ($this->typeOfReport as $type) {
             if (strcasecmp($this->rawTypeData, $type) == 0) {
@@ -55,9 +59,10 @@ class TypeDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking if the weather summary is Synop
+     *
      * @return bool|null
      */
-    public function getIsSynopValue() : ?bool
+    public function getIsSynopValue(): ?bool
     {
         $type = $this->getTypeValue();
         if (is_null($type)) {
@@ -69,9 +74,10 @@ class TypeDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking if the weather summary is Ship
+     *
      * @return bool|null
      */
-    public function getIsShipValue() : ?bool
+    public function getIsShipValue(): ?bool
     {
         $type = $this->getTypeValue();
         if (is_null($type)) {

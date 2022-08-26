@@ -361,7 +361,7 @@ class AirTemperatureGroupTest extends TestCase
         $this->airTemperatureGroup->setRawAirTemperature('11058');
 
         $reflector = new \ReflectionClass(AirTemperatureGroup::class);
-        $property = $reflector->getProperty('raw_air_temperature');
+        $property = $reflector->getProperty('rawAirTemperature');
         $property->setAccessible(true);
         $value = $property->getValue($this->airTemperatureGroup);
 
@@ -376,7 +376,7 @@ class AirTemperatureGroupTest extends TestCase
         $this->airTemperatureGroup->setData('11058', $validate);
 
         $reflector = new \ReflectionClass(AirTemperatureGroup::class);
-        $propertyRawData = $reflector->getProperty('raw_air_temperature');
+        $propertyRawData = $reflector->getProperty('rawAirTemperature');
         $propertyRawData->setAccessible(true);
         $valueRawData = $propertyRawData->getValue($this->airTemperatureGroup);
 

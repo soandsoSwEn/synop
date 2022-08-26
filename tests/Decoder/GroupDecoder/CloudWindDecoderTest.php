@@ -124,7 +124,7 @@ class CloudWindDecoderTest extends TestCase
 
     public function testNullGetN()
     {
-        $reflectorProperty = new \ReflectionProperty(CloudWindDecoder::class, 'raw_clouds_wind');
+        $reflectorProperty = new \ReflectionProperty(CloudWindDecoder::class, 'rawCloudsWind');
         $reflectorProperty->setAccessible(true);
         $reflectorProperty->setValue($this->cloudWindDecoder, 'A3102');
 

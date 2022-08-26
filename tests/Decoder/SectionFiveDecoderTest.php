@@ -28,7 +28,7 @@ class SectionFiveDecoderTest extends TestCase
     public function testIsSynop()
     {
         $reflector = new  \ReflectionClass(SectionFiveDecoder::class);
-        $property = $reflector->getProperty('synop_report');
+        $property = $reflector->getProperty('synopReport');
         $property->setAccessible(true);
         $value = $property->getValue($this->sectionFiveDecoder);
 
@@ -38,7 +38,7 @@ class SectionFiveDecoderTest extends TestCase
     public function testIsShip()
     {
         $reflector = new  \ReflectionClass(SectionFiveDecoder::class);
-        $property = $reflector->getProperty('ship_report');
+        $property = $reflector->getProperty('shipReport');
         $property->setAccessible(true);
         $value = $property->getValue($this->sectionFiveDecoder);
 

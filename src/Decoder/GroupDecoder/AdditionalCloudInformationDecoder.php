@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -18,7 +16,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 {
     /** Value distinctive number of Additional cloud information transfer group */
-    const DIGIT = '8';
+    protected const DIGIT = '8';
 
     /**
      * @var string Additional cloud information transfer data
@@ -78,11 +76,12 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
-     * @param ValidateInterface $validate
+     *
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawAdditionCloudInformation, 0, 1);
 
@@ -99,10 +98,11 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns code figure of amount of individual cloud layer
+     *
      * @return string|null Code figure of amount of individual cloud layer
      * @throws Exception
      */
-    public function getCodeAmountCloud() : ?string
+    public function getCodeAmountCloud(): ?string
     {
         $Ns = substr($this->rawAdditionCloudInformation, 1, 1);
         if (array_key_exists($Ns, $this->amountCloudMap)) {
@@ -116,10 +116,11 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns amount of individual cloud layer
+     *
      * @return string|null Amount of individual cloud layer
      * @throws Exception
      */
-    public function getAmountCloud() : ?string
+    public function getAmountCloud(): ?string
     {
         $Ns = $this->getCodeAmountCloud();
         if (is_null($Ns)) {
@@ -131,10 +132,11 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns form of cloud
+     *
      * @return string Form of cloud
      * @throws Exception
      */
-    public function getFormCloud()
+    public function getFormCloud(): string
     {
         $C = substr($this->rawAdditionCloudInformation, 2, 1);
         if (array_key_exists($C, $this->formCloudMap)) {
@@ -146,9 +148,10 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns code figure of height of base of cloud layer
+     *
      * @return false|string|null Code figure of height of base of cloud layer
      */
-    public function getCodeHeightCloud() : ?string
+    public function getCodeHeightCloud(): ?string
     {
         $hshs = substr($this->rawAdditionCloudInformation, 3, 2);
         if (strcasecmp($hshs, '//') == 0) {
@@ -160,10 +163,11 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns height of base of cloud layer
+     *
      * @return float[]|string[]|null Height of base of cloud layer data
      * @throws Exception
      */
-    public function getHeightCloud() : ?array
+    public function getHeightCloud(): ?array
     {
         $hshs = $this->getCodeHeightCloud();
         if (is_null($hshs)) {
@@ -175,7 +179,7 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
         }
 
         $intValueOfHshs = intval($hshs);
-        if ($intValueOfHshs >=0 && $intValueOfHshs <= 50) {
+        if ($intValueOfHshs >= 0 && $intValueOfHshs <= 50) {
             return ['Height' => $this->get0050Height($intValueOfHshs)];
         } elseif ($intValueOfHshs >= 56 && $intValueOfHshs <= 80) {
             return ['Height' => $this->get5080Height($intValueOfHshs)];
@@ -188,6 +192,7 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns the value of the height of base of cloud for cases of heights between 0 and 1500 m
+     *
      * @param int $intValueOfHshs Code figure of height of base of cloud layer
      * @return float|int|string
      */
@@ -202,6 +207,7 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns the value of the height of base of cloud for cases of heights between 1800 and 9000 m
+     *
      * @param int $intValueOfHshs Code figure of height of base of cloud layer
      * @return float|int
      */
@@ -212,6 +218,7 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
 
     /**
      * Returns the height of base of cloud for cases of altitude between 10500 and over 21000 m
+     *
      * @param int $intValueOfHshs Code figure of height of base of cloud layer
      * @return float|int|string
      */

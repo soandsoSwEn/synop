@@ -49,21 +49,23 @@ class Unit implements UnitInterface
 
     /**
      * Returns all current unit values for weather groups
+     *
      * @return array|\string[][]
      */
-    protected function getDefaultUnits() : array
+    protected function getDefaultUnits(): array
     {
         return $this->defaultUnits;
     }
 
     /**
      * Sets the unit of measurement for the group parameter
+     *
      * @param string $group Fully-qualified name for a class of group of weather report
      * @param string $parameter Meteorological parameter of this weather report group
      * @param string $value Parameter value
      * @throws Exception
      */
-    public function setUnit(string $group, string $parameter, string $value) : void
+    public function setUnit(string $group, string $parameter, string $value): void
     {
         if (!array_key_exists($group, $this->getDefaultUnits())) {
             throw new Exception("class {$group} does not exist to define units");
@@ -74,10 +76,11 @@ class Unit implements UnitInterface
 
     /**
      * Returns the unit of measure for all parameters of the weather group
+     *
      * @param string $group
      * @return string[]|null
      */
-    public function getUnitByGroup(string $group) : ?array
+    public function getUnitByGroup(string $group): ?array
     {
         if (array_key_exists($group, $this->defaultUnits)) {
             return $this->defaultUnits[$group];

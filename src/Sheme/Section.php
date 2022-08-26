@@ -6,7 +6,7 @@ use Soandso\Synop\Sheme\SectionInterface;
 use Exception;
 
 /**
- * Description of Section
+ * Class Section contain methods for working with section entity of weather report
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
@@ -29,12 +29,13 @@ class Section implements SectionInterface
 
     /**
      * Sets a title of the section of the meteorological report
-     * @param string $title
+     *
+     * @param string $title Section title
      * @throws Exception
      */
-    public function setTitle(string $title) : void
+    public function setTitle(string $title): void
     {
-        if(!empty($title)) {
+        if (!empty($title)) {
             $this->title = $title;
         } else {
             throw new Exception('Meteorological section title cannot be an empty string!');
@@ -43,12 +44,13 @@ class Section implements SectionInterface
 
     /**
      * Returns title of the section of the meteorological report
-     * @return string
+     *
+     * @return string Section title
      * @throws Exception
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
-        if(!is_null($this->title) && !empty($this->title)) {
+        if (!is_null($this->title) && !empty($this->title)) {
             return $this->title;
         } else {
             throw new Exception('Incorrect meteorological section title format!');
@@ -57,24 +59,27 @@ class Section implements SectionInterface
 
     /**
      * Adds a data for the section of the meteorological report
+     *
      * @param array|string|Section $data Data of the section of the meteorological report
      */
-    public function setBody($data) : void
+    public function setBody($data): void
     {
         $this->body[] = $data;
     }
 
     /**
      * Returns data for all sections of the meteorological report
+     *
      * @return array
      */
-    public function getBody() : array
+    public function getBody(): array
     {
         return $this->body;
     }
 
     /**
      * Returns data for a section by its title
+     *
      * @param string $titleSection Title of section of the meteorological report
      * @return false|mixed
      */

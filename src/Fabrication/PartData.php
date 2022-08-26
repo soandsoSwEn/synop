@@ -1,9 +1,8 @@
 <?php
 
-
 namespace Soandso\Synop\Fabrication;
 
-
+use Exception;
 use Soandso\Synop\Sheme\AdditionalCloudInformationGroup;
 use Soandso\Synop\Sheme\AirTemperatureGroup;
 use Soandso\Synop\Sheme\AmountRainfallGroup;
@@ -27,10 +26,22 @@ use Soandso\Synop\Sheme\StLPressureGroup;
 use Soandso\Synop\Sheme\SunshineRadiationDataGroup;
 use Soandso\Synop\Sheme\TypeGroup;
 
+/**
+ * Class PartData contains methods for generating the resulting output data of the decoded weather report
+ */
 class PartData implements PartDataInterface
 {
+    /**
+     * @var Unit class instance of the entity Unit
+     */
     private $unit;
 
+    /**
+     * Sets the value of the unit property
+     *
+     * @param UnitInterface $unit class instance of the entity Unit
+     * @return void
+     */
     public function setUnit(UnitInterface $unit)
     {
         $this->unit = $unit;
@@ -43,7 +54,7 @@ class PartData implements PartDataInterface
      * @param string $titleSection Preset section
      * @return array|null
      */
-    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection) : ?array
+    public function getBodyOfSection(SectionInterface $sectionData, string $titleSection): ?array
     {
         if ($sectionData->getBodyByTitle($titleSection) === false) {
             return null;
@@ -59,7 +70,7 @@ class PartData implements PartDataInterface
      * @param string $groupItem The name of the class
      * @return GroupInterface|null
      */
-    public function getGroupData(array $groupsData, string $groupItem) : ?GroupInterface
+    public function getGroupData(array $groupsData, string $groupItem): ?GroupInterface
     {
         foreach ($groupsData as $key => $itemGroup) {
             if ($itemGroup instanceof $groupItem) {
@@ -97,7 +108,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getDayReport(SectionInterface $rawBlocksData) : ?string
+    public function getDayReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -118,7 +129,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getHourReport(SectionInterface $rawBlocksData) : ?string
+    public function getHourReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -138,8 +149,9 @@ class PartData implements PartDataInterface
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
+     * @throws Exception
      */
-    public function getUnitWindReport(SectionInterface $rawBlocksData) : ?string
+    public function getUnitWindReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -163,7 +175,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getWindDetectionReport(SectionInterface $rawBlocksData) : ?string
+    public function getWindDetectionReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -184,7 +196,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getAreaNumberReport(SectionInterface $rawBlocksData) : ?string
+    public function getAreaNumberReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -205,7 +217,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getStationNumberReport(SectionInterface $rawBlocksData) : ?string
+    public function getStationNumberReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -226,7 +238,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getStationIndexReport(SectionInterface $rawBlocksData) : ?string
+    public function getStationIndexReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Zero');
         if (is_null($body)) {
@@ -247,7 +259,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getInclusionPrecipitationReport(SectionInterface $rawBlocksData) : ?string
+    public function getInclusionPrecipitationReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -268,7 +280,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getInclusionWeatherReport(SectionInterface $rawBlocksData) : ?string
+    public function getInclusionWeatherReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -289,7 +301,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getTypeStationOperationReport(SectionInterface $rawBlocksData) : ?string
+    public function getTypeStationOperationReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -310,7 +322,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getHeightLowCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getHeightLowCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -331,7 +343,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getHeightLowCloudUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getHeightLowCloudUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getHeightLowCloudReport($rawBlocksData))) {
             return null;
@@ -349,7 +361,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getVisibilityReport(SectionInterface $rawBlocksData) : ?string
+    public function getVisibilityReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -369,7 +381,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getVisibilityUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getVisibilityUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getVisibilityReport($rawBlocksData))) {
             return null;
@@ -387,7 +399,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getTotalAmountCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getTotalAmountCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -408,7 +420,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getWindDirectionReport(SectionInterface $rawBlocksData) : ?string
+    public function getWindDirectionReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -429,7 +441,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getWindDirectionUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getWindDirectionUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getWindDirectionReport($rawBlocksData))) {
             return null;
@@ -447,7 +459,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getWindSpeedReport(SectionInterface $rawBlocksData) : ?string
+    public function getWindSpeedReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -467,6 +479,7 @@ class PartData implements PartDataInterface
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return mixed|null
+     * @throws Exception
      */
     public function getWindSpeedUnitReport(SectionInterface $rawBlocksData)
     {
@@ -488,7 +501,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getAirTemperatureReport(SectionInterface $rawBlocksData) : ?float
+    public function getAirTemperatureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -509,7 +522,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getAirTemperatureUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getAirTemperatureReport($rawBlocksData))) {
             return null;
@@ -527,7 +540,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getDewPointTemperatureReport(SectionInterface $rawBlocksData) : ?float
+    public function getDewPointTemperatureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -566,7 +579,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getStationLevelPressureReport(SectionInterface $rawBlocksData) : ?float
+    public function getStationLevelPressureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -587,7 +600,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getStationLevelPressureUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getStationLevelPressureUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getStationLevelPressureReport($rawBlocksData))) {
             return null;
@@ -605,7 +618,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getSeaLevelPressureReport(SectionInterface $rawBlocksData) : ?float
+    public function getSeaLevelPressureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -626,7 +639,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getSeaLevelPressureUnitReport(SectionInterface $rawBlocksData) :?string
+    public function getSeaLevelPressureUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getSeaLevelPressureReport($rawBlocksData))) {
             return null;
@@ -644,7 +657,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getBaricTendencyReport(SectionInterface $rawBlocksData) : ?string
+    public function getBaricTendencyReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -709,7 +722,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getAmountRainfallUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getAmountRainfallUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getAmountRainfallReport($rawBlocksData))) {
             return null;
@@ -727,7 +740,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getDurationPeriodRainfallReport(SectionInterface $rawBlocksData) : ?string
+    public function getDurationPeriodRainfallReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -748,7 +761,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getPresentWeatherReport(SectionInterface $rawBlocksData) : ?string
+    public function getPresentWeatherReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -769,7 +782,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return array|null
      */
-    public function getPastWeatherReport(SectionInterface $rawBlocksData) : ?array
+    public function getPastWeatherReport(SectionInterface $rawBlocksData): ?array
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -790,7 +803,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getAmountLowOrMiddleCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getAmountLowOrMiddleCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -811,7 +824,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getFormLowCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getFormLowCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -832,7 +845,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getFormMediumCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getFormMediumCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -853,7 +866,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getFormHighCloudReport(SectionInterface $rawBlocksData) : ?string
+    public function getFormHighCloudReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -874,7 +887,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getMaxAirTemperatureReport(SectionInterface $rawBlocksData) : ?float
+    public function getMaxAirTemperatureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -895,7 +908,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getMaxAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getMaxAirTemperatureUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getMaxAirTemperatureReport($rawBlocksData))) {
             return null;
@@ -913,7 +926,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getMinAirTemperatureReport(SectionInterface $rawBlocksData) : ?float
+    public function getMinAirTemperatureReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -934,7 +947,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getMinAirTemperatureUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getMinAirTemperatureUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getMinAirTemperatureReport($rawBlocksData))) {
             return null;
@@ -952,7 +965,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getStateGroundWithoutSnowReport(SectionInterface $rawBlocksData) :?string
+    public function getStateGroundWithoutSnowReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -973,7 +986,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return int|null
      */
-    public function getMinTemperatureOfGroundWithoutSnowReport(SectionInterface $rawBlocksData) : ?int
+    public function getMinTemperatureOfGroundWithoutSnowReport(SectionInterface $rawBlocksData): ?int
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -994,7 +1007,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getMinTemperatureOfGroundWithoutSnowUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getMinTemperatureOfGroundWithoutSnowUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getMinTemperatureOfGroundWithoutSnowReport($rawBlocksData))) {
             return null;
@@ -1012,7 +1025,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getStateGroundWithSnowReport(SectionInterface $rawBlocksData) : ?string
+    public function getStateGroundWithSnowReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1054,7 +1067,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getDepthSnowUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getDepthSnowUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getDepthSnowReport($rawBlocksData))) {
             return null;
@@ -1072,7 +1085,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return float|null
      */
-    public function getDurationSunshineReport(SectionInterface $rawBlocksData) : ?float
+    public function getDurationSunshineReport(SectionInterface $rawBlocksData): ?float
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1093,7 +1106,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getDurationSunshineUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getDurationSunshineUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getDurationSunshineReport($rawBlocksData))) {
             return null;
@@ -1111,7 +1124,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return int|null
      */
-    public function getRegionalExchangeAmountRainfallReport(SectionInterface $rawBlocksData) : ?int
+    public function getRegionalExchangeAmountRainfallReport(SectionInterface $rawBlocksData): ?int
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1137,7 +1150,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getRegionalExchangeAmountRainfallUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getRegionalExchangeAmountRainfallUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getRegionalExchangeAmountRainfallReport($rawBlocksData))) {
             return null;
@@ -1155,7 +1168,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getRegionalExchangeDurationPeriodRainfallReport(SectionInterface $rawBlocksData) : ?string
+    public function getRegionalExchangeDurationPeriodRainfallReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1176,7 +1189,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getAmountIndividualCloudLayerReport(SectionInterface $rawBlocksData) : ?string
+    public function getAmountIndividualCloudLayerReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1197,7 +1210,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getFormClodReport(SectionInterface $rawBlocksData) : ?string
+    public function getFormClodReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'Section Three');
         if (is_null($body)) {
@@ -1244,7 +1257,7 @@ class PartData implements PartDataInterface
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
      * @return string|null
      */
-    public function getHeightCloudUnitReport(SectionInterface $rawBlocksData) : ?string
+    public function getHeightCloudUnitReport(SectionInterface $rawBlocksData): ?string
     {
         if (is_null($this->getHeightCloudReport($rawBlocksData))) {
             return null;

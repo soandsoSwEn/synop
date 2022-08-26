@@ -19,5 +19,5 @@ interface GroupDecoderInterface
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function isGroup(ValidateInterface $validate) : bool;
+    public function isGroup(ValidateInterface $validate): bool;
 }

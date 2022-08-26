@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
 
 use Soandso\Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
@@ -8,7 +7,6 @@ use Soandso\Synop\Fabrication\UnitInterface;
 use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
-
 
 /**
  * Class AmountRainfallGroup contains methods for working with the amount of rainfall group - 6RRRtr
@@ -25,7 +23,7 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     private $rawAmountRainfall;
 
     /**
-     * @var GroupDecoderInterface
+     * @var GroupDecoderInterface Initialized decoder object for amount rainfall group
      */
     private $decoder;
 
@@ -52,10 +50,11 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
 
     /**
      * Sets the initial data for the amount of rainfall group
+     *
      * @param string $data Amount of rainfall group data
      * @throws Exception
      */
-    public function setData(string $data, ValidateInterface $validate) : void
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
             $this->setRawAmountRainfall($data);
@@ -68,8 +67,9 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
 
     /**
      * Sets the parameters of Amount of rainfall group
-     * @param GroupDecoderInterface $decoder
-     * @param ValidateInterface $validate
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object for amount rainfall group
+     * @param ValidateInterface $validate Object for weather data validation
      */
     public function setAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
@@ -86,110 +86,122 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
 
     /**
      * Sets amount of rainfall group data
+     *
      * @param string $rawAmountRainfall Amount of rainfall group data
      */
-    public function setRawAmountRainfall(string $rawAmountRainfall) : void
+    public function setRawAmountRainfall(string $rawAmountRainfall): void
     {
         $this->rawAmountRainfall = $rawAmountRainfall;
     }
 
     /**
      * Sets an initialized decoder object for amount of rainfall group
-     * @param GroupDecoderInterface $decoder Initialized decoder object for amount of rainfall group
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object for amount rainfall group
      */
-    public function setDecoder(GroupDecoderInterface $decoder) : void
+    public function setDecoder(GroupDecoderInterface $decoder): void
     {
         $this->decoder = $decoder;
     }
 
     /**
      * Sets duration period of Amount of rainfall integer value
+     *
      * @param int|null $durationPeriodNumber Duration period of Amount of rainfall
      */
-    public function setDurationPeriodNumberValue(?int $durationPeriodNumber) : void
+    public function setDurationPeriodNumberValue(?int $durationPeriodNumber): void
     {
         $this->durationPeriodNumber = $durationPeriodNumber;
     }
 
     /**
      * Sets duration period of Amount of rainfall string value
+     *
      * @param string|null $durationPeriod Duration period of Amount of rainfall
      */
-    public function setDurationPeriodValue(?string $durationPeriod) : void
+    public function setDurationPeriodValue(?string $durationPeriod): void
     {
         $this->durationPeriod = $durationPeriod;
     }
 
     /**
      * Sets title and Value of Amount of rainfall in mm
+     *
      * @param array|null $amountRainfall Title and Value of Amount of rainfall in mm
      */
-    public function setAmountRainfallValue(?array $amountRainfall) : void
+    public function setAmountRainfallValue(?array $amountRainfall): void
     {
         $this->amountRainfall = $amountRainfall;
     }
 
     /**
      * Returns amount of rainfall group data
+     *
      * @return string Amount of rainfall group data
      */
-    public function getRawAmountRainfall() : string
+    public function getRawAmountRainfall(): string
     {
         return $this->rawAmountRainfall;
     }
 
     /**
      * Returns initialized decoder object for amount of rainfall group
+     *
      * @return GroupDecoderInterface Initialized decoder object for amount of rainfall group
      */
-    public function getDecoder() : GroupDecoderInterface
+    public function getDecoder(): GroupDecoderInterface
     {
         return $this->decoder;
     }
 
     /**
      * Returns duration period of Amount of rainfall integer value
+     *
      * @return int|null Duration period of Amount of rainfall
      */
-    public function getDurationPeriodNumberValue() : ?int
+    public function getDurationPeriodNumberValue(): ?int
     {
         return $this->durationPeriodNumber;
     }
 
     /**
      * Returns duration period of rainfall string value
+     *
      * @return string|null Duration period of Amount of rainfall
      */
-    public function getDurationPeriodValue() : ?string
+    public function getDurationPeriodValue(): ?string
     {
         return $this->durationPeriod;
     }
 
     /**
      * Returns title and Value of Amount of rainfall in mm
+     *
      * @return array|null Title and Value of Amount of rainfall in mm
      */
-    public function getAmountRainfallValue() : ?array
+    public function getAmountRainfallValue(): ?array
     {
         return $this->amountRainfall;
     }
 
     /**
      * Validates a block of code against a Amount of rainfall
-     * @param GroupDecoderInterface $decoder
-     * @param ValidateInterface $validate
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object for amount of rainfall group
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool
      */
-    public function isAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
+    public function isAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
         return $decoder->isGroup($validate);
     }
 
     /**
      * Sets the value of Amount of rainfall
+     *
      * @param GroupDecoderInterface|null $decoder
      */
-    public function setAmountRainfall(?GroupDecoderInterface $decoder) : void
+    public function setAmountRainfall(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setAmountRainfallValue(null);
@@ -199,10 +211,11 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * Sets the value of duration period number of of Amount of rainfall
+     * Sets the value of duration period number of Amount of rainfall
+     *
      * @param GroupDecoderInterface|null $decoder
      */
-    public function setDurationPeriodNumber(?GroupDecoderInterface $decoder) : void
+    public function setDurationPeriodNumber(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setDurationPeriodNumberValue(null);
@@ -212,10 +225,11 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * Sets the value of duration period of of Amount of rainfall
+     * Sets the value of duration period of Amount of rainfall
+     *
      * @param GroupDecoderInterface|null $decoder
      */
-    public function setDurationPeriod(?GroupDecoderInterface $decoder) : void
+    public function setDurationPeriod(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->setDurationPeriodValue(null);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -17,7 +15,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class SunshineRadiationDataDecoder implements GroupDecoderInterface
 {
     /** Distinctive digit of duration of sunshine and radiation group */
-    const DIGIT = '55';
+    protected const DIGIT = '55';
 
     /**
      * @var string Duration of sunshine and radiation
@@ -31,11 +29,12 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     *
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawSunshineRadiation, 0, 2);
 
@@ -49,18 +48,20 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
 
     /**
      * Returns symbolic expression for duration of daily sunshine data
+     *
      * @return string Symbolic expression for duration of daily sunshine
      */
-    public function getCodeSunshineData() : string
+    public function getCodeSunshineData(): string
     {
         return substr($this->rawSunshineRadiation, 2, 3);
     }
 
     /**
      * Returns duration of daily sunshine value
+     *
      * @return float Duration of daily sunshine
      */
-    public function getSunshineData() : float
+    public function getSunshineData(): float
     {
         $SSS = $this->getCodeSunshineData();
         $integerPartString = substr($SSS, 0, 2);
@@ -69,6 +70,11 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
         return floatval($integerPartString . '.' . $fractionalPartString);
     }
 
+    /**
+     * Return code figure of duration of sunshine and radiation
+     *
+     * @return false|string
+     */
     private function getCodeFigureIndicator()
     {
         return substr($this->rawSunshineRadiation, 0, 2);

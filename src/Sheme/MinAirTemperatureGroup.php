@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
-
 
 use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
@@ -20,7 +18,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class MinAirTemperatureGroup extends AirTemperatureGroup
 {
     /** Value distinctive number of minimum air temperature group */
-    const DIGIT = '2';
+    protected const DIGIT = '2';
 
     public function __construct(string $data, Unit $unit, ValidateInterface $validate)
     {
@@ -29,12 +27,13 @@ class MinAirTemperatureGroup extends AirTemperatureGroup
 
     /**
      * Sets the initial data for the minimum air temperature group
+     *
      * @param string $data Minimum air temperature group data
      * @throws Exception
      */
-    public function setData(string $data, ValidateInterface $validate) : void
+    public function setData(string $data, ValidateInterface $validate): void
     {
-        if(!empty($data)) {
+        if (!empty($data)) {
             $this->setRawAirTemperature($data);
             $this->setDecoder(new AirTemperatureDecoder($this->getRawAirTemperature(), self::DIGIT));
             $this->setAirTempGroup($this->getDecoder(), $validate);

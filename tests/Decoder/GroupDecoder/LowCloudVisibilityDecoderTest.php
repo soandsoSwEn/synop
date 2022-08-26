@@ -369,7 +369,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
 
     public function testNullGetIr()
     {
-        $reflectorProperty = new \ReflectionProperty(LowCloudVisibilityDecoder::class, 'raw_cloud_vis');
+        $reflectorProperty = new \ReflectionProperty(LowCloudVisibilityDecoder::class, 'rawCloudVis');
         $reflectorProperty->setAccessible(true);
         $reflectorProperty->setValue($this->lowCloudVisibility, '5');
 

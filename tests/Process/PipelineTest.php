@@ -118,10 +118,10 @@ class PipelineTest extends TestCase
         $rawReportSectionTitleProperty = $reflectionRawReport->getProperty('section');
         $rawReportSectionTitleProperty->setAccessible(true);
         $rawReportSectionTitleProperty->setValue($decoder, new Section('Section Three'));
-        $rawReportSynopProperty = $reflectionRawReport->getProperty('synop_report');
+        $rawReportSynopProperty = $reflectionRawReport->getProperty('synopReport');
         $rawReportSynopProperty->setAccessible(true);
         $rawReportSynopProperty->setValue($decoder, true);
-        $rawReportShipProperty = $reflectionRawReport->getProperty('ship_report');
+        $rawReportShipProperty = $reflectionRawReport->getProperty('shipReport');
         $rawReportShipProperty->setAccessible(true);
         $rawReportShipProperty->setValue($decoder, false);
         $rawReportUnitProperty = $reflectionRawReport->getProperty('unit');
@@ -168,10 +168,10 @@ class PipelineTest extends TestCase
         $rawReportSectionTitleProperty = $reflectionRawReport->getProperty('section');
         $rawReportSectionTitleProperty->setAccessible(true);
         $rawReportSectionTitleProperty->setValue($decoder, new Section('Section Three'));
-        $rawReportSynopProperty = $reflectionRawReport->getProperty('synop_report');
+        $rawReportSynopProperty = $reflectionRawReport->getProperty('synopReport');
         $rawReportSynopProperty->setAccessible(true);
         $rawReportSynopProperty->setValue($decoder, true);
-        $rawReportShipProperty = $reflectionRawReport->getProperty('ship_report');
+        $rawReportShipProperty = $reflectionRawReport->getProperty('shipReport');
         $rawReportShipProperty->setAccessible(true);
         $rawReportShipProperty->setValue($decoder, false);
         $rawReportUnitProperty = $reflectionRawReport->getProperty('unit');

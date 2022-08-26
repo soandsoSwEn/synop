@@ -455,7 +455,7 @@ class GroundWithSnowGroupTest extends TestCase
         $this->groundWithSnowGroup->setRawGroundWithSnow('49999');
 
         $reflector = new \ReflectionClass(GroundWithSnowGroup::class);
-        $roperty = $reflector->getProperty('raw_ground_with_snow');
+        $roperty = $reflector->getProperty('rawGroundWithSnow');
         $roperty->setAccessible(true);
         $value = $roperty->getValue($this->groundWithSnowGroup);
 
@@ -467,7 +467,7 @@ class GroundWithSnowGroupTest extends TestCase
         $this->groundWithSnowGroup->setRawGroundWithSnow('49999');
 
         $reflector = new \ReflectionClass(GroundWithSnowGroup::class);
-        $roperty = $reflector->getProperty('raw_ground_with_snow');
+        $roperty = $reflector->getProperty('rawGroundWithSnow');
         $roperty->setAccessible(true);
         $value = $roperty->getValue($this->groundWithSnowGroup);
 
@@ -479,7 +479,7 @@ class GroundWithSnowGroupTest extends TestCase
         $this->groundWithSnowGroup->setRawGroundWithSnow('49999');
 
         $reflector = new \ReflectionClass(GroundWithSnowGroup::class);
-        $roperty = $reflector->getProperty('raw_ground_with_snow');
+        $roperty = $reflector->getProperty('rawGroundWithSnow');
         $roperty->setAccessible(true);
         $value = $roperty->getValue($this->groundWithSnowGroup);
 
@@ -493,7 +493,7 @@ class GroundWithSnowGroupTest extends TestCase
         $this->groundWithSnowGroup->setData('49999', $validate);
 
         $reflector = new \ReflectionClass(GroundWithSnowGroup::class);
-        $ropertyRawData = $reflector->getProperty('raw_ground_with_snow');
+        $ropertyRawData = $reflector->getProperty('rawGroundWithSnow');
         $ropertyRawData->setAccessible(true);
         $valueRawData = $ropertyRawData->getValue($this->groundWithSnowGroup);
 

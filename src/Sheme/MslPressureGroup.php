@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
 
 use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
@@ -8,7 +7,6 @@ use Soandso\Synop\Fabrication\UnitInterface;
 use Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder;
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
-
 
 /**
  * Class MslPressureGroup contains methods for working with the atmospheric pressure group
@@ -26,7 +24,7 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     private $rawMlsPressure;
 
     /**
-     * @var GroupDecoderInterface
+     * @var GroupDecoderInterface Initialized decoder object
      */
     private $decoder;
 
@@ -41,7 +39,15 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
         $this->setUnit($unit);
     }
 
-    public function setData(string $data, ValidateInterface $validate) : void
+    /**
+     * Sets the initial data for atmospheric pressure group
+     *
+     * @param string $data Code block of Air Pressure reduced to mean sea level
+     * @param ValidateInterface $validate Object for weather data validation
+     * @return void
+     * @throws Exception
+     */
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
             $this->rawMlsPressure = $data;
@@ -53,45 +59,52 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * @param GroupDecoderInterface $decoder
+     * Sets an initialized decoder object for atmospheric pressure group
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object
      */
-    public function setDecoder(GroupDecoderInterface $decoder) : void
+    public function setDecoder(GroupDecoderInterface $decoder): void
     {
         $this->decoder = $decoder;
     }
 
     /**
      * Sets value of Air Pressure reduced to mean sea level
+     *
      * @param float $pressure Value of Air Pressure reduced to mean sea level
      */
-    public function setPressureValue(float $pressure) : void
+    public function setPressureValue(float $pressure): void
     {
         $this->pressure = $pressure;
     }
 
     /**
-     * @return GroupDecoderInterface
+     * Returns an initialized decoder object for atmospheric pressure group
+     *
+     * @return GroupDecoderInterface Initialized decoder object
      */
-    public function getDecoder() : GroupDecoderInterface
+    public function getDecoder(): GroupDecoderInterface
     {
         return $this->decoder;
     }
 
     /**
      * Returns value of Air Pressure reduced to mean sea level
+     *
      * @return float Value of Air Pressure reduced to mean sea level
      */
-    public function getPressureValue() : float
+    public function getPressureValue(): float
     {
         return $this->pressure;
     }
 
     /**
      * Sets the parameters of Air Pressure reduced to mean sea level
-     * @param GroupDecoderInterface $decoder
-     * @param ValidateInterface $validate
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object
+     * @param ValidateInterface $validate Object for weather data validation
      */
-    public function setMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : void
+    public function setMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): void
     {
         if ($this->isMslPressureGroup($decoder, $validate)) {
             $this->setMslPressure($decoder);
@@ -102,20 +115,22 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
 
     /**
      * Validates a block of code against a Air Pressure reduced to mean sea level group
+     *
      * @param GroupDecoderInterface $decoder
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
+    public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
         return $decoder->isGroup($validate);
     }
 
     /**
      * Sets the value of Air Pressure reduced to mean sea level
+     *
      * @param GroupDecoderInterface|null $decoder
      */
-    public function setMslPressure(?GroupDecoderInterface $decoder) : void
+    public function setMslPressure(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->pressure = null;

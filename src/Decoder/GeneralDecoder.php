@@ -32,10 +32,10 @@ use Soandso\Synop\Sheme\TypeGroup;
 class GeneralDecoder extends Decoder implements DecoderInterface
 {
     /** Title of basic container for storing all sections of the meteorological report */
-    const ALL_SECTIONS = 'All Sections';
+    protected const ALL_SECTIONS = 'All Sections';
 
     /** Title for Section 0 of weather report */
-    const SECTION_ZERO = 'Section Zero';
+    protected const SECTION_ZERO = 'Section Zero';
 
     /**
      * @var Section All sections of the meteorological report
@@ -66,7 +66,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @var Unit class instance of the entity Unit
      */
     private $unit;
-    
+
     public function __construct(SectionInterface $section_title, Unit $unit)
     {
         $this->section = $section_title;
@@ -78,20 +78,22 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns the result of checking if the group of the code matches the group of the weather report
+     *
      * @param string $codeFigure
      * @param int $size Weather group size
      * @return bool
      */
-    public function isGroup(string $codeFigure, int $size) : bool
+    public function isGroup(string $codeFigure, int $size): bool
     {
         return mb_strlen($codeFigure) === $size;
     }
 
     /**
      * Returns decoded data for all sections of the weather report
+     *
      * @return SectionInterface
      */
-    public function parse() : SectionInterface
+    public function parse(): SectionInterface
     {
         return $this->sections;
     }
@@ -99,10 +101,11 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     //TODO Analyse $data param
     /**
      * Adds a new section to the base weather report container
+     *
      * @param SectionInterface $data Section data of weather report
      * @return bool
      */
-    private function putSection(SectionInterface $data) : bool
+    private function putSection(SectionInterface $data): bool
     {
         $this->sections->setBody($data);
 
@@ -111,11 +114,12 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Adds group data to the weather section
+     *
      * @param $data mixed Group data
      * @param string|false $sectionTitle Title of section
      * @return bool
      */
-    private function putInSection($data, $sectionTitle = false) : bool
+    private function putInSection($data, $sectionTitle = false): bool
     {
         if (!$sectionTitle) {
             $this->section->setBody($data);
@@ -129,25 +133,27 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns object of section for weather report
+     *
      * @param string $sectionTitle
      * @return false|SectionInterface
      */
-    private function getSectionByTitle(string $sectionTitle) : SectionInterface
+    private function getSectionByTitle(string $sectionTitle): SectionInterface
     {
         return $this->sections->getBodyByTitle($sectionTitle);
     }
 
     /**
      * Defines the type of weather report
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function getType(RawReportInterface $raw_report, ValidateInterface $validate) : bool
+    public function getType(RawReportInterface $raw_report, ValidateInterface $validate): bool
     {
         $typeGroup = $this->block($raw_report->getReport());
-        if(!in_array($typeGroup, $this->type_report)) {
+        if (!in_array($typeGroup, $this->type_report)) {
             throw new Exception('Weather report type not set correctly!');
         }
         $type = new TypeGroup($typeGroup, $validate);
@@ -166,17 +172,18 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the ship sign of weather report
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      * @throws Exception
      */
-    public function getShipSign(RawReportInterface $raw_report) : bool
+    public function getShipSign(RawReportInterface $raw_report): bool
     {
-        if($this->synop_report) {
+        if ($this->synop_report) {
             return false;
         }
         $ship_call = $this->block($raw_report->getReport());
-        if(ctype_digit($ship_call)) {
+        if (ctype_digit($ship_call)) {
             $this->updateReport($ship_call, $raw_report);
             return $this->putInSection($ship_call, self::SECTION_ZERO) ? true : false;
         } else {
@@ -186,13 +193,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the date group of the weather report
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function getYYGGiw(RawReportInterface $raw_report, ValidateInterface $validate) : bool
+    public function getYYGGiw(RawReportInterface $raw_report, ValidateInterface $validate): bool
     {
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $date_group = $this->block($raw_report->getReport());
             $date = new DateGroup($date_group, $validate);
         } else {
@@ -204,13 +212,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of the international station index
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function getIIiii(RawReportInterface $raw_report, ValidateInterface $validate) : bool
+    public function getIIiii(RawReportInterface $raw_report, ValidateInterface $validate): bool
     {
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $station_index = $this->block($raw_report->getReport());
             $index = new IndexGroup($station_index, $validate);
         } else {
@@ -221,13 +230,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
     }
 
     /**
-     * Defines the group of the location of the ship (latittude)
+     * Defines the group of the location of the ship (latitude)
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get99LaLaLa(RawReportInterface $raw_report) : bool
+    public function get99LaLaLa(RawReportInterface $raw_report): bool
     {
-        if($this->ship_report) {
+        if ($this->ship_report) {
             //
         }
         return false;
@@ -235,12 +245,13 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of the location of the ship (longitude)
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function getQcL0L0L0L0(RawReportInterface $raw_report) : bool
+    public function getQcL0L0L0L0(RawReportInterface $raw_report): bool
     {
-        if($this->ship_report) {
+        if ($this->ship_report) {
             //
         }
         return false;
@@ -248,13 +259,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group for the height of the cloud base
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function getirixhVV(RawReportInterface $raw_report, ValidateInterface $validate) : bool
+    public function getirixhVV(RawReportInterface $raw_report, ValidateInterface $validate): bool
     {
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $cloud_visibility_group = $this->block($raw_report->getReport());
             $iRIxHVV = new LowCloudVisibilityGroup($cloud_visibility_group, $this->unit, $validate);
         } else {
@@ -266,13 +278,14 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of the total amount of clouds
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function getNddff(RawReportInterface $raw_report, ValidateInterface $validate) : bool
+    public function getNddff(RawReportInterface $raw_report, ValidateInterface $validate): bool
     {
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $cloud_wind_group = $this->block($raw_report->getReport());
             $Nddff = new CloudWindGroup($cloud_wind_group, $this->unit, $validate);
         } else {
@@ -284,21 +297,22 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group air temperature
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get1SnTTT(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get1SnTTT(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $temperature = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $air_temperature_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($air_temperature_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($air_temperature_group, 0, 1);
-            if(strcmp($distinguishing_digit, '1') == 0) {
+            if (strcmp($distinguishing_digit, '1') == 0) {
                 $temperature = true;
                 $SnTTT = new AirTemperatureGroup($air_temperature_group, $this->unit, $validate);
             } else {
@@ -307,7 +321,7 @@ class GeneralDecoder extends Decoder implements DecoderInterface
         } else {
             //ship report
         }
-        if($temperature) {
+        if ($temperature) {
             $this->updateReport($air_temperature_group, $raw_report);
             return $this->putInSection($SnTTT) ? true : false;
         } else {
@@ -317,28 +331,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the dew point temperature group
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get2SnTdTdTd(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get2SnTdTdTd(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $dew_point = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $dew_point_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($dew_point_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($dew_point_group, 0, 1);
-            if(strcmp($distinguishing_digit, '2') == 0) {
+            if (strcmp($distinguishing_digit, '2') == 0) {
                 $dew_point = true;
                 $SnTdTdTd = new DewPointTemperatureGroup($dew_point_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($dew_point) {
+        if ($dew_point) {
             $this->updateReport($dew_point_group, $raw_report);
             return $this->putInSection($SnTdTdTd) ? true : false;
         } else {
@@ -348,28 +363,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of atmospheric pressure at the station level
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get3P0P0P0P0(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get3P0P0P0P0(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $pressure_station = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $pressure_station_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($pressure_station_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($pressure_station_group, 0, 1);
-            if(strcmp($distinguishing_digit, '3') == 0) {
+            if (strcmp($distinguishing_digit, '3') == 0) {
                 $pressure_station = true;
                 $P0P0P0P0 = new StLPressureGroup($pressure_station_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($pressure_station) {
+        if ($pressure_station) {
             $this->updateReport($pressure_station_group, $raw_report);
             return $this->putInSection($P0P0P0P0) ? true : false;
         } else {
@@ -379,28 +395,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group air Pressure reduced to mean sea level
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get4PPPP(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get4PPPP(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $pressure_sea_level = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $pressure_sea_level_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($pressure_sea_level_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($pressure_sea_level_group, 0, 1);
-            if(strcmp($distinguishing_digit, '4') == 0) {
+            if (strcmp($distinguishing_digit, '4') == 0) {
                 $pressure_sea_level = true;
                 $PPPP = new MslPressureGroup($pressure_sea_level_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($pressure_sea_level) {
+        if ($pressure_sea_level) {
             $this->updateReport($pressure_sea_level_group, $raw_report);
             return $this->putInSection($PPPP) ? true : false;
         } else {
@@ -410,28 +427,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of pressure change over last three hours
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get5appp(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get5appp(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $baric_tendency = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $baric_tendency_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($baric_tendency_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($baric_tendency_group, 0, 1);
-            if(strcmp($distinguishing_digit, '5') == 0) {
+            if (strcmp($distinguishing_digit, '5') == 0) {
                 $baric_tendency = true;
                 $appp = new BaricTendencyGroup($baric_tendency_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($baric_tendency) {
+        if ($baric_tendency) {
             $this->updateReport($baric_tendency_group, $raw_report);
             return $this->putInSection($appp) ? true : false;
         } else {
@@ -441,28 +459,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the group of amount of rainfall
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get6RRRtr(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get6RRRtr(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $precipitation = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $precipitation_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($precipitation_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($precipitation_group, 0, 1);
-            if(strcmp($distinguishing_digit, '6') == 0) {
+            if (strcmp($distinguishing_digit, '6') == 0) {
                 $precipitation = true;
                 $RRRtr = new AmountRainfallGroup($precipitation_group, $this->unit, $validate);
             }
         } else {
             //ship report
         }
-        if($precipitation ) {
+        if ($precipitation) {
             $this->updateReport($precipitation_group, $raw_report);
             return $this->putInSection($RRRtr) ? true : false;
         } else {
@@ -472,28 +491,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the Present weather group
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get7wwW1W2(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get7wwW1W2(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $weather = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $weather_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($weather_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($weather_group, 0, 1);
-            if(strcmp($distinguishing_digit, '7') == 0) {
+            if (strcmp($distinguishing_digit, '7') == 0) {
                 $weather = true;
                 $wwW1W2 = new PresentWeatherGroup($weather_group, $validate);
             }
         } else {
             //ship report
         }
-        if($weather) {
+        if ($weather) {
             $this->updateReport($weather_group, $raw_report);
             return $this->putInSection($wwW1W2) ? true : false;
         } else {
@@ -503,28 +523,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the cloud present group
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @param ValidateInterface $validate
      * @return bool|null
      */
-    public function get8NhClCmCh(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get8NhClCmCh(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $cloud_characteristics = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $cloud_characteristics_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($cloud_characteristics_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
-            if(strcmp($distinguishing_digit, '8') == 0) {
+            if (strcmp($distinguishing_digit, '8') == 0) {
                 $cloud_characteristics = true;
                 $NhClCmCh = new CloudPresentGroup($cloud_characteristics_group, $validate);
             }
         } else {
             //ship report
         }
-        if($cloud_characteristics) {
+        if ($cloud_characteristics) {
             $this->updateReport($cloud_characteristics_group, $raw_report);
             return $this->putInSection($NhClCmCh) ? true : false;
         } else {
@@ -536,23 +557,23 @@ class GeneralDecoder extends Decoder implements DecoderInterface
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool|null
      */
-    public function get9hh(RawReportInterface $raw_report) : ?bool
+    public function get9hh(RawReportInterface $raw_report): ?bool
     {
         $cloud_height = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $cloud_characteristics_group = $this->block($raw_report->getReport());
             if (!$this->isGroup($cloud_characteristics_group, 5)) {
                 return null;
             }
 
             $distinguishing_digit = substr($cloud_characteristics_group, 0, 1);
-            if(strcmp($distinguishing_digit, '9') == 0) {
+            if (strcmp($distinguishing_digit, '9') == 0) {
                 $cloud_height = true;
             }
         } else {
             //ship report
         }
-        if($cloud_height) {
+        if ($cloud_height) {
             $this->updateReport($cloud_characteristics_group, $raw_report);
             return $this->putInSection($cloud_characteristics_group) ? true : false;
         } else {
@@ -562,22 +583,27 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the groups of section 2
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get222DsVs(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get222DsVs(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $section_two = false;
         //$st_blocks = [];
-        if($this->ship_report) {
+        if ($this->ship_report) {
             $section_two_group = $this->block($raw_report->getReport());
             $distinguishing_digit = substr($section_two_group, 0, 3);
-            if(strcmp($distinguishing_digit, '222') == 0) {
+            if (strcmp($distinguishing_digit, '222') == 0) {
                 $section_two = true;
                 $st_pipeline = new Pipeline();
                 $pipes = $this->getTwoPipes();
                 $st_pipeline->pipe($pipes);
-                $st_decoder = new SectionTwoDecoder(new Section(self::SECTION_TWO), $this->synop_report, $this->ship_report);
+                $st_decoder = new SectionTwoDecoder(
+                    new Section(self::SECTION_TWO),
+                    $this->synop_report,
+                    $this->ship_report
+                );
                 $st_blocks = $st_pipeline->process($raw_report, $st_decoder, $validate);
                 return $this->putSection($st_blocks) ? true : false;
             }
@@ -590,9 +616,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns codes figure for groups of section 2
+     *
      * @return string[]
      */
-    public function getTwoPipes() : array
+    public function getTwoPipes(): array
     {
         return [
             '222DsVs',
@@ -609,22 +636,30 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the groups of section 3
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get333(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get333(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $section_three_group = false;
         //$str_blocks = [];
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $section_three = $this->block($raw_report->getReport());
-            if(strcmp($section_three, '333') == 0) {
+            if (strcmp($section_three, '333') == 0) {
                 $section_three_group = true;
                 $this->updateReport($section_three, $raw_report);
                 $str_pipelie = new Pipeline();
                 $pipes = $this->getThreePipes();
                 $str_pipelie->pipe($pipes);
-                $str_decoder = new SectionThreeDecoder(new Section(self::SECTION_THREE), $this->synop_report, $this->ship_report, $this->unit);
+
+                $str_decoder = new SectionThreeDecoder(
+                    new Section(self::SECTION_THREE),
+                    $this->synop_report,
+                    $this->ship_report,
+                    $this->unit
+                );
+
                 $str_blocks = $str_pipelie->process($raw_report, $str_decoder, $validate);
                 return $this->putSection($str_blocks) ? true : false;
             }
@@ -637,9 +672,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns codes figure for groups of section 3
+     *
      * @return string[]
      */
-    public function getThreePipes() : array
+    public function getThreePipes(): array
     {
         return [
             '1SnTxTxTx',
@@ -655,22 +691,29 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Defines the groups of section 4
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
      * @return bool
      */
-    public function get444(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get444(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $section_four_group = false;
         //$sf_blocks = [];
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $section_four = $this->block($raw_report->getReport());
-            if(strcmp($section_four, '444') == 0) {
+            if (strcmp($section_four, '444') == 0) {
                 $section_four_group = true;
                 $this->updateReport($section_four, $raw_report);
                 $sf_pipelie = new Pipeline();
                 $pipes = $this->getFourPipes();
                 $sf_pipelie->pipe($pipes);
-                $sf_decoder = new SectionFourDecoder(new Section(self::SECTION_FOUR), $this->synop_report, $this->ship_report);
+
+                $sf_decoder = new SectionFourDecoder(
+                    new Section(self::SECTION_FOUR),
+                    $this->synop_report,
+                    $this->ship_report
+                );
+
                 $sf_blocks = $sf_pipelie->process($raw_report, $sf_decoder, $validate);
                 return $this->putSection($sf_blocks) ? true : false;
             }
@@ -683,30 +726,39 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns codes figure for groups of section 4
+     *
      * @return string[]
      */
-    public function getFourPipes() : array
+    public function getFourPipes(): array
     {
         return ['NCHHCt'];
     }
 
     /**
      * Defines the groups of section 5
+     *
      * @param RawReportInterface $raw_report Object of meteorological report source code
+     * @param ValidateInterface $validate Object for weather data validation
      * @return bool|null
      */
-    public function get555(RawReportInterface $raw_report, ValidateInterface $validate) : ?bool
+    public function get555(RawReportInterface $raw_report, ValidateInterface $validate): ?bool
     {
         $section_five_group = false;
-        if($this->synop_report) {
+        if ($this->synop_report) {
             $section_five = $this->block($raw_report->getReport());
-            if(strcmp($section_five, '555') == 0) {
+            if (strcmp($section_five, '555') == 0) {
                 $section_five_group = true;
                 $this->updateReport($section_five, $raw_report);
                 $sv_pipelie = new Pipeline();
                 $pipes = $this->getFivePipes();
                 $sv_pipelie->pipe($pipes);
-                $sv_decoder = new SectionFiveDecoder(new Section(self::SECTION_FIVE), $this->synop_report, $this->ship_report);
+
+                $sv_decoder = new SectionFiveDecoder(
+                    new Section(self::SECTION_FIVE),
+                    $this->synop_report,
+                    $this->ship_report
+                );
+
                 $sv_blocks = $sv_pipelie->process($raw_report, $sv_decoder, $validate);
                 return $this->putSection($sv_blocks) ? true : false;
             }
@@ -719,9 +771,10 @@ class GeneralDecoder extends Decoder implements DecoderInterface
 
     /**
      * Returns codes figure for groups of section 5
+     *
      * @return string[]
      */
-    public function getFivePipes() : array
+    public function getFivePipes(): array
     {
         return [
             '1SnT24T24T24',

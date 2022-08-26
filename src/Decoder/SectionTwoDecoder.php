@@ -8,28 +8,38 @@ use Soandso\Synop\Decoder\DecoderInterface;
 use Soandso\Synop\Fabrication\RawReportInterface;
 
 /**
- * Description of SectionTwoDecoder
+ * Decodes the group code for section 3 of the weather report
  *
  * @author Dmytriyenko Vyacheslav <dmytriyenko.vyacheslav@gmail.com>
  */
 class SectionTwoDecoder extends Decoder implements DecoderInterface
 {
+    /**
+     * @var SectionInterface Current section of the weather report
+     */
     private $section;
+
+    /**
+     * @var bool Synop identifier for weather report type
+     */
+    private $synopReport = null;
+
+    /**
+     * @var bool Ship identifier for weather report type
+     */
+    private $shipReport = null;
     
-    private $synop_report = null;
-    
-    private $ship_report = null;
-    
-    public function __construct(SectionInterface $section_title, bool $synop, bool $ship)
+    public function __construct(SectionInterface $sectionTitle, bool $synop, bool $ship)
     {
-        $this->section = $section_title;
-        $this->synop_report = $synop;
-        $this->ship_report = $ship;
+        $this->section = $sectionTitle;
+        $this->synopReport = $synop;
+        $this->shipReport = $ship;
     }
 
     /**
      * Returns the result of checking if the group of the code matches the group of the weather report
-     * @param string $codeFigure
+     *
+     * @param string $codeFigure Code figure of single group of the section
      * @param int $size Weather group size
      * @return bool
      */
@@ -38,11 +48,22 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         return mb_strlen($codeFigure) === $size;
     }
 
+    /**
+     * Returns decoded data for this section of the weather report
+     *
+     * @return SectionInterface Decoded data for this section
+     */
     public function parse(): SectionInterface
     {
         return $this->section;
     }
-    
+
+    /**
+     * Adds group data to the weather section
+     *
+     * @param $data mixed Group data
+     * @return bool
+     */
     private function putInSection($data)
     {
         $this->section->setBody($data);
@@ -50,212 +71,219 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         return true;
     }
     
-    public function get222DsVs(RawReportInterface $raw_report)
+    public function get222DsVs(RawReportInterface $rawReport)
     {
-        $section_two = false;
-        if($this->ship_report) {
-            $section_two_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($section_two_group, 5)) {
+        $sectionTwo = false;
+        if ($this->shipReport) {
+            $sectionTwoGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($sectionTwoGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($section_two_group, 0, 3);
-            if(strcmp($distinguishing_digit, '222') == 0) {
-                $section_two = true;
+            $distinguishingDigit = substr($sectionTwoGroup, 0, 3);
+            if (strcmp($distinguishingDigit, '222') == 0) {
+                $sectionTwo = true;
             }
         } else {
             //synop report
         }
-        if($section_two) {
-            $this->updateReport($section_two_group, $raw_report);
-            return $this->putInSection($section_two_group) ? true : false;
+
+        if ($sectionTwo) {
+            $this->updateReport($sectionTwoGroup, $rawReport);
+            return $this->putInSection($sectionTwoGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get0SnTwTwTw(RawReportInterface $raw_report)
+    public function get0SnTwTwTw(RawReportInterface $rawReport)
     {
-        $sea_temperature = true;
-        if($this->ship_report) {
-            $sea_temperature_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($sea_temperature_group, 5)) {
+        $seaTemperature = true;
+        if ($this->shipReport) {
+            $seaTemperatureGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($seaTemperatureGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($sea_temperature_group, 0, 1);
-            if(strcmp($distinguishing_digit, '0') == 0) {
-                $sea_temperature = true;
+            $distinguishingDigit = substr($seaTemperatureGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '0') == 0) {
+                $seaTemperature = true;
             }
         } else {
             //synop report
         }
-        if($sea_temperature) {
-            $this->updateReport($sea_temperature_group, $raw_report);
-            return $this->putInSection($sea_temperature_group) ? true : false;
+
+        if ($seaTemperature) {
+            $this->updateReport($seaTemperatureGroup, $rawReport);
+            return $this->putInSection($seaTemperatureGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get1PwaPwaHwaHwa(RawReportInterface $raw_report)
+    public function get1PwaPwaHwaHwa(RawReportInterface $rawReport)
     {
-        $sea_wave = false;
-        if($this->ship_report) {
-            $sea_wave_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($sea_wave_group, 5)) {
+        $seaWave = false;
+        if ($this->shipReport) {
+            $seaWaveGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($seaWaveGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($sea_wave_group, 0, 1);
-            if(strcmp($distinguishing_digit, '1') == 0) {
-                $sea_wave = true;
+            $distinguishingDigit = substr($seaWaveGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '1') == 0) {
+                $seaWave = true;
             }
         } else {
             //synop report
         }
-        if($sea_wave) {
-            $this->updateReport($sea_wave_group, $raw_report);
-            return $this->putInSection($sea_wave_group) ? true : false;
+        if ($seaWave) {
+            $this->updateReport($seaWaveGroup, $rawReport);
+            return $this->putInSection($seaWaveGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get2PwPwHwHw(RawReportInterface $raw_report)
+    public function get2PwPwHwHw(RawReportInterface $rawReport)
     {
-        $wind_waves = false;
-        if($this->ship_report) {
-            $wind_waves_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($wind_waves_group, 5)) {
+        $windWaves = false;
+        if ($this->shipReport) {
+            $windWavesGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($windWavesGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($wind_waves_group, 0, 1);
-            if(strcmp($distinguishing_digit, '2') == 0) {
-                $wind_waves = true;
+            $distinguishingDigit = substr($windWavesGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '2') == 0) {
+                $windWaves = true;
             }
         } else {
             //synop report
         }
-        if($wind_waves) {
-            $this->updateReport($wind_waves_group, $raw_report);
-            return $this->putInSection($wind_waves_group) ? true : false;
+
+        if ($windWaves) {
+            $this->updateReport($windWavesGroup, $rawReport);
+            return $this->putInSection($windWavesGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get3dw1dw1dw2dw2(RawReportInterface $raw_report)
+    public function get3dw1dw1dw2dw2(RawReportInterface $rawReport)
     {
-        $wave_transference = false;
-        if($this->ship_report) {
-            $wave_transference_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($wave_transference_group, 5)) {
+        $waveTransference = false;
+        if ($this->shipReport) {
+            $waveTransferenceGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($waveTransferenceGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($wave_transference_group, 0, 1);
-            if(strcmp($distinguishing_digit, '3') == 0) {
-                $wave_transference = true;
+            $distinguishingDigit = substr($waveTransferenceGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '3') == 0) {
+                $waveTransference = true;
             }
         } else {
             //synop report
         }
-        if($wave_transference) {
-            $this->updateReport($wave_transference_group, $raw_report);
-            return $this->putInSection($wave_transference_group) ? true : false;
+
+        if ($waveTransference) {
+            $this->updateReport($waveTransferenceGroup, $rawReport);
+            return $this->putInSection($waveTransferenceGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get4Pw1Pw1Hw1Hw1(RawReportInterface $raw_report)
+    public function get4Pw1Pw1Hw1Hw1(RawReportInterface $rawReport)
     {
-        $period_height_wave = false;
-        if($this->ship_report) {
-            $period_height_wind_wave_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($period_height_wind_wave_group, 5)) {
+        $periodHeightWave = false;
+        if ($this->shipReport) {
+            $periodHeightWindWaveGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($periodHeightWindWaveGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($period_height_wind_wave_group, 0, 1);
-            if(strcmp($distinguishing_digit, '4') == 0) {
-                $period_height_wave = true;
+            $distinguishingDigit = substr($periodHeightWindWaveGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '4') == 0) {
+                $periodHeightWave = true;
             }
         } else {
             //synop report
         }
-        if($period_height_wave) {
-            $this->updateReport($period_height_wind_wave_group, $raw_report);
-            return $this->putInSection($period_height_wind_wave_group) ? true : false;
+
+        if ($periodHeightWave) {
+            $this->updateReport($periodHeightWindWaveGroup, $rawReport);
+            return $this->putInSection($periodHeightWindWaveGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get5Pw2Pw2Hw2Hw2(RawReportInterface $raw_report)
+    public function get5Pw2Pw2Hw2Hw2(RawReportInterface $rawReport)
     {
-        $period_and_height_wave = false;
-        if($this->ship_report) {
-            $period_height_wave_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($period_height_wave_group, 5)) {
+        $periodAndHeightWave = false;
+        if ($this->shipReport) {
+            $periodHeightWaveGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($periodHeightWaveGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($period_height_wave_group, 0, 1);
-            if(strcmp($distinguishing_digit, '5') == 0) {
-                $period_and_height_wave = true;
+            $distinguishingDigit = substr($periodHeightWaveGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '5') == 0) {
+                $periodAndHeightWave = true;
             }
         } else {
             //synop report
         }
-        if($period_and_height_wave) {
-            $this->updateReport($period_height_wave_group, $raw_report);
-            return $this->putInSection($period_height_wave_group) ? true : false;
+
+        if ($periodAndHeightWave) {
+            $this->updateReport($periodHeightWaveGroup, $rawReport);
+            return $this->putInSection($periodHeightWaveGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function get6IsEsEsPs(RawReportInterface $raw_report)
+    public function get6IsEsEsPs(RawReportInterface $rawReport)
     {
-        $period_and_height_wave = false;
-        if($this->ship_report) {
-            $vessel_icing_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($vessel_icing_group, 5)) {
+        $periodAndHeightWave = false;
+        if ($this->shipReport) {
+            $vesselIcingGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($vesselIcingGroup, 5)) {
                 return null;
             }
 
-            $distinguishing_digit = substr($vessel_icing_group, 0, 1);
-            if(strcmp($distinguishing_digit, '6') == 0) {
-                $period_and_height_wave = true;
+            $distinguishingDigit = substr($vesselIcingGroup, 0, 1);
+            if (strcmp($distinguishingDigit, '6') == 0) {
+                $periodAndHeightWave = true;
             }
         } else {
             //synop report
         }
-        if($period_and_height_wave) {
-            $this->updateReport($vessel_icing_group, $raw_report);
-            return $this->putInSection($vessel_icing_group) ? true : false;
+
+        if ($periodAndHeightWave) {
+            $this->updateReport($vesselIcingGroup, $rawReport);
+            return $this->putInSection($vesselIcingGroup) ? true : false;
         } else {
             return null;
         }
     }
     
-    public function getISE(RawReportInterface $raw_report)
+    public function getISE(RawReportInterface $rawReport)
     {
         $ice = false;
-        if($this->ship_report) {
-            $distinguishing_word_ice = $this->block($raw_report->getReport());
-            if (!$this->isGroup($distinguishing_word_ice, 3)) {
+        if ($this->shipReport) {
+            $distinguishingWordIce = $this->block($rawReport->getReport());
+            if (!$this->isGroup($distinguishingWordIce, 3)) {
                 return null;
             }
 
-            if(strcmp($distinguishing_word_ice, 'ICE') == 0) {
+            if (strcmp($distinguishingWordIce, 'ICE') == 0) {
                 $ice = true;
-                $this->updateReport($distinguishing_word_ice, $raw_report);
-                $ice_group = $this->getciSibiDizi($raw_report);
-                return $this->putInSection($ice_group) ? true : false;
+                $this->updateReport($distinguishingWordIce, $rawReport);
+                $iceGroup = $this->getciSibiDizi($rawReport);
+                return $this->putInSection($iceGroup) ? true : false;
             }
         } else {
             //synop report
@@ -263,18 +291,18 @@ class SectionTwoDecoder extends Decoder implements DecoderInterface
         return null;
     }
     
-    public function getciSibiDizi(RawReportInterface $raw_report)
+    public function getciSibiDizi(RawReportInterface $rawReport)
     {
-        if($this->ship_report) {
-            $ice_group = $this->block($raw_report->getReport());
-            if (!$this->isGroup($ice_group, 5)) {
+        if ($this->shipReport) {
+            $iceGroup = $this->block($rawReport->getReport());
+            if (!$this->isGroup($iceGroup, 5)) {
                 return null;
             }
-
         } else {
             //synop report
         }
-        $this->updateReport($ice_group, $raw_report);
-        return $ice_group;
+
+        $this->updateReport($iceGroup, $rawReport);
+        return $iceGroup;
     }
 }

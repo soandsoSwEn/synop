@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
-
 
 use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
@@ -27,12 +25,13 @@ class MaxAirTemperatureGroup extends AirTemperatureGroup
 
     /**
      * Sets the initial data for the maximum air temperature group
+     *
      * @param string $data Maximum air temperature group data
      * @throws Exception
      */
-    public function setData(string $data, ValidateInterface $validate) : void
+    public function setData(string $data, ValidateInterface $validate): void
     {
-        if(!empty($data)) {
+        if (!empty($data)) {
             $this->setRawAirTemperature($data);
             $this->setDecoder(new AirTemperatureDecoder($this->getRawAirTemperature()));
             $this->setAirTempGroup($this->getDecoder(), $validate);

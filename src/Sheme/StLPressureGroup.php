@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Soandso\Synop\Sheme;
 
 use Soandso\Synop\Fabrication\UnitInterface;
@@ -8,7 +7,6 @@ use Exception;
 use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
 use Soandso\Synop\Fabrication\ValidateInterface;
-
 
 /**
  * Class StLPressureGroup contains methods for working with the atmospheric pressure group
@@ -23,10 +21,10 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * @var string Station level atmospheric pressure
      */
-    private $raw_stl_pressure;
+    private $rawStlPressure;
 
     /**
-     * @var GroupDecoderInterface
+     * @var GroupDecoderInterface Initialized decoder object
      */
     private $decoder;
 
@@ -41,11 +39,19 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
         $this->setUnit($unit);
     }
 
-    public function setData(string $data, ValidateInterface $validate) : void
+    /**
+     * Sets the initial data for atmospheric pressure group
+     *
+     * @param string $data Code figure of station level atmospheric pressure group
+     * @param ValidateInterface $validate Object for weather data validation
+     * @return void
+     * @throws Exception
+     */
+    public function setData(string $data, ValidateInterface $validate): void
     {
         if (!empty($data)) {
-            $this->raw_stl_pressure = $data;
-            $this->setDecoder(new StLPressureDecoder($this->raw_stl_pressure));
+            $this->rawStlPressure = $data;
+            $this->setDecoder(new StLPressureDecoder($this->rawStlPressure));
             $this->setStLPressureGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('StLPressureGroup group cannot be empty!');
@@ -53,43 +59,50 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     }
 
     /**
-     * @param GroupDecoderInterface $decoder
+     * Sets an initialized decoder object for atmospheric pressure group
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object
      */
-    public function setDecoder(GroupDecoderInterface $decoder) : void
+    public function setDecoder(GroupDecoderInterface $decoder): void
     {
         $this->decoder = $decoder;
     }
 
     /**
      * Sets value atmospheric pressure at station level
+     *
      * @param float $pressure Value atmospheric pressure at station level
      */
-    public function setPressureValue(float $pressure) : void
+    public function setPressureValue(float $pressure): void
     {
         $this->pressure = $pressure;
     }
 
     /**
-     * @return GroupDecoderInterface
+     * Returns an initialized decoder object for atmospheric pressure group
+     *
+     * @return GroupDecoderInterface Initialized decoder object
      */
-    public function getDecoder() : GroupDecoderInterface
+    public function getDecoder(): GroupDecoderInterface
     {
         return $this->decoder;
     }
 
     /**
      * Returns value atmospheric pressure at station level
+     *
      * @return float Value atmospheric pressure at station level
      */
-    public function getPressureValue() : float
+    public function getPressureValue(): float
     {
         return $this->pressure;
     }
 
     /**
      * Sets the parameters of the Station level atmospheric pressure group
-     * @param GroupDecoderInterface $decoder
-     * @param ValidateInterface $validate
+     *
+     * @param GroupDecoderInterface $decoder Initialized decoder object
+     * @param ValidateInterface $validate Object for weather data validation
      */
     public function setStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate)
     {
@@ -102,20 +115,22 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
 
     /**
      * Validates a block of code against a Station level atmospheric pressure group
+     *
      * @param GroupDecoderInterface $decoder
      * @param ValidateInterface $validate
      * @return bool
      */
-    public function isStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate) : bool
+    public function isStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
         return $decoder->isGroup($validate);
     }
 
     /**
      * Sets the Station level atmospheric pressure
+     *
      * @param GroupDecoderInterface|null $decoder
      */
-    public function setStLPressure(?GroupDecoderInterface $decoder) : void
+    public function setStLPressure(?GroupDecoderInterface $decoder): void
     {
         if (is_null($decoder)) {
             $this->pressure = null;

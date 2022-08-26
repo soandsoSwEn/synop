@@ -643,7 +643,7 @@ class GroundWithoutSnowGroupTest extends TestCase
         $this->groundWithoutSnowGroup->setRawGroundWithoutSnow('34008');
 
         $reflector = new \ReflectionClass(GroundWithoutSnowGroup::class);
-        $property = $reflector->getProperty('raw_ground_without_snow');
+        $property = $reflector->getProperty('rawGroundWithoutSnow');
         $property->setAccessible(true);
         $value = $property->getValue($this->groundWithoutSnowGroup);
 
@@ -655,7 +655,7 @@ class GroundWithoutSnowGroupTest extends TestCase
         $this->groundWithoutSnowGroup->setRawGroundWithoutSnow('34008');
 
         $reflector = new \ReflectionClass(GroundWithoutSnowGroup::class);
-        $property = $reflector->getProperty('raw_ground_without_snow');
+        $property = $reflector->getProperty('rawGroundWithoutSnow');
         $property->setAccessible(true);
         $value = $property->getValue($this->groundWithoutSnowGroup);
 
@@ -669,7 +669,7 @@ class GroundWithoutSnowGroupTest extends TestCase
         $this->groundWithoutSnowGroup->setData('34008', $validate);
 
         $reflector = new \ReflectionClass(GroundWithoutSnowGroup::class);
-        $propertyRawData = $reflector->getProperty('raw_ground_without_snow');
+        $propertyRawData = $reflector->getProperty('rawGroundWithoutSnow');
         $propertyRawData->setAccessible(true);
         $valueRawData = $propertyRawData->getValue($this->groundWithoutSnowGroup);
 

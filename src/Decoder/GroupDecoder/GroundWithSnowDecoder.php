@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Soandso\Synop\Decoder\GroupDecoder;
-
 
 use Exception;
 use Soandso\Synop\Fabrication\ValidateInterface;
@@ -18,7 +16,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 class GroundWithSnowDecoder implements GroupDecoderInterface
 {
     /** Distinctive digit of state of ground with snow or measurable ice cover group */
-    const DIGIT = '4';
+    protected const DIGIT = '4';
 
     /**
      * @var string State of ground with snow data
@@ -31,7 +29,8 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
     private $groundStateMap = [
         '0' => 'Ground predominantly covered by ice',
         '1' => 'Compact or wet snow (with or without ice) covering less than one-half of the ground',
-        '2' => 'Compact or wet snow (with or without ice) covering at least one-half of the ground but ground not completely covered',
+        '2' => 'Compact or wet snow (with or without ice) covering at least one-half of the ground but ground not '
+                . 'completely covered',
         '3' => 'Even layer of compact or wet snow covering ground completely',
         '4' => 'Uneven layer of compact or wet snow covering ground completely',
         '5' => 'Loose dry snow covering less than one-half of the ground',
@@ -57,11 +56,12 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns the result of checking the validity of the group
+     *
      * @param ValidateInterface $validate
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate) : bool
+    public function isGroup(ValidateInterface $validate): bool
     {
         $distinguishingDigit = substr($this->rawGroundWithSnow, 0, 1);
 
@@ -77,10 +77,11 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Return code figure of state ground
+     *
      * @return int Code figure of state of the ground with snow or measurable ice cover
      * @throws Exception
      */
-    public function getCodeGroundState() : int
+    public function getCodeGroundState(): int
     {
         $E = substr($this->rawGroundWithSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -92,10 +93,11 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Return state of ground title
+     *
      * @return string State of ground with snow or measurable ice cover
      * @throws Exception
      */
-    public function getGroundState() : string
+    public function getGroundState(): string
     {
         $E = substr($this->rawGroundWithSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -107,9 +109,10 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Returns depth of snow data
+     *
      * @return array|string[] Depth of snow data value
      */
-    public function getDepthSnow() : array
+    public function getDepthSnow(): array
     {
         $sss = substr($this->rawGroundWithSnow, 2, 3);
         if (array_key_exists($sss, $this->depthSnowMap)) {
@@ -131,6 +134,7 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
 
     /**
      * Return code figure of state of ground with snow
+     *
      * @return false|string
      */
     private function getCodeFigureStateGround()

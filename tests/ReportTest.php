@@ -38,7 +38,7 @@ class ReportTest extends TestCase
         $reflector = new \ReflectionClass(Report::class);
         $propertyReportData = $reflector->getProperty('report');
         $propertyReportData->setAccessible(true);
-        $propertyRawReport = $reflector->getProperty('raw_report');
+        $propertyRawReport = $reflector->getProperty('rawReport');
         $propertyRawReport->setAccessible(true);
 
         $valueReportData = $propertyReportData->getValue($this->report);
