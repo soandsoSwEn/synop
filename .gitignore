@@ -36,3 +36,7 @@ tests/_support/_generated
 
 # local phpcs config
 /phpcs.xml
+
+# phpDocumentor itself is not needed
+/phpDocumentor.phar
+/.phpdoc/
