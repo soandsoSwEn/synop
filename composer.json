@@ -3,6 +3,10 @@
     "description": "Synop (AAXX/BBXX) weather report decoder",
     "type": "library",
     "license": "GPL-2.0-or-later",
+    "keywords": [
+        "synop", "meteorology", "FM-12", "weather", "weather report", "weather observation", "weather decoder",
+        "parser weather report"
+    ],
     "authors": [
         {
             "name": "Dmytriyenko Vyacheslav",
