@@ -313,9 +313,9 @@ If you have an idea to improve the library, develop new features, use GitHub iss
 To contribute to the codebase, you should fork the repository on GitHub and then clone it locally. Make changes
 to the code and submit a pull request.
 
-The documentation of the program code can be viewed at the [link](/docs/index.html).
+The documentation of the program code can be viewed in the ```docs``` directory.
 
-A simplified sequence diagram of one of the main methods - [```parse()```](/docs/classes/Soandso-Synop-Report.html#method_parse) of the [```Report```](/docs/classes/Soandso-Synop-Report.html) class.
+A simplified sequence diagram of one of the main methods - ```parse()``` of the ```Report``` class.
 
 <img src="./images/ParseSequenceDiagram.jpg" alt="Sequence diagram of parse method">
 
