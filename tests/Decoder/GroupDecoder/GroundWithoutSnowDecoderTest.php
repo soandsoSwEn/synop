@@ -242,4 +242,52 @@ class GroundWithoutSnowDecoderTest extends TestCase
 
         $this->assertFalse($groundWithoutSnowDecoder->isGroup($validate));
     }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['3' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetStateGroundIndicator()
+    {
+        $expected = ['E' => 'State of ground without snow or measurable ice cover'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getStateGroundIndicator());
+    }
+
+    public function testSuccessIsArrayGetStateGroundIndicator()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getStateGroundIndicator());
+    }
+
+    public function testSuccessGetSignTemperatureIndicator()
+    {
+        $expected = ['Sn' => 'Sign of temperature'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetSignTemperatureIndicator()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessGetMinimumTemperature()
+    {
+        $expected = ['TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getMinimumTemperature());
+    }
+
+    public function testSuccessIsArrayGetMinimumTemperature()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getMinimumTemperature());
+    }
 }

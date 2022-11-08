@@ -117,4 +117,40 @@ class AirTemperatureDecoderTest extends TestCase
 
         $this->assertFalse($airTemperatureDecoder->isGroup($validate));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['1' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->airTemperatureDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->airTemperatureDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessGetSignTemperatureIndicator()
+    {
+        $expected = ['Sn' => 'Sign of temperature'];
+
+        $this->assertEquals($expected, $this->airTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetSignTemperatureIndicator()
+    {
+        $this->assertIsArray($this->airTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessGetDryBulbTemperatureIndicator()
+    {
+        $expected = ['TTT' => 'Dry-bulb temperature in tenths of a degree'];
+
+        $this->assertEquals($expected, $this->airTemperatureDecoder->getDryBulbTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetDryBulbTemperatureIndicator()
+    {
+        $this->assertIsArray($this->airTemperatureDecoder->getDryBulbTemperatureIndicator());
+    }
 }

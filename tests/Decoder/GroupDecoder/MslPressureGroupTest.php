@@ -116,4 +116,30 @@ class MslPressureGroupTest extends TestCase
 
         $this->assertFalse($mlsPressure->isGroup($validate));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['4' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->mlsPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->mlsPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessGetFigureAirPressure()
+    {
+        $expected = [
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
+        ];
+
+        $this->assertEquals($expected, $this->mlsPressure->getFigureAirPressure());
+    }
+
+    public function testSuccessIsArrayGetFigureAirPressure()
+    {
+        $this->assertIsArray($this->mlsPressure->getFigureAirPressure());
+    }
 }

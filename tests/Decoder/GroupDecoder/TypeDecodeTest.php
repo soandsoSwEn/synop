@@ -86,4 +86,19 @@ class TypeDecodeTest extends TestCase
 
         $this->assertFalse($typeDecoderObject->isGroup($validate));
     }
+
+    public function testSuccessGetTypeReportIndicator()
+    {
+        $typeDecoderObject = new TypeDecoder($this->shipTitle);
+        $expected = ['AAXX/BBXX' => 'Synoptic Code Identifier'];
+
+        $this->assertEquals($expected, $typeDecoderObject->getTypeReportIndicator());
+    }
+
+    public function testSuccessIsArrayGetTypeReportIndicator()
+    {
+        $typeDecoderObject = new TypeDecoder($this->shipTitle);
+
+        $this->assertIsArray($typeDecoderObject->getTypeReportIndicator());
+    }
 }

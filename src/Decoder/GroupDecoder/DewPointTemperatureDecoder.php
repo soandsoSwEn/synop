@@ -39,7 +39,7 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawDpTemperature, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup($this, [
                 $this->getCodeFigureDistNumber(),
                 $this->getCodeFigureSignDwPTemperature(),
                 $this->getCodeFigureDwPTemperature()
@@ -73,6 +73,45 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
         $dewPoint = $integerOfDewPoint . '.' . $fractionalOfNumber;
 
         return floatval($dewPoint);
+    }
+
+    /**
+     * Returns indicator and description of group indicator dew point temperature - 2SnTdTdTd
+     *
+     * @return string[] Indicator and description of dew point temperature
+     */
+    public function getGetIndicatorGroup(): array
+    {
+        return ['2' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of sign of temperature for dew point temperature - 2SnTdTdTd
+     *
+     * @return string[] Indicator and description of sign of dew point temperature
+     */
+    public function getSignTemperatureIndicator(): array
+    {
+        return ['Sn' => 'Sign of temperature'];
+    }
+
+    /**
+     * Returns indicator and description of Dry-bulb temperature for dew point temperature - 2SnTdTdTd
+     *
+     * @return string[] Indicator and description of dew point temperature
+     */
+    public function getDryBulbTemperatureIndicator(): array
+    {
+        return ['TdTdTd' => 'Dew point temperature in tenths of a degree'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getSignTemperatureIndicator()),
+            key($this->getDryBulbTemperatureIndicator()),
+        ];
     }
 
     /**

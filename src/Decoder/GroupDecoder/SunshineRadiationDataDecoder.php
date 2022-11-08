@@ -39,7 +39,7 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawSunshineRadiation, 0, 2);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [$this->getCodeFigureIndicator(), $this->getCodeSunshineData()]);
+            $validate->isValidGroup($this, [$this->getCodeFigureIndicator(), $this->getCodeSunshineData()]);
             return true;
         }
 
@@ -68,6 +68,34 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
         $fractionalPartString = substr($SSS, 2, 1);
 
         return floatval($integerPartString . '.' . $fractionalPartString);
+    }
+
+    /**
+     * Returns indicator and description of duration of sunshine and radiation group - 55SSS
+     *
+     * @return string[] Indicator and description of duration of sunshine and radiation
+     */
+    public function getGetIndicatorGroup(): array
+    {
+        return ['55' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of duration of sunshine - 55SSS
+     *
+     * @return string[] Indicator and description of duration of sunshine
+     */
+    public function getDurationTinderIndicator(): array
+    {
+        return ['SSS' => 'Duration of daily sunshine'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getDurationTinderIndicator()),
+        ];
     }
 
     /**

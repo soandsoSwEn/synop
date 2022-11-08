@@ -175,7 +175,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(
-                get_class($this),
+                $this,
                 [
                     $this->getCodeFigureIndicator(),
                     $this->getCodeFigurePresentWeather(),
@@ -244,6 +244,45 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         } else {
             throw new Exception('Invalid data of Past Weather');
         }
+    }
+
+    /**
+     * Returns indicator and description of group indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of present weather
+     */
+    public function getIndicatorGroup(): array
+    {
+        return ['7' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of present weather indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of present weather indicator
+     */
+    public function getPresentWeatherIndicator(): array
+    {
+        return ['ww' => 'Present weather'];
+    }
+
+    /**
+     * Returns indicator and description of past weather indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of past weather indicator
+     */
+    public function getPastWeatherIndicator(): array
+    {
+        return ['W1W2' => 'Past weather'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getIndicatorGroup()),
+            key($this->getPresentWeatherIndicator()),
+            key($this->getPastWeatherIndicator()),
+        ];
     }
 
     /**

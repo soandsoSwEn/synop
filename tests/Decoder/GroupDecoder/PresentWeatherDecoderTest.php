@@ -209,4 +209,40 @@ class PresentWeatherDecoderTest extends TestCase
 
         $this->assertFalse($presentWeather->isGroup($validate));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['7' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->presentWeather->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->presentWeather->getIndicatorGroup());
+    }
+
+    public function testSuccessGetPresentWeatherIndicator()
+    {
+        $expected = ['ww' => 'Present weather'];
+
+        $this->assertEquals($expected, $this->presentWeather->getPresentWeatherIndicator());
+    }
+
+    public function testSuccessIsArrayGetPresentWeatherIndicator()
+    {
+        $this->assertIsArray($this->presentWeather->getPresentWeatherIndicator());
+    }
+
+    public function testSuccessGetPastWeatherIndicator()
+    {
+        $expected = ['W1W2' => 'Past weather'];
+
+        $this->assertEquals($expected, $this->presentWeather->getPastWeatherIndicator());
+    }
+
+    public function testSuccessIsArrayGetPastWeatherIndicator()
+    {
+        $this->assertIsArray($this->presentWeather->getPastWeatherIndicator());
+    }
 }

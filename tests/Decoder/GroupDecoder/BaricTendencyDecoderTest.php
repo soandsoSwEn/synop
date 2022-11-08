@@ -158,4 +158,40 @@ class BaricTendencyDecoderTest extends TestCase
 
         $this->assertTrue($baricTendencyDecoder->isGroup($validator));
     }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['5' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetCharacteristicChangeIndicator()
+    {
+        $expected = ['a' => 'Characteristic of pressure change'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getCharacteristicChangeIndicator());
+    }
+
+    public function testSuccessIsArrayGetCharacteristicChangeIndicator()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getCharacteristicChangeIndicator());
+    }
+
+    public function testSuccessGetPressureChangeIndicator()
+    {
+        $expected = ['ppp' => 'Pressure change over last three hours in millibars and tenths'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getPressureChangeIndicator());
+    }
+
+    public function testSuccessIsArrayGetPressureChangeIndicator()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getPressureChangeIndicator());
+    }
 }

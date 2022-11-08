@@ -4,7 +4,23 @@ namespace Soandso\Synop\Tests\Fabrication;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Soandso\Synop\Decoder\GroupDecoder\AdditionalCloudInformationDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\AmountRainfallDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\BaricTendencyDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\CloudPresentDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\CloudWindDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\DateDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\DewPointTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\IndexDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
 use Soandso\Synop\Fabrication\Validate;
 
 class ValidateTest extends TestCase
@@ -23,12 +39,15 @@ class ValidateTest extends TestCase
 
     public function testSuccessTypeValid()
     {
-        $this->assertTrue($this->validate->typeValid(['AAXX']));
+        $typeDecoder = Mockery::mock(TypeDecoder::class);
+
+        $this->assertTrue($this->validate->typeValid($typeDecoder, ['AAXX']));
     }
 
     public function testSuccessErrorsEmptyTypeValid()
     {
-        $this->validate->typeValid(['AAXX']);
+        $typeDecoder = Mockery::mock(TypeDecoder::class);
+        $this->validate->typeValid($typeDecoder, ['AAXX']);
 
         $reflector = new \ReflectionClass(Validate::class);
         $property = $reflector->getProperty('errors');
@@ -40,387 +59,990 @@ class ValidateTest extends TestCase
 
     public function testErrorTypeValid()
     {
-        $this->assertFalse($this->validate->typeValid(['AACC']));
+        $typeDecoder = Mockery::mock(TypeDecoder::class);
+        $typeDecoder->shouldReceive('getTypeReportIndicator')
+            ->andReturn(['AAXX/BBXX' => 'Synoptic Code Identifier']);
+
+        $this->assertFalse($this->validate->typeValid($typeDecoder, ['AACC']));
     }
 
     public function testErrorSourceErrorsTypeValid()
     {
-        $this->validate->typeValid(['AACC']);
+        $typeDecoder = Mockery::mock(TypeDecoder::class);
+        $typeDecoder->shouldReceive('getTypeReportIndicator')
+            ->andReturn(['AAXX/BBXX' => 'Synoptic Code Identifier']);
+
+        $this->validate->typeValid($typeDecoder, ['AACC']);
 
         $reflector = new \ReflectionClass(Validate::class);
         $property = $reflector->getProperty('errors');
         $property->setAccessible(true);
         $value = $property->getValue($this->validate);
 
-        $expected = ["AACC" => "The summary type group data does not match the specified format; Code group - AACC"];
+        $expected = [
+            'AAXX/BBXX' => [
+                'description' =>'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]
+        ];
 
         $this->assertEquals($expected, $value);
     }
 
     public function testSuccessDateValid()
     {
-        $this->assertTrue($this->validate->dateValid(['07', '18', ['Instrumental', 'm/s']]));
+        $dateDecoder = Mockery::mock(DateDecoder::class);
+        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+
+        $this->assertTrue($this->validate->dateValid($dateDecoder, ['07', '18', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorDayDateValid()
     {
-        $this->assertFalse($this->validate->dateValid(['32', '18', ['Instrumental', 'm/s']]));
+        $dateDecoder = Mockery::mock(DateDecoder::class);
+        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getDayIndicator')
+            ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getHourIndicator')
+            ->andReturn(['GG' => 'Hour of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
+            ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
+
+        $this->assertFalse($this->validate->dateValid($dateDecoder, ['32', '18', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorHourDateValid()
     {
-        $this->assertFalse($this->validate->dateValid(['31', 'two', ['Instrumental', 'm/s']]));
+        $dateDecoder = Mockery::mock(DateDecoder::class);
+        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getDayIndicator')
+            ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getHourIndicator')
+            ->andReturn(['GG' => 'Hour of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
+            ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
+
+        $this->assertFalse($this->validate->dateValid($dateDecoder, ['31', 'two', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorIndexSpeedUnitDateValid()
     {
-        $this->assertFalse($this->validate->dateValid(['31', 'two', 'm/s']));
+        $dateDecoder = Mockery::mock(DateDecoder::class);
+        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getDayIndicator')
+            ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getHourIndicator')
+            ->andReturn(['GG' => 'Hour of issuance of the meteorological weather report']);
+        $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
+            ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
+
+        $this->assertFalse($this->validate->dateValid($dateDecoder, ['31', 'two', 'm/s']));
     }
 
     public function testSuccessIndexValid()
     {
-        $this->assertTrue($this->validate->indexValid(['33', '837']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
+
+        $this->assertTrue($this->validate->indexValid($indexDecoder, ['33', '837']));
     }
 
     public function testErrorIndexValid()
     {
-        $this->assertFalse($this->validate->indexValid(['tree', '83']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
+        $indexDecoder->shouldReceive('getStationAreaIndicator')
+            ->andReturn(['II' => 'Area station']);
+        $indexDecoder->shouldReceive('getStationIndexIndicator')
+            ->andReturn(['iii' => 'Station index']);
+
+        $this->assertFalse($this->validate->indexValid($indexDecoder, ['tree', '83']));
     }
 
     public function testErrorAreaNumberIndexValid()
     {
-        $this->assertFalse($this->validate->indexValid(['tree', '837']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
+        $indexDecoder->shouldReceive('getStationAreaIndicator')
+            ->andReturn(['II' => 'Area station']);
+        $indexDecoder->shouldReceive('getStationIndexIndicator')
+            ->andReturn(['iii' => 'Station index']);
+
+        $this->assertFalse($this->validate->indexValid($indexDecoder, ['tree', '837']));
     }
 
     public function testErrorStationNumberIndexValid()
     {
-        $this->assertFalse($this->validate->indexValid(['33', '83']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
+        $indexDecoder->shouldReceive('getStationAreaIndicator')
+            ->andReturn(['II' => 'Area station']);
+        $indexDecoder->shouldReceive('getStationIndexIndicator')
+            ->andReturn(['iii' => 'Station index']);
+
+        $this->assertFalse($this->validate->indexValid($indexDecoder, ['33', '83']));
     }
 
     public function testSuccessLowCloudVisibilityValid()
     {
-        $this->assertTrue($this->validate->lowCloudVisibilityValid(['1', '1', '5', '83']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+
+        $this->assertTrue($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '5', '83']));
     }
 
     public function testErrorLowCloudVisibilityValid()
     {
-        $this->assertFalse($this->validate->lowCloudVisibilityValid(['5', '9', '55', '8']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetPrecipitationDataIndicator')
+            ->andReturn(['ir' => 'Inclusion omission of precipitation data']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetWeatherGroupIndicator')
+            ->andReturn(['ix' => 'Inclusion omission of weather group']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetHeightCloudIndicator')
+            ->andReturn(['h' => 'Height of base of lowest cloud']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
+            ->andReturn(['VV' => 'Horizontal visibility']);
+
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['5', '9', '55', '8']));
     }
 
     public function testErrorIndexPrecipitationLowCloudVisibilityValid()
     {
-        $this->assertFalse($this->validate->lowCloudVisibilityValid(['5', '1', '5', '83']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetPrecipitationDataIndicator')
+            ->andReturn(['ir' => 'Inclusion omission of precipitation data']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetWeatherGroupIndicator')
+            ->andReturn(['ix' => 'Inclusion omission of weather group']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetHeightCloudIndicator')
+            ->andReturn(['h' => 'Height of base of lowest cloud']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
+            ->andReturn(['VV' => 'Horizontal visibility']);
+
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['5', '1', '5', '83']));
     }
 
     public function testErrorValuesTypeIndicatorLowCloudVisibilityValid()
     {
-        $this->assertFalse($this->validate->lowCloudVisibilityValid(['1', '9', '5', '83']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetPrecipitationDataIndicator')
+            ->andReturn(['ir' => 'Inclusion omission of precipitation data']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetWeatherGroupIndicator')
+            ->andReturn(['ix' => 'Inclusion omission of weather group']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetHeightCloudIndicator')
+            ->andReturn(['h' => 'Height of base of lowest cloud']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
+            ->andReturn(['VV' => 'Horizontal visibility']);
+
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '9', '5', '83']));
     }
 
     public function testErrorValueHeightLowCloudVisibilityValid()
     {
-        $this->assertFalse($this->validate->lowCloudVisibilityValid(['1', '1', '55', '83']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetPrecipitationDataIndicator')
+            ->andReturn(['ir' => 'Inclusion omission of precipitation data']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetWeatherGroupIndicator')
+            ->andReturn(['ix' => 'Inclusion omission of weather group']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetHeightCloudIndicator')
+            ->andReturn(['h' => 'Height of base of lowest cloud']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
+            ->andReturn(['VV' => 'Horizontal visibility']);
+
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '55', '83']));
     }
 
     public function testErrormeteorologicaVisibilityLowCloudVisibilityValid()
     {
-        $this->assertFalse($this->validate->lowCloudVisibilityValid(['1', '1', '5', '8']));
+        $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
+        $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetPrecipitationDataIndicator')
+            ->andReturn(['ir' => 'Inclusion omission of precipitation data']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetWeatherGroupIndicator')
+            ->andReturn(['ix' => 'Inclusion omission of weather group']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetHeightCloudIndicator')
+            ->andReturn(['h' => 'Height of base of lowest cloud']);
+        $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
+            ->andReturn(['VV' => 'Horizontal visibility']);
+
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '5', '8']));
     }
 
     public function testSuccessCloudWindGroupValid()
     {
-        $this->assertTrue($this->validate->cloudWindGroupValid(['8', '31', '02']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+
+        $this->assertTrue($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '31', '02']));
     }
 
     public function testErrorCloudWindGroupValid()
     {
-        $this->assertFalse($this->validate->cloudWindGroupValid(['\\', '\\', '38']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+        $cloudWindDecoder->shouldReceive('getTotalCloudIndicator')
+            ->andReturn(['N' => 'Total amount of cloud']);
+        $cloudWindDecoder->shouldReceive('getWindDirectionIndicator')
+            ->andReturn(['dd' => 'Wind direction in tens degrees']);
+        $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
+            ->andReturn(['ff' => 'Wind speed']);
+
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['\\', '\\', '38']));
     }
 
     public function testErrorNumberCloudsCloudWindGroupValid()
     {
-        $this->assertFalse($this->validate->cloudWindGroupValid(['\\', '31', '02']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+        $cloudWindDecoder->shouldReceive('getTotalCloudIndicator')
+            ->andReturn(['N' => 'Total amount of cloud']);
+        $cloudWindDecoder->shouldReceive('getWindDirectionIndicator')
+            ->andReturn(['dd' => 'Wind direction in tens degrees']);
+        $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
+            ->andReturn(['ff' => 'Wind speed']);
+
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['\\', '31', '02']));
     }
 
     public function testErrorWindDirectionCloudsCloudWindGroupValid()
     {
-        $this->assertFalse($this->validate->cloudWindGroupValid(['8', '\\\\', '02']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+        $cloudWindDecoder->shouldReceive('getTotalCloudIndicator')
+            ->andReturn(['N' => 'Total amount of cloud']);
+        $cloudWindDecoder->shouldReceive('getWindDirectionIndicator')
+            ->andReturn(['dd' => 'Wind direction in tens degrees']);
+        $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
+            ->andReturn(['ff' => 'Wind speed']);
+
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '\\\\', '02']));
     }
 
     public function testErrorWindDirectionValueCloudWindGroupValid()
     {
-        $this->assertFalse($this->validate->cloudWindGroupValid(['8', '38', '02']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+        $cloudWindDecoder->shouldReceive('getTotalCloudIndicator')
+            ->andReturn(['N' => 'Total amount of cloud']);
+        $cloudWindDecoder->shouldReceive('getWindDirectionIndicator')
+            ->andReturn(['dd' => 'Wind direction in tens degrees']);
+        $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
+            ->andReturn(['ff' => 'Wind speed']);
+
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '38', '02']));
     }
 
     public function testErrorWindSpeedCloudsCloudWindGroupValid()
     {
-        $this->assertFalse($this->validate->cloudWindGroupValid(['8', '31', '2']));
+        $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
+        $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
+        $cloudWindDecoder->shouldReceive('getTotalCloudIndicator')
+            ->andReturn(['N' => 'Total amount of cloud']);
+        $cloudWindDecoder->shouldReceive('getWindDirectionIndicator')
+            ->andReturn(['dd' => 'Wind direction in tens degrees']);
+        $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
+            ->andReturn(['ff' => 'Wind speed']);
+
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '31', '2']));
     }
 
     public function testSuccessAirTemperatureGroupValid()
     {
-        $this->assertTrue($this->validate->airTemperatureGroupValid(['1', '0', '039']));
+        $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
+        $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
+
+        $this->assertTrue($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '0', '039']));
     }
 
     public function testErrorAirTemperatureGroupValid()
     {
-        $this->assertFalse($this->validate->airTemperatureGroupValid(['\\', '5', 'nil']));
+        $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
+        $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
+        $airTemperatureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['1' => 'Indicator']);
+        $airTemperatureDecoder->shouldReceive('getSignTemperatureIndicator')
+            ->andReturn(['Sn' => 'Sign of temperature']);
+        $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
+            ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
+
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['\\', '5', 'nil']));
     }
 
     public function testErrorDistinctiveNumberAirTemperatureGroupValid()
     {
-        $this->assertFalse($this->validate->airTemperatureGroupValid(['5', '0', '039']));
+        $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
+        $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
+        $airTemperatureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['1' => 'Indicator']);
+        $airTemperatureDecoder->shouldReceive('getSignTemperatureIndicator')
+            ->andReturn(['Sn' => 'Sign of temperature']);
+        $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
+            ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
+
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['5', '0', '039']));
     }
 
     public function testErrorSignAirTemperatureGroupValid()
     {
-        $this->assertFalse($this->validate->airTemperatureGroupValid(['1', '5', '039']));
+        $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
+        $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
+        $airTemperatureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['1' => 'Indicator']);
+        $airTemperatureDecoder->shouldReceive('getSignTemperatureIndicator')
+            ->andReturn(['Sn' => 'Sign of temperature']);
+        $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
+            ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
+
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '5', '039']));
     }
 
     public function testErrorAirTemperatureAirTemperatureGroupValid()
     {
-        $this->assertFalse($this->validate->airTemperatureGroupValid(['1', '0', '/39']));
+        $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
+        $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
+        $airTemperatureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['1' => 'Indicator']);
+        $airTemperatureDecoder->shouldReceive('getSignTemperatureIndicator')
+            ->andReturn(['Sn' => 'Sign of temperature']);
+        $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
+            ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
+
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '0', '/39']));
     }
 
     public function testSuccessDewPointTemperatureGroupValid()
     {
-        $this->assertTrue($this->validate->dewPointTemperatureGroupValid(['2', '1', '007']));
+        $dewPointTemperatureDecoder = Mockery::mock(DewPointTemperatureDecoder::class);
+        $dewPointTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['2', 'Sn', 'TdTdTd']);
+
+        $this->assertTrue($this->validate->dewPointTemperatureGroupValid($dewPointTemperatureDecoder, ['2', '1', '007']));
     }
 
     public function testSuccessStLPressureGroupValid()
     {
-        $this->assertTrue($this->validate->stLPressureGroupValid(['3', '0049']));
+        $stlPressureDecoder = Mockery::mock(StLPressureDecoder::class);
+        $stlPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'PPPP']);
+
+        $this->assertTrue($this->validate->stLPressureGroupValid($stlPressureDecoder, ['3', '0049']));
     }
 
     public function testErrorStLPressureGroupValid()
     {
-        $this->assertFalse($this->validate->stLPressureGroupValid(['three', '49']));
+        $stlPressureDecoder = Mockery::mock(StLPressureDecoder::class);
+        $stlPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'PPPP']);
+        $stlPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $stlPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['three', '49']));
     }
 
     public function testErrorIndicatorStLPressureGroupValid()
     {
-        $this->assertFalse($this->validate->stLPressureGroupValid(['1', '0049']));
+        $stlPressureDecoder = Mockery::mock(StLPressureDecoder::class);
+        $stlPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'PPPP']);
+        $stlPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $stlPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['1', '0049']));
     }
 
     public function testErrorAtmosphericPressureStLPressureGroupValid()
     {
-        $this->assertFalse($this->validate->stLPressureGroupValid(['3', '/049']));
+        $stlPressureDecoder = Mockery::mock(StLPressureDecoder::class);
+        $stlPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'PPPP']);
+        $stlPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $stlPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['3', '/049']));
     }
 
     public function testSuccessMslPressureGroupValid()
     {
-        $this->assertTrue($this->validate->mslPressureGroupValid(['4', '0101']));
+        $mslPressureDecoder = Mockery::mock(MslPressureDecoder::class);
+        $mslPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'PPPP']);
+
+        $this->assertTrue($this->validate->mslPressureGroupValid($mslPressureDecoder, ['4', '0101']));
     }
 
     public function testErrorMslPressureGroupValid()
     {
-        $this->assertFalse($this->validate->mslPressureGroupValid(['5', '/101']));
+        $mslPressureDecoder = Mockery::mock(MslPressureDecoder::class);
+        $mslPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'PPPP']);
+        $mslPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $mslPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['5', '/101']));
     }
 
     public function testErrorIndicatorMslPressureGroupValid()
     {
-        $this->assertFalse($this->validate->mslPressureGroupValid(['5', '0101']));
+        $mslPressureDecoder = Mockery::mock(MslPressureDecoder::class);
+        $mslPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'PPPP']);
+        $mslPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $mslPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
+        ]);
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['5', '0101']));
     }
 
     public function testErrorPressureMslPressureGroupValid()
     {
-        $this->assertFalse($this->validate->mslPressureGroupValid(['4', '/101']));
+        $mslPressureDecoder = Mockery::mock(MslPressureDecoder::class);
+        $mslPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'PPPP']);
+        $mslPressureDecoder->shouldReceive('getIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $mslPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['4', '/101']));
     }
 
     public function testSuccessBaricTendencyGroupValid()
     {
-        $this->assertTrue($this->validate->baricTendencyGroupValid(['5', '2', '035']));
+        $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
+        $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
+
+        $this->assertTrue($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', '2', '035']));
     }
 
     public function testErrorBaricTendencyGroupValid()
     {
-        $this->assertFalse($this->validate->baricTendencyGroupValid(['4', '\\', '/35']));
+        $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
+        $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
+
+        $baricTendencyDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['5' => 'Indicator']);
+        $baricTendencyDecoder->shouldReceive('getCharacteristicChangeIndicator')->andReturn([
+            'a' => 'Characteristic of pressure change'
+        ]);
+        $baricTendencyDecoder->shouldReceive('getPressureChangeIndicator')->andReturn([
+            'ppp' => 'Pressure change over last three hours in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['4', '\\', '/35']));
     }
 
     public function testErrorIndicatorBaricTendencyGroupValid()
     {
-        $this->assertFalse($this->validate->baricTendencyGroupValid(['4', '2', '035']));
+        $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
+        $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
+        $baricTendencyDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['5' => 'Indicator']);
+        $baricTendencyDecoder->shouldReceive('getCharacteristicChangeIndicator')->andReturn([
+            'a' => 'Characteristic of pressure change'
+        ]);
+        $baricTendencyDecoder->shouldReceive('getPressureChangeIndicator')->andReturn([
+            'ppp' => 'Pressure change over last three hours in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['4', '2', '035']));
     }
 
     public function testErrorCharacteristicBaricTendencyGroupValid()
     {
-        $this->assertFalse($this->validate->baricTendencyGroupValid(['5', 'two', '035']));
+        $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
+        $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
+        $baricTendencyDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['5' => 'Indicator']);
+        $baricTendencyDecoder->shouldReceive('getCharacteristicChangeIndicator')->andReturn([
+            'a' => 'Characteristic of pressure change'
+        ]);
+        $baricTendencyDecoder->shouldReceive('getPressureChangeIndicator')->andReturn([
+            'ppp' => 'Pressure change over last three hours in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', 'two', '035']));
     }
 
     public function testErrorPressureChangeBaricTendencyGroupValid()
     {
-        $this->assertFalse($this->validate->baricTendencyGroupValid(['5', '2', '/35']));
+        $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
+        $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
+        $baricTendencyDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['5' => 'Indicator']);
+        $baricTendencyDecoder->shouldReceive('getCharacteristicChangeIndicator')->andReturn([
+            'a' => 'Characteristic of pressure change'
+        ]);
+        $baricTendencyDecoder->shouldReceive('getPressureChangeIndicator')->andReturn([
+            'ppp' => 'Pressure change over last three hours in millibars and tenths'
+        ]);
+
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', '2', '/35']));
     }
 
     public function testSuccessAmountRainfallGroupValid()
     {
-        $this->assertTrue($this->validate->amountRainfallGroupValid(['6', '001', '2']));
+        $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
+        $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
+
+        $this->assertTrue($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '001', '2']));
     }
 
     public function testErrorAmountRainfallGroupValid()
     {
-        $this->assertFalse($this->validate->amountRainfallGroupValid(['5', '0011', '25']));
+        $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
+        $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
+        $amountRainfallDecoder->shouldReceive('getIndicatorGroup')->andReturn(['6' => 'Indicator']);
+        $amountRainfallDecoder->shouldReceive('getAmountRainfallIndicator')->andReturn([
+            'RRR' => 'Amount of rainfall'
+        ]);
+        $amountRainfallDecoder->shouldReceive('getDurationPeriodIndicator')->andReturn([
+            'tr' => 'Duration period of RRR'
+        ]);
+
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['5', '0011', '25']));
     }
 
     public function testErrorIndicatorAmountRainfallGroupValid()
     {
-        $this->assertFalse($this->validate->amountRainfallGroupValid(['5', '001', '2']));
+        $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
+        $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
+        $amountRainfallDecoder->shouldReceive('getIndicatorGroup')->andReturn(['6' => 'Indicator']);
+        $amountRainfallDecoder->shouldReceive('getAmountRainfallIndicator')->andReturn([
+            'RRR' => 'Amount of rainfall'
+        ]);
+        $amountRainfallDecoder->shouldReceive('getDurationPeriodIndicator')->andReturn([
+            'tr' => 'Duration period of RRR'
+        ]);
+
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['5', '001', '2']));
     }
 
     public function testErrorValueAmountRainfallAmountRainfallGroupValid()
     {
-        $this->assertFalse($this->validate->amountRainfallGroupValid(['6', '/01', '2']));
+        $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
+        $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
+        $amountRainfallDecoder->shouldReceive('getIndicatorGroup')->andReturn(['6' => 'Indicator']);
+        $amountRainfallDecoder->shouldReceive('getAmountRainfallIndicator')->andReturn([
+            'RRR' => 'Amount of rainfall'
+        ]);
+        $amountRainfallDecoder->shouldReceive('getDurationPeriodIndicator')->andReturn([
+            'tr' => 'Duration period of RRR'
+        ]);
+
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '/01', '2']));
     }
 
     public function testErrorDurationPeriodAmountRainfallGroupValid()
     {
-        $this->assertFalse($this->validate->amountRainfallGroupValid(['6', '001', '\\']));
+        $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
+        $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
+        $amountRainfallDecoder->shouldReceive('getIndicatorGroup')->andReturn(['6' => 'Indicator']);
+        $amountRainfallDecoder->shouldReceive('getAmountRainfallIndicator')->andReturn([
+            'RRR' => 'Amount of rainfall'
+        ]);
+        $amountRainfallDecoder->shouldReceive('getDurationPeriodIndicator')->andReturn([
+            'tr' => 'Duration period of RRR'
+        ]);
+
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '001', '\\']));
     }
 
     public function testSuccessPresentWeatherGroupValid()
     {
-        $this->assertTrue($this->validate->presentWeatherGroupValid(['7', '02', '82']));
+        $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
+        $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
+
+        $this->assertTrue($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', '02', '82']));
     }
 
     public function testErrorPresentWeatherGroupValid()
     {
-        $this->assertFalse($this->validate->presentWeatherGroupValid(['8', '022', '822']));
+        $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
+        $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
+        $presentWeatherDecoder->shouldReceive('getIndicatorGroup')->andReturn(['7' => 'Indicator']);
+        $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
+        $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
+
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['8', '022', '822']));
     }
 
     public function testErrorIndicatorPresentWeatherGroupValid()
     {
-        $this->assertFalse($this->validate->presentWeatherGroupValid(['8', '02', '82']));
+        $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
+        $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
+        $presentWeatherDecoder->shouldReceive('getIndicatorGroup')->andReturn(['7' => 'Indicator']);
+        $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
+        $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
+
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['8', '02', '82']));
     }
 
     public function testErrorPresentWeatherPresentWeatherGroupValid()
     {
-        $this->assertFalse($this->validate->presentWeatherGroupValid(['7', 'ICE', '82']));
+        $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
+        $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
+        $presentWeatherDecoder->shouldReceive('getIndicatorGroup')->andReturn(['7' => 'Indicator']);
+        $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
+        $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
+
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', 'ICE', '82']));
     }
 
     //TODO Analyse
     public function testErrorPastWeatherPresentWeatherGroupValid()
     {
-        $this->assertFalse($this->validate->presentWeatherGroupValid(['7', '02', '2']));
+        $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
+        $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
+        $presentWeatherDecoder->shouldReceive('getIndicatorGroup')->andReturn(['7' => 'Indicator']);
+        $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
+        $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
+
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', '02', '2']));
     }
 
     public function testSuccessCloudPresentGroupValid()
     {
-        $this->assertTrue($this->validate->cloudPresentGroupValid(['8', '2', '5', '5', '/']));
+        $cloudPresentDecoder = Mockery::mock(CloudPresentDecoder::class);
+        $cloudPresentDecoder->shouldReceive('getGroupIndicators')->andReturn(['8', 'Nh', 'Cl', 'Cm', 'Ch']);
+
+        $this->assertTrue($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['8', '2', '5', '5', '/']));
     }
 
     public function testErrorCloudPresentGroupValid()
     {
-        $this->assertFalse($this->validate->cloudPresentGroupValid(['88', '22', '55', '55', '//']));
+        $cloudPresentDecoder = Mockery::mock(CloudPresentDecoder::class);
+        $cloudPresentDecoder->shouldReceive('getGroupIndicators')->andReturn(['8', 'Nh', 'Cl', 'Cm', 'Ch']);
+        $cloudPresentDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $cloudPresentDecoder->shouldReceive('getAmountCloudIndicator')->andReturn([
+            'Nh' => 'Amount of low cloud or medium cloud if no low cloud present'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormLowCloudIndicator')->andReturn([
+            'Cl' => 'Form of low cloud'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormMediumCloudIndicator')->andReturn([
+            'Cm' => 'Form of medium cloud'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormHighCloudIndicator')->andReturn([
+            'Ch' => 'Form of high cloud'
+        ]);
+
+        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['88', '22', '55', '55', '//']));
     }
 
     public function testErrorIndicatorCloudPresentGroupValid()
     {
-        $this->assertFalse($this->validate->cloudPresentGroupValid(['88', '2', '5', '5', '/']));
+        $cloudPresentDecoder = Mockery::mock(CloudPresentDecoder::class);
+        $cloudPresentDecoder->shouldReceive('getGroupIndicators')->andReturn(['8', 'Nh', 'Cl', 'Cm', 'Ch']);
+        $cloudPresentDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $cloudPresentDecoder->shouldReceive('getAmountCloudIndicator')->andReturn([
+            'Nh' => 'Amount of low cloud or medium cloud if no low cloud present'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormLowCloudIndicator')->andReturn([
+            'Cl' => 'Form of low cloud'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormMediumCloudIndicator')->andReturn([
+            'Cm' => 'Form of medium cloud'
+        ]);
+        $cloudPresentDecoder->shouldReceive('getFormHighCloudIndicator')->andReturn([
+            'Ch' => 'Form of high cloud'
+        ]);
+
+        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['88', '2', '5', '5', '/']));
     }
 
     public function testSuccessGroundWithoutSnowGroupValid()
     {
-        $this->assertTrue($this->validate->groundWithoutSnowGroupValid(['3', '4', '0', '08']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+
+        $this->assertTrue($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '0', '08']));
     }
 
     public function testErrorGroundWithoutSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid(['33', '44', '00', '088']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+        $groundWithoutSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $groundWithoutSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground without snow or measurable ice cover'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getSignTemperatureIndicator')->andReturn([
+            'Sn' => 'Sign of temperature'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getMinimumTemperature')->andReturn([
+            'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
+        ]);
+
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['33', '44', '00', '088']));
     }
 
     public function testErrorIndicatorGroundWithoutSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid(['33', '4', '0', '08']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+        $groundWithoutSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $groundWithoutSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground without snow or measurable ice cover'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getSignTemperatureIndicator')->andReturn([
+            'Sn' => 'Sign of temperature'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getMinimumTemperature')->andReturn([
+            'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
+        ]);
+
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['33', '4', '0', '08']));
     }
 
     public function testErrorStateGroundGroundWithoutSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid(['3', '44', '0', '08']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+        $groundWithoutSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $groundWithoutSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground without snow or measurable ice cover'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getSignTemperatureIndicator')->andReturn([
+            'Sn' => 'Sign of temperature'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getMinimumTemperature')->andReturn([
+            'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
+        ]);
+
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '44', '0', '08']));
     }
 
     public function testErrorSignTemperatureGroundGroundWithoutSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid(['3', '4', '2', '08']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+        $groundWithoutSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $groundWithoutSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground without snow or measurable ice cover'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getSignTemperatureIndicator')->andReturn([
+            'Sn' => 'Sign of temperature'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getMinimumTemperature')->andReturn([
+            'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
+        ]);
+
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '2', '08']));
     }
 
     public function testErrorMinimumTemperatureGroundGroundWithoutSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid(['3', '4', '0', '088']));
+        $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
+        $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
+        $groundWithoutSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['3' => 'Indicator']);
+        $groundWithoutSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground without snow or measurable ice cover'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getSignTemperatureIndicator')->andReturn([
+            'Sn' => 'Sign of temperature'
+        ]);
+        $groundWithoutSnowDecoder->shouldReceive('getMinimumTemperature')->andReturn([
+            'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
+        ]);
+
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '0', '088']));
     }
 
     public function testSuccessGroundWithSnowGroupValid()
     {
-        $this->assertTrue($this->validate->groundWithSnowGroupValid(['4', '9', '998']));
+        $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
+        $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
+
+        $this->assertTrue($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '9', '998']));
     }
 
     public function testErrorGroundWithSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithSnowGroupValid(['44', '99', '9981']));
+        $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
+        $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
+        $groundWithSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $groundWithSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground with snow or measurable ice cover'
+        ]);
+        $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
+
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['44', '99', '9981']));
     }
 
     public function testErrorIndicatorGroundWithSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithSnowGroupValid(['44', '9', '998']));
+        $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
+        $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
+        $groundWithSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $groundWithSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground with snow or measurable ice cover'
+        ]);
+        $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
+
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['44', '9', '998']));
     }
 
     public function testErrorStateGroundGroundWithSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithSnowGroupValid(['4', '99', '998']));
+        $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
+        $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
+        $groundWithSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $groundWithSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground with snow or measurable ice cover'
+        ]);
+        $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
+
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '99', '998']));
     }
 
     public function testErrorDepthSnowGroundWithSnowGroupValid()
     {
-        $this->assertFalse($this->validate->groundWithSnowGroupValid(['4', '9', '99']));
+        $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
+        $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
+        $groundWithSnowDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['4' => 'Indicator']);
+        $groundWithSnowDecoder->shouldReceive('getStateGroundIndicator')->andReturn([
+            'E' => 'State of ground with snow or measurable ice cover'
+        ]);
+        $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
+
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '9', '99']));
     }
 
     public function testSuccessSunshineRadiationDataGroupValid()
     {
-        $this->assertTrue($this->validate->sunshineRadiationDataGroupValid(['55', '118']));
+        $sunshineRadiationDataDecoder = Mockery::mock(SunshineRadiationDataDecoder::class);
+        $sunshineRadiationDataDecoder->shouldReceive('getGroupIndicators')->andReturn(['55', 'SSS']);
+
+        $this->assertTrue($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['55', '118']));
     }
 
     public function testErrorSunshineRadiationDataGroupValid()
     {
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid(['5', '11']));
+        $sunshineRadiationDataDecoder = Mockery::mock(SunshineRadiationDataDecoder::class);
+        $sunshineRadiationDataDecoder->shouldReceive('getGroupIndicators')->andReturn(['55', 'SSS']);
+        $sunshineRadiationDataDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['55' => 'Indicator']);
+        $sunshineRadiationDataDecoder->shouldReceive('getDurationTinderIndicator')->andReturn([
+            'SSS' => 'Duration of daily sunshine'
+        ]);
+
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['5', '11']));
     }
 
     public function testErrorIndicatorSunshineRadiationDataGroupValid()
     {
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid(['5', '118']));
+        $sunshineRadiationDataDecoder = Mockery::mock(SunshineRadiationDataDecoder::class);
+        $sunshineRadiationDataDecoder->shouldReceive('getGroupIndicators')->andReturn(['55', 'SSS']);
+        $sunshineRadiationDataDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['55' => 'Indicator']);
+        $sunshineRadiationDataDecoder->shouldReceive('getDurationTinderIndicator')->andReturn([
+            'SSS' => 'Duration of daily sunshine'
+        ]);
+
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['5', '118']));
     }
 
     public function testErrorDurationSunshineSunshineRadiationDataGroupValid()
     {
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid(['55', '11']));
+        $sunshineRadiationDataDecoder = Mockery::mock(SunshineRadiationDataDecoder::class);
+        $sunshineRadiationDataDecoder->shouldReceive('getGroupIndicators')->andReturn(['55', 'SSS']);
+        $sunshineRadiationDataDecoder->shouldReceive('getGetIndicatorGroup')->andReturn(['55' => 'Indicator']);
+        $sunshineRadiationDataDecoder->shouldReceive('getDurationTinderIndicator')->andReturn([
+            'SSS' => 'Duration of daily sunshine'
+        ]);
+
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['55', '11']));
     }
 
     public function testSuccessAdditionalCloudInformationGroupValid()
     {
-        $this->assertTrue($this->validate->additionalCloudInformationGroupValid(['8', '8', '5', '18']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+
+        $this->assertTrue($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '5', '18']));
     }
 
     public function testErrorAdditionalCloudInformationGroupValid()
     {
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid(['88', '89', '59', '189']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+        $additionalCloudInformation->shouldReceive('getIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $additionalCloudInformation->shouldReceive('getAmountCloudLayerIndicator')->andReturn([
+            'Ns' => 'Amount of individual cloud layer'
+        ]);
+        $additionalCloudInformation->shouldReceive('getFormCloudIndicator')->andReturn([
+            'C' => 'Form of cloud'
+        ]);
+        $additionalCloudInformation->shouldReceive('getHeightCloudIndicator')->andReturn([
+            'hshs' => 'Height of base cloud layer'
+        ]);
+
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['88', '89', '59', '189']));
     }
 
     public function testErrorIndicatorAdditionalCloudInformationGroupValid()
     {
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid(['88', '8', '5', '18']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+        $additionalCloudInformation->shouldReceive('getIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $additionalCloudInformation->shouldReceive('getAmountCloudLayerIndicator')->andReturn([
+            'Ns' => 'Amount of individual cloud layer'
+        ]);
+        $additionalCloudInformation->shouldReceive('getFormCloudIndicator')->andReturn([
+            'C' => 'Form of cloud'
+        ]);
+        $additionalCloudInformation->shouldReceive('getHeightCloudIndicator')->andReturn([
+            'hshs' => 'Height of base cloud layer'
+        ]);
+
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['88', '8', '5', '18']));
     }
 
     public function testErrorAmountIndividualCloudAdditionalCloudInformationGroupValid()
     {
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid(['8', '89', '5', '18']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+        $additionalCloudInformation->shouldReceive('getIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $additionalCloudInformation->shouldReceive('getAmountCloudLayerIndicator')->andReturn([
+            'Ns' => 'Amount of individual cloud layer'
+        ]);
+        $additionalCloudInformation->shouldReceive('getFormCloudIndicator')->andReturn([
+            'C' => 'Form of cloud'
+        ]);
+        $additionalCloudInformation->shouldReceive('getHeightCloudIndicator')->andReturn([
+            'hshs' => 'Height of base cloud layer'
+        ]);
+
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '89', '5', '18']));
     }
 
     public function testErrorFormCloudAdditionalCloudInformationGroupValid()
     {
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid(['8', '8', '55', '18']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+        $additionalCloudInformation->shouldReceive('getIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $additionalCloudInformation->shouldReceive('getAmountCloudLayerIndicator')->andReturn([
+            'Ns' => 'Amount of individual cloud layer'
+        ]);
+        $additionalCloudInformation->shouldReceive('getFormCloudIndicator')->andReturn([
+            'C' => 'Form of cloud'
+        ]);
+        $additionalCloudInformation->shouldReceive('getHeightCloudIndicator')->andReturn([
+            'hshs' => 'Height of base cloud layer'
+        ]);
+
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '55', '18']));
     }
 
     public function testErrorHeightBaseAdditionalCloudInformationGroupValid()
     {
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid(['8', '8', '5', '189']));
+        $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
+        $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
+        $additionalCloudInformation->shouldReceive('getIndicatorGroup')->andReturn(['8' => 'Indicator']);
+        $additionalCloudInformation->shouldReceive('getAmountCloudLayerIndicator')->andReturn([
+            'Ns' => 'Amount of individual cloud layer'
+        ]);
+        $additionalCloudInformation->shouldReceive('getFormCloudIndicator')->andReturn([
+            'C' => 'Form of cloud'
+        ]);
+        $additionalCloudInformation->shouldReceive('getHeightCloudIndicator')->andReturn([
+            'hshs' => 'Height of base cloud layer'
+        ]);
+
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '5', '189']));
     }
 
     public function testSuccessEmpryGetErrorsWithGroups()
@@ -450,9 +1072,20 @@ class ValidateTest extends TestCase
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]
+        ]);
 
-        $expected = ['The summary type group data does not match the specified format; Code group - AACC'];
+        $expected = [0 => [
+            'indicator_group' => 'AAXX/BBXX',
+            'description_indicator' => 'Synoptic Code Identifier',
+            'code' => 'AACC',
+            'description_error' => 'The summary type group data does not match the specified format; Code group - AACC',
+        ]];
 
         $this->assertEquals($expected, $this->validate->getErrors());
     }
@@ -466,7 +1099,13 @@ class ValidateTest extends TestCase
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]
+        ]);
 
         $this->assertIsArray($this->validate->getErrors());
     }
@@ -510,13 +1149,22 @@ class ValidateTest extends TestCase
         $reflector = new \ReflectionClass(Validate::class);
         $method = $reflector->getMethod('setError');
         $method->setAccessible(true);
-        $method->invokeArgs($this->validate, ['AACC', 'The summary type group data does not match the specified format; Code group - AACC']);
+        $method->invokeArgs($this->validate, [
+            'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
+            'The summary type group data does not match the specified format; Code group - AACC'
+        ]);
 
         $property = $reflector->getProperty('errors');
         $property->setAccessible(true);
         $value = $property->getValue($this->validate);
 
-        $expected = ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC'];
+        $expected = [
+            'AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]
+        ];
 
         $this->assertEquals($expected, $value);
     }
@@ -526,7 +1174,10 @@ class ValidateTest extends TestCase
         $reflector = new \ReflectionClass(Validate::class);
         $method = $reflector->getMethod('setError');
         $method->setAccessible(true);
-        $method->invokeArgs($this->validate, ['AACC', 'The summary type group data does not match the specified format; Code group - AACC']);
+        $method->invokeArgs($this->validate, [
+            'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
+            'The summary type group data does not match the specified format; Code group - AACC'
+        ]);
 
         $property = $reflector->getProperty('errors');
         $property->setAccessible(true);
@@ -598,11 +1249,21 @@ class ValidateTest extends TestCase
 
     public function testSuccessIsValidGroup()
     {
-        $this->assertTrue($this->validate->isValidGroup(IndexDecoder::class, ['33', '837']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getStationAreaIndicator')->andReturn(['II' => 'Area station']);
+        $indexDecoder->shouldReceive('getStationIndexIndicator')->andReturn(['iii' => 'Station index']);
+        $indexDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['II', 'iii']);
+
+        $this->assertTrue($this->validate->isValidGroup($indexDecoder, ['33', '837']));
     }
 
     public function testErrorIsValidGroup()
     {
-        $this->assertFalse($this->validate->isValidGroup(IndexDecoder::class, ['3', '837']));
+        $indexDecoder = Mockery::mock(IndexDecoder::class);
+        $indexDecoder->shouldReceive('getStationAreaIndicator')->andReturn(['II' => 'Area station']);
+        $indexDecoder->shouldReceive('getStationIndexIndicator')->andReturn(['iii' => 'Station index']);
+        $indexDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['II', 'iii']);
+
+        $this->assertFalse($this->validate->isValidGroup($indexDecoder, ['3', '837']));
     }
 }

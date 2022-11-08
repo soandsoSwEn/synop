@@ -38,7 +38,7 @@ class TypeDecoder implements GroupDecoderInterface
      */
     public function isGroup(ValidateInterface $validate): bool
     {
-        return $validate->isValidGroup(get_class($this), [$this->getTypeValue()]);
+        return $validate->isValidGroup($this, [$this->getTypeValue()]);
     }
 
     /**
@@ -85,5 +85,15 @@ class TypeDecoder implements GroupDecoderInterface
         }
 
         return strcasecmp($type, $this->typeOfReport[1]) == 0;
+    }
+
+    /**
+     * Returns indicator and description of synoptic code identifier - AAXX/BBXX
+     *
+     * @return string[] Indicator and description of synoptic code identifier
+     */
+    public function getTypeReportIndicator(): array
+    {
+        return ['AAXX/BBXX' => 'Synoptic Code Identifier'];
     }
 }

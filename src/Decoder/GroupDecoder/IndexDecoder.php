@@ -23,7 +23,7 @@ class IndexDecoder implements GroupDecoderInterface
 
     public function isGroup(ValidateInterface $validate): bool
     {
-        return $validate->isValidGroup(get_class($this), [$this->getArea(), $this->getNumber()]);
+        return $validate->isValidGroup($this, [$this->getArea(), $this->getNumber()]);
     }
 
     /**
@@ -54,5 +54,33 @@ class IndexDecoder implements GroupDecoderInterface
     public function getIndex(): string
     {
         return $this->rawIndex;
+    }
+
+    /**
+     * Returns indicator and description of area station - IIiii
+     *
+     * @return string[] Indicator and description of area station
+     */
+    public function getStationAreaIndicator(): array
+    {
+        return ['II' => 'Area station'];
+    }
+
+    /**
+     * Returns indicator and description of station index - IIiii
+     *
+     * @return string[] Indicator and description of station index
+     */
+    public function getStationIndexIndicator(): array
+    {
+        return ['iii' => 'Station index'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getStationAreaIndicator()),
+            key($this->getStationIndexIndicator()),
+        ];
     }
 }

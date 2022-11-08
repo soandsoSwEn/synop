@@ -399,4 +399,52 @@ class LowCloudVisibilityDecoderTest extends TestCase
 
         $this->assertFalse($lowCloudVisibility->isGroup($validate));
     }
+
+    public function testSuccessGetGetPrecipitationDataIndicator()
+    {
+        $expected = ['ir' => 'Inclusion omission of precipitation data'];
+
+        $this->assertEquals($expected, $this->lowCloudVisibility->getGetPrecipitationDataIndicator());
+    }
+
+    public function testSuccessIsArrayGetGetPrecipitationDataIndicator()
+    {
+        $this->assertIsArray($this->lowCloudVisibility->getGetPrecipitationDataIndicator());
+    }
+
+    public function testSuccessGetGetWeatherGroupIndicator()
+    {
+        $expected = ['ix' => 'Inclusion omission of weather group'];
+
+        $this->assertEquals($expected, $this->lowCloudVisibility->getGetWeatherGroupIndicator());
+    }
+
+    public function testSuccessIsArrayGetGetWeatherGroupIndicator()
+    {
+        $this->assertIsArray($this->lowCloudVisibility->getGetWeatherGroupIndicator());
+    }
+
+    public function testSuccessGetGetHeightCloudIndicator()
+    {
+        $expected = ['h' => 'Height of base of lowest cloud'];
+
+        $this->assertEquals($expected, $this->lowCloudVisibility->getGetHeightCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetGetHeightCloudIndicator()
+    {
+        $this->assertIsArray($this->lowCloudVisibility->getGetHeightCloudIndicator());
+    }
+
+    public function testSuccessGetGetVisibilityIndicator()
+    {
+        $expected = ['VV' => 'Horizontal visibility'];
+
+        $this->assertEquals($expected, $this->lowCloudVisibility->getGetVisibilityIndicator());
+    }
+
+    public function testSuccessIsArrayGetGetVisibilityIndicator()
+    {
+        $this->assertIsArray($this->lowCloudVisibility->getGetVisibilityIndicator());
+    }
 }

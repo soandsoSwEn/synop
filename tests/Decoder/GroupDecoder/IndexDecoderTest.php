@@ -86,4 +86,28 @@ class IndexDecoderTest extends TestCase
 
         $this->assertFalse($rawIndex->isGroup($validate));
     }
+
+    public function testSuccessGetStationAreaIndicator()
+    {
+        $expected = ['II' => 'Area station'];
+
+        $this->assertEquals($expected, $this->rawIndex->getStationAreaIndicator());
+    }
+
+    public function testSuccessIsArrayGetStationAreaIndicator()
+    {
+        $this->assertIsArray($this->rawIndex->getStationAreaIndicator());
+    }
+
+    public function testSuccessGetStationIndexIndicator()
+    {
+        $expected = ['iii' => 'Station index'];
+
+        $this->assertEquals($expected, $this->rawIndex->getStationIndexIndicator());
+    }
+
+    public function testSuccessIsArrayGetStationIndexIndicator()
+    {
+        $this->assertIsArray($this->rawIndex->getStationIndexIndicator());
+    }
 }

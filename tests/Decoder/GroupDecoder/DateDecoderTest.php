@@ -151,4 +151,40 @@ class DateDecoderTest extends TestCase
 
         $this->assertFalse($dataDecoder->isGroup($validate));
     }
+
+    public function testSuccessGetDayIndicator()
+    {
+        $expected = ['YY' => 'Day of the month of issuance of the meteorological weather report'];
+
+        $this->assertEquals($expected, $this->dateDecoder->getDayIndicator());
+    }
+
+    public function testSuccessIsArrayGetDayIndicator()
+    {
+        $this->assertIsArray($this->dateDecoder->getDayIndicator());
+    }
+
+    public function testSuccessGetHourIndicator()
+    {
+        $expected = ['GG' => 'Hour of issuance of the meteorological weather report'];
+
+        $this->assertEquals($expected, $this->dateDecoder->getHourIndicator());
+    }
+
+    public function testSuccessIsArrayGetHourIndicator()
+    {
+        $this->assertIsArray($this->dateDecoder->getHourIndicator());
+    }
+
+    public function testSuccessGetSpeedUnitsIndicator()
+    {
+        $expected = ['iw' => 'Index of wind speed units and how it is determined'];
+
+        $this->assertEquals($expected, $this->dateDecoder->getSpeedUnitsIndicator());
+    }
+
+    public function testSuccessIsArrayGetSpeedUnitsIndicator()
+    {
+        $this->assertIsArray($this->dateDecoder->getSpeedUnitsIndicator());
+    }
 }

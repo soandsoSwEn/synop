@@ -280,4 +280,40 @@ class AmountRainfallDecoderTest extends TestCase
 
         $this->assertFalse($amountRainfallDecoder->isGroup($validate));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['6' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->amountRainfallDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->amountRainfallDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessGetAmountRainfallIndicator()
+    {
+        $expected = ['RRR' => 'Amount of rainfall'];
+
+        $this->assertEquals($expected, $this->amountRainfallDecoder->getAmountRainfallIndicator());
+    }
+
+    public function testSuccessIsArrayGetAmountRainfallIndicator()
+    {
+        $this->assertIsArray($this->amountRainfallDecoder->getAmountRainfallIndicator());
+    }
+
+    public function testSuccessGetDurationPeriodIndicator()
+    {
+        $expected = ['tr' => 'Duration period of RRR'];
+
+        $this->assertEquals($expected, $this->amountRainfallDecoder->getDurationPeriodIndicator());
+    }
+
+    public function testSuccessIsArrayGetDurationPeriodIndicator()
+    {
+        $this->assertIsArray($this->amountRainfallDecoder->getDurationPeriodIndicator());
+    }
 }

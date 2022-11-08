@@ -30,7 +30,7 @@ class DateDecoder implements GroupDecoderInterface
 
     public function isGroup(ValidateInterface $validate): bool
     {
-        return $validate->isValidGroup(get_class($this), [$this->getDay(), $this->getHour(), $this->getIw()]);
+        return $validate->isValidGroup($this, [$this->getDay(), $this->getHour(), $this->getIw()]);
     }
 
     public function getDay(): string
@@ -61,5 +61,44 @@ class DateDecoder implements GroupDecoderInterface
     private function getIwData()
     {
         return $this->i_w;
+    }
+
+    /**
+     * Returns indicator and description of day of the month of issuance of the meteorological weather report - YYGGiw
+     *
+     * @return string[] Indicator and description of day of the month of issuance of the meteorological weather report
+     */
+    public function getDayIndicator(): array
+    {
+        return ['YY' => 'Day of the month of issuance of the meteorological weather report'];
+    }
+
+    /**
+     * Returns indicator and description of hour of issuance of the meteorological weather report - YYGGiw
+     *
+     * @return string[] Indicator and description of hour of issuance of the meteorological weather report
+     */
+    public function getHourIndicator(): array
+    {
+        return ['GG' => 'Hour of issuance of the meteorological weather report'];
+    }
+
+    /**
+     * Returns indicator and description of index of wind speed units and how it is determined - YYGGiw
+     *
+     * @return string[] Indicator and description of Index of wind speed units and how it is determined
+     */
+    public function getSpeedUnitsIndicator(): array
+    {
+        return ['iw' => 'Index of wind speed units and how it is determined'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getDayIndicator()),
+            key($this->getHourIndicator()),
+            key($this->getSpeedUnitsIndicator()),
+        ];
     }
 }

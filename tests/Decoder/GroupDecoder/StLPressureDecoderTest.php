@@ -115,4 +115,28 @@ class StLPressureDecoderTest extends TestCase
 
         $this->assertFalse($stlPressure->isGroup($validate));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['3' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->stlPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->stlPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessGetFigureAirPressure()
+    {
+        $expected = ['PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'];
+
+        $this->assertEquals($expected, $this->stlPressure->getFigureAirPressure());
+    }
+
+    public function testSuccessIsArrayGetFigureAirPressure()
+    {
+        $this->assertIsArray($this->stlPressure->getFigureAirPressure());
+    }
 }

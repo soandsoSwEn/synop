@@ -66,7 +66,7 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawGroundWithSnow, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup($this, [
                 $this->getCodeFigureIndicator(), $this->getCodeFigureStateGround(), $this->getCodeFigureDepthSnow()
             ]);
             return true;
@@ -120,6 +120,45 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
         }
 
         return ['value' => intval($sss)];
+    }
+
+    /**
+     * Returns indicator and description of state of the ground with snow - 4Esss
+     *
+     * @return string[] Indicator and description of state of the ground with snow
+     */
+    public function getGetIndicatorGroup(): array
+    {
+        return ['4' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of state of the ground - 4Esss
+     *
+     * @return string[] Indicator and description of state of the ground
+     */
+    public function getStateGroundIndicator(): array
+    {
+        return ['E' => 'State of ground with snow or measurable ice cover'];
+    }
+
+    /**
+     * Returns indicator and description of depth of snow - 4Esss
+     *
+     * @return string[] Indicator and description of depth of snow
+     */
+    public function getDepthSnowIndicator(): array
+    {
+        return ['sss' => 'Depth of snow'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getStateGroundIndicator()),
+            key($this->getDepthSnowIndicator()),
+        ];
     }
 
     /**

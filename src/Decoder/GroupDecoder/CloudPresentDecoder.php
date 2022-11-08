@@ -140,7 +140,7 @@ class CloudPresentDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawCloudPresent, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup($this, [
                 $this->getCodeFigure(), $this->getAmountLowCloudSymbol(), $this->getFormLowCloudSymbol(),
                 $this->getFormMediumCloudSymbol(), $this->getFormHighCloudSymbol()
             ]);
@@ -252,6 +252,67 @@ class CloudPresentDecoder implements GroupDecoderInterface
         } else {
             throw new Exception('Invalid data of Form of high cloud');
         }
+    }
+
+    /**
+     * Returns indicator and description of cloud present group - 8NhClCmCH
+     *
+     * @return string[] Indicator and description of cloud present
+     */
+    public function getGetIndicatorGroup(): array
+    {
+        return ['8' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of amount cloud present - 8NhClCmCH
+     *
+     * @return string[] Indicator and description of amount of low cloud, or medium cloud if no low present
+     */
+    public function getAmountCloudIndicator(): array
+    {
+        return ['Nh' => 'Amount of low cloud or medium cloud if no low cloud present'];
+    }
+
+    /**
+     * Returns indicator and description of form of low cloud - 8NhClCmCH
+     *
+     * @return string[] Indicator and description of form of low cloud
+     */
+    public function getFormLowCloudIndicator(): array
+    {
+        return ['Cl' => 'Form of low cloud'];
+    }
+
+    /**
+     * Returns indicator and description of form of medium cloud - 8NhClCmCH
+     *
+     * @return string[] Indicator and description of form of medium cloud
+     */
+    public function getFormMediumCloudIndicator(): array
+    {
+        return ['Cm' => 'Form of medium cloud'];
+    }
+
+    /**
+     * Returns indicator and description of form of high cloud - 8NhClCmCH
+     *
+     * @return string[] Indicator and description of form of high cloud
+     */
+    public function getFormHighCloudIndicator(): array
+    {
+        return ['Ch' => 'Form of high cloud'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getAmountCloudIndicator()),
+            key($this->getFormLowCloudIndicator()),
+            key($this->getFormMediumCloudIndicator()),
+            key($this->getFormHighCloudIndicator()),
+        ];
     }
 
     /**

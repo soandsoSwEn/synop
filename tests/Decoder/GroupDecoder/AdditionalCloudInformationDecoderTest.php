@@ -325,4 +325,52 @@ class AdditionalCloudInformationDecoderTest extends TestCase
 
         $this->assertFalse($additionalCloudInformationDecoder->isGroup($validator));
     }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['8' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessGetAmountCloudLayerIndicator()
+    {
+        $expected = ['Ns' => 'Amount of individual cloud layer'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getAmountCloudLayerIndicator());
+    }
+
+    public function testSuccessIsArrayGetAmountCloudLayerIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getAmountCloudLayerIndicator());
+    }
+
+    public function testSuccessGetFormCloudIndicator()
+    {
+        $expected = ['C' => 'Form of cloud'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getFormCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetFormCloudIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getFormCloudIndicator());
+    }
+
+    public function testSuccessGetHeightCloudIndicator()
+    {
+        $expected = ['hshs' => 'Height of base cloud layer'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getHeightCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetHeightCloudIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getHeightCloudIndicator());
+    }
 }

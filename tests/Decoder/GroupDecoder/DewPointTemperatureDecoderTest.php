@@ -118,4 +118,35 @@ class DewPointTemperatureDecoderTest extends TestCase
 
         $this->assertFalse($dewPointTemperatureDecoder->isGroup($validate));
     }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['2' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->dewPointTemperatureDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetSignTemperatureIndicator()
+    {
+        $expected = ['Sn' => 'Sign of temperature'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetSignTemperatureIndicator()
+    {
+        $this->assertIsArray($this->dewPointTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessGetDryBulbTemperatureIndicator()
+    {
+        $expected = ['TdTdTd' => 'Dew point temperature in tenths of a degree'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getDryBulbTemperatureIndicator());
+    }
 }

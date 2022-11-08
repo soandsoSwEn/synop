@@ -143,9 +143,9 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
     /**
      * Sets index of the point of inclusion in the metrological report of precipitation group
      *
-     * @return string
+     * @return string|null
      */
-    public function getIncPrecipValue(): string
+    public function getIncPrecipValue(): ?string
     {
         return $this->incPrecipGroup;
     }
@@ -153,9 +153,9 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
     /**
      * Returns weather indicator inclusion index 7wwW1W2
      *
-     * @return array
+     * @return array|null
      */
-    public function getIncWeatherValue(): array
+    public function getIncWeatherValue(): ?array
     {
         return $this->incWeatherGroup;
     }
@@ -165,7 +165,7 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      *
      * @return string
      */
-    public function getHeightLowValue(): string
+    public function getHeightLowValue(): ?string
     {
         return $this->heightLowClouds;
     }
@@ -175,7 +175,7 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      *
      * @return string
      */
-    public function getVisibilityValue(): string
+    public function getVisibilityValue(): ?string
     {
         return $this->visibility;
     }

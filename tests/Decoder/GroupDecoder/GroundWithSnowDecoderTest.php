@@ -207,4 +207,40 @@ class GroundWithSnowDecoderTest extends TestCase
 
         $this->assertFalse($groundWithSnow->isGroup($validate));
     }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['4' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->groundWithSnow->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetStateGroundIndicator()
+    {
+        $expected = ['E' => 'State of ground with snow or measurable ice cover'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getStateGroundIndicator());
+    }
+
+    public function testSuccessIsArrayGetStateGroundIndicator()
+    {
+        $this->assertIsArray($this->groundWithSnow->getStateGroundIndicator());
+    }
+
+    public function testSuccessGetDepthSnowIndicator()
+    {
+        $expected = ['sss' => 'Depth of snow'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getDepthSnowIndicator());
+    }
+
+    public function testSuccessIsArrayGetDepthSnowIndicator()
+    {
+        $this->assertIsArray($this->groundWithSnow->getDepthSnowIndicator());
+    }
 }

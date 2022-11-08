@@ -138,7 +138,13 @@ class ReportTest extends TestCase
         $report = new Report($reportData);
         $report->parse();
 
-        $expected = ['Wrong sign of dew point temperature group 2SnTdTdTd - 8'];
+        $expected = [0 => [
+            'indicator_group' => 'Sn',
+            'description_indicator' => 'Sign of temperature',
+            'code' => '8',
+            'description_error' => 'Wrong sign of dew point temperature group 2SnTdTdTd - 8',
+            ]
+        ];
 
         $this->assertEquals($expected, $report->getErrors());
     }

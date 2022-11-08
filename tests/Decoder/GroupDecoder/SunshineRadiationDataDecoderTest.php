@@ -98,4 +98,28 @@ class SunshineRadiationDataDecoderTest extends TestCase
 
         $this->assertFalse($sunshineRadiation->isGroup($validate));
     }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['55' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->sunshineRadiation->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->sunshineRadiation->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetDurationTinderIndicator()
+    {
+        $expected = ['SSS' => 'Duration of daily sunshine'];
+
+        $this->assertEquals($expected, $this->sunshineRadiation->getDurationTinderIndicator());
+    }
+
+    public function testSuccessIsArrayGetDurationTinderIndicator()
+    {
+        $this->assertIsArray($this->sunshineRadiation->getDurationTinderIndicator());
+    }
 }
