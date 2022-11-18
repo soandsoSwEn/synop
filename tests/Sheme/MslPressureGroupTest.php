@@ -211,4 +211,14 @@ class MslPressureGroupTest extends TestCase
 
         $this->mslPressureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('4PPPP', $this->mslPressureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->mslPressureGroup->getGroupIndicator());
+    }
 }

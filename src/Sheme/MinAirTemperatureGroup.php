@@ -41,4 +41,14 @@ class MinAirTemperatureGroup extends AirTemperatureGroup
             throw new Exception('Minimum Air Temperature Group group cannot be empty!');
         }
     }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '2SnTnTnTn';
+    }
 }

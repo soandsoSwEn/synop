@@ -193,7 +193,7 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isAmountRainfallGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -236,5 +236,15 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
         } else {
             $this->setDurationPeriodValue($decoder->getDurationPeriod());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '6RRRtr';
     }
 }

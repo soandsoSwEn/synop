@@ -41,13 +41,13 @@ class ValidateTest extends TestCase
     {
         $typeDecoder = Mockery::mock(TypeDecoder::class);
 
-        $this->assertTrue($this->validate->typeValid($typeDecoder, ['AAXX']));
+        $this->assertTrue($this->validate->typeValid($typeDecoder, 'AAXX/BBXX', ['AAXX']));
     }
 
     public function testSuccessErrorsEmptyTypeValid()
     {
         $typeDecoder = Mockery::mock(TypeDecoder::class);
-        $this->validate->typeValid($typeDecoder, ['AAXX']);
+        $this->validate->typeValid($typeDecoder, 'AAXX/BBXX', ['AAXX']);
 
         $reflector = new \ReflectionClass(Validate::class);
         $property = $reflector->getProperty('errors');
@@ -63,7 +63,7 @@ class ValidateTest extends TestCase
         $typeDecoder->shouldReceive('getTypeReportIndicator')
             ->andReturn(['AAXX/BBXX' => 'Synoptic Code Identifier']);
 
-        $this->assertFalse($this->validate->typeValid($typeDecoder, ['AACC']));
+        $this->assertFalse($this->validate->typeValid($typeDecoder, 'AAXX/BBXX', ['AACC']));
     }
 
     public function testErrorSourceErrorsTypeValid()
@@ -72,7 +72,7 @@ class ValidateTest extends TestCase
         $typeDecoder->shouldReceive('getTypeReportIndicator')
             ->andReturn(['AAXX/BBXX' => 'Synoptic Code Identifier']);
 
-        $this->validate->typeValid($typeDecoder, ['AACC']);
+        $this->validate->typeValid($typeDecoder, 'AAXX/BBXX', ['AACC']);
 
         $reflector = new \ReflectionClass(Validate::class);
         $property = $reflector->getProperty('errors');
@@ -80,11 +80,11 @@ class ValidateTest extends TestCase
         $value = $property->getValue($this->validate);
 
         $expected = [
-            'AAXX/BBXX' => [
-                'description' =>'Synoptic Code Identifier',
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
                 'code' => 'AACC',
                 'error' => 'The summary type group data does not match the specified format; Code group - AACC'
-            ]
+            ]]
         ];
 
         $this->assertEquals($expected, $value);
@@ -93,15 +93,15 @@ class ValidateTest extends TestCase
     public function testSuccessDateValid()
     {
         $dateDecoder = Mockery::mock(DateDecoder::class);
-        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getGroupIndicators')->andReturn(['YY', 'GG', 'iw']);
 
-        $this->assertTrue($this->validate->dateValid($dateDecoder, ['07', '18', ['Instrumental', 'm/s']]));
+        $this->assertTrue($this->validate->dateValid($dateDecoder, 'YYGGiw', ['07', '18', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorDayDateValid()
     {
         $dateDecoder = Mockery::mock(DateDecoder::class);
-        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getGroupIndicators')->andReturn(['YY', 'GG', 'iw']);
         $dateDecoder->shouldReceive('getDayIndicator')
             ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
         $dateDecoder->shouldReceive('getHourIndicator')
@@ -109,13 +109,13 @@ class ValidateTest extends TestCase
         $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
             ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
 
-        $this->assertFalse($this->validate->dateValid($dateDecoder, ['32', '18', ['Instrumental', 'm/s']]));
+        $this->assertFalse($this->validate->dateValid($dateDecoder, 'YYGGiw', ['32', '18', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorHourDateValid()
     {
         $dateDecoder = Mockery::mock(DateDecoder::class);
-        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getGroupIndicators')->andReturn(['YY', 'GG', 'iw']);
         $dateDecoder->shouldReceive('getDayIndicator')
             ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
         $dateDecoder->shouldReceive('getHourIndicator')
@@ -123,13 +123,13 @@ class ValidateTest extends TestCase
         $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
             ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
 
-        $this->assertFalse($this->validate->dateValid($dateDecoder, ['31', 'two', ['Instrumental', 'm/s']]));
+        $this->assertFalse($this->validate->dateValid($dateDecoder, 'YYGGiw', ['31', 'two', ['Instrumental', 'm/s']]));
     }
 
     public function testErrorIndexSpeedUnitDateValid()
     {
         $dateDecoder = Mockery::mock(DateDecoder::class);
-        $dateDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['YY', 'GG', 'iw']);
+        $dateDecoder->shouldReceive('getGroupIndicators')->andReturn(['YY', 'GG', 'iw']);
         $dateDecoder->shouldReceive('getDayIndicator')
             ->andReturn(['YY' => 'Day of the month of issuance of the meteorological weather report']);
         $dateDecoder->shouldReceive('getHourIndicator')
@@ -137,7 +137,7 @@ class ValidateTest extends TestCase
         $dateDecoder->shouldReceive('getSpeedUnitsIndicator')
             ->andReturn(['iw' => 'Index of wind speed units and how it is determined']);
 
-        $this->assertFalse($this->validate->dateValid($dateDecoder, ['31', 'two', 'm/s']));
+        $this->assertFalse($this->validate->dateValid($dateDecoder, 'YYGGiw', ['31', 'two', 'm/s']));
     }
 
     public function testSuccessIndexValid()
@@ -145,7 +145,7 @@ class ValidateTest extends TestCase
         $indexDecoder = Mockery::mock(IndexDecoder::class);
         $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
 
-        $this->assertTrue($this->validate->indexValid($indexDecoder, ['33', '837']));
+        $this->assertTrue($this->validate->indexValid($indexDecoder, 'IIiii', ['33', '837']));
     }
 
     public function testErrorIndexValid()
@@ -157,7 +157,7 @@ class ValidateTest extends TestCase
         $indexDecoder->shouldReceive('getStationIndexIndicator')
             ->andReturn(['iii' => 'Station index']);
 
-        $this->assertFalse($this->validate->indexValid($indexDecoder, ['tree', '83']));
+        $this->assertFalse($this->validate->indexValid($indexDecoder, 'IIiii', ['tree', '83']));
     }
 
     public function testErrorAreaNumberIndexValid()
@@ -169,7 +169,7 @@ class ValidateTest extends TestCase
         $indexDecoder->shouldReceive('getStationIndexIndicator')
             ->andReturn(['iii' => 'Station index']);
 
-        $this->assertFalse($this->validate->indexValid($indexDecoder, ['tree', '837']));
+        $this->assertFalse($this->validate->indexValid($indexDecoder, 'IIiii', ['tree', '837']));
     }
 
     public function testErrorStationNumberIndexValid()
@@ -181,7 +181,7 @@ class ValidateTest extends TestCase
         $indexDecoder->shouldReceive('getStationIndexIndicator')
             ->andReturn(['iii' => 'Station index']);
 
-        $this->assertFalse($this->validate->indexValid($indexDecoder, ['33', '83']));
+        $this->assertFalse($this->validate->indexValid($indexDecoder, 'IIiii', ['33', '83']));
     }
 
     public function testSuccessLowCloudVisibilityValid()
@@ -189,7 +189,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder = Mockery::mock(LowCloudVisibilityDecoder::class);
         $lowCloudVisibilityDecoder->shouldReceive('getGroupIndicators')->andReturn(['ir', 'ix', 'h', 'VV']);
 
-        $this->assertTrue($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '5', '83']));
+        $this->assertTrue($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['1', '1', '5', '83']));
     }
 
     public function testErrorLowCloudVisibilityValid()
@@ -205,7 +205,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
             ->andReturn(['VV' => 'Horizontal visibility']);
 
-        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['5', '9', '55', '8']));
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['5', '9', '55', '8']));
     }
 
     public function testErrorIndexPrecipitationLowCloudVisibilityValid()
@@ -221,7 +221,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
             ->andReturn(['VV' => 'Horizontal visibility']);
 
-        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['5', '1', '5', '83']));
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['5', '1', '5', '83']));
     }
 
     public function testErrorValuesTypeIndicatorLowCloudVisibilityValid()
@@ -237,7 +237,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
             ->andReturn(['VV' => 'Horizontal visibility']);
 
-        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '9', '5', '83']));
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['1', '9', '5', '83']));
     }
 
     public function testErrorValueHeightLowCloudVisibilityValid()
@@ -253,7 +253,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
             ->andReturn(['VV' => 'Horizontal visibility']);
 
-        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '55', '83']));
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['1', '1', '55', '83']));
     }
 
     public function testErrormeteorologicaVisibilityLowCloudVisibilityValid()
@@ -269,7 +269,7 @@ class ValidateTest extends TestCase
         $lowCloudVisibilityDecoder->shouldReceive('getGetVisibilityIndicator')
             ->andReturn(['VV' => 'Horizontal visibility']);
 
-        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, ['1', '1', '5', '8']));
+        $this->assertFalse($this->validate->lowCloudVisibilityValid($lowCloudVisibilityDecoder, 'irixhVV', ['1', '1', '5', '8']));
     }
 
     public function testSuccessCloudWindGroupValid()
@@ -277,7 +277,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder = Mockery::mock(CloudWindDecoder::class);
         $cloudWindDecoder->shouldReceive('getGroupIndicators')->andReturn(['N', 'dd', 'ff']);
 
-        $this->assertTrue($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '31', '02']));
+        $this->assertTrue($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['8', '31', '02']));
     }
 
     public function testErrorCloudWindGroupValid()
@@ -291,7 +291,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
             ->andReturn(['ff' => 'Wind speed']);
 
-        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['\\', '\\', '38']));
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['\\', '\\', '38']));
     }
 
     public function testErrorNumberCloudsCloudWindGroupValid()
@@ -305,7 +305,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
             ->andReturn(['ff' => 'Wind speed']);
 
-        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['\\', '31', '02']));
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['\\', '31', '02']));
     }
 
     public function testErrorWindDirectionCloudsCloudWindGroupValid()
@@ -319,7 +319,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
             ->andReturn(['ff' => 'Wind speed']);
 
-        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '\\\\', '02']));
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['8', '\\\\', '02']));
     }
 
     public function testErrorWindDirectionValueCloudWindGroupValid()
@@ -333,7 +333,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
             ->andReturn(['ff' => 'Wind speed']);
 
-        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '38', '02']));
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['8', '38', '02']));
     }
 
     public function testErrorWindSpeedCloudsCloudWindGroupValid()
@@ -347,7 +347,7 @@ class ValidateTest extends TestCase
         $cloudWindDecoder->shouldReceive('getWindSpeedIndicator')
             ->andReturn(['ff' => 'Wind speed']);
 
-        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, ['8', '31', '2']));
+        $this->assertFalse($this->validate->cloudWindGroupValid($cloudWindDecoder, 'Nddff', ['8', '31', '2']));
     }
 
     public function testSuccessAirTemperatureGroupValid()
@@ -355,7 +355,7 @@ class ValidateTest extends TestCase
         $airTemperatureDecoder = Mockery::mock(AirTemperatureDecoder::class);
         $airTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['1', 'Sn', 'TTT']);
 
-        $this->assertTrue($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '0', '039']));
+        $this->assertTrue($this->validate->airTemperatureGroupValid($airTemperatureDecoder, '1SnTTT', ['1', '0', '039']));
     }
 
     public function testErrorAirTemperatureGroupValid()
@@ -368,7 +368,7 @@ class ValidateTest extends TestCase
         $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
             ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
 
-        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['\\', '5', 'nil']));
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, '1SnTTT', ['\\', '5', 'nil']));
     }
 
     public function testErrorDistinctiveNumberAirTemperatureGroupValid()
@@ -381,7 +381,7 @@ class ValidateTest extends TestCase
         $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
             ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
 
-        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['5', '0', '039']));
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, '1SnTTT', ['5', '0', '039']));
     }
 
     public function testErrorSignAirTemperatureGroupValid()
@@ -394,7 +394,7 @@ class ValidateTest extends TestCase
         $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
             ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
 
-        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '5', '039']));
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, '1SnTTT', ['1', '5', '039']));
     }
 
     public function testErrorAirTemperatureAirTemperatureGroupValid()
@@ -407,7 +407,7 @@ class ValidateTest extends TestCase
         $airTemperatureDecoder->shouldReceive('getDryBulbTemperatureIndicator')
             ->andReturn(['TTT' => 'Dry-bulb temperature in tenths of a degree']);
 
-        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, ['1', '0', '/39']));
+        $this->assertFalse($this->validate->airTemperatureGroupValid($airTemperatureDecoder, '1SnTTT', ['1', '0', '/39']));
     }
 
     public function testSuccessDewPointTemperatureGroupValid()
@@ -415,7 +415,7 @@ class ValidateTest extends TestCase
         $dewPointTemperatureDecoder = Mockery::mock(DewPointTemperatureDecoder::class);
         $dewPointTemperatureDecoder->shouldReceive('getGroupIndicators')->andReturn(['2', 'Sn', 'TdTdTd']);
 
-        $this->assertTrue($this->validate->dewPointTemperatureGroupValid($dewPointTemperatureDecoder, ['2', '1', '007']));
+        $this->assertTrue($this->validate->dewPointTemperatureGroupValid($dewPointTemperatureDecoder, '2SnTdTdTd', ['2', '1', '007']));
     }
 
     public function testSuccessStLPressureGroupValid()
@@ -423,7 +423,7 @@ class ValidateTest extends TestCase
         $stlPressureDecoder = Mockery::mock(StLPressureDecoder::class);
         $stlPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'PPPP']);
 
-        $this->assertTrue($this->validate->stLPressureGroupValid($stlPressureDecoder, ['3', '0049']));
+        $this->assertTrue($this->validate->stLPressureGroupValid($stlPressureDecoder, '3P0P0P0P0', ['3', '0049']));
     }
 
     public function testErrorStLPressureGroupValid()
@@ -435,7 +435,7 @@ class ValidateTest extends TestCase
             'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['three', '49']));
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, '3P0P0P0P0', ['three', '49']));
     }
 
     public function testErrorIndicatorStLPressureGroupValid()
@@ -447,7 +447,7 @@ class ValidateTest extends TestCase
             'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['1', '0049']));
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, '3P0P0P0P0', ['1', '0049']));
     }
 
     public function testErrorAtmosphericPressureStLPressureGroupValid()
@@ -459,7 +459,7 @@ class ValidateTest extends TestCase
             'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, ['3', '/049']));
+        $this->assertFalse($this->validate->stLPressureGroupValid($stlPressureDecoder, '3P0P0P0P0', ['3', '/049']));
     }
 
     public function testSuccessMslPressureGroupValid()
@@ -467,7 +467,7 @@ class ValidateTest extends TestCase
         $mslPressureDecoder = Mockery::mock(MslPressureDecoder::class);
         $mslPressureDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'PPPP']);
 
-        $this->assertTrue($this->validate->mslPressureGroupValid($mslPressureDecoder, ['4', '0101']));
+        $this->assertTrue($this->validate->mslPressureGroupValid($mslPressureDecoder, '4PPPP', ['4', '0101']));
     }
 
     public function testErrorMslPressureGroupValid()
@@ -479,7 +479,7 @@ class ValidateTest extends TestCase
             'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['5', '/101']));
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, '4PPPP', ['5', '/101']));
     }
 
     public function testErrorIndicatorMslPressureGroupValid()
@@ -490,7 +490,7 @@ class ValidateTest extends TestCase
         $mslPressureDecoder->shouldReceive('getFigureAirPressure')->andReturn([
             'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
         ]);
-        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['5', '0101']));
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, '4PPPP', ['5', '0101']));
     }
 
     public function testErrorPressureMslPressureGroupValid()
@@ -502,7 +502,7 @@ class ValidateTest extends TestCase
             'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, ['4', '/101']));
+        $this->assertFalse($this->validate->mslPressureGroupValid($mslPressureDecoder, '4PPPP', ['4', '/101']));
     }
 
     public function testSuccessBaricTendencyGroupValid()
@@ -510,7 +510,7 @@ class ValidateTest extends TestCase
         $baricTendencyDecoder = Mockery::mock(BaricTendencyDecoder::class);
         $baricTendencyDecoder->shouldReceive('getGroupIndicators')->andReturn(['5', 'a', 'ppp']);
 
-        $this->assertTrue($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', '2', '035']));
+        $this->assertTrue($this->validate->baricTendencyGroupValid($baricTendencyDecoder, '5appp', ['5', '2', '035']));
     }
 
     public function testErrorBaricTendencyGroupValid()
@@ -526,7 +526,7 @@ class ValidateTest extends TestCase
             'ppp' => 'Pressure change over last three hours in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['4', '\\', '/35']));
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, '5appp', ['4', '\\', '/35']));
     }
 
     public function testErrorIndicatorBaricTendencyGroupValid()
@@ -541,7 +541,7 @@ class ValidateTest extends TestCase
             'ppp' => 'Pressure change over last three hours in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['4', '2', '035']));
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, '5appp', ['4', '2', '035']));
     }
 
     public function testErrorCharacteristicBaricTendencyGroupValid()
@@ -556,7 +556,7 @@ class ValidateTest extends TestCase
             'ppp' => 'Pressure change over last three hours in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', 'two', '035']));
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, '5appp', ['5', 'two', '035']));
     }
 
     public function testErrorPressureChangeBaricTendencyGroupValid()
@@ -571,7 +571,7 @@ class ValidateTest extends TestCase
             'ppp' => 'Pressure change over last three hours in millibars and tenths'
         ]);
 
-        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, ['5', '2', '/35']));
+        $this->assertFalse($this->validate->baricTendencyGroupValid($baricTendencyDecoder, '5appp', ['5', '2', '/35']));
     }
 
     public function testSuccessAmountRainfallGroupValid()
@@ -579,7 +579,7 @@ class ValidateTest extends TestCase
         $amountRainfallDecoder = Mockery::mock(AmountRainfallDecoder::class);
         $amountRainfallDecoder->shouldReceive('getGroupIndicators')->andReturn(['6', 'RRR', 'tr']);
 
-        $this->assertTrue($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '001', '2']));
+        $this->assertTrue($this->validate->amountRainfallGroupValid($amountRainfallDecoder, '6RRRtr', ['6', '001', '2']));
     }
 
     public function testErrorAmountRainfallGroupValid()
@@ -594,7 +594,7 @@ class ValidateTest extends TestCase
             'tr' => 'Duration period of RRR'
         ]);
 
-        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['5', '0011', '25']));
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, '6RRRtr', ['5', '0011', '25']));
     }
 
     public function testErrorIndicatorAmountRainfallGroupValid()
@@ -609,7 +609,7 @@ class ValidateTest extends TestCase
             'tr' => 'Duration period of RRR'
         ]);
 
-        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['5', '001', '2']));
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, '6RRRtr', ['5', '001', '2']));
     }
 
     public function testErrorValueAmountRainfallAmountRainfallGroupValid()
@@ -624,7 +624,7 @@ class ValidateTest extends TestCase
             'tr' => 'Duration period of RRR'
         ]);
 
-        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '/01', '2']));
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, '6RRRtr', ['6', '/01', '2']));
     }
 
     public function testErrorDurationPeriodAmountRainfallGroupValid()
@@ -639,7 +639,7 @@ class ValidateTest extends TestCase
             'tr' => 'Duration period of RRR'
         ]);
 
-        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, ['6', '001', '\\']));
+        $this->assertFalse($this->validate->amountRainfallGroupValid($amountRainfallDecoder, '6RRRtr', ['6', '001', '\\']));
     }
 
     public function testSuccessPresentWeatherGroupValid()
@@ -647,7 +647,7 @@ class ValidateTest extends TestCase
         $presentWeatherDecoder = Mockery::mock(PresentWeatherDecoder::class);
         $presentWeatherDecoder->shouldReceive('getGroupIndicators')->andReturn(['7', 'ww', 'W1W2']);
 
-        $this->assertTrue($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', '02', '82']));
+        $this->assertTrue($this->validate->presentWeatherGroupValid($presentWeatherDecoder, '7wwW1W2', ['7', '02', '82']));
     }
 
     public function testErrorPresentWeatherGroupValid()
@@ -658,7 +658,7 @@ class ValidateTest extends TestCase
         $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
         $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
 
-        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['8', '022', '822']));
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, '7wwW1W2', ['8', '022', '822']));
     }
 
     public function testErrorIndicatorPresentWeatherGroupValid()
@@ -669,7 +669,7 @@ class ValidateTest extends TestCase
         $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
         $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
 
-        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['8', '02', '82']));
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, '7wwW1W2', ['8', '02', '82']));
     }
 
     public function testErrorPresentWeatherPresentWeatherGroupValid()
@@ -680,7 +680,7 @@ class ValidateTest extends TestCase
         $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
         $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
 
-        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', 'ICE', '82']));
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, '7wwW1W2', ['7', 'ICE', '82']));
     }
 
     //TODO Analyse
@@ -692,7 +692,7 @@ class ValidateTest extends TestCase
         $presentWeatherDecoder->shouldReceive('getPresentWeatherIndicator')->andReturn(['ww' => 'Present weather']);
         $presentWeatherDecoder->shouldReceive('getPastWeatherIndicator')->andReturn(['W1W2' => 'Past weather']);
 
-        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, ['7', '02', '2']));
+        $this->assertFalse($this->validate->presentWeatherGroupValid($presentWeatherDecoder, '7wwW1W2', ['7', '02', '2']));
     }
 
     public function testSuccessCloudPresentGroupValid()
@@ -700,7 +700,7 @@ class ValidateTest extends TestCase
         $cloudPresentDecoder = Mockery::mock(CloudPresentDecoder::class);
         $cloudPresentDecoder->shouldReceive('getGroupIndicators')->andReturn(['8', 'Nh', 'Cl', 'Cm', 'Ch']);
 
-        $this->assertTrue($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['8', '2', '5', '5', '/']));
+        $this->assertTrue($this->validate->cloudPresentGroupValid($cloudPresentDecoder, '8NhClCmCH', ['8', '2', '5', '5', '/']));
     }
 
     public function testErrorCloudPresentGroupValid()
@@ -721,7 +721,7 @@ class ValidateTest extends TestCase
             'Ch' => 'Form of high cloud'
         ]);
 
-        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['88', '22', '55', '55', '//']));
+        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, '8NhClCmCH', ['88', '22', '55', '55', '//']));
     }
 
     public function testErrorIndicatorCloudPresentGroupValid()
@@ -742,7 +742,7 @@ class ValidateTest extends TestCase
             'Ch' => 'Form of high cloud'
         ]);
 
-        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, ['88', '2', '5', '5', '/']));
+        $this->assertFalse($this->validate->cloudPresentGroupValid($cloudPresentDecoder, '8NhClCmCH', ['88', '2', '5', '5', '/']));
     }
 
     public function testSuccessGroundWithoutSnowGroupValid()
@@ -750,7 +750,7 @@ class ValidateTest extends TestCase
         $groundWithoutSnowDecoder = Mockery::mock(GroundWithoutSnowDecoder::class);
         $groundWithoutSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['3', 'E', 'Sn', 'TgTg']);
 
-        $this->assertTrue($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '0', '08']));
+        $this->assertTrue($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['3', '4', '0', '08']));
     }
 
     public function testErrorGroundWithoutSnowGroupValid()
@@ -768,7 +768,7 @@ class ValidateTest extends TestCase
             'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
         ]);
 
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['33', '44', '00', '088']));
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['33', '44', '00', '088']));
     }
 
     public function testErrorIndicatorGroundWithoutSnowGroupValid()
@@ -786,7 +786,7 @@ class ValidateTest extends TestCase
             'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
         ]);
 
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['33', '4', '0', '08']));
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['33', '4', '0', '08']));
     }
 
     public function testErrorStateGroundGroundWithoutSnowGroupValid()
@@ -804,7 +804,7 @@ class ValidateTest extends TestCase
             'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
         ]);
 
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '44', '0', '08']));
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['3', '44', '0', '08']));
     }
 
     public function testErrorSignTemperatureGroundGroundWithoutSnowGroupValid()
@@ -822,7 +822,7 @@ class ValidateTest extends TestCase
             'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
         ]);
 
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '2', '08']));
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['3', '4', '2', '08']));
     }
 
     public function testErrorMinimumTemperatureGroundGroundWithoutSnowGroupValid()
@@ -840,7 +840,7 @@ class ValidateTest extends TestCase
             'TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'
         ]);
 
-        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, ['3', '4', '0', '088']));
+        $this->assertFalse($this->validate->groundWithoutSnowGroupValid($groundWithoutSnowDecoder, '3ESnTgTg', ['3', '4', '0', '088']));
     }
 
     public function testSuccessGroundWithSnowGroupValid()
@@ -848,7 +848,7 @@ class ValidateTest extends TestCase
         $groundWithSnowDecoder = Mockery::mock(GroundWithSnowDecoder::class);
         $groundWithSnowDecoder->shouldReceive('getGroupIndicators')->andReturn(['4', 'E', 'sss']);
 
-        $this->assertTrue($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '9', '998']));
+        $this->assertTrue($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, '4Esss', ['4', '9', '998']));
     }
 
     public function testErrorGroundWithSnowGroupValid()
@@ -861,7 +861,7 @@ class ValidateTest extends TestCase
         ]);
         $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
 
-        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['44', '99', '9981']));
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, '4Esss', ['44', '99', '9981']));
     }
 
     public function testErrorIndicatorGroundWithSnowGroupValid()
@@ -874,7 +874,7 @@ class ValidateTest extends TestCase
         ]);
         $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
 
-        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['44', '9', '998']));
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, '4Esss', ['44', '9', '998']));
     }
 
     public function testErrorStateGroundGroundWithSnowGroupValid()
@@ -887,7 +887,7 @@ class ValidateTest extends TestCase
         ]);
         $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
 
-        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '99', '998']));
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, '4Esss', ['4', '99', '998']));
     }
 
     public function testErrorDepthSnowGroundWithSnowGroupValid()
@@ -900,7 +900,7 @@ class ValidateTest extends TestCase
         ]);
         $groundWithSnowDecoder->shouldReceive('getDepthSnowIndicator')->andReturn(['sss' => 'Depth of snow']);
 
-        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, ['4', '9', '99']));
+        $this->assertFalse($this->validate->groundWithSnowGroupValid($groundWithSnowDecoder, '4Esss', ['4', '9', '99']));
     }
 
     public function testSuccessSunshineRadiationDataGroupValid()
@@ -908,7 +908,7 @@ class ValidateTest extends TestCase
         $sunshineRadiationDataDecoder = Mockery::mock(SunshineRadiationDataDecoder::class);
         $sunshineRadiationDataDecoder->shouldReceive('getGroupIndicators')->andReturn(['55', 'SSS']);
 
-        $this->assertTrue($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['55', '118']));
+        $this->assertTrue($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, '55SSS', ['55', '118']));
     }
 
     public function testErrorSunshineRadiationDataGroupValid()
@@ -920,7 +920,7 @@ class ValidateTest extends TestCase
             'SSS' => 'Duration of daily sunshine'
         ]);
 
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['5', '11']));
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, '55SSS', ['5', '11']));
     }
 
     public function testErrorIndicatorSunshineRadiationDataGroupValid()
@@ -932,7 +932,7 @@ class ValidateTest extends TestCase
             'SSS' => 'Duration of daily sunshine'
         ]);
 
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['5', '118']));
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, '55SSS', ['5', '118']));
     }
 
     public function testErrorDurationSunshineSunshineRadiationDataGroupValid()
@@ -944,7 +944,7 @@ class ValidateTest extends TestCase
             'SSS' => 'Duration of daily sunshine'
         ]);
 
-        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, ['55', '11']));
+        $this->assertFalse($this->validate->sunshineRadiationDataGroupValid($sunshineRadiationDataDecoder, '55SSS', ['55', '11']));
     }
 
     public function testSuccessAdditionalCloudInformationGroupValid()
@@ -952,7 +952,7 @@ class ValidateTest extends TestCase
         $additionalCloudInformation = Mockery::mock(AdditionalCloudInformationDecoder::class);
         $additionalCloudInformation->shouldReceive('getGroupIndicators')->andReturn(['8', 'Ns', 'C', 'hshs']);
 
-        $this->assertTrue($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '5', '18']));
+        $this->assertTrue($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['8', '8', '5', '18']));
     }
 
     public function testErrorAdditionalCloudInformationGroupValid()
@@ -970,7 +970,7 @@ class ValidateTest extends TestCase
             'hshs' => 'Height of base cloud layer'
         ]);
 
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['88', '89', '59', '189']));
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['88', '89', '59', '189']));
     }
 
     public function testErrorIndicatorAdditionalCloudInformationGroupValid()
@@ -988,7 +988,7 @@ class ValidateTest extends TestCase
             'hshs' => 'Height of base cloud layer'
         ]);
 
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['88', '8', '5', '18']));
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['88', '8', '5', '18']));
     }
 
     public function testErrorAmountIndividualCloudAdditionalCloudInformationGroupValid()
@@ -1006,7 +1006,7 @@ class ValidateTest extends TestCase
             'hshs' => 'Height of base cloud layer'
         ]);
 
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '89', '5', '18']));
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['8', '89', '5', '18']));
     }
 
     public function testErrorFormCloudAdditionalCloudInformationGroupValid()
@@ -1024,7 +1024,7 @@ class ValidateTest extends TestCase
             'hshs' => 'Height of base cloud layer'
         ]);
 
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '55', '18']));
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['8', '8', '55', '18']));
     }
 
     public function testErrorHeightBaseAdditionalCloudInformationGroupValid()
@@ -1042,7 +1042,7 @@ class ValidateTest extends TestCase
             'hshs' => 'Height of base cloud layer'
         ]);
 
-        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, ['8', '8', '5', '189']));
+        $this->assertFalse($this->validate->additionalCloudInformationGroupValid($additionalCloudInformation, '8NsChshs', ['8', '8', '5', '189']));
     }
 
     public function testSuccessEmpryGetErrorsWithGroups()
@@ -1054,16 +1054,36 @@ class ValidateTest extends TestCase
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
 
-        $this->assertEquals(['AACC' => 'The summary type group data does not match the specified format; Code group - AACC'], $this->validate->getErrorsWithGroups());
+        $expected = [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ];
+
+        $this->assertEquals($expected, $this->validate->getErrorsWithGroups());
     }
 
     public function testSuccessIsArrayGetErrorsWithGroups()
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
 
         $this->assertIsArray($this->validate->getErrorsWithGroups());
     }
@@ -1073,17 +1093,17 @@ class ValidateTest extends TestCase
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
         $property->setValue($this->validate, [
-            'AAXX/BBXX' => [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
                 'description' => 'Synoptic Code Identifier',
-                'code' => 'AACC',
+                'code_figure' => 'AACC',
                 'error' => 'The summary type group data does not match the specified format; Code group - AACC'
-            ]
+            ]]
         ]);
 
         $expected = [0 => [
             'indicator_group' => 'AAXX/BBXX',
             'description_indicator' => 'Synoptic Code Identifier',
-            'code' => 'AACC',
+            'code_figure' => 'AAXX/BBXX',
             'description_error' => 'The summary type group data does not match the specified format; Code group - AACC',
         ]];
 
@@ -1100,48 +1120,112 @@ class ValidateTest extends TestCase
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
         $property->setValue($this->validate, [
-            'AAXX/BBXX' => [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
                 'description' => 'Synoptic Code Identifier',
-                'code' => 'AACC',
+                'code_figure' => 'AACC',
                 'error' => 'The summary type group data does not match the specified format; Code group - AACC'
-            ]
+            ]]
         ]);
 
         $this->assertIsArray($this->validate->getErrors());
+    }
+
+    public function testSuccessGetShortListErrors()
+    {
+        $property = new \ReflectionProperty(Validate::class, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($this->validate, []);
+
+        $this->assertEquals([], $this->validate->getShortListErrors());
+    }
+
+    public function testErrorGetShortListErrors()
+    {
+        $property = new \ReflectionProperty(Validate::class, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code_figure' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
+
+        $expected = [0 => 'The summary type group data does not match the specified format; Code group - AACC'];
+
+        $this->assertEquals($expected, $this->validate->getShortListErrors());
+    }
+
+    public function testErrorIsArrayGetShortListErrors()
+    {
+        $property = new \ReflectionProperty(Validate::class, 'errors');
+        $property->setAccessible(true);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code_figure' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
+
+        $this->assertIsArray($this->validate->getShortListErrors());
     }
 
     public function testSuccessGetErrorByGroup()
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
 
-        $expected = 'The summary type group data does not match the specified format; Code group - AACC';
+        $expected = [
+            'group_figure' => 'AAXX/BBXX',
+            'description_indicator' => 'Synoptic Code Identifier',
+            'code_figure' => 'AACC',
+            'description_error' => 'The summary type group data does not match the specified format; Code group - AACC',
+        ];
 
-        $this->assertEquals($expected, $this->validate->getErrorByGroup('AACC'));
+        $this->assertEquals($expected, $this->validate->getErrorByGroup('AAXX/BBXX'));
     }
 
     public function testSuccessIsStringGetErrorByGroup()
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
 
-        $this->assertIsString($this->validate->getErrorByGroup('AACC'));
+        $this->assertIsArray($this->validate->getErrorByGroup('AAXX/BBXX'));
     }
 
     public function testSuccessTrueNotExistsError()
     {
-        $this->assertTrue($this->validate->notExistsError(['AAXX']));
+        $this->assertTrue($this->validate->notExistsError('AAXX'));
     }
 
     public function testSuccessFalseNotExistsError()
     {
         $property = new \ReflectionProperty(Validate::class, 'errors');
         $property->setAccessible(true);
-        $property->setValue($this->validate, ['AACC' => 'The summary type group data does not match the specified format; Code group - AACC']);
+        $property->setValue($this->validate, [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
+                'description' => 'Synoptic Code Identifier',
+                'code_figure' => 'AACC',
+                'error' => 'The summary type group data does not match the specified format; Code group - AACC'
+            ]]
+        ]);
 
-        $this->assertFalse($this->validate->notExistsError(['AACC']));
+        $this->assertFalse($this->validate->notExistsError('AAXX/BBXX'));
     }
 
     public function testSuccessSetError()
@@ -1150,7 +1234,7 @@ class ValidateTest extends TestCase
         $method = $reflector->getMethod('setError');
         $method->setAccessible(true);
         $method->invokeArgs($this->validate, [
-            'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
+            'AAXX/BBXX', 'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
             'The summary type group data does not match the specified format; Code group - AACC'
         ]);
 
@@ -1159,11 +1243,11 @@ class ValidateTest extends TestCase
         $value = $property->getValue($this->validate);
 
         $expected = [
-            'AAXX/BBXX' => [
+            'AAXX/BBXX' => ['AAXX/BBXX' => [
                 'description' => 'Synoptic Code Identifier',
                 'code' => 'AACC',
                 'error' => 'The summary type group data does not match the specified format; Code group - AACC'
-            ]
+            ]]
         ];
 
         $this->assertEquals($expected, $value);
@@ -1175,7 +1259,7 @@ class ValidateTest extends TestCase
         $method = $reflector->getMethod('setError');
         $method->setAccessible(true);
         $method->invokeArgs($this->validate, [
-            'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
+            'AAXX/BBXX', 'AAXX/BBXX', 'Synoptic Code Identifier', 'AACC',
             'The summary type group data does not match the specified format; Code group - AACC'
         ]);
 
@@ -1252,9 +1336,9 @@ class ValidateTest extends TestCase
         $indexDecoder = Mockery::mock(IndexDecoder::class);
         $indexDecoder->shouldReceive('getStationAreaIndicator')->andReturn(['II' => 'Area station']);
         $indexDecoder->shouldReceive('getStationIndexIndicator')->andReturn(['iii' => 'Station index']);
-        $indexDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['II', 'iii']);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
 
-        $this->assertTrue($this->validate->isValidGroup($indexDecoder, ['33', '837']));
+        $this->assertTrue($this->validate->isValidGroup($indexDecoder, 'IIiii', ['33', '837']));
     }
 
     public function testErrorIsValidGroup()
@@ -1262,8 +1346,8 @@ class ValidateTest extends TestCase
         $indexDecoder = Mockery::mock(IndexDecoder::class);
         $indexDecoder->shouldReceive('getStationAreaIndicator')->andReturn(['II' => 'Area station']);
         $indexDecoder->shouldReceive('getStationIndexIndicator')->andReturn(['iii' => 'Station index']);
-        $indexDecoder->shouldReceive('getGroupIndicators')->once()->andReturn(['II', 'iii']);
+        $indexDecoder->shouldReceive('getGroupIndicators')->andReturn(['II', 'iii']);
 
-        $this->assertFalse($this->validate->isValidGroup($indexDecoder, ['3', '837']));
+        $this->assertFalse($this->validate->isValidGroup($indexDecoder, 'IIiii', ['3', '837']));
     }
 }

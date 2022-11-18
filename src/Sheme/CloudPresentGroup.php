@@ -287,7 +287,7 @@ class CloudPresentGroup implements GroupInterface
      */
     public function isCloudPresentGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -400,5 +400,15 @@ class CloudPresentGroup implements GroupInterface
         } else {
             $this->setFormHighCloudValue($decoder->getFormHighCloud());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '8NhClCmCH';
     }
 }

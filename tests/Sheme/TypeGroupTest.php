@@ -274,4 +274,14 @@ class TypeGroupTest extends TestCase
 
         $this->typeGroup->setData('BBXX', $validator);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('AAXX/BBXX', $this->typeGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->typeGroup->getGroupIndicator());
+    }
 }

@@ -140,7 +140,7 @@ class DateDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->dateDecoder->isGroup($validate));
+        $this->assertTrue($this->dateDecoder->isGroup($validate, 'YYGGiw'));
     }
 
     public function testErrorIsGroup()
@@ -149,7 +149,7 @@ class DateDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($dataDecoder->isGroup($validate));
+        $this->assertFalse($dataDecoder->isGroup($validate, 'YYGGiw'));
     }
 
     public function testSuccessGetDayIndicator()

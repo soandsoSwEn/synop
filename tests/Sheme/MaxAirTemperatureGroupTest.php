@@ -55,4 +55,14 @@ class MaxAirTemperatureGroupTest extends TestCase
 
         $this->maxAirTemperatureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('1SnTxTxTx', $this->maxAirTemperatureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->maxAirTemperatureGroup->getGroupIndicator());
+    }
 }

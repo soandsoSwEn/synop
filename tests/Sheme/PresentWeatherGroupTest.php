@@ -44,4 +44,14 @@ class PresentWeatherGroupTest extends TestCase
 
         $this->assertEquals($expected, $value);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('7wwW1W2', $this->presentWeatherGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->presentWeatherGroup->getGroupIndicator());
+    }
 }

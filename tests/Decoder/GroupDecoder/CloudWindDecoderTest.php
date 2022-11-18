@@ -227,7 +227,7 @@ class CloudWindDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->cloudWindDecoder->isGroup($validate));
+        $this->assertTrue($this->cloudWindDecoder->isGroup($validate, 'Nddff'));
     }
 
     public function testErrorIsGroup()
@@ -236,7 +236,7 @@ class CloudWindDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($cloudWindDecoder->isGroup($validate));
+        $this->assertFalse($cloudWindDecoder->isGroup($validate, 'Nddff'));
     }
 
     public function testSuccessGetTotalCloudIndicator()

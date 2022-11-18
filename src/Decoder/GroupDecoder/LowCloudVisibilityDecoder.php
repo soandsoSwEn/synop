@@ -61,10 +61,11 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         $this->rawCloudVis = $rawCloudVis;
     }
 
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         return $validate->isValidGroup(
             $this,
+            $groupIndicator,
             [
                 $this->getCodeFigureIr(),
                 $this->getCodeFigureIx(),

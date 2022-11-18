@@ -132,18 +132,23 @@ class CloudPresentDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawCloudPresent, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup($this, [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigure(), $this->getAmountLowCloudSymbol(), $this->getFormLowCloudSymbol(),
                 $this->getFormMediumCloudSymbol(), $this->getFormHighCloudSymbol()
-            ]);
+                ]
+            );
             return true;
         }
 

@@ -36,19 +36,24 @@ class AirTemperatureDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws \Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishing_digit = substr($this->raw_air_temperature, 0, 1);
 
         if (strcasecmp($distinguishing_digit, $this->currentDigit) == 0) {
-            $validate->isValidGroup($this, [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigureDistNumber(),
                 $this->getCodeFigureSignTemperature(),
                 $this->getCodeFigureTemperature()
-            ]);
+                ]
+            );
 
             return true;
         }

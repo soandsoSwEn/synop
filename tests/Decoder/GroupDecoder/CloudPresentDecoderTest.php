@@ -222,7 +222,7 @@ class CloudPresentDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->cloudPresentDecoder->isGroup($validator));
+        $this->assertTrue($this->cloudPresentDecoder->isGroup($validator, '8NhClCmCH'));
     }
 
     public function testErrorIsGroup()
@@ -231,7 +231,7 @@ class CloudPresentDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($cloudPresentDecoder->isGroup($validator));
+        $this->assertFalse($cloudPresentDecoder->isGroup($validator, '8NhClCmCH'));
     }
 
     public function testSuccessGetGetIndicatorGroup()

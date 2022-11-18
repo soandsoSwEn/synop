@@ -10,7 +10,7 @@ use Soandso\Synop\Fabrication\ValidateInterface;
 
 /**
  * Class MslPressureGroup contains methods for working with the atmospheric pressure group
- * at mean sea level - 4P0P0P0P0
+ * at mean sea level - 4PPPP
  *
  * @package Synop\Sheme
  *
@@ -122,7 +122,7 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isMslPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -137,5 +137,15 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
         } else {
             $this->pressure = $decoder->getMslPressure();
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '4PPPP';
     }
 }

@@ -39,11 +39,15 @@ class CloudWindDecoder implements GroupDecoderInterface
         $this->rawCloudsWind = $rawCloudsWind;
     }
 
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
-        return $validate->isValidGroup($this, [
+        return $validate->isValidGroup(
+            $this,
+            $groupIndicator,
+            [
             $this->getCodeFigureN(), $this->getCodeFigureDd(), $this->getCodeFigureVv()
-        ]);
+            ]
+        );
     }
 
     /**

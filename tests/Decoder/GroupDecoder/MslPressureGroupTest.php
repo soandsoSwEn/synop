@@ -105,7 +105,7 @@ class MslPressureGroupTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->mlsPressure->isGroup($validate));
+        $this->assertTrue($this->mlsPressure->isGroup($validate, '4PPPP'));
     }
 
     public function testErrorIsGroup()
@@ -114,7 +114,7 @@ class MslPressureGroupTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($mlsPressure->isGroup($validate));
+        $this->assertFalse($mlsPressure->isGroup($validate, '4PPPP'));
     }
 
     public function testSuccessGetIndicatorGroup()

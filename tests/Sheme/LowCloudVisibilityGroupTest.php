@@ -544,4 +544,14 @@ class LowCloudVisibilityGroupTest extends TestCase
 
         $this->lowCloudVisibilityGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('irixhVV', $this->lowCloudVisibilityGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->lowCloudVisibilityGroup->getGroupIndicator());
+    }
 }

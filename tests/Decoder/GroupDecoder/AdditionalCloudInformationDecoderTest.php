@@ -314,7 +314,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->additionalCloudInformationDecoder->isGroup($validator));
+        $this->assertTrue($this->additionalCloudInformationDecoder->isGroup($validator, '8NsChshs'));
     }
 
     public function testErrorIsGroup()
@@ -323,7 +323,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($additionalCloudInformationDecoder->isGroup($validator));
+        $this->assertFalse($additionalCloudInformationDecoder->isGroup($validator, '8NsChshs'));
     }
 
     public function testSuccessGetIndicatorGroup()

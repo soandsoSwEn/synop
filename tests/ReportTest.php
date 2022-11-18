@@ -139,9 +139,9 @@ class ReportTest extends TestCase
         $report->parse();
 
         $expected = [0 => [
-            'indicator_group' => 'Sn',
+            'indicator_group' => '2SnTdTdTd',
             'description_indicator' => 'Sign of temperature',
-            'code' => '8',
+            'code_figure' => 'Sn',
             'description_error' => 'Wrong sign of dew point temperature group 2SnTdTdTd - 8',
             ]
         ];
@@ -168,6 +168,44 @@ class ReportTest extends TestCase
         $this->expectException(Exception::class);
 
         $this->report->getErrors();
+    }
+
+    public function testSuccessGetReportList()
+    {
+        $this->assertFalse($this->report->getReportList());
+    }
+
+    public function testErrorGetReportList()
+    {
+        $reportData = 'AAXX 08181 33835 11583 83102 10039 28007 30049 40101 52035 60012 70282 8255/ 333 10091 555 1/004=';
+
+        $report = new Report($reportData);
+        $report->parse();
+
+        $expected = [0 => 'Wrong sign of dew point temperature group 2SnTdTdTd - 8'];
+
+        $this->assertEquals($expected, $report->getReportList());
+    }
+
+    public function testErrorIsArrayGetReportList()
+    {
+        $reportData = 'AAXX 08181 33835 11583 83102 10039 28007 30049 40101 52035 60012 70282 8255/ 333 10091 555 1/004=';
+
+        $report = new Report($reportData);
+        $report->parse();
+
+        $this->assertIsArray($report->getReportList());
+    }
+
+    public function testExceptionGetReportList()
+    {
+        $reflectorProperty = new \ReflectionProperty(Report::class, 'validate');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->report, null);
+
+        $this->expectException(Exception::class);
+
+        $this->report->getReportList();
     }
 
     public function testSuccessGetReport()

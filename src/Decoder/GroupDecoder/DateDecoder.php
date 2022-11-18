@@ -28,9 +28,9 @@ class DateDecoder implements GroupDecoderInterface
         $this->rawDate = $rawDate;
     }
 
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
-        return $validate->isValidGroup($this, [$this->getDay(), $this->getHour(), $this->getIw()]);
+        return $validate->isValidGroup($this, $groupIndicator, [$this->getDay(), $this->getHour(), $this->getIw()]);
     }
 
     public function getDay(): string

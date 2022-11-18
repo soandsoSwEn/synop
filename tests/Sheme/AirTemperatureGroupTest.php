@@ -409,4 +409,14 @@ class AirTemperatureGroupTest extends TestCase
 
         $this->airTemperatureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('1SnTTT', $this->airTemperatureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->airTemperatureGroup->getGroupIndicator());
+    }
 }

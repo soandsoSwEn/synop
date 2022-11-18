@@ -90,6 +90,10 @@ class Validate extends ValidateBase implements ValidateInterface
      * Returns all meteorological weather report errors
      *
      * @return bool|array Weather report errors with groups
+     * array[]['indicator_group'] - Indicator of the entire weather report group
+     * array[]['description_indicator'] - Description of the group element
+     * array[]['code_figure'] - Code figure of the group element
+     * array[]['description_error'] - Description of the error
      */
     public function getErrors(): array
     {
@@ -100,79 +104,96 @@ class Validate extends ValidateBase implements ValidateInterface
         $errorsOutput = [];
         $i = 0;
         foreach ($this->errors as $key => $error) {
-            $errorsOutput[$i]['indicator_group'] = $key;
-            $errorsOutput[$i]['description_indicator'] = $error['description'];
-            $errorsOutput[$i]['code'] = $error['code'];
-            $errorsOutput[$i]['description_error'] = $error['error'];
+            foreach ($error as $codeFigure => $chunkError) {
+                $errorsOutput[$i]['indicator_group'] = $key;
+                $errorsOutput[$i]['description_indicator'] = $chunkError['description'];
+                $errorsOutput[$i]['code_figure'] = $codeFigure;
+                $errorsOutput[$i]['description_error'] = $chunkError['error'];
+            }
             $i++;
         }
 
         return $errorsOutput;
     }
 
-    public function getShortListErrors()
+    /**
+     * Returns a list of weather report errors
+     *
+     * @return bool|array
+     */
+    public function getShortListErrors(): array
     {
+        $errorsOutput = [];
         if (count($this->errors) == 0) {
-            return $this->errors;
+            return $errorsOutput;
         }
 
-        $errorsOutput = [];
-        foreach ($this->errors as $error) {
-            $errorsOutput[] = $error['error'];
+        foreach ($this->errors as $errorsOfGroup) {
+            foreach ($errorsOfGroup as $errorItem) {
+                $errorsOutput[] = $errorItem['error'];
+            }
         }
 
         return $errorsOutput;
     }
 
-    //TODO Analyse
     /**
-     * Returns the error of the meteorological group by individual component
+     * Returns the weather group error by individual group
      *
-     * @param string $group Chunk Weather group
-     * (Example, '33' - Area number of meteorological station of 33837 group of stations index)
+     * @param string $groupIndicator Group indicator weather report
+     * (Example, 'AAXX' - Code figure indicator of meteorological station index group)
      *
-     * @return false|mixed
+     * @return false|array
+     * array['group_figure'] - Code figure of the group element
+     * array['description_indicator'] - Description of the group element
+     * array['code_figure'] - Code figure of the group element
+     * array['description_error'] - Description of the error
      */
-    public function getErrorByGroup(string $group)
+    public function getErrorByGroup(string $groupIndicator): array
     {
-        if (!array_key_exists($group, $this->errors)) {
+        if (!array_key_exists($groupIndicator, $this->errors)) {
             return false;
         }
 
-        return $this->errors[$group];
+        $errorsOutput['group_figure'] = key($this->errors[$groupIndicator]);
+        $errorsOutput['description_indicator'] = current($this->errors[$groupIndicator])['description'];
+        $errorsOutput['code_figure'] = current($this->errors[$groupIndicator])['code'];
+        $errorsOutput['description_error'] = current($this->errors[$groupIndicator])['error'];
+
+        return $errorsOutput;
     }
 
     /**
      * Checks if the given weather group has errors
      *
-     * @param array $group Indicator of component of groups of weather forecasting
+     * @param string $group Indicator of component of groups of weather forecasting
      * @return bool
      */
-    public function notExistsError(array $group): bool
+    public function notExistsError(string $group): bool
     {
-        foreach ($group as $chunkGroup) {
-            if (array_key_exists($chunkGroup, $this->errors) && !empty($this->errors[$chunkGroup])) {
-                return false;
-            }
-        }
-
-        return true;
+        return !array_key_exists($group, $this->errors);
     }
 
     /**
      * Sets error with her group
      *
+     * @param string $groupIndicator Group figure indicator
      * @param string $group Chunk weather group
      * @param string $description Description of chunk weather group
      * @param string $code Code figure of chunk weather group
      * @param string $error An error in the meteorological group
      * @return void
      */
-    protected function setError(string $group, string $description, string $code, string $error): void
-    {
-        $this->errors[$group]['description'] = $description;
-        $this->errors[$group]['code'] = $code;
-        $this->errors[$group]['error'] = $error;
+    protected function setError(
+        string $groupIndicator,
+        string $group,
+        string $description,
+        string $code,
+        string $error
+    ): void {
+        $this->errors[$groupIndicator][$group]['description'] = $description;
+        $this->errors[$groupIndicator][$group]['code'] = $code;
+        $this->errors[$groupIndicator][$group]['error'] = $error;
     }
 
     /**
@@ -208,7 +229,7 @@ class Validate extends ValidateBase implements ValidateInterface
      * @return mixed
      * @throws Exception
      */
-    public function isValidGroup(GroupDecoderInterface $groupDecoderItem, array $groupData)
+    public function isValidGroup(GroupDecoderInterface $groupDecoderItem, string $groupIndicator, array $groupData)
     {
         if (!array_key_exists(get_class($groupDecoderItem), $this->groups)) {
             if (!$this->isClassFromMockery($groupDecoderItem)) {
@@ -224,7 +245,7 @@ class Validate extends ValidateBase implements ValidateInterface
             $method = $this->groups[get_class($groupDecoderItem)]['check'];
         }
 
-        return $this->$method($groupDecoderItem, $groupData);
+        return $this->$method($groupDecoderItem, $groupIndicator, $groupData);
     }
 
     /**
@@ -289,10 +310,11 @@ class Validate extends ValidateBase implements ValidateInterface
      * Returns the result of checking the validity of group AAXX/BBXX
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function typeValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
+    public function typeValid(GroupDecoderInterface $groupDecoderItem, string $groupIndicator, array $groupData): bool
     {
         $patterns = ['/^AAXX$/', '/^BBXX$/'];
         foreach ($patterns as $pattern) {
@@ -303,6 +325,7 @@ class Validate extends ValidateBase implements ValidateInterface
         }
 
         $this->setError(
+            $groupIndicator,
             key($groupDecoderItem->getTypeReportIndicator()),
             current($groupDecoderItem->getTypeReportIndicator()),
             $groupData[0],
@@ -316,13 +339,15 @@ class Validate extends ValidateBase implements ValidateInterface
      * Returns the result of checking the validity of group YYGGiw
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function dateValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
+    public function dateValid(GroupDecoderInterface $groupDecoderItem, string $groupIndicator, array $groupData): bool
     {
         if (intval($groupData[0]) <= 0 || intval($groupData[0]) > 31) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDayIndicator()),
                 current($groupDecoderItem->getDayIndicator()),
                 $groupData[0],
@@ -333,6 +358,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patterns = '/^\d{2}$/';
         if (!preg_match($patterns, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getHourIndicator()),
                 current($groupDecoderItem->getHourIndicator()),
                 $groupData[1],
@@ -342,6 +368,7 @@ class Validate extends ValidateBase implements ValidateInterface
 
         if (is_null($groupData[2]) || !is_array($groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getSpeedUnitsIndicator()),
                 current($groupDecoderItem->getSpeedUnitsIndicator()),
                 json_encode($groupData[2]),
@@ -349,23 +376,25 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        $groupData[2] = json_encode($groupData[2]);
+        //$groupData[2] = json_encode($groupData[2]);
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group IIiii
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function indexValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
+    public function indexValid(GroupDecoderInterface $groupDecoderItem, string $groupIndicator, array $groupData): bool
     {
         $patternArea = '/^\d{2}$/';
         if (!preg_match($patternArea, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getStationAreaIndicator()),
                 current($groupDecoderItem->getStationAreaIndicator()),
                 $groupData[0],
@@ -376,6 +405,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternNumber = '/^\d{3}$/';
         if (!preg_match($patternNumber, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getStationIndexIndicator()),
                 current($groupDecoderItem->getStationIndexIndicator()),
                 $groupData[1],
@@ -383,21 +413,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group irixhVV
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function lowCloudVisibilityValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function lowCloudVisibilityValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIr = '/^[1-4]$/';
         if (!preg_match($patternIr, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetPrecipitationDataIndicator()),
                 current($groupDecoderItem->getGetPrecipitationDataIndicator()),
                 $groupData[0],
@@ -408,6 +443,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternIx = '/^[1-6]$/';
         if (!preg_match($patternIx, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetWeatherGroupIndicator()),
                 current($groupDecoderItem->getGetWeatherGroupIndicator()),
                 $groupData[1],
@@ -419,6 +455,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternH = '/^\d$|^\/$/';
         if (!preg_match($patternH, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetHeightCloudIndicator()),
                 current($groupDecoderItem->getGetHeightCloudIndicator()),
                 $groupData[2],
@@ -430,6 +467,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternVV = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternVV, $groupData[3])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetVisibilityIndicator()),
                 current($groupDecoderItem->getGetVisibilityIndicator()),
                 $groupData[3],
@@ -437,21 +475,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group Nddff
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function cloudWindGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function cloudWindGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternN = '/^\d$|^\/$/';
         if (!preg_match($patternN, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getTotalCloudIndicator()),
                 current($groupDecoderItem->getTotalCloudIndicator()),
                 $groupData[0],
@@ -462,6 +505,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternDd = '/^\d{2}$|^\/{2}$/';
         if (!preg_match($patternDd, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getWindDirectionIndicator()),
                 current($groupDecoderItem->getWindDirectionIndicator()),
                 $groupData[1],
@@ -471,6 +515,7 @@ class Validate extends ValidateBase implements ValidateInterface
 
         if (intval($groupData[1]) < 0 || intval($groupData[1]) > 36) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getWindDirectionIndicator()),
                 current($groupDecoderItem->getWindDirectionIndicator()),
                 $groupData[1],
@@ -481,6 +526,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternVv = '/^\d{2}$|^\/{2}$/';
         if (!preg_match($patternVv, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getWindSpeedIndicator()),
                 current($groupDecoderItem->getWindSpeedIndicator()),
                 $groupData[2],
@@ -488,21 +534,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 1SnTTT
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function airTemperatureGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function airTemperatureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternDn = '/^1$/';
         if (!preg_match($patternDn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -513,6 +564,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSt = '/^[0-1]$|^\/$/';
         if (!preg_match($patternSt, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getSignTemperatureIndicator()),
                 current($groupDecoderItem->getSignTemperatureIndicator()),
                 $groupData[1],
@@ -523,6 +575,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternTv = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternTv, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDryBulbTemperatureIndicator()),
                 current($groupDecoderItem->getDryBulbTemperatureIndicator()),
                 $groupData[2],
@@ -530,21 +583,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 2SnTdTdTd
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function dewPointTemperatureGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function dewPointTemperatureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternDdw = '/^2$/';
         if (!preg_match($patternDdw, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -555,6 +613,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSdw = '/^[0-1]$|^\/$/';
         if (!preg_match($patternSdw, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getSignTemperatureIndicator()),
                 current($groupDecoderItem->getSignTemperatureIndicator()),
                 $groupData[1],
@@ -565,6 +624,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternTv = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternTv, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDryBulbTemperatureIndicator()),
                 current($groupDecoderItem->getDryBulbTemperatureIndicator()),
                 $groupData[2],
@@ -572,21 +632,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 3P0P0P0P0
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function stLPressureGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function stLPressureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternSp = '/^3$/';
         if (!preg_match($patternSp, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -597,6 +662,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSp = '/^\d{4}$|^\/\/\/\/$/';
         if (!preg_match($patternSp, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getFigureAirPressure()),
                 current($groupDecoderItem->getFigureAirPressure()),
                 $groupData[1],
@@ -604,21 +670,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 4PPPP
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function mslPressureGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function mslPressureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternSp = '/^4$/';
         if (!preg_match($patternSp, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -629,6 +700,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSp = '/^\d{4}$|^\/\/\/\/$/';
         if (!preg_match($patternSp, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getFigureAirPressure()),
                 current($groupDecoderItem->getFigureAirPressure()),
                 $groupData[1],
@@ -636,21 +708,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 5appp
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function baricTendencyGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function baricTendencyGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^5$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -661,6 +738,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternCh = '/^[0-8]$|^\/$/';
         if (!preg_match($patternCh, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getCharacteristicChangeIndicator()),
                 current($groupDecoderItem->getCharacteristicChangeIndicator()),
                 $groupData[1],
@@ -671,6 +749,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternChan = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternChan, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getPressureChangeIndicator()),
                 current($groupDecoderItem->getPressureChangeIndicator()),
                 $groupData[2],
@@ -678,21 +757,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 6RRRtr
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function amountRainfallGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function amountRainfallGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^6$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -703,6 +787,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternRa = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternRa, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getAmountRainfallIndicator()),
                 current($groupDecoderItem->getAmountRainfallIndicator()),
                 $groupData[1],
@@ -713,6 +798,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternDp = '/^[1-2]$|^\/\/$/';
         if (!preg_match($patternDp, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDurationPeriodIndicator()),
                 current($groupDecoderItem->getDurationPeriodIndicator()),
                 $groupData[2],
@@ -720,21 +806,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 7wwW1W2
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function presentWeatherGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function presentWeatherGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^7$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -745,6 +836,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternPrw = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternPrw, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getPresentWeatherIndicator()),
                 current($groupDecoderItem->getPresentWeatherIndicator()),
                 $groupData[1],
@@ -755,6 +847,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternPsw = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternPsw, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getPastWeatherIndicator()),
                 current($groupDecoderItem->getPastWeatherIndicator()),
                 $groupData[2],
@@ -762,21 +855,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 8NhClCmCh
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function cloudPresentGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function cloudPresentGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^8$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -787,6 +885,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternA = '/^\d$/';
         if (!preg_match($patternA, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getAmountCloudIndicator()),
                 current($groupDecoderItem->getAmountCloudIndicator()),
                 $groupData[1],
@@ -797,6 +896,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternFlc = '/^\d$|^\/$/';
         if (!preg_match($patternFlc, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getFormLowCloudIndicator()),
                 current($groupDecoderItem->getFormLowCloudIndicator()),
                 $groupData[2],
@@ -807,6 +907,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternFmc = '/^\d$|^\/$/';
         if (!preg_match($patternFmc, $groupData[3])) {
             $this->setError(
+                get_class($groupDecoderItem),
                 key($groupDecoderItem->getFormMediumCloudIndicator()),
                 current($groupDecoderItem->getFormMediumCloudIndicator()),
                 $groupData[3],
@@ -817,6 +918,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternFhc = '/^\d$|^\/$/';
         if (!preg_match($patternFhc, $groupData[4])) {
             $this->setError(
+                get_class($groupDecoderItem),
                 key($groupDecoderItem->getFormHighCloudIndicator()),
                 current($groupDecoderItem->getFormHighCloudIndicator()),
                 $groupData[4],
@@ -824,21 +926,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 3ESnTgTg
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function groundWithoutSnowGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function groundWithoutSnowGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^3$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -849,6 +956,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSg = '/^\d$|^\/$/';
         if (!preg_match($patternSg, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getStateGroundIndicator()),
                 current($groupDecoderItem->getStateGroundIndicator()),
                 $groupData[1],
@@ -859,6 +967,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSn = '/^[0-1]$|^\/$/';
         if (!preg_match($patternSn, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getSignTemperatureIndicator()),
                 current($groupDecoderItem->getSignTemperatureIndicator()),
                 $groupData[2],
@@ -869,6 +978,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternMt = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternMt, $groupData[3])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getMinimumTemperature()),
                 current($groupDecoderItem->getMinimumTemperature()),
                 $groupData[3],
@@ -876,21 +986,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 4Esss
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function groundWithSnowGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function groundWithSnowGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^4$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -901,6 +1016,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternSg = '/^\d$|^\/$/';
         if (!preg_match($patternSg, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getStateGroundIndicator()),
                 current($groupDecoderItem->getStateGroundIndicator()),
                 $groupData[1],
@@ -911,6 +1027,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternDs = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternDs, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDepthSnowIndicator()),
                 current($groupDecoderItem->getDepthSnowIndicator()),
                 $groupData[2],
@@ -918,21 +1035,26 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
      * Returns the result of checking the validity of group 55SSS
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function sunshineRadiationDataGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData): bool
-    {
+    public function sunshineRadiationDataGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^55$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getGetIndicatorGroup()),
                 current($groupDecoderItem->getGetIndicatorGroup()),
                 $groupData[0],
@@ -943,6 +1065,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternIn = '/^\d{3}$|^\/\/\/$/';
         if (!preg_match($patternIn, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getDurationTinderIndicator()),
                 current($groupDecoderItem->getDurationTinderIndicator()),
                 $groupData[1],
@@ -950,7 +1073,7 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 
     /**
@@ -958,14 +1081,19 @@ class Validate extends ValidateBase implements ValidateInterface
      * transfer data of section three - 333 8NsChshs
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
      * @param array $groupData Components of a weather group
      * @return bool
      */
-    public function additionalCloudInformationGroupValid(GroupDecoderInterface $groupDecoderItem, array $groupData)
-    {
+    public function additionalCloudInformationGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
         $patternIn = '/^8$/';
         if (!preg_match($patternIn, $groupData[0])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getIndicatorGroup()),
                 current($groupDecoderItem->getIndicatorGroup()),
                 $groupData[0],
@@ -976,6 +1104,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternA = '/^\d$|^\/$/';
         if (!preg_match($patternA, $groupData[1])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getAmountCloudLayerIndicator()),
                 current($groupDecoderItem->getAmountCloudLayerIndicator()),
                 $groupData[1],
@@ -987,6 +1116,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternF = '/^\d$|^\/$/';
         if (!preg_match($patternF, $groupData[2])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getFormCloudIndicator()),
                 current($groupDecoderItem->getFormCloudIndicator()),
                 $groupData[2],
@@ -998,6 +1128,7 @@ class Validate extends ValidateBase implements ValidateInterface
         $patternF = '/^\d{2}$|^\/\/$/';
         if (!preg_match($patternF, $groupData[3])) {
             $this->setError(
+                $groupIndicator,
                 key($groupDecoderItem->getHeightCloudIndicator()),
                 current($groupDecoderItem->getHeightCloudIndicator()),
                 $groupData[3],
@@ -1006,6 +1137,6 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        return $this->notExistsError($groupDecoderItem->getGroupIndicators());
+        return $this->notExistsError($groupIndicator);
     }
 }

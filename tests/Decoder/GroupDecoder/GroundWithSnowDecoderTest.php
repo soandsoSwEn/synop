@@ -196,7 +196,7 @@ class GroundWithSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->groundWithSnow->isGroup($validate));
+        $this->assertTrue($this->groundWithSnow->isGroup($validate, '4Esss'));
     }
 
     public function testErrorIsGroup()
@@ -205,7 +205,7 @@ class GroundWithSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($groundWithSnow->isGroup($validate));
+        $this->assertFalse($groundWithSnow->isGroup($validate, '4Esss'));
     }
 
     public function testSuccessGetGetIndicatorGroup()

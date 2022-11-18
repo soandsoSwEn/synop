@@ -528,4 +528,14 @@ class GroundWithSnowGroupTest extends TestCase
 
         $this->groundWithSnowGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('4Esss', $this->groundWithSnowGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->groundWithSnowGroup->getGroupIndicator());
+    }
 }

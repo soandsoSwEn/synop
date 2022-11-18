@@ -147,7 +147,7 @@ class BaricTendencyDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->baricTendencyDecoder->isGroup($validator));
+        $this->assertTrue($this->baricTendencyDecoder->isGroup($validator, '5appp'));
     }
 
     public function testErrorIsGroup()
@@ -156,7 +156,7 @@ class BaricTendencyDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertTrue($baricTendencyDecoder->isGroup($validator));
+        $this->assertTrue($baricTendencyDecoder->isGroup($validator, '5appp'));
     }
 
     public function testSuccessGetGetIndicatorGroup()

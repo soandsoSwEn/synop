@@ -106,7 +106,7 @@ class AirTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->airTemperatureDecoder->isGroup($validate));
+        $this->assertTrue($this->airTemperatureDecoder->isGroup($validate, '1SnTTT'));
     }
 
     public function testErrorIsGroup()
@@ -115,7 +115,7 @@ class AirTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($airTemperatureDecoder->isGroup($validate));
+        $this->assertFalse($airTemperatureDecoder->isGroup($validate, '1SnTTT'));
     }
 
     public function testSuccessGetIndicatorGroup()

@@ -269,7 +269,7 @@ class AmountRainfallDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->amountRainfallDecoder->isGroup($validate));
+        $this->assertTrue($this->amountRainfallDecoder->isGroup($validate, '6RRRtr'));
     }
 
     public function testErrorIsGroup()
@@ -278,7 +278,7 @@ class AmountRainfallDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($amountRainfallDecoder->isGroup($validate));
+        $this->assertFalse($amountRainfallDecoder->isGroup($validate, '6RRRtr'));
     }
 
     public function testSuccessGetIndicatorGroup()

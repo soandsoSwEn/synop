@@ -385,10 +385,10 @@ class LowCloudVisibilityDecoderTest extends TestCase
     {
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')
-            ->withArgs(['Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder', ['1', '1', '5', '83']])
+            ->withArgs(['Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder', 'irixhVV', ['1', '1', '5', '83']])
             ->once()->andReturn(true);
 
-        $this->assertTrue($this->lowCloudVisibility->isGroup($validate));
+        $this->assertTrue($this->lowCloudVisibility->isGroup($validate, 'irixhVV'));
     }
 
     public function testErrorIsGroup()
@@ -397,7 +397,7 @@ class LowCloudVisibilityDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($lowCloudVisibility->isGroup($validate));
+        $this->assertFalse($lowCloudVisibility->isGroup($validate, 'irixhVV'));
     }
 
     public function testSuccessGetGetPrecipitationDataIndicator()

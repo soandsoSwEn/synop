@@ -53,4 +53,14 @@ class RegionalExchangeAmountRainfallGroupTest extends TestCase
 
         $this->regionalExchangeAmountRainfallGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('6RRRtr', $this->regionalExchangeAmountRainfallGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->regionalExchangeAmountRainfallGroup->getGroupIndicator());
+    }
 }

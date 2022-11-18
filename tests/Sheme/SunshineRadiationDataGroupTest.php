@@ -353,4 +353,14 @@ class SunshineRadiationDataGroupTest extends TestCase
 
         $this->sunshineRadiationData->setData('', $validator);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('55SSS', $this->sunshineRadiationData->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->sunshineRadiationData->getGroupIndicator());
+    }
 }

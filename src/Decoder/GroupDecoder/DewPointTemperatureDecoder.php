@@ -31,19 +31,24 @@ class DewPointTemperatureDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawDpTemperature, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup($this, [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigureDistNumber(),
                 $this->getCodeFigureSignDwPTemperature(),
                 $this->getCodeFigureDwPTemperature()
-            ]);
+                ]
+            );
 
             return true;
         }

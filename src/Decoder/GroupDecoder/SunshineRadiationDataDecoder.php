@@ -34,12 +34,17 @@ class SunshineRadiationDataDecoder implements GroupDecoderInterface
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawSunshineRadiation, 0, 2);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup($this, [$this->getCodeFigureIndicator(), $this->getCodeSunshineData()]);
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [$this->getCodeFigureIndicator(), $this->getCodeSunshineData()]
+            );
+
             return true;
         }
 

@@ -107,7 +107,7 @@ class DewPointTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->dewPointTemperatureDecoder->isGroup($validate));
+        $this->assertTrue($this->dewPointTemperatureDecoder->isGroup($validate, '2SnTdTdTd'));
     }
 
     public function testErrorIsGroup()
@@ -116,7 +116,7 @@ class DewPointTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($dewPointTemperatureDecoder->isGroup($validate));
+        $this->assertFalse($dewPointTemperatureDecoder->isGroup($validate, '2SnTdTdTd'));
     }
 
     public function testSuccessGetGetIndicatorGroup()

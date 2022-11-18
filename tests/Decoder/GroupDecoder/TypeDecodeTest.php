@@ -75,7 +75,7 @@ class TypeDecodeTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($typeDecoderObject->isGroup($validate));
+        $this->assertTrue($typeDecoderObject->isGroup($validate, 'AAXX/BBXX'));
     }
 
     public function testErrorIsGroup()
@@ -84,7 +84,7 @@ class TypeDecodeTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(false);
 
-        $this->assertFalse($typeDecoderObject->isGroup($validate));
+        $this->assertFalse($typeDecoderObject->isGroup($validate, 'AAXX/BBXX'));
     }
 
     public function testSuccessGetTypeReportIndicator()

@@ -41,4 +41,14 @@ class RegionalExchangeAmountRainfallGroup extends AmountRainfallGroup
             throw new Exception('RegionalExchangeAmountRainfallGroup group cannot be empty!');
         }
     }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '6RRRtr';
+    }
 }

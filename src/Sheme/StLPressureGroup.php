@@ -122,7 +122,7 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isStLPressureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -137,5 +137,15 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
         } else {
             $this->pressure = $decoder->getStLPressure();
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '3P0P0P0P0';
     }
 }

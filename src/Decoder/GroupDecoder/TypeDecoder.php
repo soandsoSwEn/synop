@@ -33,12 +33,13 @@ class TypeDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate Object for weather data validation
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
-        return $validate->isValidGroup($this, [$this->getTypeValue()]);
+        return $validate->isValidGroup($this, $groupIndicator, [$this->getTypeValue()]);
     }
 
     /**

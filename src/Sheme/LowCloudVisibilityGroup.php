@@ -189,7 +189,7 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
      */
     public function setLcvGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): void
     {
-        if ($decoder->isGroup($validate)) {
+        if ($decoder->isGroup($validate, $this->getGroupIndicator())) {
             $this->setIncPrecip($decoder);
             $this->setIncWeather($decoder);
             $this->setHlowClouds($decoder);
@@ -261,5 +261,15 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
         } else {
             $this->setVisibilityValue($decoder->getVV());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return 'irixhVV';
     }
 }
