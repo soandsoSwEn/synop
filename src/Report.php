@@ -154,7 +154,7 @@ class Report implements ReportInterface
      * @return array|bool
      * @throws Exception
      */
-    public function getReportList()
+    public function getErrorList()
     {
         if (!$this->report) {
             throw new Exception('Meteorological weather report not defined!');
