@@ -311,6 +311,31 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020height\u0020of\u0020base\u0020of\u0020cloud\u0020for\u0020cases\u0020of\u0020altitude\u0020between\u002010500\u0020and\u0020over\u002021000\u0020m",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_get8189Height"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020additional\u0020cloud\u0020information\u0020transfer\u0020data\u0020\u002D\u00208NsChshs",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetAmountCloudLayerIndicator\u0028\u0029",
+            "name": "getAmountCloudLayerIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020amount\u0020of\u0020individual\u0020cloud\u0020layer\u0020\u002D\u00208NsChshs",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_getAmountCloudLayerIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetFormCloudIndicator\u0028\u0029",
+            "name": "getFormCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Form\u0020of\u0020cloud\u0020\u002D\u00208NsChshs",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_getFormCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetHeightCloudIndicator\u0028\u0029",
+            "name": "getHeightCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020height\u0020of\u0020base\u0020cloud\u0020layer\u0020\u002D\u00208NsChshs",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_getHeightCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AdditionalCloudInformationDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AdditionalCloudInformationDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020indicator\u0020of\u0020Additional\u0020cloud\u0020group",
@@ -380,6 +405,26 @@ Search.appendIndex(
             "name": "getTemperatureValue",
             "summary": "Returns\u0020the\u0020temperature\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AirTemperatureDecoder.html#method_getTemperatureValue"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AirTemperatureDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020group\u0020indicator\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AirTemperatureDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AirTemperatureDecoder\u003A\u003AgetSignTemperatureIndicator\u0028\u0029",
+            "name": "getSignTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020sign\u0020of\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AirTemperatureDecoder.html#method_getSignTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AirTemperatureDecoder\u003A\u003AgetDryBulbTemperatureIndicator\u0028\u0029",
+            "name": "getDryBulbTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Dry\u002Dbulb\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AirTemperatureDecoder.html#method_getDryBulbTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AirTemperatureDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AirTemperatureDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AirTemperatureDecoder\u003A\u003AgetCodeFigureDistNumber\u0028\u0029",
             "name": "getCodeFigureDistNumber",
@@ -456,6 +501,26 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020integer\u0020value\u0020of\u0020Amount\u0020of\u0020rainfall",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_integerValues"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AmountRainfallDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020amount\u0020rainfall\u0020group\u0020\u002D\u00206RRRtr",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AmountRainfallDecoder\u003A\u003AgetAmountRainfallIndicator\u0028\u0029",
+            "name": "getAmountRainfallIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020amount\u0020rainfall\u0020group\u0020\u002D\u00206RRRtr",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getAmountRainfallIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AmountRainfallDecoder\u003A\u003AgetDurationPeriodIndicator\u0028\u0029",
+            "name": "getDurationPeriodIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020duration\u0020period\u0020for\u0020amount\u0020rainfall\u0020group\u0020\u002D\u00206RRRtr",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getDurationPeriodIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AmountRainfallDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\AmountRainfallDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020Amount\u0020of\u0020rainfall\u0020group",
@@ -510,6 +575,26 @@ Search.appendIndex(
             "name": "getBaricTendency",
             "summary": "Returns\u0020the\u0020Pressure\u0020change\u0020over\u0020last\u0020three\u0020hours\u0020in\u0020millibars\u0020and\u0020tenths",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-BaricTendencyDecoder.html#method_getBaricTendency"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\BaricTendencyDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020pressure\u0020change\u0020over\u0020last\u0020three\u0020hours\u0020\u002D\u00205appp",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-BaricTendencyDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\BaricTendencyDecoder\u003A\u003AgetCharacteristicChangeIndicator\u0028\u0029",
+            "name": "getCharacteristicChangeIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020characteristic\u0020pressure\u0020change\u0020\u002D\u00205appp",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-BaricTendencyDecoder.html#method_getCharacteristicChangeIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\BaricTendencyDecoder\u003A\u003AgetPressureChangeIndicator\u0028\u0029",
+            "name": "getPressureChangeIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020pressure\u0020change\u0020over\u0020last\u0020three\u0020hours\u0020\u002D\u00205appp",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-BaricTendencyDecoder.html#method_getPressureChangeIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\BaricTendencyDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-BaricTendencyDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\BaricTendencyDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
@@ -591,6 +676,36 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020form\u0020high\u0020cloud\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getFormHighCloud"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020cloud\u0020present\u0020group\u0020\u002D\u00208NhClCmCH",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetAmountCloudIndicator\u0028\u0029",
+            "name": "getAmountCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020amount\u0020cloud\u0020present\u0020\u002D\u00208NhClCmCH",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getAmountCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetFormLowCloudIndicator\u0028\u0029",
+            "name": "getFormLowCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020form\u0020of\u0020low\u0020cloud\u0020\u002D\u00208NhClCmCH",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getFormLowCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetFormMediumCloudIndicator\u0028\u0029",
+            "name": "getFormMediumCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020form\u0020of\u0020medium\u0020cloud\u0020\u002D\u00208NhClCmCH",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getFormMediumCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetFormHighCloudIndicator\u0028\u0029",
+            "name": "getFormHighCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020form\u0020of\u0020high\u0020cloud\u0020\u002D\u00208NhClCmCH",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getFormHighCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudPresentDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudPresentDecoder\u003A\u003AgetCodeFigure\u0028\u0029",
             "name": "getCodeFigure",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020cloud\u0020present\u0020group",
@@ -655,6 +770,26 @@ Search.appendIndex(
             "name": "getVv",
             "summary": "Returns\u0020the\u0020value\u0020of\u0020wind\u0020speed",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudWindDecoder.html#method_getVv"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudWindDecoder\u003A\u003AgetTotalCloudIndicator\u0028\u0029",
+            "name": "getTotalCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020total\u0020amount\u0020of\u0020cloud\u0020for\u0020total\u0020number\u0020of\u0020clouds\u0020and\u0020wind\u0020\u002D\u0020\u0027Nddff\u0027",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudWindDecoder.html#method_getTotalCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudWindDecoder\u003A\u003AgetWindDirectionIndicator\u0028\u0029",
+            "name": "getWindDirectionIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020wind\u0020direction\u0020for\u0020total\u0020number\u0020of\u0020clouds\u0020and\u0020wind\u0020\u002D\u0020\u0027Nddff\u0027",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudWindDecoder.html#method_getWindDirectionIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudWindDecoder\u003A\u003AgetWindSpeedIndicator\u0028\u0029",
+            "name": "getWindSpeedIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020wind\u0020speed\u0020for\u0020total\u0020number\u0020of\u0020clouds\u0020and\u0020wind\u0020\u002D\u0020\u0027Nddff\u0027",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudWindDecoder.html#method_getWindSpeedIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudWindDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-CloudWindDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\CloudWindDecoder\u003A\u003AgetNData\u0028\u0029",
             "name": "getNData",
@@ -726,6 +861,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DateDecoder.html#method_getIwData"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DateDecoder\u003A\u003AgetDayIndicator\u0028\u0029",
+            "name": "getDayIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020day\u0020of\u0020the\u0020month\u0020of\u0020issuance\u0020of\u0020the\u0020meteorological\u0020weather\u0020report\u0020\u002D\u0020YYGGiw",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DateDecoder.html#method_getDayIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DateDecoder\u003A\u003AgetHourIndicator\u0028\u0029",
+            "name": "getHourIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020hour\u0020of\u0020issuance\u0020of\u0020the\u0020meteorological\u0020weather\u0020report\u0020\u002D\u0020YYGGiw",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DateDecoder.html#method_getHourIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DateDecoder\u003A\u003AgetSpeedUnitsIndicator\u0028\u0029",
+            "name": "getSpeedUnitsIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020index\u0020of\u0020wind\u0020speed\u0020units\u0020and\u0020how\u0020it\u0020is\u0020determined\u0020\u002D\u0020YYGGiw",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DateDecoder.html#method_getSpeedUnitsIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DateDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DateDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DateDecoder\u003A\u003A\u0024rawDate",
             "name": "rawDate",
             "summary": "",
@@ -760,6 +915,26 @@ Search.appendIndex(
             "name": "getDewPointTemperature",
             "summary": "Returns\u0020the\u0020dew\u0020point\u0020temperature\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DewPointTemperatureDecoder.html#method_getDewPointTemperature"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DewPointTemperatureDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020group\u0020indicator\u0020dew\u0020point\u0020temperature\u0020\u002D\u00202SnTdTdTd",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DewPointTemperatureDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DewPointTemperatureDecoder\u003A\u003AgetSignTemperatureIndicator\u0028\u0029",
+            "name": "getSignTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020sign\u0020of\u0020temperature\u0020for\u0020dew\u0020point\u0020temperature\u0020\u002D\u00202SnTdTdTd",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DewPointTemperatureDecoder.html#method_getSignTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DewPointTemperatureDecoder\u003A\u003AgetDryBulbTemperatureIndicator\u0028\u0029",
+            "name": "getDryBulbTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Dry\u002Dbulb\u0020temperature\u0020for\u0020dew\u0020point\u0020temperature\u0020\u002D\u00202SnTdTdTd",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DewPointTemperatureDecoder.html#method_getDryBulbTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DewPointTemperatureDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-DewPointTemperatureDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\DewPointTemperatureDecoder\u003A\u003AgetCodeFigureDistNumber\u0028\u0029",
             "name": "getCodeFigureDistNumber",
@@ -820,6 +995,31 @@ Search.appendIndex(
             "name": "getGroundMinTemperature",
             "summary": "Returns\u0020grass\u0020minimum\u0020temperature\u0020\u0028rounded\u0020to\u0020nearest\u0020whole\u0020degree\u0029",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getGroundMinTemperature"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020state\u0020and\u0020temperature\u0020of\u0020the\u0020ground\u0020without\u0020snow\u0020333\u00203ESnTgTg",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetStateGroundIndicator\u0028\u0029",
+            "name": "getStateGroundIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020state\u0020of\u0020the\u0020ground\u0020without\u0020snow\u0020333\u00203ESnTgTg",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getStateGroundIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetSignTemperatureIndicator\u0028\u0029",
+            "name": "getSignTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020sign\u0020of\u0020temperature\u0020333\u00203ESnTgTg",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getSignTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetMinimumTemperature\u0028\u0029",
+            "name": "getMinimumTemperature",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020grass\u0020minimum\u0020temperature\u0020333\u00203ESnTgTg",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getMinimumTemperature"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithoutSnowDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
@@ -885,6 +1085,26 @@ Search.appendIndex(
             "name": "getDepthSnow",
             "summary": "Returns\u0020depth\u0020of\u0020snow\u0020data",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithSnowDecoder.html#method_getDepthSnow"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithSnowDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020state\u0020of\u0020the\u0020ground\u0020with\u0020snow\u0020\u002D\u00204Esss",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithSnowDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithSnowDecoder\u003A\u003AgetStateGroundIndicator\u0028\u0029",
+            "name": "getStateGroundIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020state\u0020of\u0020the\u0020ground\u0020\u002D\u00204Esss",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithSnowDecoder.html#method_getStateGroundIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithSnowDecoder\u003A\u003AgetDepthSnowIndicator\u0028\u0029",
+            "name": "getDepthSnowIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020depth\u0020of\u0020snow\u0020\u002D\u00204Esss",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithSnowDecoder.html#method_getDepthSnowIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithSnowDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithSnowDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\GroundWithSnowDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
@@ -961,6 +1181,21 @@ Search.appendIndex(
             "summary": "Return\u0020station\u0020index",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-IndexDecoder.html#method_getIndex"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\IndexDecoder\u003A\u003AgetStationAreaIndicator\u0028\u0029",
+            "name": "getStationAreaIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020area\u0020station\u0020\u002D\u0020IIiii",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-IndexDecoder.html#method_getStationAreaIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\IndexDecoder\u003A\u003AgetStationIndexIndicator\u0028\u0029",
+            "name": "getStationIndexIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020station\u0020index\u0020\u002D\u0020IIiii",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-IndexDecoder.html#method_getStationIndexIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\IndexDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-IndexDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\IndexDecoder\u003A\u003A\u0024rawIndex",
             "name": "rawIndex",
             "summary": "",
@@ -1020,6 +1255,31 @@ Search.appendIndex(
             "name": "getHData",
             "summary": "Returns\u0020the\u0020height\u0020value\u0020of\u0020the\u0020lower\u0020cloud\u0020cover",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getHData"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetGetPrecipitationDataIndicator\u0028\u0029",
+            "name": "getGetPrecipitationDataIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020inclusion\u0020omission\u0020of\u0020precipitation\u0020data\u0020\u002D\u0020irixhVV",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getGetPrecipitationDataIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetGetWeatherGroupIndicator\u0028\u0029",
+            "name": "getGetWeatherGroupIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020inclusion\u0020omission\u0020of\u0020weather\u0020group\u0020\u002D\u0020irixhVV",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getGetWeatherGroupIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetGetHeightCloudIndicator\u0028\u0029",
+            "name": "getGetHeightCloudIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Height\u0020of\u0020base\u0020of\u0020lowest\u0020cloud\u0020\u002D\u0020irixhVV",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getGetHeightCloudIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetGetVisibilityIndicator\u0028\u0029",
+            "name": "getGetVisibilityIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020horizontal\u0020visibility\u0020\u002D\u0020irixhVV",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getGetVisibilityIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-LowCloudVisibilityDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\LowCloudVisibilityDecoder\u003A\u003AgetCodeFigureIr\u0028\u0029",
             "name": "getCodeFigureIr",
@@ -1081,6 +1341,21 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020Air\u0020Pressure\u0020reduced\u0020to\u0020mean\u0020sea\u0020level\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MslPressureDecoder.html#method_getMslPressure"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MslPressureDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020atmospheric\u0020pressure\u0020group\u0020at\u0020reduced\u0020to\u0020mean\u0020sea\u0020level\u0020\u002D\u00204P0P0P0P0",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MslPressureDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MslPressureDecoder\u003A\u003AgetFigureAirPressure\u0028\u0029",
+            "name": "getFigureAirPressure",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020last\u0020four\u0020figures\u0020of\u0020the\u0020air\u0020pressure\u0020\u002D\u00203P0P0P0P0",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MslPressureDecoder.html#method_getFigureAirPressure"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MslPressureDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MslPressureDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MslPressureDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020indicator\u0020of\u0020air\u0020Pressure\u0020reduced\u0020to\u0020mean\u0020sea\u0020level\u0020value",
@@ -1135,6 +1410,26 @@ Search.appendIndex(
             "name": "getPastWeather",
             "summary": "Returns\u0020the\u0020Past\u0020Weather\u0020symbol\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-PresentWeatherDecoder.html#method_getPastWeather"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\PresentWeatherDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020group\u0020indicator\u0020for\u0020present\u0020weather\u0020group\u0020\u002D\u00207wwW1W2",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-PresentWeatherDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\PresentWeatherDecoder\u003A\u003AgetPresentWeatherIndicator\u0028\u0029",
+            "name": "getPresentWeatherIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020present\u0020weather\u0020indicator\u0020for\u0020present\u0020weather\u0020group\u0020\u002D\u00207wwW1W2",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-PresentWeatherDecoder.html#method_getPresentWeatherIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\PresentWeatherDecoder\u003A\u003AgetPastWeatherIndicator\u0028\u0029",
+            "name": "getPastWeatherIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020past\u0020weather\u0020indicator\u0020for\u0020present\u0020weather\u0020group\u0020\u002D\u00207wwW1W2",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-PresentWeatherDecoder.html#method_getPastWeatherIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\PresentWeatherDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-PresentWeatherDecoder.html#method_getGroupIndicators"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\PresentWeatherDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
@@ -1191,6 +1486,21 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020Station\u0020level\u0020atmospheric\u0020pressure\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-StLPressureDecoder.html#method_getStLPressure"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\StLPressureDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020atmospheric\u0020pressure\u0020group\u0020at\u0020the\u0020station\u0020level\u0020\u002D\u00203P0P0P0P0",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-StLPressureDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\StLPressureDecoder\u003A\u003AgetFigureAirPressure\u0028\u0029",
+            "name": "getFigureAirPressure",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020last\u0020four\u0020figures\u0020of\u0020the\u0020air\u0020pressure\u0020\u002D\u00203P0P0P0P0",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-StLPressureDecoder.html#method_getFigureAirPressure"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\StLPressureDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-StLPressureDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\StLPressureDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020indicator\u0020of\u0020atmospheric\u0020pressure\u0020at\u0020the\u0020station\u0020level\u0020group",
@@ -1236,6 +1546,21 @@ Search.appendIndex(
             "summary": "Returns\u0020duration\u0020of\u0020daily\u0020sunshine\u0020value",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-SunshineRadiationDataDecoder.html#method_getSunshineData"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\SunshineRadiationDataDecoder\u003A\u003AgetGetIndicatorGroup\u0028\u0029",
+            "name": "getGetIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020duration\u0020of\u0020sunshine\u0020and\u0020radiation\u0020group\u0020\u002D\u002055SSS",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-SunshineRadiationDataDecoder.html#method_getGetIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\SunshineRadiationDataDecoder\u003A\u003AgetDurationTinderIndicator\u0028\u0029",
+            "name": "getDurationTinderIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020duration\u0020of\u0020sunshine\u0020\u002D\u002055SSS",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-SunshineRadiationDataDecoder.html#method_getDurationTinderIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\SunshineRadiationDataDecoder\u003A\u003AgetGroupIndicators\u0028\u0029",
+            "name": "getGroupIndicators",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-SunshineRadiationDataDecoder.html#method_getGroupIndicators"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\SunshineRadiationDataDecoder\u003A\u003AgetCodeFigureIndicator\u0028\u0029",
             "name": "getCodeFigureIndicator",
             "summary": "Return\u0020code\u0020figure\u0020of\u0020duration\u0020of\u0020sunshine\u0020and\u0020radiation",
@@ -1280,6 +1605,11 @@ Search.appendIndex(
             "name": "getIsShipValue",
             "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020if\u0020the\u0020weather\u0020summary\u0020is\u0020Ship",
             "url": "classes/Soandso-Synop-Decoder-GroupDecoder-TypeDecoder.html#method_getIsShipValue"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\TypeDecoder\u003A\u003AgetTypeReportIndicator\u0028\u0029",
+            "name": "getTypeReportIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020synoptic\u0020code\u0020identifier\u0020\u002D\u0020AAXX\/BBXX",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-TypeDecoder.html#method_getTypeReportIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\TypeDecoder\u003A\u003A\u0024rawTypeData",
             "name": "rawTypeData",
@@ -2051,9 +2381,14 @@ Search.appendIndex(
             "summary": "Returns\u0020all\u0020meteorological\u0020weather\u0020report\u0020errors",
             "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_getErrors"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AgetShortListErrors\u0028\u0029",
+            "name": "getShortListErrors",
+            "summary": "Returns\u0020a\u0020list\u0020of\u0020weather\u0020report\u0020errors",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_getShortListErrors"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AgetErrorByGroup\u0028\u0029",
             "name": "getErrorByGroup",
-            "summary": "Returns\u0020the\u0020error\u0020of\u0020the\u0020meteorological\u0020group\u0020by\u0020individual\u0020component",
+            "summary": "Returns\u0020the\u0020weather\u0020group\u0020error\u0020by\u0020individual\u0020group",
             "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_getErrorByGroup"
         },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AnotExistsError\u0028\u0029",
@@ -2080,6 +2415,21 @@ Search.appendIndex(
             "name": "isValidGroup",
             "summary": "Performs\u0020validation\u0020of\u0020a\u0020single\u0020weather\u0020group",
             "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_isValidGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AisClassFromMockery\u0028\u0029",
+            "name": "isClassFromMockery",
+            "summary": "Checks\u0020if\u0020there\u0020is\u0020a\u0020decoder\u0020class\u0020that\u0020emulates\u0020a\u0020Mockery\u0020object",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_isClassFromMockery"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AisMockeryClass\u0028\u0029",
+            "name": "isMockeryClass",
+            "summary": "Checks\u0020if\u0020an\u0020object\u0020is\u0020a\u0020MockInterface",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_isMockeryClass"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AgetClassForMockery\u0028\u0029",
+            "name": "getClassForMockery",
+            "summary": "Returns\u0020a\u0020class\u0020that\u0020emulates\u0020a\u0020Mockery\u0020object",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_getClassForMockery"
         },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AtypeValid\u0028\u0029",
             "name": "typeValid",
@@ -2315,6 +2665,11 @@ Search.appendIndex(
             "name": "getErrors",
             "summary": "Returns\u0020errors\u0020in\u0020meteorological\u0020weather\u0020report",
             "url": "classes/Soandso-Synop-Report.html#method_getErrors"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Report\u003A\u003AgetReportList\u0028\u0029",
+            "name": "getReportList",
+            "summary": "Returns\u0020a\u0020list\u0020of\u0020weather\u0020report\u0020errors",
+            "url": "classes/Soandso-Synop-Report.html#method_getReportList"
         },                {
             "fqsen": "\\Soandso\\Synop\\Report\u003A\u003AgetReport\u0028\u0029",
             "name": "getReport",
@@ -2816,6 +3171,11 @@ Search.appendIndex(
             "summary": "Sets\u0020Height\u0020of\u0020base\u0020of\u0020cloud\u0020layer",
             "url": "classes/Soandso-Synop-Sheme-AdditionalCloudInformationGroup.html#method_setHeightCloud"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\AdditionalCloudInformationGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-AdditionalCloudInformationGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\AdditionalCloudInformationGroup\u003A\u003A\u0024rawAdditionCloudInformation",
             "name": "rawAdditionCloudInformation",
             "summary": "",
@@ -2941,6 +3301,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020full\u0020value\u0020of\u0020the\u0020signed\u0020air\u0020temperature",
             "url": "classes/Soandso-Synop-Sheme-AirTemperatureGroup.html#method_buildAirTemperature"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\AirTemperatureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-AirTemperatureGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\AirTemperatureGroup\u003A\u003A\u0024rawAirTemperature",
             "name": "rawAirTemperature",
             "summary": "",
@@ -3056,6 +3421,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020value\u0020of\u0020duration\u0020period\u0020of\u0020Amount\u0020of\u0020rainfall",
             "url": "classes/Soandso-Synop-Sheme-AmountRainfallGroup.html#method_setDurationPeriod"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\AmountRainfallGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-AmountRainfallGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\AmountRainfallGroup\u003A\u003A\u0024rawAmountRainfall",
             "name": "rawAmountRainfall",
             "summary": "",
@@ -3155,6 +3525,11 @@ Search.appendIndex(
             "name": "setBaricTendency",
             "summary": "Sets\u0020the\u0020value\u0020of\u0020Pressure\u0020change\u0020over\u0020last\u0020three\u0020hours\u0020in\u0020millibars\u0020and\u0020tenths",
             "url": "classes/Soandso-Synop-Sheme-BaricTendencyGroup.html#method_setBaricTendency"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\BaricTendencyGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-BaricTendencyGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\BaricTendencyGroup\u003A\u003A\u0024rawBaricTendency",
             "name": "rawBaricTendency",
@@ -3356,6 +3731,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020value\u0020of\u0020form\u0020high\u0020cloud",
             "url": "classes/Soandso-Synop-Sheme-CloudPresentGroup.html#method_setFormHighCloud"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\CloudPresentGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-CloudPresentGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\CloudPresentGroup\u003A\u003A\u0024rawCloudPresent",
             "name": "rawCloudPresent",
             "summary": "",
@@ -3481,6 +3861,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020Wind\u0020Speed\u0020in\u0020a\u0020weather\u0020report",
             "url": "classes/Soandso-Synop-Sheme-CloudWindGroup.html#method_setWindSpeed"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\CloudWindGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-CloudWindGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\CloudWindGroup\u003A\u003A\u0024rawCloudsWind",
             "name": "rawCloudsWind",
             "summary": "",
@@ -3586,6 +3971,11 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020the\u0020group",
             "url": "classes/Soandso-Synop-Sheme-DateGroup.html#method_isDateGroup"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\DateGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-DateGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\DateGroup\u003A\u003A\u0024rawDate",
             "name": "rawDate",
             "summary": "",
@@ -3690,6 +4080,11 @@ Search.appendIndex(
             "name": "buildDewPointTemperature",
             "summary": "Sets\u0020the\u0020full\u0020value\u0020of\u0020the\u0020signed\u0020dew\u0020point\u0020temperature",
             "url": "classes/Soandso-Synop-Sheme-DewPointTemperatureGroup.html#method_buildDewPointTemperature"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\DewPointTemperatureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-DewPointTemperatureGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\DewPointTemperatureGroup\u003A\u003A\u0024rawDpTemperature",
             "name": "rawDpTemperature",
@@ -3841,6 +4236,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020full\u0020value\u0020of\u0020the\u0020signed\u0020grass\u0020minimum\u0020temperature",
             "url": "classes/Soandso-Synop-Sheme-GroundWithoutSnowGroup.html#method_buildMinTemperature"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\GroundWithoutSnowGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-GroundWithoutSnowGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\GroundWithoutSnowGroup\u003A\u003A\u0024rawGroundWithoutSnow",
             "name": "rawGroundWithoutSnow",
             "summary": "",
@@ -3966,6 +4366,11 @@ Search.appendIndex(
             "summary": "Sets\u0020depth\u0020of\u0020snow",
             "url": "classes/Soandso-Synop-Sheme-GroundWithSnowGroup.html#method_setDepthSnow"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\GroundWithSnowGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-GroundWithSnowGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\GroundWithSnowGroup\u003A\u003A\u0024rawGroundWithSnow",
             "name": "rawGroundWithSnow",
             "summary": "",
@@ -4010,6 +4415,11 @@ Search.appendIndex(
             "name": "getDecoder",
             "summary": "Returns\u0020decoder\u0020object\u0020for\u0020the\u0020given\u0020group\u0020of\u0020code\u0020of\u0020weather\u0020report",
             "url": "classes/Soandso-Synop-Sheme-GroupInterface.html#method_getDecoder"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\GroupInterface\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020weather\u0020report\u0020group\u0020indicator",
+            "url": "classes/Soandso-Synop-Sheme-GroupInterface.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\GroupWithUnitsInterface",
             "name": "GroupWithUnitsInterface",
@@ -4105,6 +4515,11 @@ Search.appendIndex(
             "name": "setStationIndex",
             "summary": "Sets\u0020station\u0020index\u0020group\u0020data",
             "url": "classes/Soandso-Synop-Sheme-IndexGroup.html#method_setStationIndex"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\IndexGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-IndexGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\IndexGroup\u003A\u003A\u0024rawIndex",
             "name": "rawIndex",
@@ -4221,6 +4636,11 @@ Search.appendIndex(
             "summary": "Sets\u0020meteorological\u0020range\u0020of\u0020visibility\u0020value",
             "url": "classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_setVisibility"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\LowCloudVisibilityGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\LowCloudVisibilityGroup\u003A\u003A\u0024rawCloudVis",
             "name": "rawCloudVis",
             "summary": "",
@@ -4266,6 +4686,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020initial\u0020data\u0020for\u0020the\u0020maximum\u0020air\u0020temperature\u0020group",
             "url": "classes/Soandso-Synop-Sheme-MaxAirTemperatureGroup.html#method_setData"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\MaxAirTemperatureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-MaxAirTemperatureGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\MinAirTemperatureGroup",
             "name": "MinAirTemperatureGroup",
             "summary": "Class\u0020MinAirTemperatureGroup\u0020contains\u0020methods\u0020for\u0020working\u0020with\u0020a\u0020group\u0020of\u0020minimum\u0020air\u0020temperatures\nof\u0020section\u0020three\u0020\u002D\u0020333\u00202SnTnTnTn",
@@ -4281,6 +4706,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020initial\u0020data\u0020for\u0020the\u0020minimum\u0020air\u0020temperature\u0020group",
             "url": "classes/Soandso-Synop-Sheme-MinAirTemperatureGroup.html#method_setData"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\MinAirTemperatureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-MinAirTemperatureGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\MinAirTemperatureGroup\u003A\u003ADIGIT",
             "name": "DIGIT",
             "summary": "Value\u0020distinctive\u0020number\u0020of\u0020minimum\u0020air\u0020temperature\u0020group",
@@ -4288,7 +4718,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\MslPressureGroup",
             "name": "MslPressureGroup",
-            "summary": "Class\u0020MslPressureGroup\u0020contains\u0020methods\u0020for\u0020working\u0020with\u0020the\u0020atmospheric\u0020pressure\u0020group\nat\u0020mean\u0020sea\u0020level\u0020\u002D\u00204P0P0P0P0",
+            "summary": "Class\u0020MslPressureGroup\u0020contains\u0020methods\u0020for\u0020working\u0020with\u0020the\u0020atmospheric\u0020pressure\u0020group\nat\u0020mean\u0020sea\u0020level\u0020\u002D\u00204PPPP",
             "url": "classes/Soandso-Synop-Sheme-MslPressureGroup.html"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\MslPressureGroup\u003A\u003A__construct\u0028\u0029",
@@ -4335,6 +4765,11 @@ Search.appendIndex(
             "name": "setMslPressure",
             "summary": "Sets\u0020the\u0020value\u0020of\u0020Air\u0020Pressure\u0020reduced\u0020to\u0020mean\u0020sea\u0020level",
             "url": "classes/Soandso-Synop-Sheme-MslPressureGroup.html#method_setMslPressure"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\MslPressureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-MslPressureGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\MslPressureGroup\u003A\u003A\u0024rawMlsPressure",
             "name": "rawMlsPressure",
@@ -4446,6 +4881,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020value\u0020of\u0020Past\u0020Weather",
             "url": "classes/Soandso-Synop-Sheme-PresentWeatherGroup.html#method_setPastWeather"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\PresentWeatherGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-PresentWeatherGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\PresentWeatherGroup\u003A\u003A\u0024rawPresentWeather",
             "name": "rawPresentWeather",
             "summary": "",
@@ -4490,6 +4930,11 @@ Search.appendIndex(
             "name": "setData",
             "summary": "Sets\u0020the\u0020initial\u0020data\u0020for\u0020the\u0020amount\u0020of\u0020rainfall\u0020group\u0020in\u0020section\u0020three",
             "url": "classes/Soandso-Synop-Sheme-RegionalExchangeAmountRainfallGroup.html#method_setData"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\RegionalExchangeAmountRainfallGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-RegionalExchangeAmountRainfallGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\Section",
             "name": "Section",
@@ -4616,6 +5061,11 @@ Search.appendIndex(
             "summary": "Sets\u0020the\u0020Station\u0020level\u0020atmospheric\u0020pressure",
             "url": "classes/Soandso-Synop-Sheme-StLPressureGroup.html#method_setStLPressure"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\StLPressureGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-StLPressureGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\StLPressureGroup\u003A\u003A\u0024rawStlPressure",
             "name": "rawStlPressure",
             "summary": "",
@@ -4706,6 +5156,11 @@ Search.appendIndex(
             "summary": "Sets\u0020duration\u0020of\u0020daily\u0020sunshine",
             "url": "classes/Soandso-Synop-Sheme-SunshineRadiationDataGroup.html#method_setSunshine"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\SunshineRadiationDataGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-SunshineRadiationDataGroup.html#method_getGroupIndicator"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\SunshineRadiationDataGroup\u003A\u003A\u0024rawSunshineRadiation",
             "name": "rawSunshineRadiation",
             "summary": "",
@@ -4790,6 +5245,11 @@ Search.appendIndex(
             "name": "isTypeGroup",
             "summary": "Returns\u0020whether\u0020the\u0020given\u0020group\u0020is\u0020a\u0020type\u0020report",
             "url": "classes/Soandso-Synop-Sheme-TypeGroup.html#method_isTypeGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Sheme\\TypeGroup\u003A\u003AgetGroupIndicator\u0028\u0029",
+            "name": "getGroupIndicator",
+            "summary": "Returns\u0020the\u0020indicator\u0020of\u0020the\u0020entire\u0020weather\u0020report\u0020group",
+            "url": "classes/Soandso-Synop-Sheme-TypeGroup.html#method_getGroupIndicator"
         },                {
             "fqsen": "\\Soandso\\Synop\\Sheme\\TypeGroup\u003A\u003A\u0024rawTypeData",
             "name": "rawTypeData",

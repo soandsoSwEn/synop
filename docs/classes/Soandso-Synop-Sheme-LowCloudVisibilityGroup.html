@@ -252,6 +252,13 @@ a group of cloud height and horizontal visibility - irixhVV</p>
 <dd>Returns initialized decoder object for Cloud height and horizontal visibility group</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getGroupIndicator">getGroupIndicator()</a>
+    <span>
+                                &nbsp;: string    </span>
+</dt>
+<dd>Returns the indicator of the entire weather report group</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getHeightLowValue">getHeightLowValue()</a>
     <span>
                                 &nbsp;: string    </span>
@@ -261,14 +268,14 @@ a group of cloud height and horizontal visibility - irixhVV</p>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getIncPrecipValue">getIncPrecipValue()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: string|null    </span>
 </dt>
 <dd>Sets index of the point of inclusion in the metrological report of precipitation group</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getIncWeatherValue">getIncWeatherValue()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;|null    </span>
 </dt>
 <dd>Returns weather indicator inclusion index 7wwW1W2</dd>
 
@@ -737,6 +744,41 @@ of the precipitation group 6RRRtr</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getGroupIndicator">
+        getGroupIndicator()
+        <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getGroupIndicator" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Sheme/LowCloudVisibilityGroup.php"><a href="files/src-sheme-lowcloudvisibilitygroup.html"><abbr title="src/Sheme/LowCloudVisibilityGroup.php">LowCloudVisibilityGroup.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">271</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Returns the indicator of the entire weather report group</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getGroupIndicator</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Group indicator</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getHeightLowValue">
         getHeightLowValue()
         <a href="classes/Soandso-Synop-Sheme-LowCloudVisibilityGroup.html#method_getHeightLowValue" class="headerlink"><i class="fas fa-link"></i></a>
@@ -785,14 +827,14 @@ of the precipitation group 6RRRtr</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getIncPrecipValue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getIncPrecipValue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string|null</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">string|null</span>
             &mdash;
         
     
@@ -818,14 +860,14 @@ of the precipitation group 6RRRtr</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getIncWeatherValue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getIncWeatherValue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;|null</span>
             &mdash;
         
     

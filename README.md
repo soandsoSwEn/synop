@@ -5,7 +5,6 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/soandsoSwEn/synop)
 ![GitHub repo size](https://img.shields.io/github/repo-size/soandsoSwEn/synop)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/soandsoSwEn/synop)
-![GitHub Release Date](https://img.shields.io/github/release-date/soandsoSwEn/synop)
 ![Codacy coverage](https://img.shields.io/codacy/coverage/4a4ae29ea5374b22a2fdb6cd73e3ae8b)
 
 Synop (AAXX/BBXX) weather report decoder
@@ -98,6 +97,9 @@ $report->validate(); //true
 //If the validate method returns false, then the getErrors method will return an array of errors.
 //Otherwise, it returns false
 $report->getErrors() //false
+
+//Returns information about decoding errors in short form (error description only)
+$report->getErrorList() //false
 
 //Group YYGGiw
 //Get a type of weather station
