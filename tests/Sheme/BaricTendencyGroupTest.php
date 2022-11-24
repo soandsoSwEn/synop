@@ -411,4 +411,14 @@ class BaricTendencyGroupTest extends TestCase
 
         $this->baricTendencyGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('5appp', $this->baricTendencyGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->baricTendencyGroup->getGroupIndicator());
+    }
 }

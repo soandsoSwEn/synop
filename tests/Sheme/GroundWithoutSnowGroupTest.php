@@ -719,4 +719,14 @@ class GroundWithoutSnowGroupTest extends TestCase
 
         $this->groundWithoutSnowGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('3ESnTgTg', $this->groundWithoutSnowGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->groundWithoutSnowGroup->getGroupIndicator());
+    }
 }

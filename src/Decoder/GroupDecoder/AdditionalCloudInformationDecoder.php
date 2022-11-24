@@ -78,18 +78,23 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate Object for weather data validation
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawAdditionCloudInformation, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigureIndicator(), $this->getCodeFigureAmount(), $this->getCodeFigureForm(),
                 $this->getCodeFigureHeight()
-            ]);
+                ]
+            );
             return true;
         }
 
@@ -229,6 +234,56 @@ class AdditionalCloudInformationDecoder implements GroupDecoderInterface
         }
 
         return ($intValueOfHshs - 80) * 1500 + 9000;
+    }
+
+    /**
+     * Returns indicator and description of additional cloud information transfer data - 8NsChshs
+     *
+     * @return string[] Indicator and description of additional cloud information
+     */
+    public function getIndicatorGroup(): array
+    {
+        return ['8' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of amount of individual cloud layer - 8NsChshs
+     *
+     * @return string[] Indicator and description amount of individual cloud layer
+     */
+    public function getAmountCloudLayerIndicator(): array
+    {
+        return ['Ns' => 'Amount of individual cloud layer'];
+    }
+
+    /**
+     * Returns indicator and description of Form of cloud - 8NsChshs
+     *
+     * @return string[] Indicator and description form of cloud
+     */
+    public function getFormCloudIndicator(): array
+    {
+        return ['C' => 'Form of cloud'];
+    }
+
+    /**
+     * Returns indicator and description of height of base cloud layer - 8NsChshs
+     *
+     * @return string[] Indicator and description of height of base cloud layer
+     */
+    public function getHeightCloudIndicator(): array
+    {
+        return ['hshs' => 'Height of base cloud layer'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getIndicatorGroup()),
+            key($this->getAmountCloudLayerIndicator()),
+            key($this->getFormCloudIndicator()),
+            key($this->getHeightCloudIndicator()),
+        ];
     }
 
     /**

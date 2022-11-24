@@ -222,7 +222,7 @@ class CloudPresentDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->cloudPresentDecoder->isGroup($validator));
+        $this->assertTrue($this->cloudPresentDecoder->isGroup($validator, '8NhClCmCH'));
     }
 
     public function testErrorIsGroup()
@@ -231,6 +231,66 @@ class CloudPresentDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($cloudPresentDecoder->isGroup($validator));
+        $this->assertFalse($cloudPresentDecoder->isGroup($validator, '8NhClCmCH'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['8' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->cloudPresentDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->cloudPresentDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetAmountCloudIndicator()
+    {
+        $expected = ['Nh' => 'Amount of low cloud or medium cloud if no low cloud present'];
+
+        $this->assertEquals($expected, $this->cloudPresentDecoder->getAmountCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetAmountCloudIndicator()
+    {
+        $this->assertIsArray($this->cloudPresentDecoder->getAmountCloudIndicator());
+    }
+
+    public function testSuccessGetFormLowCloudIndicator()
+    {
+        $expected = ['Cl' => 'Form of low cloud'];
+
+        $this->assertEquals($expected, $this->cloudPresentDecoder->getFormLowCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetFormLowCloudIndicator()
+    {
+        $this->assertIsArray($this->cloudPresentDecoder->getFormLowCloudIndicator());
+    }
+
+    public function testSuccessGetFormMediumCloudIndicator()
+    {
+        $expected = ['Cm' => 'Form of medium cloud'];
+
+        $this->assertEquals($expected, $this->cloudPresentDecoder->getFormMediumCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetFormMediumCloudIndicator()
+    {
+        $this->assertIsArray($this->cloudPresentDecoder->getFormMediumCloudIndicator());
+    }
+
+    public function testSuccessGetFormHighCloudIndicator()
+    {
+        $expected = ['Ch' => 'Form of high cloud'];
+
+        $this->assertEquals($expected, $this->cloudPresentDecoder->getFormHighCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetFormHighCloudIndicator()
+    {
+        $this->assertIsArray($this->cloudPresentDecoder->getFormHighCloudIndicator());
     }
 }

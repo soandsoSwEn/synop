@@ -314,7 +314,7 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->additionalCloudInformationDecoder->isGroup($validator));
+        $this->assertTrue($this->additionalCloudInformationDecoder->isGroup($validator, '8NsChshs'));
     }
 
     public function testErrorIsGroup()
@@ -323,6 +323,54 @@ class AdditionalCloudInformationDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($additionalCloudInformationDecoder->isGroup($validator));
+        $this->assertFalse($additionalCloudInformationDecoder->isGroup($validator, '8NsChshs'));
+    }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['8' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getIndicatorGroup());
+    }
+
+    public function testSuccessGetAmountCloudLayerIndicator()
+    {
+        $expected = ['Ns' => 'Amount of individual cloud layer'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getAmountCloudLayerIndicator());
+    }
+
+    public function testSuccessIsArrayGetAmountCloudLayerIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getAmountCloudLayerIndicator());
+    }
+
+    public function testSuccessGetFormCloudIndicator()
+    {
+        $expected = ['C' => 'Form of cloud'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getFormCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetFormCloudIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getFormCloudIndicator());
+    }
+
+    public function testSuccessGetHeightCloudIndicator()
+    {
+        $expected = ['hshs' => 'Height of base cloud layer'];
+
+        $this->assertEquals($expected, $this->additionalCloudInformationDecoder->getHeightCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetHeightCloudIndicator()
+    {
+        $this->assertIsArray($this->additionalCloudInformationDecoder->getHeightCloudIndicator());
     }
 }

@@ -33,12 +33,13 @@ class TypeDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate Object for weather data validation
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
-        return $validate->isValidGroup(get_class($this), [$this->getTypeValue()]);
+        return $validate->isValidGroup($this, $groupIndicator, [$this->getTypeValue()]);
     }
 
     /**
@@ -85,5 +86,15 @@ class TypeDecoder implements GroupDecoderInterface
         }
 
         return strcasecmp($type, $this->typeOfReport[1]) == 0;
+    }
+
+    /**
+     * Returns indicator and description of synoptic code identifier - AAXX/BBXX
+     *
+     * @return string[] Indicator and description of synoptic code identifier
+     */
+    public function getTypeReportIndicator(): array
+    {
+        return ['AAXX/BBXX' => 'Synoptic Code Identifier'];
     }
 }

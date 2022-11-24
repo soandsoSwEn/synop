@@ -196,7 +196,7 @@ class GroundWithSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->groundWithSnow->isGroup($validate));
+        $this->assertTrue($this->groundWithSnow->isGroup($validate, '4Esss'));
     }
 
     public function testErrorIsGroup()
@@ -205,6 +205,42 @@ class GroundWithSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($groundWithSnow->isGroup($validate));
+        $this->assertFalse($groundWithSnow->isGroup($validate, '4Esss'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['4' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->groundWithSnow->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetStateGroundIndicator()
+    {
+        $expected = ['E' => 'State of ground with snow or measurable ice cover'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getStateGroundIndicator());
+    }
+
+    public function testSuccessIsArrayGetStateGroundIndicator()
+    {
+        $this->assertIsArray($this->groundWithSnow->getStateGroundIndicator());
+    }
+
+    public function testSuccessGetDepthSnowIndicator()
+    {
+        $expected = ['sss' => 'Depth of snow'];
+
+        $this->assertEquals($expected, $this->groundWithSnow->getDepthSnowIndicator());
+    }
+
+    public function testSuccessIsArrayGetDepthSnowIndicator()
+    {
+        $this->assertIsArray($this->groundWithSnow->getDepthSnowIndicator());
     }
 }

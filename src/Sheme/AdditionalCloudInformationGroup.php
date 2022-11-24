@@ -244,7 +244,7 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
      */
     public function isAddCloudGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -315,5 +315,15 @@ class AdditionalCloudInformationGroup extends BaseGroupWithUnits implements Grou
         } else {
             $this->setHeightCloudValue($decoder->getHeightCloud());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '8NsChshs';
     }
 }

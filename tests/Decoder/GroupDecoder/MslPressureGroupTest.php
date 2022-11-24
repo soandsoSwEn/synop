@@ -105,7 +105,7 @@ class MslPressureGroupTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->mlsPressure->isGroup($validate));
+        $this->assertTrue($this->mlsPressure->isGroup($validate, '4PPPP'));
     }
 
     public function testErrorIsGroup()
@@ -114,6 +114,32 @@ class MslPressureGroupTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($mlsPressure->isGroup($validate));
+        $this->assertFalse($mlsPressure->isGroup($validate, '4PPPP'));
+    }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['4' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->mlsPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->mlsPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessGetFigureAirPressure()
+    {
+        $expected = [
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean sea level) in millibars and tenths'
+        ];
+
+        $this->assertEquals($expected, $this->mlsPressure->getFigureAirPressure());
+    }
+
+    public function testSuccessIsArrayGetFigureAirPressure()
+    {
+        $this->assertIsArray($this->mlsPressure->getFigureAirPressure());
     }
 }

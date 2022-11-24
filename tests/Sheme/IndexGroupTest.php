@@ -412,4 +412,14 @@ class IndexGroupTest extends TestCase
 
         $this->indexGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('IIiii', $this->indexGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->indexGroup->getGroupIndicator());
+    }
 }

@@ -17,7 +17,8 @@ interface GroupDecoderInterface
      * The check is whether the intended group is desensitized.
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group indicator
      * @return bool
      */
-    public function isGroup(ValidateInterface $validate): bool;
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool;
 }

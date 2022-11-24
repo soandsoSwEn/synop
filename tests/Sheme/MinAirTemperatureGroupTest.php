@@ -55,4 +55,14 @@ class MinAirTemperatureGroupTest extends TestCase
 
         $this->minAirTemperatureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('2SnTnTnTn', $this->minAirTemperatureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->minAirTemperatureGroup->getGroupIndicator());
+    }
 }

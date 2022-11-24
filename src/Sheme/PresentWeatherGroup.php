@@ -82,9 +82,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets the Present Weather symbolic value
      *
-     * @param int $presentWeatherSymbol The present weather symbolic value
+     * @param null|int $presentWeatherSymbol The present weather symbolic value
      */
-    public function setPresentWeatherSymbolValue(int $presentWeatherSymbol): void
+    public function setPresentWeatherSymbolValue(?int $presentWeatherSymbol): void
     {
         $this->pastWeatherSymbol = $presentWeatherSymbol;
     }
@@ -102,9 +102,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets past weather symbolic value
      *
-     * @param int $pastWeatherSymbol The past weather symbolic value
+     * @param null|int $pastWeatherSymbol The past weather symbolic value
      */
-    public function setPastWeatherSymbolValue(int $pastWeatherSymbol): void
+    public function setPastWeatherSymbolValue(?int $pastWeatherSymbol): void
     {
         $this->pastWeatherSymbol = $pastWeatherSymbol;
     }
@@ -112,9 +112,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets past weather
      *
-     * @param array $pastWeather The past weather
+     * @param null|array $pastWeather The past weather
      */
-    public function setPastWeatherValue(array $pastWeather): void
+    public function setPastWeatherValue(?array $pastWeather): void
     {
         $this->pastWeather = $pastWeather;
     }
@@ -199,7 +199,7 @@ class PresentWeatherGroup implements GroupInterface
      */
     public function isPresentWeatherGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -256,5 +256,15 @@ class PresentWeatherGroup implements GroupInterface
         } else {
             $this->setPastWeatherValue($decoder->getPastWeather());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '7wwW1W2';
     }
 }

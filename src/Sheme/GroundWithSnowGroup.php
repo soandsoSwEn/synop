@@ -194,7 +194,7 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isDrWthSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -237,5 +237,15 @@ class GroundWithSnowGroup extends BaseGroupWithUnits implements GroupInterface
         } else {
             $this->setDepthSnowValue($decoder->getDepthSnow());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '4Esss';
     }
 }

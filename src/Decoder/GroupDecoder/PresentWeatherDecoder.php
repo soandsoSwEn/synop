@@ -166,16 +166,18 @@ class PresentWeatherDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawPresentWeather, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(
-                get_class($this),
+                $this,
+                $groupIndicator,
                 [
                     $this->getCodeFigureIndicator(),
                     $this->getCodeFigurePresentWeather(),
@@ -244,6 +246,45 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         } else {
             throw new Exception('Invalid data of Past Weather');
         }
+    }
+
+    /**
+     * Returns indicator and description of group indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of present weather
+     */
+    public function getIndicatorGroup(): array
+    {
+        return ['7' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of present weather indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of present weather indicator
+     */
+    public function getPresentWeatherIndicator(): array
+    {
+        return ['ww' => 'Present weather'];
+    }
+
+    /**
+     * Returns indicator and description of past weather indicator for present weather group - 7wwW1W2
+     *
+     * @return string[] Indicator and description of past weather indicator
+     */
+    public function getPastWeatherIndicator(): array
+    {
+        return ['W1W2' => 'Past weather'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getIndicatorGroup()),
+            key($this->getPresentWeatherIndicator()),
+            key($this->getPastWeatherIndicator()),
+        ];
     }
 
     /**

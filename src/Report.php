@@ -147,6 +147,31 @@ class Report implements ReportInterface
     }
 
     /**
+     * Returns a list of weather report errors
+     *
+     * Returns a list of errors in abbreviated format. The message contains only a description of the error.
+     *
+     * @return array|bool
+     * @throws Exception
+     */
+    public function getErrorList()
+    {
+        if (!$this->report) {
+            throw new Exception('Meteorological weather report not defined!');
+        }
+
+        if (!$this->validate) {
+            throw new Exception('The meteorological weather report validation class has not been initialized!');
+        }
+
+        if ($this->validate->getShortListErrors() === false || count($this->validate->getShortListErrors()) == 0) {
+            return false;
+        }
+
+        return $this->validate->getShortListErrors();
+    }
+
+    /**
      * Returns meteorological weather report source code value
      *
      * @return string

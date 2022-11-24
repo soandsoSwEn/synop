@@ -1,3 +1,12 @@
+![Packagist License](https://img.shields.io/packagist/l/soandso/synop?color=green)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soandsoSwEn/synop/PHP%20Composer)
+![Codacy grade](https://img.shields.io/codacy/grade/4a4ae29ea5374b22a2fdb6cd73e3ae8b)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/soandso/synop)
+![GitHub top language](https://img.shields.io/github/languages/top/soandsoSwEn/synop)
+![GitHub repo size](https://img.shields.io/github/repo-size/soandsoSwEn/synop)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/soandsoSwEn/synop)
+![Codacy coverage](https://img.shields.io/codacy/coverage/4a4ae29ea5374b22a2fdb6cd73e3ae8b)
+
 Synop (AAXX/BBXX) weather report decoder
 ========================================
 
@@ -26,7 +35,7 @@ The current version of the library works with the SYNOP code form.
 Requirements
 -----------
 
-This library only requires PHP >= 7.2
+This library only requires PHP >= 7.4
 
 Setup
 -----
@@ -80,11 +89,17 @@ $report = new Report('AAXX 07181 33837 11583 83102 10039 21007 30049 40101 52035
 //Starts the decoding process
 $report->parse();
 
-//check validate format
+//Check validate format
 $report->validate(); //true
 //If the validate method returns false, you can use the getErrors method to display errors decoding the weather report
 
+//Returns errors in meteorological weather report.
+//If the validate method returns false, then the getErrors method will return an array of errors.
+//Otherwise, it returns false
 $report->getErrors() //false
+
+//Returns information about decoding errors in short form (error description only)
+$report->getErrorList() //false
 
 //Group YYGGiw
 //Get a type of weather station
@@ -287,3 +302,37 @@ $report->getHeightCloud(); //NULL
 $report->getHeightCloudUnit(); //NULL
 
 ```
+
+Contribute
+----------
+
+If you find a SYNOP report that is poorly parsed by this library, please open a GitHub issue with as many details
+as possible.
+
+To improve the test suite, fork the repository and push your changes using a pull request.
+
+If you have an idea to improve the library, develop new features, use GitHub issues, or direct pull requests.
+To contribute to the codebase, you should fork the repository on GitHub and then clone it locally. Make changes
+to the code and submit a pull request.
+
+The documentation of the program code can be viewed in the ```docs``` directory.
+
+A simplified sequence diagram of one of the main methods - ```parse()``` of the ```Report``` class.
+
+<img src="./images/ParseSequenceDiagram.jpg" alt="Sequence diagram of parse method">
+
+Code quality and test coverage are analyzed by the [Codacy service](https://www.codacy.com/)
+
+Standards
+---------
+
+Continental index conforms to the following standards:
+
+* PSR-2  - Basic coding standard (https://www.php-fig.org/psr/psr-2/)
+* PSR-4  - Autoloader (https://www.php-fig.org/psr/psr-4/)
+* PSR-12 - Extended coding style guide (https://www.php-fig.org/psr/psr-12/)
+
+License
+-------
+
+Grouping is licensed under the GPLv2 License (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html).

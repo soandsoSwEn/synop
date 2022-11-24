@@ -812,4 +812,14 @@ class CloudPresentGroupTest extends TestCase
 
         $this->cloudPresentGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('8NhClCmCH', $this->cloudPresentGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->cloudPresentGroup->getGroupIndicator());
+    }
 }

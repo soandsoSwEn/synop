@@ -231,7 +231,7 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->groundWithoutSnowDecoder->isGroup($validate));
+        $this->assertTrue($this->groundWithoutSnowDecoder->isGroup($validate, '3ESnTgTg'));
     }
 
     public function testErrorIsGroup()
@@ -240,6 +240,54 @@ class GroundWithoutSnowDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($groundWithoutSnowDecoder->isGroup($validate));
+        $this->assertFalse($groundWithoutSnowDecoder->isGroup($validate, '3ESnTgTg'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['3' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetStateGroundIndicator()
+    {
+        $expected = ['E' => 'State of ground without snow or measurable ice cover'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getStateGroundIndicator());
+    }
+
+    public function testSuccessIsArrayGetStateGroundIndicator()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getStateGroundIndicator());
+    }
+
+    public function testSuccessGetSignTemperatureIndicator()
+    {
+        $expected = ['Sn' => 'Sign of temperature'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetSignTemperatureIndicator()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessGetMinimumTemperature()
+    {
+        $expected = ['TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'];
+
+        $this->assertEquals($expected, $this->groundWithoutSnowDecoder->getMinimumTemperature());
+    }
+
+    public function testSuccessIsArrayGetMinimumTemperature()
+    {
+        $this->assertIsArray($this->groundWithoutSnowDecoder->getMinimumTemperature());
     }
 }

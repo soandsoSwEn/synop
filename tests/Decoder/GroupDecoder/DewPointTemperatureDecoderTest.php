@@ -107,7 +107,7 @@ class DewPointTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->dewPointTemperatureDecoder->isGroup($validate));
+        $this->assertTrue($this->dewPointTemperatureDecoder->isGroup($validate, '2SnTdTdTd'));
     }
 
     public function testErrorIsGroup()
@@ -116,6 +116,37 @@ class DewPointTemperatureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($dewPointTemperatureDecoder->isGroup($validate));
+        $this->assertFalse($dewPointTemperatureDecoder->isGroup($validate, '2SnTdTdTd'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['2' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->dewPointTemperatureDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetSignTemperatureIndicator()
+    {
+        $expected = ['Sn' => 'Sign of temperature'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessIsArrayGetSignTemperatureIndicator()
+    {
+        $this->assertIsArray($this->dewPointTemperatureDecoder->getSignTemperatureIndicator());
+    }
+
+    public function testSuccessGetDryBulbTemperatureIndicator()
+    {
+        $expected = ['TdTdTd' => 'Dew point temperature in tenths of a degree'];
+
+        $this->assertEquals($expected, $this->dewPointTemperatureDecoder->getDryBulbTemperatureIndicator());
     }
 }

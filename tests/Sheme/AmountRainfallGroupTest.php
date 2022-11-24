@@ -471,4 +471,14 @@ class AmountRainfallGroupTest extends TestCase
 
         $this->amountRainfallGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('6RRRtr', $this->amountRainfallGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->amountRainfallGroup->getGroupIndicator());
+    }
 }

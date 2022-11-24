@@ -179,7 +179,7 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isBaricTendencyGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -214,5 +214,15 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
                 $this->tendencyValue = $this->tendency;
             }
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '5appp';
     }
 }

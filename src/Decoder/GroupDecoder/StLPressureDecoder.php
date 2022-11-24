@@ -32,16 +32,18 @@ class StLPressureDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawStlPressure, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(
-                get_class($this),
+                $this,
+                $groupIndicator,
                 [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]
             );
 
@@ -71,6 +73,36 @@ class StLPressureDecoder implements GroupDecoderInterface
         }
 
         return $stationPressure;
+    }
+
+    /**
+     * Returns indicator and description of atmospheric pressure group at the station level - 3P0P0P0P0
+     *
+     * @return string[] Indicator and description of atmospheric pressure group at the station level - 3P0P0P0P0
+     */
+    public function getIndicatorGroup(): array
+    {
+        return ['3' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of last four figures of the air pressure - 3P0P0P0P0
+     *
+     * @return string[] Indicator and description of last four figures of the air pressure
+     */
+    public function getFigureAirPressure(): array
+    {
+        return [
+            'PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'
+        ];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getIndicatorGroup()),
+            key($this->getFigureAirPressure()),
+        ];
     }
 
     /**

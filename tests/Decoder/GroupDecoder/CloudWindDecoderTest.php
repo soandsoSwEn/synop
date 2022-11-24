@@ -227,7 +227,7 @@ class CloudWindDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->cloudWindDecoder->isGroup($validate));
+        $this->assertTrue($this->cloudWindDecoder->isGroup($validate, 'Nddff'));
     }
 
     public function testErrorIsGroup()
@@ -236,6 +236,37 @@ class CloudWindDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertFalse($cloudWindDecoder->isGroup($validate));
+        $this->assertFalse($cloudWindDecoder->isGroup($validate, 'Nddff'));
+    }
+
+    public function testSuccessGetTotalCloudIndicator()
+    {
+        $expected = ['N' => 'Total amount of cloud'];
+
+        $this->assertEquals($expected, $this->cloudWindDecoder->getTotalCloudIndicator());
+    }
+
+    public function testSuccessIsArrayGetTotalCloudIndicator()
+    {
+        $this->assertIsArray($this->cloudWindDecoder->getTotalCloudIndicator());
+    }
+
+    public function testSuccessGetWindDirectionIndicator()
+    {
+        $expected = ['dd' => 'Wind direction in tens degrees'];
+
+        $this->assertEquals($expected, $this->cloudWindDecoder->getWindDirectionIndicator());
+    }
+
+    public function testSuccessIsArrayGetWindDirectionIndicator()
+    {
+        $this->assertIsArray($this->cloudWindDecoder->getWindDirectionIndicator());
+    }
+
+    public function testSuccessGetWindSpeedIndicator()
+    {
+        $expected = ['ff' => 'Wind speed'];
+
+        $this->assertEquals($expected, $this->cloudWindDecoder->getWindSpeedIndicator());
     }
 }

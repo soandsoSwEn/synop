@@ -166,7 +166,7 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
      */
     public function isSunshineRadiationGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -195,5 +195,15 @@ class SunshineRadiationDataGroup extends BaseGroupWithUnits implements GroupInte
         } else {
             $this->setSunshineValue($decoder->getSunshineData());
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '55SSS';
     }
 }

@@ -61,10 +61,11 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
         $this->rawCloudVis = $rawCloudVis;
     }
 
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         return $validate->isValidGroup(
-            get_class($this),
+            $this,
+            $groupIndicator,
             [
                 $this->getCodeFigureIr(),
                 $this->getCodeFigureIx(),
@@ -189,6 +190,56 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
     private function getHData(): array
     {
         return $this->h;
+    }
+
+    /**
+     * Returns indicator and description of inclusion omission of precipitation data - irixhVV
+     *
+     * @return string[] Indicator and description of inclusion omission of precipitation data
+     */
+    public function getGetPrecipitationDataIndicator(): array
+    {
+        return ['ir' => 'Inclusion omission of precipitation data'];
+    }
+
+    /**
+     * Returns indicator and description of inclusion omission of weather group - irixhVV
+     *
+     * @return string[] Indicator and description of inclusion omission of weather group
+     */
+    public function getGetWeatherGroupIndicator(): array
+    {
+        return ['ix' => 'Inclusion omission of weather group'];
+    }
+
+    /**
+     * Returns indicator and description of Height of base of lowest cloud - irixhVV
+     *
+     * @return string[] Indicator and description of height of base of lowest cloud
+     */
+    public function getGetHeightCloudIndicator(): array
+    {
+        return ['h' => 'Height of base of lowest cloud'];
+    }
+
+    /**
+     * Returns indicator and description of horizontal visibility - irixhVV
+     *
+     * @return string[] Indicator and description of horizontal visibility
+     */
+    public function getGetVisibilityIndicator(): array
+    {
+        return ['VV' => 'Horizontal visibility'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetPrecipitationDataIndicator()),
+            key($this->getGetWeatherGroupIndicator()),
+            key($this->getGetHeightCloudIndicator()),
+            key($this->getGetVisibilityIndicator()),
+        ];
     }
 
     /**

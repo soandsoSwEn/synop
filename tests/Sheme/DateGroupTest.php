@@ -322,4 +322,14 @@ class DateGroupTest extends TestCase
 
         $this->dateGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('YYGGiw', $this->dateGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->dateGroup->getGroupIndicator());
+    }
 }

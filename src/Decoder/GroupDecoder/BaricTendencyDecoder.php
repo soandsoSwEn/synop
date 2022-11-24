@@ -31,16 +31,18 @@ class BaricTendencyDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the code group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawBaricTendency, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
             $validate->isValidGroup(
-                get_class($this),
+                $this,
+                $groupIndicator,
                 [$this->getCodeFigureIndicator(),$this->getCodeFigureCharacteristic(), $this->getCodeFigureChange()]
             );
 
@@ -73,6 +75,45 @@ class BaricTendencyDecoder implements GroupDecoderInterface
         $baricTendency = $integerOfNumber . '.' . $fractionalOfNumber;
 
         return floatval($baricTendency);
+    }
+
+    /**
+     * Returns indicator and description of pressure change over last three hours - 5appp
+     *
+     * @return string[] Indicator and description of pressure change over last three hours
+     */
+    public function getGetIndicatorGroup()
+    {
+        return ['5' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of characteristic pressure change - 5appp
+     *
+     * @return string[] Indicator and description of characteristic pressure change
+     */
+    public function getCharacteristicChangeIndicator()
+    {
+        return ['a' => 'Characteristic of pressure change'];
+    }
+
+    /**
+     * Returns indicator and description of pressure change over last three hours - 5appp
+     *
+     * @return string[] Indicator and description of pressure change over last three hours
+     */
+    public function getPressureChangeIndicator()
+    {
+        return ['ppp' => 'Pressure change over last three hours in millibars and tenths'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getCharacteristicChangeIndicator()),
+            key($this->getPressureChangeIndicator()),
+        ];
     }
 
     /**

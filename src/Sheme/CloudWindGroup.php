@@ -156,7 +156,7 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function setCloudWind(GroupDecoderInterface $decoder, ValidateInterface $validate): void
     {
-        if ($decoder->isGroup($validate)) {
+        if ($decoder->isGroup($validate, $this->getGroupIndicator())) {
             $this->setTotalClouds($decoder);
             $this->setDirectionWind($decoder);
             $this->setWindSpeed($decoder);
@@ -196,5 +196,15 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     public function setWindSpeed(GroupDecoderInterface $decoder): void
     {
         $this->setWindSpeedValue($decoder->getVv());
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return 'Nddff';
     }
 }

@@ -73,17 +73,41 @@ class IndexDecoderTest extends TestCase
     public function testSuccessIsGroup()
     {
         $validate = Mockery::mock(Validate::class);
-        $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\IndexDecoder', ['33', '837']])->once()->andReturn(true);
+        $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\IndexDecoder', 'IIiii', ['33', '837']])->once()->andReturn(true);
 
-        $this->assertTrue($this->rawIndex->isGroup($validate));
+        $this->assertTrue($this->rawIndex->isGroup($validate, 'IIiii'));
     }
 
     public function testErrorIsGroup()
     {
         $rawIndex = new IndexDecoder('11583');
         $validate = Mockery::mock(Validate::class);
-        $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\IndexDecoder', ['11', '583']])->once()->andReturn(false);
+        $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\IndexDecoder', 'IIiii', ['11', '583']])->once()->andReturn(false);
 
-        $this->assertFalse($rawIndex->isGroup($validate));
+        $this->assertFalse($rawIndex->isGroup($validate, 'IIiii'));
+    }
+
+    public function testSuccessGetStationAreaIndicator()
+    {
+        $expected = ['II' => 'Area station'];
+
+        $this->assertEquals($expected, $this->rawIndex->getStationAreaIndicator());
+    }
+
+    public function testSuccessIsArrayGetStationAreaIndicator()
+    {
+        $this->assertIsArray($this->rawIndex->getStationAreaIndicator());
+    }
+
+    public function testSuccessGetStationIndexIndicator()
+    {
+        $expected = ['iii' => 'Station index'];
+
+        $this->assertEquals($expected, $this->rawIndex->getStationIndexIndicator());
+    }
+
+    public function testSuccessIsArrayGetStationIndexIndicator()
+    {
+        $this->assertIsArray($this->rawIndex->getStationIndexIndicator());
     }
 }

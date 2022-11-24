@@ -147,7 +147,7 @@ class BaricTendencyDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->baricTendencyDecoder->isGroup($validator));
+        $this->assertTrue($this->baricTendencyDecoder->isGroup($validator, '5appp'));
     }
 
     public function testErrorIsGroup()
@@ -156,6 +156,42 @@ class BaricTendencyDecoderTest extends TestCase
         $validator = Mockery::mock(Validate::class);
         $validator->shouldReceive('isValidGroup')->andReturn(false);
 
-        $this->assertTrue($baricTendencyDecoder->isGroup($validator));
+        $this->assertTrue($baricTendencyDecoder->isGroup($validator, '5appp'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['5' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetCharacteristicChangeIndicator()
+    {
+        $expected = ['a' => 'Characteristic of pressure change'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getCharacteristicChangeIndicator());
+    }
+
+    public function testSuccessIsArrayGetCharacteristicChangeIndicator()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getCharacteristicChangeIndicator());
+    }
+
+    public function testSuccessGetPressureChangeIndicator()
+    {
+        $expected = ['ppp' => 'Pressure change over last three hours in millibars and tenths'];
+
+        $this->assertEquals($expected, $this->baricTendencyDecoder->getPressureChangeIndicator());
+    }
+
+    public function testSuccessIsArrayGetPressureChangeIndicator()
+    {
+        $this->assertIsArray($this->baricTendencyDecoder->getPressureChangeIndicator());
     }
 }

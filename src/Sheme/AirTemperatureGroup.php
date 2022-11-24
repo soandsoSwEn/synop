@@ -193,7 +193,7 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
      */
     public function isAirTempGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -241,5 +241,15 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
         } else {
             $this->temperatureValue = null;
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '1SnTTT';
     }
 }

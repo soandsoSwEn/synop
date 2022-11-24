@@ -39,11 +39,15 @@ class CloudWindDecoder implements GroupDecoderInterface
         $this->rawCloudsWind = $rawCloudsWind;
     }
 
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
-        return $validate->isValidGroup(get_class($this), [
+        return $validate->isValidGroup(
+            $this,
+            $groupIndicator,
+            [
             $this->getCodeFigureN(), $this->getCodeFigureDd(), $this->getCodeFigureVv()
-        ]);
+            ]
+        );
     }
 
     /**
@@ -79,6 +83,45 @@ class CloudWindDecoder implements GroupDecoderInterface
     public function getVv(): int
     {
         return intval(substr($this->rawCloudsWind, 3, 2));
+    }
+
+    /**
+     * Returns indicator and description of total amount of cloud for total number of clouds and wind - 'Nddff'
+     *
+     * @return string[] Indicator and description of total amount of cloud
+     */
+    public function getTotalCloudIndicator(): array
+    {
+        return ['N' => 'Total amount of cloud'];
+    }
+
+    /**
+     * Returns indicator and description of wind direction for total number of clouds and wind - 'Nddff'
+     *
+     * @return string[] Indicator and description of wind direction
+     */
+    public function getWindDirectionIndicator(): array
+    {
+        return ['dd' => 'Wind direction in tens degrees'];
+    }
+
+    /**
+     * Returns indicator and description of wind speed for total number of clouds and wind - 'Nddff'
+     *
+     * @return string[] Indicator and description of wind speed
+     */
+    public function getWindSpeedIndicator(): array
+    {
+        return ['ff' => 'Wind speed'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getTotalCloudIndicator()),
+            key($this->getWindDirectionIndicator()),
+            key($this->getWindSpeedIndicator()),
+        ];
     }
 
     /**

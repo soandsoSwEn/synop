@@ -157,7 +157,7 @@ class IndexGroup implements GroupInterface
      */
     public function setIndexGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): void
     {
-        if ($decoder->isGroup($validate)) {
+        if ($decoder->isGroup($validate, $this->getGroupIndicator())) {
             $this->setAreaNumber($decoder);
             $this->setStationNumber($decoder);
             $this->setStationIndex($decoder);
@@ -197,5 +197,15 @@ class IndexGroup implements GroupInterface
     public function setStationIndex(GroupDecoderInterface $decoder): void
     {
         $this->setStationIndexValue($decoder->getIndex());
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return 'IIiii';
     }
 }

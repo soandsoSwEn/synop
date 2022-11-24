@@ -658,4 +658,14 @@ class AdditionalCloudInformationGroupTest extends TestCase
 
         $this->additionalCloudInformationGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('8NsChshs', $this->additionalCloudInformationGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->additionalCloudInformationGroup->getGroupIndicator());
+    }
 }

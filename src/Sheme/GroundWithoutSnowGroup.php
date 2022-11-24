@@ -249,7 +249,7 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
      */
     public function isDrWtSnGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -326,5 +326,15 @@ class GroundWithoutSnowGroup extends BaseGroupWithUnits implements GroupInterfac
         } else {
             $this->setResultMinTemperature(null);
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '3ESnTgTg';
     }
 }

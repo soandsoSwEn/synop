@@ -177,7 +177,7 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
      */
     public function isDwPtTemperatureGroup(GroupDecoderInterface $decoder, ValidateInterface $validate): bool
     {
-        return $decoder->isGroup($validate);
+        return $decoder->isGroup($validate, $this->getGroupIndicator());
     }
 
     /**
@@ -225,5 +225,15 @@ class DewPointTemperatureGroup extends BaseGroupWithUnits implements GroupInterf
         } else {
             $this->dewPointValue = null;
         }
+    }
+
+    /**
+     * Returns the indicator of the entire weather report group
+     *
+     * @return string Group indicator
+     */
+    public function getGroupIndicator(): string
+    {
+        return '2SnTdTdTd';
     }
 }

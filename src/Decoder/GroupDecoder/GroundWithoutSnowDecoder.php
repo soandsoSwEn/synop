@@ -48,20 +48,25 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawGroundWithoutSnow, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigureIndicator(),
                 $this->getCodeFigureStateGround(),
                 $this->getCodeFigureSignTemperature(),
                 $this->getCodeFigureMinTemperature()
-            ]);
+                ]
+            );
 
             return true;
         }
@@ -122,6 +127,56 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
         $minGrassTemperature = substr($this->rawGroundWithoutSnow, 3, 2);
 
         return intval($minGrassTemperature);
+    }
+
+    /**
+     * Returns indicator and description of state and temperature of the ground without snow 333 3ESnTgTg
+     *
+     * @return string[] Indicator and description of state temperature of the ground without snow
+     */
+    public function getGetIndicatorGroup(): array
+    {
+        return ['3' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of state of the ground without snow 333 3ESnTgTg
+     *
+     * @return string[] Indicator and description of state of ground without snow
+     */
+    public function getStateGroundIndicator(): array
+    {
+        return ['E' => 'State of ground without snow or measurable ice cover'];
+    }
+
+    /**
+     * Returns indicator and description of sign of temperature 333 3ESnTgTg
+     *
+     * @return string[] Indicator and description of sign of temperature
+     */
+    public function getSignTemperatureIndicator(): array
+    {
+        return ['Sn' => 'Sign of temperature'];
+    }
+
+    /**
+     * Returns indicator and description of grass minimum temperature 333 3ESnTgTg
+     *
+     * @return string[] Indicator and description of minimum temperature
+     */
+    public function getMinimumTemperature(): array
+    {
+        return ['TgTg' => 'Grass minimum temperature (rounded to nearest whole degree)'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getGetIndicatorGroup()),
+            key($this->getStateGroundIndicator()),
+            key($this->getSignTemperatureIndicator()),
+            key($this->getMinimumTemperature()),
+        ];
     }
 
     /**

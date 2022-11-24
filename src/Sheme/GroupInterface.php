@@ -35,4 +35,11 @@ interface GroupInterface
      * @return GroupDecoderInterface Decoder object for the group of code of weather report
      */
     public function getDecoder(): GroupDecoderInterface;
+
+    /**
+     * Returns the weather report group indicator
+     *
+     * @return string Group indicator meteorological report
+     */
+    public function getGroupIndicator(): string;
 }

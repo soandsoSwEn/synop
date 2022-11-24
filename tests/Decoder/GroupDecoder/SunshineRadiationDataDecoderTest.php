@@ -87,7 +87,7 @@ class SunshineRadiationDataDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->sunshineRadiation->isGroup($validate));
+        $this->assertTrue($this->sunshineRadiation->isGroup($validate, '55SSS'));
     }
 
     public function testErrorIsGroup()
@@ -96,6 +96,30 @@ class SunshineRadiationDataDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder', ['54', '118']])->andReturn(false);
 
-        $this->assertFalse($sunshineRadiation->isGroup($validate));
+        $this->assertFalse($sunshineRadiation->isGroup($validate, '55SSS'));
+    }
+
+    public function testSuccessGetGetIndicatorGroup()
+    {
+        $expected = ['55' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->sunshineRadiation->getGetIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->sunshineRadiation->getGetIndicatorGroup());
+    }
+
+    public function testSuccessGetDurationTinderIndicator()
+    {
+        $expected = ['SSS' => 'Duration of daily sunshine'];
+
+        $this->assertEquals($expected, $this->sunshineRadiation->getDurationTinderIndicator());
+    }
+
+    public function testSuccessIsArrayGetDurationTinderIndicator()
+    {
+        $this->assertIsArray($this->sunshineRadiation->getDurationTinderIndicator());
     }
 }

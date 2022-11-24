@@ -448,4 +448,14 @@ class DewPointTemperatureGroupTest extends TestCase
 
         $this->dewPointTemperatureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('2SnTdTdTd', $this->dewPointTemperatureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->dewPointTemperatureGroup->getGroupIndicator());
+    }
 }

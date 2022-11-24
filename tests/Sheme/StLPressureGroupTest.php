@@ -240,4 +240,14 @@ class StLPressureGroupTest extends TestCase
 
         $this->stLPressureGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('3P0P0P0P0', $this->stLPressureGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->stLPressureGroup->getGroupIndicator());
+    }
 }

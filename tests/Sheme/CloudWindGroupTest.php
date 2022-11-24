@@ -219,4 +219,14 @@ class CloudWindGroupTest extends TestCase
 
         $this->cloudWindGroup->setData('', $validate);
     }
+
+    public function testSuccessGetGroupIndicator()
+    {
+        $this->assertEquals('Nddff', $this->cloudWindGroup->getGroupIndicator());
+    }
+
+    public function testSuccessIsStringGetGroupIndicator()
+    {
+        $this->assertIsString($this->cloudWindGroup->getGroupIndicator());
+    }
 }

@@ -40,17 +40,22 @@ class AmountRainfallDecoder implements GroupDecoderInterface
      * Returns the result of checking the validity of the group
      *
      * @param ValidateInterface $validate
+     * @param string $groupIndicator Group figure indicator
      * @return bool
      * @throws Exception
      */
-    public function isGroup(ValidateInterface $validate): bool
+    public function isGroup(ValidateInterface $validate, string $groupIndicator): bool
     {
         $distinguishingDigit = substr($this->rawAmountRainfall, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(get_class($this), [
+            $validate->isValidGroup(
+                $this,
+                $groupIndicator,
+                [
                 $this->getCodeFigureIndicator(), $this->getCodeFigureAmount(), $this->getCodeFigurePeriod()
-            ]);
+                ]
+            );
             return true;
         }
 
@@ -119,6 +124,45 @@ class AmountRainfallDecoder implements GroupDecoderInterface
         }
 
         return [null, intval($rainfallData)];
+    }
+
+    /**
+     * Returns indicator and description of amount rainfall group - 6RRRtr
+     *
+     * @return string[] Indicator and description of amount rainfall group
+     */
+    public function getIndicatorGroup(): array
+    {
+        return ['6' => 'Indicator'];
+    }
+
+    /**
+     * Returns indicator and description of amount rainfall group - 6RRRtr
+     *
+     * @return string[] Indicator and description of amount rainfall
+     */
+    public function getAmountRainfallIndicator(): array
+    {
+        return ['RRR' => 'Amount of rainfall'];
+    }
+
+    /**
+     * Returns indicator and description of duration period for amount rainfall group - 6RRRtr
+     *
+     * @return string[] Indicator and description of duration period
+     */
+    public function getDurationPeriodIndicator(): array
+    {
+        return ['tr' => 'Duration period of RRR'];
+    }
+
+    public function getGroupIndicators()
+    {
+        return [
+            key($this->getIndicatorGroup()),
+            key($this->getAmountRainfallIndicator()),
+            key($this->getDurationPeriodIndicator()),
+        ];
     }
 
     /**

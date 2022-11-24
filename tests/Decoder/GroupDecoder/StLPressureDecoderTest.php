@@ -104,7 +104,7 @@ class StLPressureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->once()->andReturn(true);
 
-        $this->assertTrue($this->stlPressure->isGroup($validate));
+        $this->assertTrue($this->stlPressure->isGroup($validate, '3P0P0P0P0'));
     }
 
     public function testErrorIsGroup()
@@ -113,6 +113,30 @@ class StLPressureDecoderTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->withArgs(['Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder', '3', '0049'])->andReturn(true);
 
-        $this->assertFalse($stlPressure->isGroup($validate));
+        $this->assertFalse($stlPressure->isGroup($validate, '3P0P0P0P0'));
+    }
+
+    public function testSuccessGetIndicatorGroup()
+    {
+        $expected = ['3' => 'Indicator'];
+
+        $this->assertEquals($expected, $this->stlPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessIsArrayGetIndicatorGroup()
+    {
+        $this->assertIsArray($this->stlPressure->getIndicatorGroup());
+    }
+
+    public function testSuccessGetFigureAirPressure()
+    {
+        $expected = ['PPPP' => 'Last four figures of the air pressure (reduced to mean station level) in millibars and tenths'];
+
+        $this->assertEquals($expected, $this->stlPressure->getFigureAirPressure());
+    }
+
+    public function testSuccessIsArrayGetFigureAirPressure()
+    {
+        $this->assertIsArray($this->stlPressure->getFigureAirPressure());
     }
 }
