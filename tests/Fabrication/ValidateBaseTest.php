@@ -73,4 +73,14 @@ class ValidateBaseTest extends TestCase
         $report = 'AAXX 07181 33837  11583 83102 10039 21007 30049 40101 52035 60012 70282 8255/ 333 10091 555   1/004=';
         $this->assertEquals($this->report, $this->validateBase->clearDoubleSpacing($report));
     }
+
+    public function testSuccessIsNil()
+    {
+        $this->assertTrue($this->validateBase->isNil('AAXX 24124 40272 NIL='));
+    }
+
+    public function testSuccessNotIsNil()
+    {
+        $this->assertFalse($this->validateBase->isNil($this->report));
+    }
 }

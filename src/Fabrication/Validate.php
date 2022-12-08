@@ -222,6 +222,16 @@ class Validate extends ValidateBase implements ValidateInterface
     }
 
     /**
+     * Performs a meteorological report check for emptiness
+     *
+     * @return bool
+     */
+    public function isNotEmpty(): bool
+    {
+        return $this->isNil($this->report) === false;
+    }
+
+    /**
      * Performs validation of a single weather group
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class

@@ -16,7 +16,7 @@ class ValidateBase
      * @var string[] Code figure of distinctive groups
      */
     private $distinctiveGroups = [
-        'AAXX', 'BBXX', '222', 'ICE', '333', '444', '555'
+        'AAXX', 'BBXX', '222', 'ICE', '333', '444', '555', 'NIL',
     ];
 
     /**
@@ -91,11 +91,24 @@ class ValidateBase
     public function isSpecificGroup(string $group): bool
     {
         foreach ($this->distinctiveGroups as $groups) {
-            if (strcmp($groups, $group) == 0) {
+            if (strcasecmp($groups, $group) == 0) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Checks for a non-empty weather report
+     *
+     * @param string $report Weather report source code
+     * @return bool
+     */
+    public function isNil(string $report): bool
+    {
+        $reportBlocks = explode(' ', $report);
+
+        return strcasecmp(end($reportBlocks), 'NIL=') == 0;
     }
 }

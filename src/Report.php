@@ -2,6 +2,7 @@
 
 namespace Soandso\Synop;
 
+use Soandso\Synop\Exception\EmptyReportException;
 use Soandso\Synop\Fabrication\PartData;
 use Soandso\Synop\Fabrication\RawReportInterface;
 use Exception;
@@ -55,12 +56,18 @@ class Report implements ReportInterface
 
     public function __construct(string $report)
     {
-        $this->setReport($report);
-        $this->initValidator($this->rawReport->getReport());
-        $this->prepareReport();
-        $this->partData = new PartData();
-        $this->unit = new Unit();
-        $this->partData->setUnit($this->unit);
+        try {
+            $this->setReport($report);
+            $this->initValidator($this->rawReport->getReport());
+            $this->prepareReport();
+            $this->partData = new PartData();
+            $this->unit = new Unit();
+            $this->partData->setUnit($this->unit);
+        } catch (EmptyReportException $emptyReportException) {
+            throw $emptyReportException;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -91,6 +98,10 @@ class Report implements ReportInterface
         $this->validate = new Validate($report);
         if ($this->validate->isValid() === false) {
             throw new Exception('Wrong weather report format');
+        }
+
+        if (!$this->validate->isNotEmpty()) {
+            throw new EmptyReportException($report, 'Weather report is empty');
         }
     }
 
