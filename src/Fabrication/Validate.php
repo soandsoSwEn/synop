@@ -109,8 +109,8 @@ class Validate extends ValidateBase implements ValidateInterface
                 $errorsOutput[$i]['description_indicator'] = $chunkError['description'];
                 $errorsOutput[$i]['code_figure'] = $codeFigure;
                 $errorsOutput[$i]['description_error'] = $chunkError['error'];
+                $i++;
             }
-            $i++;
         }
 
         return $errorsOutput;
@@ -155,10 +155,15 @@ class Validate extends ValidateBase implements ValidateInterface
             return false;
         }
 
-        $errorsOutput['group_figure'] = key($this->errors[$groupIndicator]);
-        $errorsOutput['description_indicator'] = current($this->errors[$groupIndicator])['description'];
-        $errorsOutput['code_figure'] = current($this->errors[$groupIndicator])['code'];
-        $errorsOutput['description_error'] = current($this->errors[$groupIndicator])['error'];
+        $errorsOutput = [];
+        $i = 0;
+        foreach ($this->errors[$groupIndicator] as $key => $error) {
+            $errorsOutput[$i]['group_figure'] = $key;
+            $errorsOutput[$i]['description_indicator'] = $error['description'];
+            $errorsOutput[$i]['code_figure'] = $error['code'];
+            $errorsOutput[$i]['description_error'] = $error['error'];
+            $i++;
+        }
 
         return $errorsOutput;
     }

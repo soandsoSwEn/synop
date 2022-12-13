@@ -1183,12 +1183,12 @@ class ValidateTest extends TestCase
             ]]
         ]);
 
-        $expected = [
+        $expected = [[
             'group_figure' => 'AAXX/BBXX',
             'description_indicator' => 'Synoptic Code Identifier',
             'code_figure' => 'AACC',
             'description_error' => 'The summary type group data does not match the specified format; Code group - AACC',
-        ];
+        ]];
 
         $this->assertEquals($expected, $this->validate->getErrorByGroup('AAXX/BBXX'));
     }
