@@ -2411,6 +2411,11 @@ Search.appendIndex(
             "summary": "Performs\u0020a\u0020basic\u0020check\u0020of\u0020the\u0020entire\u0020weather\u0020report",
             "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_isValid"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AisNotEmpty\u0028\u0029",
+            "name": "isNotEmpty",
+            "summary": "Performs\u0020a\u0020meteorological\u0020report\u0020check\u0020for\u0020emptiness",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_isNotEmpty"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AisValidGroup\u0028\u0029",
             "name": "isValidGroup",
             "summary": "Performs\u0020validation\u0020of\u0020a\u0020single\u0020weather\u0020group",
@@ -2561,6 +2566,11 @@ Search.appendIndex(
             "summary": "Checks\u0020if\u0020the\u0020weather\u0020report\u0020group\u0020is\u0020special",
             "url": "classes/Soandso-Synop-Fabrication-ValidateBase.html#method_isSpecificGroup"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\ValidateBase\u003A\u003AisNil\u0028\u0029",
+            "name": "isNil",
+            "summary": "Checks\u0020for\u0020a\u0020non\u002Dempty\u0020weather\u0020report",
+            "url": "classes/Soandso-Synop-Fabrication-ValidateBase.html#method_isNil"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\ValidateBase\u003A\u003A\u0024report",
             "name": "report",
             "summary": "",
@@ -2666,10 +2676,10 @@ Search.appendIndex(
             "summary": "Returns\u0020errors\u0020in\u0020meteorological\u0020weather\u0020report",
             "url": "classes/Soandso-Synop-Report.html#method_getErrors"
         },                {
-            "fqsen": "\\Soandso\\Synop\\Report\u003A\u003AgetReportList\u0028\u0029",
-            "name": "getReportList",
+            "fqsen": "\\Soandso\\Synop\\Report\u003A\u003AgetErrorList\u0028\u0029",
+            "name": "getErrorList",
             "summary": "Returns\u0020a\u0020list\u0020of\u0020weather\u0020report\u0020errors",
-            "url": "classes/Soandso-Synop-Report.html#method_getReportList"
+            "url": "classes/Soandso-Synop-Report.html#method_getErrorList"
         },                {
             "fqsen": "\\Soandso\\Synop\\Report\u003A\u003AgetReport\u0028\u0029",
             "name": "getReport",
@@ -5266,6 +5276,26 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/Soandso-Synop-Sheme-TypeGroup.html#property_type"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Exception\\EmptyReportException",
+            "name": "EmptyReportException",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Exception-EmptyReportException.html"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Exception\\EmptyReportException\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Exception-EmptyReportException.html#method___construct"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Exception\\EmptyReportException\u003A\u003AgetReport\u0028\u0029",
+            "name": "getReport",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Exception-EmptyReportException.html#method_getReport"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Exception\\EmptyReportException\u003A\u003A\u0024report",
+            "name": "report",
+            "summary": "",
+            "url": "classes/Soandso-Synop-Exception-EmptyReportException.html#property_report"
+        },                {
             "fqsen": "\\",
             "name": "\\",
             "summary": "",
@@ -5280,6 +5310,11 @@ Search.appendIndex(
             "name": "GroupDecoder",
             "summary": "",
             "url": "namespaces/soandso-synop-decoder-groupdecoder.html"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Exception",
+            "name": "Exception",
+            "summary": "",
+            "url": "namespaces/soandso-synop-exception.html"
         },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication",
             "name": "Fabrication",

@@ -197,6 +197,13 @@
 <dd>Checks the validity of a single group of meteorological reports based on the number of characters</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/Soandso-Synop-Fabrication-ValidateBase.html#method_isNil">isNil()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Checks for a non-empty weather report</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Fabrication-ValidateBase.html#method_isSpecificGroup">isSpecificGroup()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -240,7 +247,7 @@
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$distinctiveGroups</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;AAXX&#039;, &#039;BBXX&#039;, &#039;222&#039;, &#039;ICE&#039;, &#039;333&#039;, &#039;444&#039;, &#039;555&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;AAXX&#039;, &#039;BBXX&#039;, &#039;222&#039;, &#039;ICE&#039;, &#039;333&#039;, &#039;444&#039;, &#039;555&#039;, &#039;NIL&#039;]</span></code>
 
     
         <section class="phpdocumentor-description"><p>Code figure of distinctive groups</p>
@@ -459,6 +466,51 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Code figure of single weather report group</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_isNil">
+        isNil()
+        <a href="classes/Soandso-Synop-Fabrication-ValidateBase.html#method_isNil" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Fabrication/ValidateBase.php"><a href="files/src-fabrication-validatebase.html"><abbr title="src/Fabrication/ValidateBase.php">ValidateBase.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">108</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Checks for a non-empty weather report</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">isNil</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$report</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$report</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Weather report source code</p>
 </section>
 
             </dd>
