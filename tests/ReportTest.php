@@ -5,6 +5,7 @@ namespace Soandso\Synop\Tests;
 use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Soandso\Synop\Exception\EmptyReportException;
 use Soandso\Synop\Fabrication\PartData;
 use Soandso\Synop\Fabrication\RawReport;
 use Soandso\Synop\Fabrication\RawReportInterface;
@@ -27,6 +28,20 @@ class ReportTest extends TestCase
     protected function tearDown(): void
     {
         unset($this->report);
+    }
+
+    public function testEmptyReportException()
+    {
+        $this->expectException(EmptyReportException::class);
+
+        new Report('AAXX 24124 40272 NIL=');
+    }
+
+    public function testException()
+    {
+        $this->expectException(Exception::class);
+
+        new Report('AAXX 24124 40272 31550 62714 10180 20109 39291 40107 57012 70521 86800 333 83830 83635');
     }
 
     public function testSuccessSetReport()
