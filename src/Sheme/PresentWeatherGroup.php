@@ -27,22 +27,22 @@ class PresentWeatherGroup implements GroupInterface
     private $decoder;
 
     /**
-     * @var integer The Present Weather symbolic value
+     * @var integer|null The Present Weather symbolic value
      */
     private $presentWeatherSymbol;
 
     /**
-     * @var string The Present Weather string value
+     * @var string|null The Present Weather string value
      */
     private $presentWeather;
 
     /**
-     * @var integer The Past Weather symbolic value
+     * @var integer|null The Past Weather symbolic value
      */
     private $pastWeatherSymbol;
 
     /**
-     * @var array The Past Weather string values
+     * @var array|null The Past Weather string values
      */
     private $pastWeather;
 
@@ -92,9 +92,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets present weather
      *
-     * @param string $presentWeather The present weather
+     * @param string|null $presentWeather The present weather
      */
-    public function setPresentWeatherValue(string $presentWeather): void
+    public function setPresentWeatherValue(?string $presentWeather): void
     {
         $this->presentWeather = $presentWeather;
     }
