@@ -38,6 +38,7 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
         '7' => 'Even layer of loose dry snow covering ground completely',
         '8' => 'Uneven layer of loose dry snow covering ground completely',
         '9' => 'Snow covering ground completely; deep drifts',
+        '/' => null,
     ];
 
     /**
@@ -83,10 +84,10 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
     /**
      * Return code figure of state ground
      *
-     * @return int Code figure of state of the ground with snow or measurable ice cover
+     * @return null|int Code figure of state of the ground with snow or measurable ice cover
      * @throws Exception
      */
-    public function getCodeGroundState(): int
+    public function getCodeGroundState(): ?int
     {
         $E = substr($this->rawGroundWithSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -99,10 +100,10 @@ class GroundWithSnowDecoder implements GroupDecoderInterface
     /**
      * Return state of ground title
      *
-     * @return string State of ground with snow or measurable ice cover
+     * @return null|string State of ground with snow or measurable ice cover
      * @throws Exception
      */
-    public function getGroundState(): string
+    public function getGroundState(): ?string
     {
         $E = substr($this->rawGroundWithSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {

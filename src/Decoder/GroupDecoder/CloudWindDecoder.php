@@ -31,7 +31,7 @@ class CloudWindDecoder implements GroupDecoderInterface
         '7' => '9',
         '8' => '10',
         '9' => '-',
-        '/' => ''
+        '/' => null
     ];
 
     public function __construct(string $rawCloudsWind)
