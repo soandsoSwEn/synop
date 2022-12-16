@@ -93,6 +93,10 @@ class AmountRainfallDecoder implements GroupDecoderInterface
     {
         $durationPeriod = intval(substr($this->rawAmountRainfall, 4, 1));
 
+        if (!array_key_exists($durationPeriod, $this->durationPeriodMap)) {
+            throw new Exception('Wrong data of duration period of RRR');
+        }
+
         return $this->durationPeriodMap[$durationPeriod];
     }
 

@@ -19,12 +19,12 @@ class AirTemperatureDecoder implements GroupDecoderInterface
     /** Value distinctive number of minimum air temperature group */
     protected const MINIMUM_TEMP_DIGIT = '2';
 
-    private $currentDigit = null;
+    protected $currentDigit = null;
 
     /**
      * @var string Air temperature group data
      */
-    private $raw_air_temperature;
+    protected $raw_air_temperature;
 
     public function __construct(string $raw_air_temperature, $isMinTemp = false)
     {

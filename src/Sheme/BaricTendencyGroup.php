@@ -29,17 +29,17 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     private $decoder;
 
     /**
-     * @var integer Characteristic of Pressure change
+     * @var null|integer Characteristic of Pressure change
      */
     private $characteristicChange;
 
     /**
-     * @var float Pressure change over last three hours in millibars and tenths
+     * @var null|float Pressure change over last three hours in millibars and tenths
      */
     private $tendency;
 
     /**
-     * @var float The resulting signed Pressure change over last three hours in millibars and tenths
+     * @var null|float The resulting signed Pressure change over last three hours in millibars and tenths
      */
     private $tendencyValue;
 
@@ -85,9 +85,9 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets characteristic of Pressure change
      *
-     * @param int $characteristicChange Characteristic of Pressure change
+     * @param null|int $characteristicChange Characteristic of Pressure change
      */
-    public function setCharacteristicChangeValue(int $characteristicChange): void
+    public function setCharacteristicChangeValue(?int $characteristicChange): void
     {
         $this->characteristicChange = $characteristicChange;
     }
@@ -95,9 +95,9 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets pressure change over last three hours in millibars and tenths
      *
-     * @param float $tendency Pressure change over last three hours in millibars and tenths
+     * @param null|float $tendency Pressure change over last three hours in millibars and tenths
      */
-    public function setTendencyValue(float $tendency): void
+    public function setTendencyValue(?float $tendency): void
     {
         $this->tendency = $tendency;
     }
@@ -105,9 +105,10 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets the resulting signed Pressure change over last three hours in millibars and tenths
      *
-     * @param float $tendencyValue The resulting signed Pressure change over last three hours in millibars and tenths
+     * @param null|float $tendencyValue The resulting signed Pressure change over last three hours
+     * in millibars and tenths
      */
-    public function setTendencyValueData(float $tendencyValue): void
+    public function setTendencyValueData(?float $tendencyValue): void
     {
         $this->tendencyValue = $tendencyValue;
     }
@@ -125,9 +126,9 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns characteristic of Pressure change
      *
-     * @return int Characteristic of Pressure change
+     * @return null|int Characteristic of Pressure change
      */
-    public function getCharacteristicChangeValue(): int
+    public function getCharacteristicChangeValue(): ?int
     {
         return $this->characteristicChange;
     }
@@ -135,20 +136,19 @@ class BaricTendencyGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns pressure change over last three hours in millibars and tenths
      *
-     * @return float Pressure change over last three hours in millibars and tenths
+     * @return null|float Pressure change over last three hours in millibars and tenths
      */
-    public function getTendencyValue(): float
+    public function getTendencyValue(): ?float
     {
         return $this->tendency;
     }
 
-    //TODO string or float type value
     /**
      * Returns the resulting signed Pressure change over last three hours in millibars and tenths
      *
-     * @return string The resulting signed Pressure change over last three hours in millibars and tenths
+     * @return null|string The resulting signed Pressure change over last three hours in millibars and tenths
      */
-    public function getTendencyValueData(): string
+    public function getTendencyValueData(): ?string
     {
         return $this->tendencyValue;
     }

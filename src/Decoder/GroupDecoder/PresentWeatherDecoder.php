@@ -138,6 +138,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '97' => 'Thunderstorm, heavy, without hail but with rain and/or snow at time of observation',
         '98' => 'Thunderstorm combined with duststorm of sandstorm at time of observation',
         '99' => 'Thunderstorm, heavy, with hail at time of observation',
+        '/' => null
     ];
 
     /**
@@ -155,6 +156,7 @@ class PresentWeatherDecoder implements GroupDecoderInterface
         '7' => 'Snow or rain and snow mixed or diamond dust',
         '8' => 'Shower(s)',
         '9' => 'Thunderstorm(s) with or without precipitation',
+        '/' => null
     ];
 
     public function __construct(string $rawPresentWeather)

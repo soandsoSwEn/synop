@@ -118,7 +118,6 @@ class LowCloudVisibilityGroup extends BaseGroupWithUnits implements GroupInterfa
         $this->heightLowClouds = $heightLowClouds;
     }
 
-    //TODO string or integer value
     /**
      * Sets meteorological range of visibility
      *
