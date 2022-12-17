@@ -1,5 +1,5 @@
 ![Packagist License](https://img.shields.io/packagist/l/soandso/synop?color=green)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/soandsoSwEn/synop/PHP%20Composer)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/soandsoSwEn/synop/php.yml?branch=main)
 ![Codacy grade](https://img.shields.io/codacy/grade/4a4ae29ea5374b22a2fdb6cd73e3ae8b)
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/soandso/synop)
 ![GitHub top language](https://img.shields.io/github/languages/top/soandsoSwEn/synop)
