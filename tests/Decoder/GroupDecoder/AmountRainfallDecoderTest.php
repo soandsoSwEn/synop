@@ -163,12 +163,12 @@ class AmountRainfallDecoderTest extends TestCase
 
     public function testSuccessGetDurationPeriodNumber()
     {
-        $this->assertEquals(2, $this->amountRainfallDecoder->getDurationPeriodNumber());
+        $this->assertEquals('2', $this->amountRainfallDecoder->getDurationPeriodNumber());
     }
 
     public function testSuccessIsIntGetDurationPeriodNumber()
     {
-        $this->assertIsInt($this->amountRainfallDecoder->getDurationPeriodNumber());
+        $this->assertIsString($this->amountRainfallDecoder->getDurationPeriodNumber());
     }
 
     public function testErrorGetDurationPeriodNumber()
@@ -179,7 +179,10 @@ class AmountRainfallDecoderTest extends TestCase
 
     public function testSuccessGetDurationPeriod()
     {
-        $this->assertEquals('At 0600 and 1800 GMT', $this->amountRainfallDecoder->getDurationPeriod());
+        $this->assertEquals(
+            'Total precipitation during the 12 hours preceding the observation',
+            $this->amountRainfallDecoder->getDurationPeriod()
+        );
     }
 
     public function testSuccessIsStringGetDurationPeriod()
@@ -189,7 +192,10 @@ class AmountRainfallDecoderTest extends TestCase
 
     public function testErrorGetDurationPeriod()
     {
-        $this->assertNotEquals('At 0001 and 1200 GMT', $this->amountRainfallDecoder->getDurationPeriod());
+        $this->assertNotEquals(
+            'Total precipitation during the 15 hours preceding the observation',
+            $this->amountRainfallDecoder->getDurationPeriod()
+        );
     }
 
     public function testSuccessValueWithTenths()

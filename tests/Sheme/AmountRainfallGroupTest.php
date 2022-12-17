@@ -185,7 +185,10 @@ class AmountRainfallGroupTest extends TestCase
 
     public function testSuccessGetDurationPeriodValue()
     {
-        $this->assertEquals('At 0600 and 1800 GMT', $this->amountRainfallGroup->getDurationPeriodValue());
+        $this->assertEquals(
+            'Total precipitation during the 12 hours preceding the observation',
+            $this->amountRainfallGroup->getDurationPeriodValue()
+        );
     }
 
     public function testSuccessIsStringGetDurationPeriodValue()
@@ -429,7 +432,7 @@ class AmountRainfallGroupTest extends TestCase
         $validate = Mockery::mock(Validate::class);
         $validate->shouldReceive('isValidGroup')->andReturn(true);
 
-        $this->amountRainfallGroup->setData('60021', $validate);
+        $this->amountRainfallGroup->setData('60025', $validate);
 
         $reflector = new \ReflectionClass(AmountRainfallGroup::class);
         $propertyData = $reflector->getProperty('rawAmountRainfall');
@@ -453,11 +456,11 @@ class AmountRainfallGroupTest extends TestCase
         $valuePeriod = $propertyPeriod->getValue($this->amountRainfallGroup);
 
         $expected = [
-            '60021',
+            '60025',
             true,
             [null, 2],
-            1,
-            'At 0001 and 1200 GMT',
+            '5',
+            'Total precipitation during the 1 hour preceding the observation',
         ];
 
         $this->assertEquals($expected, [$valueData, $valueDecoder instanceof GroupDecoderInterface, $valueAmount, $valuePeriodNumber, $valuePeriod]);

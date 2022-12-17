@@ -908,7 +908,7 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        $patternDp = '/^[1-2]$|^\/\/$/';
+        $patternDp = '/^[1-9]$|^\/$/';
         if (!preg_match($patternDp, $groupData[2])) {
             $this->setError(
                 $groupIndicator,

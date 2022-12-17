@@ -22,8 +22,16 @@ class AmountRainfallDecoder implements GroupDecoderInterface
      * @var string[] Main hours measurement of atmospheric precipitation
      */
     private $durationPeriodMap = [
-        1 => 'At 0001 and 1200 GMT',
-        2 => 'At 0600 and 1800 GMT',
+        '1' => 'Total precipitation during the 6 hours preceding the observation',
+        '2' => 'Total precipitation during the 12 hours preceding the observation',
+        '3' => 'Total precipitation during the 18 hours preceding the observation',
+        '4' => 'Total precipitation during the 24 hours preceding the observation',
+        '5' => 'Total precipitation during the 1 hour preceding the observation',
+        '6' => 'Total precipitation during the 2 hours preceding the observation',
+        '7' => 'Total precipitation during the 3 hours preceding the observation',
+        '8' => 'Total precipitation during the 9 hours preceding the observation',
+        '9' => 'Total precipitation during the 15 hours preceding the observation',
+        '/' => null,
     ];
 
     /**
@@ -77,21 +85,22 @@ class AmountRainfallDecoder implements GroupDecoderInterface
     /**
      * Returns the number of duration period of Amount of rainfall
      *
-     * @return int
+     * @return string
      */
-    public function getDurationPeriodNumber(): int
+    public function getDurationPeriodNumber(): string
     {
-        return intval(substr($this->rawAmountRainfall, 4, 1));
+        return substr($this->rawAmountRainfall, 4, 1);
     }
 
     /**
      * Returns the duration period of Amount of rainfall
      *
-     * @return string
+     * @return null|string
+     * @throws Exception
      */
-    public function getDurationPeriod(): string
+    public function getDurationPeriod(): ?string
     {
-        $durationPeriod = intval(substr($this->rawAmountRainfall, 4, 1));
+        $durationPeriod = substr($this->rawAmountRainfall, 4, 1);
 
         if (!array_key_exists($durationPeriod, $this->durationPeriodMap)) {
             throw new Exception('Wrong data of duration period of RRR');
