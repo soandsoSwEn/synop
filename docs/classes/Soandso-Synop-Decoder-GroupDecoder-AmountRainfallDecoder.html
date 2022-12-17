@@ -233,7 +233,7 @@ of this section of the weather report</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getDurationPeriod">getDurationPeriod()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: null|string    </span>
 </dt>
 <dd>Returns the duration period of Amount of rainfall</dd>
 
@@ -247,7 +247,7 @@ of this section of the weather report</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Decoder-GroupDecoder-AmountRainfallDecoder.html#method_getDurationPeriodNumber">getDurationPeriodNumber()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: string    </span>
 </dt>
 <dd>Returns the number of duration period of Amount of rainfall</dd>
 
@@ -379,7 +379,7 @@ of this section of the weather report</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$durationPeriodMap</span>
-     = <span class="phpdocumentor-signature__default-value">[1 =&gt; &#039;At 0001 and 1200 GMT&#039;, 2 =&gt; &#039;At 0600 and 1800 GMT&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;1&#039; =&gt; &#039;Total precipitation during the 6 hours preceding the observation&#039;, &#039;2&#039; =&gt; &#039;Total precipitation during the 12 hours preceding the observation&#039;, &#039;3&#039; =&gt; &#039;Total precipitation during the 18 hours preceding the observation&#039;, &#039;4&#039; =&gt; &#039;Total precipitation during the 24 hours preceding the observation&#039;, &#039;5&#039; =&gt; &#039;Total precipitation during the 1 hour preceding the observation&#039;, &#039;6&#039; =&gt; &#039;Total precipitation during the 2 hours preceding the observation&#039;, &#039;7&#039; =&gt; &#039;Total precipitation during the 3 hours preceding the observation&#039;, &#039;8&#039; =&gt; &#039;Total precipitation during the 9 hours preceding the observation&#039;, &#039;9&#039; =&gt; &#039;Total precipitation during the 15 hours preceding the observation&#039;, &#039;/&#039; =&gt; null]</span></code>
 
     
         <section class="phpdocumentor-description"><p>Main hours measurement of atmospheric precipitation</p>
@@ -404,7 +404,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 
     </aside>
 
@@ -442,7 +442,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">34</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -486,7 +486,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">65</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 
     </aside>
 
@@ -519,7 +519,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">144</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -554,7 +554,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">101</span>
 
     </aside>
 
@@ -562,14 +562,28 @@ of this section of the weather report</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getDurationPeriod</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getDurationPeriod</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|string</span></code>
 
     
     
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                             
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">null|string</span>
             &mdash;
         
     
@@ -587,7 +601,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">154</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -622,7 +636,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -630,14 +644,14 @@ of this section of the weather report</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getDurationPeriodNumber</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">getDurationPeriodNumber</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
         
     
@@ -655,7 +669,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -688,7 +702,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">134</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 
     </aside>
 
@@ -723,7 +737,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">133</span>
 
     </aside>
 
@@ -772,7 +786,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">55</span>
 
     </aside>
 
@@ -838,7 +852,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">105</span>
+    <span class="phpdocumentor-element-found-in__line">118</span>
 
     </aside>
 
@@ -883,7 +897,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">183</span>
+    <span class="phpdocumentor-element-found-in__line">196</span>
 
     </aside>
 
@@ -916,7 +930,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">173</span>
+    <span class="phpdocumentor-element-found-in__line">186</span>
 
     </aside>
 
@@ -949,7 +963,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php"><a href="files/src-decoder-groupdecoder-amountrainfalldecoder.html"><abbr title="src/Decoder/GroupDecoder/AmountRainfallDecoder.php">AmountRainfallDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">193</span>
+    <span class="phpdocumentor-element-found-in__line">206</span>
 
     </aside>
 
