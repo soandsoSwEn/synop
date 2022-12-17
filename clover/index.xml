@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1670927581">
-  <project timestamp="1670927581">
+<coverage generated="1671276813">
+  <project timestamp="1671276813">
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\Decoder.php">
       <class name="Soandso\Synop\Decoder\Decoder" namespace="global">
         <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
@@ -384,17 +384,17 @@
       <class name="Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder" namespace="global">
         <metrics complexity="13" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="22" elements="36" coveredelements="32"/>
       </class>
-      <line num="29" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="255"/>
-      <line num="31" type="stmt" count="255"/>
-      <line num="32" type="stmt" count="255"/>
-      <line num="43" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="234"/>
-      <line num="45" type="stmt" count="234"/>
-      <line num="47" type="stmt" count="234"/>
-      <line num="48" type="stmt" count="233"/>
-      <line num="52" type="stmt" count="233"/>
-      <line num="53" type="stmt" count="233"/>
-      <line num="54" type="stmt" count="233"/>
-      <line num="58" type="stmt" count="233"/>
+      <line num="29" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="271"/>
+      <line num="31" type="stmt" count="271"/>
+      <line num="32" type="stmt" count="271"/>
+      <line num="43" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="222"/>
+      <line num="45" type="stmt" count="222"/>
+      <line num="47" type="stmt" count="222"/>
+      <line num="48" type="stmt" count="221"/>
+      <line num="52" type="stmt" count="221"/>
+      <line num="53" type="stmt" count="221"/>
+      <line num="54" type="stmt" count="221"/>
+      <line num="58" type="stmt" count="221"/>
       <line num="61" type="stmt" count="1"/>
       <line num="69" type="method" name="getSignTemperature" visibility="public" complexity="1" crap="1" count="235"/>
       <line num="71" type="stmt" count="235"/>
@@ -414,62 +414,64 @@
       <line num="122" type="stmt" count="0"/>
       <line num="123" type="stmt" count="0"/>
       <line num="124" type="stmt" count="0"/>
-      <line num="133" type="method" name="getCodeFigureDistNumber" visibility="public" complexity="1" crap="1" count="236"/>
-      <line num="135" type="stmt" count="236"/>
-      <line num="143" type="method" name="getCodeFigureSignTemperature" visibility="public" complexity="1" crap="1" count="236"/>
-      <line num="145" type="stmt" count="236"/>
-      <line num="153" type="method" name="getCodeFigureTemperature" visibility="public" complexity="1" crap="1" count="236"/>
-      <line num="155" type="stmt" count="236"/>
+      <line num="133" type="method" name="getCodeFigureDistNumber" visibility="public" complexity="1" crap="1" count="238"/>
+      <line num="135" type="stmt" count="238"/>
+      <line num="143" type="method" name="getCodeFigureSignTemperature" visibility="public" complexity="1" crap="1" count="238"/>
+      <line num="145" type="stmt" count="238"/>
+      <line num="153" type="method" name="getCodeFigureTemperature" visibility="public" complexity="1" crap="1" count="238"/>
+      <line num="155" type="stmt" count="238"/>
       <metrics loc="158" ncloc="98" classes="1" methods="11" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="22" elements="36" coveredelements="32"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\AmountRainfallDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\AmountRainfallDecoder" namespace="global">
-        <metrics complexity="19" methods="14" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="26" elements="43" coveredelements="39"/>
+        <metrics complexity="20" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="27" elements="45" coveredelements="39"/>
       </class>
-      <line num="34" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="272"/>
-      <line num="36" type="stmt" count="272"/>
-      <line num="47" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="231"/>
-      <line num="49" type="stmt" count="231"/>
-      <line num="51" type="stmt" count="231"/>
-      <line num="52" type="stmt" count="230"/>
-      <line num="56" type="stmt" count="230"/>
-      <line num="59" type="stmt" count="230"/>
-      <line num="62" type="stmt" count="1"/>
-      <line num="65" type="method" name="getAmountRainfall" visibility="public" complexity="3" crap="3" count="237"/>
-      <line num="68" type="stmt" count="237"/>
-      <line num="70" type="stmt" count="237"/>
-      <line num="71" type="stmt" count="4"/>
-      <line num="73" type="stmt" count="235"/>
-      <line num="82" type="method" name="getDurationPeriodNumber" visibility="public" complexity="1" crap="1" count="232"/>
-      <line num="84" type="stmt" count="232"/>
-      <line num="92" type="method" name="getDurationPeriod" visibility="public" complexity="1" crap="1" count="232"/>
-      <line num="94" type="stmt" count="232"/>
-      <line num="96" type="stmt" count="232"/>
-      <line num="105" type="method" name="valueWithTenths" visibility="public" complexity="2" crap="2" count="10"/>
-      <line num="107" type="stmt" count="10"/>
-      <line num="108" type="stmt" count="3"/>
-      <line num="111" type="stmt" count="7"/>
-      <line num="120" type="method" name="integerValues" visibility="public" complexity="2" crap="2" count="241"/>
-      <line num="122" type="stmt" count="241"/>
-      <line num="123" type="stmt" count="4"/>
-      <line num="126" type="stmt" count="237"/>
-      <line num="134" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="136" type="stmt" count="2"/>
-      <line num="144" type="method" name="getAmountRainfallIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="146" type="stmt" count="2"/>
-      <line num="154" type="method" name="getDurationPeriodIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="156" type="stmt" count="2"/>
-      <line num="159" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="162" type="stmt" count="0"/>
-      <line num="163" type="stmt" count="0"/>
-      <line num="164" type="stmt" count="0"/>
-      <line num="173" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="233"/>
-      <line num="175" type="stmt" count="233"/>
-      <line num="183" type="method" name="getCodeFigureAmount" visibility="private" complexity="1" crap="1" count="233"/>
-      <line num="185" type="stmt" count="233"/>
-      <line num="193" type="method" name="getCodeFigurePeriod" visibility="private" complexity="1" crap="1" count="233"/>
-      <line num="195" type="stmt" count="233"/>
-      <metrics loc="198" ncloc="123" classes="1" methods="14" coveredmethods="13" conditionals="0" coveredconditionals="0" statements="29" coveredstatements="26" elements="43" coveredelements="39"/>
+      <line num="42" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="272"/>
+      <line num="44" type="stmt" count="272"/>
+      <line num="55" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="231"/>
+      <line num="57" type="stmt" count="231"/>
+      <line num="59" type="stmt" count="231"/>
+      <line num="60" type="stmt" count="230"/>
+      <line num="64" type="stmt" count="230"/>
+      <line num="67" type="stmt" count="230"/>
+      <line num="70" type="stmt" count="1"/>
+      <line num="73" type="method" name="getAmountRainfall" visibility="public" complexity="3" crap="3" count="237"/>
+      <line num="76" type="stmt" count="237"/>
+      <line num="78" type="stmt" count="237"/>
+      <line num="79" type="stmt" count="4"/>
+      <line num="81" type="stmt" count="235"/>
+      <line num="90" type="method" name="getDurationPeriodNumber" visibility="public" complexity="1" crap="1" count="232"/>
+      <line num="92" type="stmt" count="232"/>
+      <line num="101" type="method" name="getDurationPeriod" visibility="public" complexity="2" crap="2.06" count="232"/>
+      <line num="103" type="stmt" count="232"/>
+      <line num="105" type="stmt" count="232"/>
+      <line num="106" type="stmt" count="0"/>
+      <line num="109" type="stmt" count="232"/>
+      <line num="118" type="method" name="valueWithTenths" visibility="public" complexity="2" crap="2" count="10"/>
+      <line num="120" type="stmt" count="10"/>
+      <line num="121" type="stmt" count="3"/>
+      <line num="124" type="stmt" count="7"/>
+      <line num="133" type="method" name="integerValues" visibility="public" complexity="2" crap="2" count="241"/>
+      <line num="135" type="stmt" count="241"/>
+      <line num="136" type="stmt" count="4"/>
+      <line num="139" type="stmt" count="237"/>
+      <line num="147" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="149" type="stmt" count="2"/>
+      <line num="157" type="method" name="getAmountRainfallIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="159" type="stmt" count="2"/>
+      <line num="167" type="method" name="getDurationPeriodIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="169" type="stmt" count="2"/>
+      <line num="172" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="175" type="stmt" count="0"/>
+      <line num="176" type="stmt" count="0"/>
+      <line num="177" type="stmt" count="0"/>
+      <line num="186" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="233"/>
+      <line num="188" type="stmt" count="233"/>
+      <line num="196" type="method" name="getCodeFigureAmount" visibility="private" complexity="1" crap="1" count="233"/>
+      <line num="198" type="stmt" count="233"/>
+      <line num="206" type="method" name="getCodeFigurePeriod" visibility="private" complexity="1" crap="1" count="233"/>
+      <line num="208" type="stmt" count="233"/>
+      <metrics loc="211" ncloc="135" classes="1" methods="14" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="27" elements="45" coveredelements="39"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\BaricTendencyDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\BaricTendencyDecoder" namespace="global">
@@ -514,63 +516,63 @@
       <class name="Soandso\Synop\Decoder\GroupDecoder\CloudPresentDecoder" namespace="global">
         <metrics complexity="22" methods="17" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="33" elements="56" coveredelements="48"/>
       </class>
-      <line num="126" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="287"/>
-      <line num="128" type="stmt" count="287"/>
-      <line num="139" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="247"/>
-      <line num="141" type="stmt" count="247"/>
-      <line num="143" type="stmt" count="247"/>
-      <line num="144" type="stmt" count="246"/>
-      <line num="148" type="stmt" count="246"/>
+      <line num="127" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="287"/>
+      <line num="129" type="stmt" count="287"/>
+      <line num="140" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="247"/>
+      <line num="142" type="stmt" count="247"/>
+      <line num="144" type="stmt" count="247"/>
+      <line num="145" type="stmt" count="246"/>
       <line num="149" type="stmt" count="246"/>
-      <line num="152" type="stmt" count="246"/>
-      <line num="155" type="stmt" count="1"/>
-      <line num="163" type="method" name="getAmountLowCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
-      <line num="165" type="stmt" count="253"/>
-      <line num="174" type="method" name="getAmountLowCloud" visibility="public" complexity="2" crap="2" count="249"/>
-      <line num="176" type="stmt" count="249"/>
+      <line num="150" type="stmt" count="246"/>
+      <line num="153" type="stmt" count="246"/>
+      <line num="156" type="stmt" count="1"/>
+      <line num="164" type="method" name="getAmountLowCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
+      <line num="166" type="stmt" count="253"/>
+      <line num="175" type="method" name="getAmountLowCloud" visibility="public" complexity="2" crap="2" count="249"/>
       <line num="177" type="stmt" count="249"/>
-      <line num="178" type="stmt" count="248"/>
-      <line num="180" type="stmt" count="1"/>
-      <line num="189" type="method" name="getFormLowCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
-      <line num="191" type="stmt" count="253"/>
-      <line num="200" type="method" name="getFormLowCloud" visibility="public" complexity="2" crap="2" count="249"/>
-      <line num="202" type="stmt" count="249"/>
+      <line num="178" type="stmt" count="249"/>
+      <line num="179" type="stmt" count="248"/>
+      <line num="181" type="stmt" count="1"/>
+      <line num="190" type="method" name="getFormLowCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
+      <line num="192" type="stmt" count="253"/>
+      <line num="201" type="method" name="getFormLowCloud" visibility="public" complexity="2" crap="2" count="249"/>
       <line num="203" type="stmt" count="249"/>
-      <line num="204" type="stmt" count="248"/>
-      <line num="206" type="stmt" count="1"/>
-      <line num="215" type="method" name="getFormMediumCloudSymbol" visibility="public" complexity="1" crap="1" count="252"/>
-      <line num="217" type="stmt" count="252"/>
-      <line num="226" type="method" name="getFormMediumCloud" visibility="public" complexity="2" crap="2.06" count="248"/>
-      <line num="228" type="stmt" count="248"/>
+      <line num="204" type="stmt" count="249"/>
+      <line num="205" type="stmt" count="248"/>
+      <line num="207" type="stmt" count="1"/>
+      <line num="216" type="method" name="getFormMediumCloudSymbol" visibility="public" complexity="1" crap="1" count="252"/>
+      <line num="218" type="stmt" count="252"/>
+      <line num="227" type="method" name="getFormMediumCloud" visibility="public" complexity="2" crap="2.06" count="248"/>
       <line num="229" type="stmt" count="248"/>
       <line num="230" type="stmt" count="248"/>
-      <line num="232" type="stmt" count="0"/>
-      <line num="241" type="method" name="getFormHighCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
-      <line num="243" type="stmt" count="253"/>
-      <line num="252" type="method" name="getFormHighCloud" visibility="public" complexity="2" crap="2" count="249"/>
-      <line num="254" type="stmt" count="249"/>
+      <line num="231" type="stmt" count="248"/>
+      <line num="233" type="stmt" count="0"/>
+      <line num="242" type="method" name="getFormHighCloudSymbol" visibility="public" complexity="1" crap="1" count="253"/>
+      <line num="244" type="stmt" count="253"/>
+      <line num="253" type="method" name="getFormHighCloud" visibility="public" complexity="2" crap="2" count="249"/>
       <line num="255" type="stmt" count="249"/>
-      <line num="256" type="stmt" count="248"/>
-      <line num="258" type="stmt" count="1"/>
-      <line num="267" type="method" name="getGetIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="269" type="stmt" count="2"/>
-      <line num="277" type="method" name="getAmountCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="279" type="stmt" count="2"/>
-      <line num="287" type="method" name="getFormLowCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="289" type="stmt" count="2"/>
-      <line num="297" type="method" name="getFormMediumCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="299" type="stmt" count="2"/>
-      <line num="307" type="method" name="getFormHighCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="309" type="stmt" count="2"/>
-      <line num="312" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="315" type="stmt" count="0"/>
+      <line num="256" type="stmt" count="249"/>
+      <line num="257" type="stmt" count="248"/>
+      <line num="259" type="stmt" count="1"/>
+      <line num="268" type="method" name="getGetIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="270" type="stmt" count="2"/>
+      <line num="278" type="method" name="getAmountCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="280" type="stmt" count="2"/>
+      <line num="288" type="method" name="getFormLowCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="290" type="stmt" count="2"/>
+      <line num="298" type="method" name="getFormMediumCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="300" type="stmt" count="2"/>
+      <line num="308" type="method" name="getFormHighCloudIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="310" type="stmt" count="2"/>
+      <line num="313" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="316" type="stmt" count="0"/>
       <line num="317" type="stmt" count="0"/>
       <line num="318" type="stmt" count="0"/>
       <line num="319" type="stmt" count="0"/>
-      <line num="328" type="method" name="getCodeFigure" visibility="private" complexity="1" crap="1" count="249"/>
-      <line num="330" type="stmt" count="249"/>
-      <metrics loc="333" ncloc="228" classes="1" methods="17" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="33" elements="56" coveredelements="48"/>
+      <line num="320" type="stmt" count="0"/>
+      <line num="329" type="method" name="getCodeFigure" visibility="private" complexity="1" crap="1" count="249"/>
+      <line num="331" type="stmt" count="249"/>
+      <metrics loc="334" ncloc="229" classes="1" methods="17" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="33" elements="56" coveredelements="48"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\CloudWindDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\CloudWindDecoder" namespace="global">
@@ -688,74 +690,74 @@
       <class name="Soandso\Synop\Decoder\GroupDecoder\GroundWithSnowDecoder" namespace="global">
         <metrics complexity="16" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="25" elements="40" coveredelements="36"/>
       </class>
-      <line num="52" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="75"/>
-      <line num="54" type="stmt" count="75"/>
-      <line num="65" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="47"/>
-      <line num="67" type="stmt" count="47"/>
-      <line num="69" type="stmt" count="47"/>
-      <line num="70" type="stmt" count="46"/>
-      <line num="74" type="stmt" count="46"/>
-      <line num="77" type="stmt" count="46"/>
-      <line num="80" type="stmt" count="1"/>
-      <line num="89" type="method" name="getCodeGroundState" visibility="public" complexity="2" crap="2" count="49"/>
-      <line num="91" type="stmt" count="49"/>
+      <line num="53" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="75"/>
+      <line num="55" type="stmt" count="75"/>
+      <line num="66" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="47"/>
+      <line num="68" type="stmt" count="47"/>
+      <line num="70" type="stmt" count="47"/>
+      <line num="71" type="stmt" count="46"/>
+      <line num="75" type="stmt" count="46"/>
+      <line num="78" type="stmt" count="46"/>
+      <line num="81" type="stmt" count="1"/>
+      <line num="90" type="method" name="getCodeGroundState" visibility="public" complexity="2" crap="2" count="49"/>
       <line num="92" type="stmt" count="49"/>
-      <line num="93" type="stmt" count="48"/>
-      <line num="95" type="stmt" count="1"/>
-      <line num="105" type="method" name="getGroundState" visibility="public" complexity="2" crap="2" count="49"/>
-      <line num="107" type="stmt" count="49"/>
+      <line num="93" type="stmt" count="49"/>
+      <line num="94" type="stmt" count="48"/>
+      <line num="96" type="stmt" count="1"/>
+      <line num="106" type="method" name="getGroundState" visibility="public" complexity="2" crap="2" count="49"/>
       <line num="108" type="stmt" count="49"/>
-      <line num="109" type="stmt" count="48"/>
-      <line num="111" type="stmt" count="1"/>
-      <line num="120" type="method" name="getDepthSnow" visibility="public" complexity="2" crap="2" count="50"/>
-      <line num="122" type="stmt" count="50"/>
+      <line num="109" type="stmt" count="49"/>
+      <line num="110" type="stmt" count="48"/>
+      <line num="112" type="stmt" count="1"/>
+      <line num="121" type="method" name="getDepthSnow" visibility="public" complexity="2" crap="2" count="50"/>
       <line num="123" type="stmt" count="50"/>
-      <line num="124" type="stmt" count="48"/>
-      <line num="127" type="stmt" count="2"/>
-      <line num="135" type="method" name="getGetIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="137" type="stmt" count="2"/>
-      <line num="145" type="method" name="getStateGroundIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="147" type="stmt" count="2"/>
-      <line num="155" type="method" name="getDepthSnowIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="157" type="stmt" count="2"/>
-      <line num="160" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="163" type="stmt" count="0"/>
+      <line num="124" type="stmt" count="50"/>
+      <line num="125" type="stmt" count="48"/>
+      <line num="128" type="stmt" count="2"/>
+      <line num="136" type="method" name="getGetIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="138" type="stmt" count="2"/>
+      <line num="146" type="method" name="getStateGroundIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="148" type="stmt" count="2"/>
+      <line num="156" type="method" name="getDepthSnowIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="158" type="stmt" count="2"/>
+      <line num="161" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="164" type="stmt" count="0"/>
       <line num="165" type="stmt" count="0"/>
-      <line num="174" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="49"/>
-      <line num="176" type="stmt" count="49"/>
-      <line num="184" type="method" name="getCodeFigureStateGround" visibility="private" complexity="1" crap="1" count="49"/>
-      <line num="186" type="stmt" count="49"/>
-      <line num="194" type="method" name="getCodeFigureDepthSnow" visibility="private" complexity="1" crap="1" count="49"/>
-      <line num="196" type="stmt" count="49"/>
-      <metrics loc="199" ncloc="126" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="25" elements="40" coveredelements="36"/>
+      <line num="166" type="stmt" count="0"/>
+      <line num="175" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="49"/>
+      <line num="177" type="stmt" count="49"/>
+      <line num="185" type="method" name="getCodeFigureStateGround" visibility="private" complexity="1" crap="1" count="49"/>
+      <line num="187" type="stmt" count="49"/>
+      <line num="195" type="method" name="getCodeFigureDepthSnow" visibility="private" complexity="1" crap="1" count="49"/>
+      <line num="197" type="stmt" count="49"/>
+      <metrics loc="200" ncloc="127" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="28" coveredstatements="25" elements="40" coveredelements="36"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\GroundWithoutSnowDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\GroundWithoutSnowDecoder" namespace="global">
         <metrics complexity="18" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="29" elements="48" coveredelements="43"/>
       </class>
-      <line num="42" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="96"/>
-      <line num="44" type="stmt" count="96"/>
-      <line num="55" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="62"/>
-      <line num="57" type="stmt" count="62"/>
-      <line num="59" type="stmt" count="62"/>
-      <line num="60" type="stmt" count="61"/>
-      <line num="64" type="stmt" count="61"/>
+      <line num="43" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="96"/>
+      <line num="45" type="stmt" count="96"/>
+      <line num="56" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="62"/>
+      <line num="58" type="stmt" count="62"/>
+      <line num="60" type="stmt" count="62"/>
+      <line num="61" type="stmt" count="61"/>
       <line num="65" type="stmt" count="61"/>
       <line num="66" type="stmt" count="61"/>
       <line num="67" type="stmt" count="61"/>
-      <line num="71" type="stmt" count="61"/>
-      <line num="74" type="stmt" count="1"/>
-      <line num="83" type="method" name="getCodeGroundState" visibility="public" complexity="2" crap="2" count="64"/>
-      <line num="85" type="stmt" count="64"/>
+      <line num="68" type="stmt" count="61"/>
+      <line num="72" type="stmt" count="61"/>
+      <line num="75" type="stmt" count="1"/>
+      <line num="84" type="method" name="getCodeGroundState" visibility="public" complexity="2" crap="2" count="64"/>
       <line num="86" type="stmt" count="64"/>
-      <line num="87" type="stmt" count="63"/>
-      <line num="89" type="stmt" count="1"/>
-      <line num="99" type="method" name="getGroundState" visibility="public" complexity="2" crap="2" count="64"/>
-      <line num="101" type="stmt" count="64"/>
+      <line num="87" type="stmt" count="64"/>
+      <line num="88" type="stmt" count="63"/>
+      <line num="90" type="stmt" count="1"/>
+      <line num="100" type="method" name="getGroundState" visibility="public" complexity="2" crap="2" count="64"/>
       <line num="102" type="stmt" count="64"/>
-      <line num="103" type="stmt" count="63"/>
-      <line num="105" type="stmt" count="1"/>
+      <line num="103" type="stmt" count="64"/>
+      <line num="104" type="stmt" count="63"/>
+      <line num="106" type="stmt" count="1"/>
       <line num="115" type="method" name="getGroundSignTemperature" visibility="public" complexity="1" crap="1" count="63"/>
       <line num="117" type="stmt" count="63"/>
       <line num="125" type="method" name="getGroundMinTemperature" visibility="public" complexity="1" crap="1" count="63"/>
@@ -782,7 +784,7 @@
       <line num="209" type="stmt" count="64"/>
       <line num="217" type="method" name="getCodeFigureMinTemperature" visibility="private" complexity="1" crap="1" count="64"/>
       <line num="219" type="stmt" count="64"/>
-      <metrics loc="222" ncloc="136" classes="1" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="29" elements="48" coveredelements="43"/>
+      <metrics loc="222" ncloc="137" classes="1" methods="15" coveredmethods="14" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="29" elements="48" coveredelements="43"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\GroupDecoderInterface.php">
       <metrics loc="25" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -907,6 +909,48 @@
       <line num="282" type="stmt" count="233"/>
       <metrics loc="285" ncloc="215" classes="1" methods="19" coveredmethods="15" conditionals="0" coveredconditionals="0" statements="72" coveredstatements="38" elements="91" coveredelements="53"/>
     </file>
+    <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\MaxAirTemperatureDecoder.php">
+      <class name="Soandso\Synop\Decoder\GroupDecoder\MaxAirTemperatureDecoder" namespace="global">
+        <metrics complexity="5" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="15" coveredelements="15"/>
+      </class>
+      <line num="17" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="192"/>
+      <line num="19" type="stmt" count="192"/>
+      <line num="21" type="stmt" count="192"/>
+      <line num="22" type="stmt" count="191"/>
+      <line num="26" type="stmt" count="191"/>
+      <line num="27" type="stmt" count="191"/>
+      <line num="28" type="stmt" count="191"/>
+      <line num="32" type="stmt" count="191"/>
+      <line num="35" type="stmt" count="1"/>
+      <line num="43" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="53" type="method" name="getSignTemperatureIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="55" type="stmt" count="2"/>
+      <line num="63" type="method" name="getDryBulbTemperatureIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="65" type="stmt" count="2"/>
+      <metrics loc="68" ncloc="45" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="15" coveredelements="15"/>
+    </file>
+    <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\MinAirTemperatureDecoder.php">
+      <class name="Soandso\Synop\Decoder\GroupDecoder\MinAirTemperatureDecoder" namespace="global">
+        <metrics complexity="5" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="15" coveredelements="15"/>
+      </class>
+      <line num="17" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="8"/>
+      <line num="19" type="stmt" count="8"/>
+      <line num="21" type="stmt" count="8"/>
+      <line num="22" type="stmt" count="7"/>
+      <line num="26" type="stmt" count="7"/>
+      <line num="27" type="stmt" count="7"/>
+      <line num="28" type="stmt" count="7"/>
+      <line num="32" type="stmt" count="7"/>
+      <line num="35" type="stmt" count="1"/>
+      <line num="43" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="53" type="method" name="getSignTemperatureIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="55" type="stmt" count="2"/>
+      <line num="63" type="method" name="getDryBulbTemperatureIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="65" type="stmt" count="2"/>
+      <metrics loc="68" ncloc="45" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="11" elements="15" coveredelements="15"/>
+    </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\MslPressureDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder" namespace="global">
         <metrics complexity="10" methods="8" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="22" coveredstatements="19" elements="30" coveredelements="25"/>
@@ -945,53 +989,55 @@
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\PresentWeatherDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder" namespace="global">
-        <metrics complexity="17" methods="13" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="26" elements="44" coveredelements="36"/>
+        <metrics complexity="17" methods="13" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="28" elements="46" coveredelements="38"/>
       </class>
-      <line num="160" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="217"/>
-      <line num="162" type="stmt" count="217"/>
-      <line num="173" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="190"/>
-      <line num="175" type="stmt" count="190"/>
+      <line num="162" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="217"/>
+      <line num="164" type="stmt" count="217"/>
+      <line num="175" type="method" name="isGroup" visibility="public" complexity="2" crap="2" count="190"/>
       <line num="177" type="stmt" count="190"/>
-      <line num="178" type="stmt" count="189"/>
-      <line num="182" type="stmt" count="189"/>
-      <line num="183" type="stmt" count="189"/>
+      <line num="179" type="stmt" count="190"/>
+      <line num="180" type="stmt" count="189"/>
       <line num="184" type="stmt" count="189"/>
-      <line num="188" type="stmt" count="189"/>
-      <line num="191" type="stmt" count="1"/>
-      <line num="199" type="method" name="getPresentWeatherSymbol" visibility="public" complexity="1" crap="1" count="191"/>
-      <line num="201" type="stmt" count="191"/>
-      <line num="210" type="method" name="getPresentWeather" visibility="public" complexity="2" crap="2.06" count="191"/>
-      <line num="212" type="stmt" count="191"/>
-      <line num="213" type="stmt" count="191"/>
+      <line num="185" type="stmt" count="189"/>
+      <line num="186" type="stmt" count="189"/>
+      <line num="190" type="stmt" count="189"/>
+      <line num="193" type="stmt" count="1"/>
+      <line num="200" type="method" name="getPresentWeatherSymbol" visibility="public" complexity="1" crap="1" count="191"/>
+      <line num="202" type="stmt" count="191"/>
+      <line num="203" type="stmt" count="191"/>
+      <line num="212" type="method" name="getPresentWeather" visibility="public" complexity="2" crap="2.06" count="191"/>
       <line num="214" type="stmt" count="191"/>
-      <line num="216" type="stmt" count="0"/>
-      <line num="226" type="method" name="getPastWeatherSymbol" visibility="public" complexity="1" crap="1" count="191"/>
-      <line num="228" type="stmt" count="191"/>
-      <line num="237" type="method" name="getPastWeather" visibility="public" complexity="3" crap="3.03" count="191"/>
-      <line num="239" type="stmt" count="191"/>
-      <line num="240" type="stmt" count="191"/>
+      <line num="215" type="stmt" count="191"/>
+      <line num="216" type="stmt" count="191"/>
+      <line num="218" type="stmt" count="0"/>
+      <line num="227" type="method" name="getPastWeatherSymbol" visibility="public" complexity="1" crap="1" count="191"/>
+      <line num="229" type="stmt" count="191"/>
+      <line num="230" type="stmt" count="191"/>
+      <line num="239" type="method" name="getPastWeather" visibility="public" complexity="3" crap="3.03" count="191"/>
       <line num="241" type="stmt" count="191"/>
+      <line num="242" type="stmt" count="191"/>
       <line num="243" type="stmt" count="191"/>
-      <line num="244" type="stmt" count="191"/>
       <line num="245" type="stmt" count="191"/>
-      <line num="247" type="stmt" count="0"/>
-      <line num="256" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="258" type="stmt" count="2"/>
-      <line num="266" type="method" name="getPresentWeatherIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="268" type="stmt" count="2"/>
-      <line num="276" type="method" name="getPastWeatherIndicator" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="278" type="stmt" count="2"/>
-      <line num="281" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="284" type="stmt" count="0"/>
-      <line num="285" type="stmt" count="0"/>
+      <line num="246" type="stmt" count="191"/>
+      <line num="247" type="stmt" count="191"/>
+      <line num="249" type="stmt" count="0"/>
+      <line num="258" type="method" name="getIndicatorGroup" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="260" type="stmt" count="2"/>
+      <line num="268" type="method" name="getPresentWeatherIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="270" type="stmt" count="2"/>
+      <line num="278" type="method" name="getPastWeatherIndicator" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="280" type="stmt" count="2"/>
+      <line num="283" type="method" name="getGroupIndicators" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="286" type="stmt" count="0"/>
-      <line num="295" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="192"/>
-      <line num="297" type="stmt" count="192"/>
-      <line num="305" type="method" name="getCodeFigurePresentWeather" visibility="private" complexity="1" crap="1" count="192"/>
-      <line num="307" type="stmt" count="192"/>
-      <line num="315" type="method" name="getCodeFigurePastWeather" visibility="private" complexity="1" crap="1" count="192"/>
-      <line num="317" type="stmt" count="192"/>
-      <metrics loc="320" ncloc="242" classes="1" methods="13" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="31" coveredstatements="26" elements="44" coveredelements="36"/>
+      <line num="287" type="stmt" count="0"/>
+      <line num="288" type="stmt" count="0"/>
+      <line num="297" type="method" name="getCodeFigureIndicator" visibility="private" complexity="1" crap="1" count="192"/>
+      <line num="299" type="stmt" count="192"/>
+      <line num="307" type="method" name="getCodeFigurePresentWeather" visibility="private" complexity="1" crap="1" count="192"/>
+      <line num="309" type="stmt" count="192"/>
+      <line num="317" type="method" name="getCodeFigurePastWeather" visibility="private" complexity="1" crap="1" count="192"/>
+      <line num="319" type="stmt" count="192"/>
+      <metrics loc="322" ncloc="246" classes="1" methods="13" coveredmethods="10" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="28" elements="46" coveredelements="38"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Decoder\GroupDecoder\StLPressureDecoder.php">
       <class name="Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder" namespace="global">
@@ -2011,7 +2057,7 @@
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Fabrication\Validate.php">
       <class name="Soandso\Synop\Fabrication\Validate" namespace="global">
-        <metrics complexity="104" methods="31" coveredmethods="27" conditionals="0" coveredconditionals="0" statements="442" coveredstatements="428" elements="473" coveredelements="455"/>
+        <metrics complexity="112" methods="33" coveredmethods="27" conditionals="0" coveredconditionals="0" statements="486" coveredstatements="435" elements="519" coveredelements="462"/>
       </class>
       <line num="74" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="303"/>
       <line num="76" type="stmt" count="303"/>
@@ -2224,108 +2270,108 @@
       <line num="596" type="stmt" count="2"/>
       <line num="597" type="stmt" count="2"/>
       <line num="601" type="stmt" count="189"/>
-      <line num="612" type="method" name="dewPointTemperatureGroupValid" visibility="public" complexity="4" crap="5.50" count="185"/>
-      <line num="617" type="stmt" count="185"/>
-      <line num="618" type="stmt" count="185"/>
+      <line num="612" type="method" name="maxAirTemperatureGroupValid" visibility="public" complexity="4" crap="9.07" count="184"/>
+      <line num="617" type="stmt" count="184"/>
+      <line num="618" type="stmt" count="184"/>
       <line num="619" type="stmt" count="0"/>
       <line num="621" type="stmt" count="0"/>
       <line num="622" type="stmt" count="0"/>
       <line num="623" type="stmt" count="0"/>
       <line num="624" type="stmt" count="0"/>
-      <line num="628" type="stmt" count="185"/>
-      <line num="629" type="stmt" count="185"/>
-      <line num="630" type="stmt" count="5"/>
-      <line num="632" type="stmt" count="5"/>
-      <line num="633" type="stmt" count="5"/>
-      <line num="634" type="stmt" count="5"/>
-      <line num="635" type="stmt" count="5"/>
-      <line num="639" type="stmt" count="185"/>
-      <line num="640" type="stmt" count="185"/>
+      <line num="628" type="stmt" count="184"/>
+      <line num="629" type="stmt" count="184"/>
+      <line num="630" type="stmt" count="0"/>
+      <line num="632" type="stmt" count="0"/>
+      <line num="633" type="stmt" count="0"/>
+      <line num="634" type="stmt" count="0"/>
+      <line num="635" type="stmt" count="0"/>
+      <line num="639" type="stmt" count="184"/>
+      <line num="640" type="stmt" count="184"/>
       <line num="641" type="stmt" count="0"/>
       <line num="643" type="stmt" count="0"/>
       <line num="644" type="stmt" count="0"/>
       <line num="645" type="stmt" count="0"/>
       <line num="646" type="stmt" count="0"/>
-      <line num="650" type="stmt" count="185"/>
-      <line num="661" type="method" name="stLPressureGroupValid" visibility="public" complexity="3" crap="3" count="188"/>
-      <line num="666" type="stmt" count="188"/>
-      <line num="667" type="stmt" count="188"/>
-      <line num="668" type="stmt" count="2"/>
-      <line num="670" type="stmt" count="2"/>
-      <line num="671" type="stmt" count="2"/>
-      <line num="672" type="stmt" count="2"/>
-      <line num="673" type="stmt" count="2"/>
-      <line num="677" type="stmt" count="188"/>
-      <line num="678" type="stmt" count="188"/>
-      <line num="679" type="stmt" count="2"/>
-      <line num="681" type="stmt" count="2"/>
-      <line num="682" type="stmt" count="2"/>
-      <line num="683" type="stmt" count="2"/>
-      <line num="684" type="stmt" count="2"/>
-      <line num="688" type="stmt" count="188"/>
-      <line num="699" type="method" name="mslPressureGroupValid" visibility="public" complexity="3" crap="3" count="188"/>
-      <line num="704" type="stmt" count="188"/>
-      <line num="705" type="stmt" count="188"/>
-      <line num="706" type="stmt" count="2"/>
-      <line num="708" type="stmt" count="2"/>
-      <line num="709" type="stmt" count="2"/>
-      <line num="710" type="stmt" count="2"/>
-      <line num="711" type="stmt" count="2"/>
-      <line num="715" type="stmt" count="188"/>
-      <line num="716" type="stmt" count="188"/>
-      <line num="717" type="stmt" count="2"/>
-      <line num="719" type="stmt" count="2"/>
-      <line num="720" type="stmt" count="2"/>
-      <line num="721" type="stmt" count="2"/>
-      <line num="722" type="stmt" count="2"/>
-      <line num="726" type="stmt" count="188"/>
-      <line num="737" type="method" name="baricTendencyGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
-      <line num="742" type="stmt" count="189"/>
-      <line num="743" type="stmt" count="189"/>
-      <line num="744" type="stmt" count="2"/>
-      <line num="746" type="stmt" count="2"/>
-      <line num="747" type="stmt" count="2"/>
-      <line num="748" type="stmt" count="2"/>
-      <line num="749" type="stmt" count="2"/>
-      <line num="753" type="stmt" count="189"/>
-      <line num="754" type="stmt" count="189"/>
-      <line num="755" type="stmt" count="2"/>
-      <line num="757" type="stmt" count="2"/>
-      <line num="758" type="stmt" count="2"/>
-      <line num="759" type="stmt" count="2"/>
-      <line num="760" type="stmt" count="2"/>
-      <line num="764" type="stmt" count="189"/>
-      <line num="765" type="stmt" count="189"/>
+      <line num="650" type="stmt" count="184"/>
+      <line num="661" type="method" name="minAirTemperatureGroupValid" visibility="public" complexity="4" crap="20" count="0"/>
+      <line num="666" type="stmt" count="0"/>
+      <line num="667" type="stmt" count="0"/>
+      <line num="668" type="stmt" count="0"/>
+      <line num="670" type="stmt" count="0"/>
+      <line num="671" type="stmt" count="0"/>
+      <line num="672" type="stmt" count="0"/>
+      <line num="673" type="stmt" count="0"/>
+      <line num="677" type="stmt" count="0"/>
+      <line num="678" type="stmt" count="0"/>
+      <line num="679" type="stmt" count="0"/>
+      <line num="681" type="stmt" count="0"/>
+      <line num="682" type="stmt" count="0"/>
+      <line num="683" type="stmt" count="0"/>
+      <line num="684" type="stmt" count="0"/>
+      <line num="688" type="stmt" count="0"/>
+      <line num="689" type="stmt" count="0"/>
+      <line num="690" type="stmt" count="0"/>
+      <line num="692" type="stmt" count="0"/>
+      <line num="693" type="stmt" count="0"/>
+      <line num="694" type="stmt" count="0"/>
+      <line num="695" type="stmt" count="0"/>
+      <line num="699" type="stmt" count="0"/>
+      <line num="710" type="method" name="dewPointTemperatureGroupValid" visibility="public" complexity="4" crap="5.50" count="185"/>
+      <line num="715" type="stmt" count="185"/>
+      <line num="716" type="stmt" count="185"/>
+      <line num="717" type="stmt" count="0"/>
+      <line num="719" type="stmt" count="0"/>
+      <line num="720" type="stmt" count="0"/>
+      <line num="721" type="stmt" count="0"/>
+      <line num="722" type="stmt" count="0"/>
+      <line num="726" type="stmt" count="185"/>
+      <line num="727" type="stmt" count="185"/>
+      <line num="728" type="stmt" count="5"/>
+      <line num="730" type="stmt" count="5"/>
+      <line num="731" type="stmt" count="5"/>
+      <line num="732" type="stmt" count="5"/>
+      <line num="733" type="stmt" count="5"/>
+      <line num="737" type="stmt" count="185"/>
+      <line num="738" type="stmt" count="185"/>
+      <line num="739" type="stmt" count="0"/>
+      <line num="741" type="stmt" count="0"/>
+      <line num="742" type="stmt" count="0"/>
+      <line num="743" type="stmt" count="0"/>
+      <line num="744" type="stmt" count="0"/>
+      <line num="748" type="stmt" count="185"/>
+      <line num="759" type="method" name="stLPressureGroupValid" visibility="public" complexity="3" crap="3" count="188"/>
+      <line num="764" type="stmt" count="188"/>
+      <line num="765" type="stmt" count="188"/>
       <line num="766" type="stmt" count="2"/>
       <line num="768" type="stmt" count="2"/>
       <line num="769" type="stmt" count="2"/>
       <line num="770" type="stmt" count="2"/>
       <line num="771" type="stmt" count="2"/>
-      <line num="775" type="stmt" count="189"/>
-      <line num="786" type="method" name="amountRainfallGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
-      <line num="791" type="stmt" count="189"/>
-      <line num="792" type="stmt" count="189"/>
-      <line num="793" type="stmt" count="2"/>
-      <line num="795" type="stmt" count="2"/>
-      <line num="796" type="stmt" count="2"/>
-      <line num="797" type="stmt" count="2"/>
-      <line num="798" type="stmt" count="2"/>
-      <line num="802" type="stmt" count="189"/>
-      <line num="803" type="stmt" count="189"/>
+      <line num="775" type="stmt" count="188"/>
+      <line num="776" type="stmt" count="188"/>
+      <line num="777" type="stmt" count="2"/>
+      <line num="779" type="stmt" count="2"/>
+      <line num="780" type="stmt" count="2"/>
+      <line num="781" type="stmt" count="2"/>
+      <line num="782" type="stmt" count="2"/>
+      <line num="786" type="stmt" count="188"/>
+      <line num="797" type="method" name="mslPressureGroupValid" visibility="public" complexity="3" crap="3" count="188"/>
+      <line num="802" type="stmt" count="188"/>
+      <line num="803" type="stmt" count="188"/>
       <line num="804" type="stmt" count="2"/>
       <line num="806" type="stmt" count="2"/>
       <line num="807" type="stmt" count="2"/>
       <line num="808" type="stmt" count="2"/>
       <line num="809" type="stmt" count="2"/>
-      <line num="813" type="stmt" count="189"/>
-      <line num="814" type="stmt" count="189"/>
+      <line num="813" type="stmt" count="188"/>
+      <line num="814" type="stmt" count="188"/>
       <line num="815" type="stmt" count="2"/>
       <line num="817" type="stmt" count="2"/>
       <line num="818" type="stmt" count="2"/>
       <line num="819" type="stmt" count="2"/>
       <line num="820" type="stmt" count="2"/>
-      <line num="824" type="stmt" count="189"/>
-      <line num="835" type="method" name="presentWeatherGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
+      <line num="824" type="stmt" count="188"/>
+      <line num="835" type="method" name="baricTendencyGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
       <line num="840" type="stmt" count="189"/>
       <line num="841" type="stmt" count="189"/>
       <line num="842" type="stmt" count="2"/>
@@ -2348,145 +2394,191 @@
       <line num="868" type="stmt" count="2"/>
       <line num="869" type="stmt" count="2"/>
       <line num="873" type="stmt" count="189"/>
-      <line num="884" type="method" name="cloudPresentGroupValid" visibility="public" complexity="6" crap="6" count="187"/>
-      <line num="889" type="stmt" count="187"/>
-      <line num="890" type="stmt" count="187"/>
+      <line num="884" type="method" name="amountRainfallGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
+      <line num="889" type="stmt" count="189"/>
+      <line num="890" type="stmt" count="189"/>
       <line num="891" type="stmt" count="2"/>
       <line num="893" type="stmt" count="2"/>
       <line num="894" type="stmt" count="2"/>
       <line num="895" type="stmt" count="2"/>
       <line num="896" type="stmt" count="2"/>
-      <line num="900" type="stmt" count="187"/>
-      <line num="901" type="stmt" count="187"/>
-      <line num="902" type="stmt" count="1"/>
-      <line num="904" type="stmt" count="1"/>
-      <line num="905" type="stmt" count="1"/>
-      <line num="906" type="stmt" count="1"/>
-      <line num="907" type="stmt" count="1"/>
-      <line num="911" type="stmt" count="187"/>
-      <line num="912" type="stmt" count="187"/>
-      <line num="913" type="stmt" count="1"/>
-      <line num="915" type="stmt" count="1"/>
-      <line num="916" type="stmt" count="1"/>
-      <line num="917" type="stmt" count="1"/>
-      <line num="918" type="stmt" count="1"/>
-      <line num="922" type="stmt" count="187"/>
-      <line num="923" type="stmt" count="187"/>
-      <line num="924" type="stmt" count="1"/>
-      <line num="925" type="stmt" count="1"/>
-      <line num="926" type="stmt" count="1"/>
-      <line num="927" type="stmt" count="1"/>
-      <line num="928" type="stmt" count="1"/>
-      <line num="929" type="stmt" count="1"/>
-      <line num="933" type="stmt" count="187"/>
-      <line num="934" type="stmt" count="187"/>
-      <line num="935" type="stmt" count="1"/>
-      <line num="936" type="stmt" count="1"/>
-      <line num="937" type="stmt" count="1"/>
-      <line num="938" type="stmt" count="1"/>
-      <line num="939" type="stmt" count="1"/>
-      <line num="940" type="stmt" count="1"/>
-      <line num="944" type="stmt" count="187"/>
-      <line num="955" type="method" name="groundWithoutSnowGroupValid" visibility="public" complexity="5" crap="5" count="6"/>
-      <line num="960" type="stmt" count="6"/>
-      <line num="961" type="stmt" count="6"/>
+      <line num="900" type="stmt" count="189"/>
+      <line num="901" type="stmt" count="189"/>
+      <line num="902" type="stmt" count="2"/>
+      <line num="904" type="stmt" count="2"/>
+      <line num="905" type="stmt" count="2"/>
+      <line num="906" type="stmt" count="2"/>
+      <line num="907" type="stmt" count="2"/>
+      <line num="911" type="stmt" count="189"/>
+      <line num="912" type="stmt" count="189"/>
+      <line num="913" type="stmt" count="2"/>
+      <line num="915" type="stmt" count="2"/>
+      <line num="916" type="stmt" count="2"/>
+      <line num="917" type="stmt" count="2"/>
+      <line num="918" type="stmt" count="2"/>
+      <line num="922" type="stmt" count="189"/>
+      <line num="933" type="method" name="presentWeatherGroupValid" visibility="public" complexity="4" crap="4" count="189"/>
+      <line num="938" type="stmt" count="189"/>
+      <line num="939" type="stmt" count="189"/>
+      <line num="940" type="stmt" count="2"/>
+      <line num="942" type="stmt" count="2"/>
+      <line num="943" type="stmt" count="2"/>
+      <line num="944" type="stmt" count="2"/>
+      <line num="945" type="stmt" count="2"/>
+      <line num="949" type="stmt" count="189"/>
+      <line num="950" type="stmt" count="189"/>
+      <line num="951" type="stmt" count="2"/>
+      <line num="953" type="stmt" count="2"/>
+      <line num="954" type="stmt" count="2"/>
+      <line num="955" type="stmt" count="2"/>
+      <line num="956" type="stmt" count="2"/>
+      <line num="960" type="stmt" count="189"/>
+      <line num="961" type="stmt" count="189"/>
       <line num="962" type="stmt" count="2"/>
       <line num="964" type="stmt" count="2"/>
       <line num="965" type="stmt" count="2"/>
       <line num="966" type="stmt" count="2"/>
       <line num="967" type="stmt" count="2"/>
-      <line num="971" type="stmt" count="6"/>
-      <line num="972" type="stmt" count="6"/>
-      <line num="973" type="stmt" count="2"/>
-      <line num="975" type="stmt" count="2"/>
-      <line num="976" type="stmt" count="2"/>
-      <line num="977" type="stmt" count="2"/>
-      <line num="978" type="stmt" count="2"/>
-      <line num="982" type="stmt" count="6"/>
-      <line num="983" type="stmt" count="6"/>
-      <line num="984" type="stmt" count="2"/>
-      <line num="986" type="stmt" count="2"/>
-      <line num="987" type="stmt" count="2"/>
-      <line num="988" type="stmt" count="2"/>
+      <line num="971" type="stmt" count="189"/>
+      <line num="982" type="method" name="cloudPresentGroupValid" visibility="public" complexity="6" crap="6" count="187"/>
+      <line num="987" type="stmt" count="187"/>
+      <line num="988" type="stmt" count="187"/>
       <line num="989" type="stmt" count="2"/>
-      <line num="993" type="stmt" count="6"/>
-      <line num="994" type="stmt" count="6"/>
-      <line num="995" type="stmt" count="2"/>
-      <line num="997" type="stmt" count="2"/>
-      <line num="998" type="stmt" count="2"/>
-      <line num="999" type="stmt" count="2"/>
-      <line num="1000" type="stmt" count="2"/>
-      <line num="1004" type="stmt" count="6"/>
-      <line num="1015" type="method" name="groundWithSnowGroupValid" visibility="public" complexity="4" crap="4" count="5"/>
-      <line num="1020" type="stmt" count="5"/>
-      <line num="1021" type="stmt" count="5"/>
-      <line num="1022" type="stmt" count="2"/>
-      <line num="1024" type="stmt" count="2"/>
-      <line num="1025" type="stmt" count="2"/>
-      <line num="1026" type="stmt" count="2"/>
-      <line num="1027" type="stmt" count="2"/>
-      <line num="1031" type="stmt" count="5"/>
-      <line num="1032" type="stmt" count="5"/>
-      <line num="1033" type="stmt" count="2"/>
-      <line num="1035" type="stmt" count="2"/>
-      <line num="1036" type="stmt" count="2"/>
-      <line num="1037" type="stmt" count="2"/>
-      <line num="1038" type="stmt" count="2"/>
-      <line num="1042" type="stmt" count="5"/>
-      <line num="1043" type="stmt" count="5"/>
-      <line num="1044" type="stmt" count="2"/>
-      <line num="1046" type="stmt" count="2"/>
-      <line num="1047" type="stmt" count="2"/>
-      <line num="1048" type="stmt" count="2"/>
-      <line num="1049" type="stmt" count="2"/>
-      <line num="1053" type="stmt" count="5"/>
-      <line num="1064" type="method" name="sunshineRadiationDataGroupValid" visibility="public" complexity="3" crap="3" count="4"/>
-      <line num="1069" type="stmt" count="4"/>
-      <line num="1070" type="stmt" count="4"/>
+      <line num="991" type="stmt" count="2"/>
+      <line num="992" type="stmt" count="2"/>
+      <line num="993" type="stmt" count="2"/>
+      <line num="994" type="stmt" count="2"/>
+      <line num="998" type="stmt" count="187"/>
+      <line num="999" type="stmt" count="187"/>
+      <line num="1000" type="stmt" count="1"/>
+      <line num="1002" type="stmt" count="1"/>
+      <line num="1003" type="stmt" count="1"/>
+      <line num="1004" type="stmt" count="1"/>
+      <line num="1005" type="stmt" count="1"/>
+      <line num="1009" type="stmt" count="187"/>
+      <line num="1010" type="stmt" count="187"/>
+      <line num="1011" type="stmt" count="1"/>
+      <line num="1013" type="stmt" count="1"/>
+      <line num="1014" type="stmt" count="1"/>
+      <line num="1015" type="stmt" count="1"/>
+      <line num="1016" type="stmt" count="1"/>
+      <line num="1020" type="stmt" count="187"/>
+      <line num="1021" type="stmt" count="187"/>
+      <line num="1022" type="stmt" count="1"/>
+      <line num="1023" type="stmt" count="1"/>
+      <line num="1024" type="stmt" count="1"/>
+      <line num="1025" type="stmt" count="1"/>
+      <line num="1026" type="stmt" count="1"/>
+      <line num="1027" type="stmt" count="1"/>
+      <line num="1031" type="stmt" count="187"/>
+      <line num="1032" type="stmt" count="187"/>
+      <line num="1033" type="stmt" count="1"/>
+      <line num="1034" type="stmt" count="1"/>
+      <line num="1035" type="stmt" count="1"/>
+      <line num="1036" type="stmt" count="1"/>
+      <line num="1037" type="stmt" count="1"/>
+      <line num="1038" type="stmt" count="1"/>
+      <line num="1042" type="stmt" count="187"/>
+      <line num="1053" type="method" name="groundWithoutSnowGroupValid" visibility="public" complexity="5" crap="5" count="6"/>
+      <line num="1058" type="stmt" count="6"/>
+      <line num="1059" type="stmt" count="6"/>
+      <line num="1060" type="stmt" count="2"/>
+      <line num="1062" type="stmt" count="2"/>
+      <line num="1063" type="stmt" count="2"/>
+      <line num="1064" type="stmt" count="2"/>
+      <line num="1065" type="stmt" count="2"/>
+      <line num="1069" type="stmt" count="6"/>
+      <line num="1070" type="stmt" count="6"/>
       <line num="1071" type="stmt" count="2"/>
       <line num="1073" type="stmt" count="2"/>
       <line num="1074" type="stmt" count="2"/>
       <line num="1075" type="stmt" count="2"/>
       <line num="1076" type="stmt" count="2"/>
-      <line num="1080" type="stmt" count="4"/>
-      <line num="1081" type="stmt" count="4"/>
+      <line num="1080" type="stmt" count="6"/>
+      <line num="1081" type="stmt" count="6"/>
       <line num="1082" type="stmt" count="2"/>
       <line num="1084" type="stmt" count="2"/>
       <line num="1085" type="stmt" count="2"/>
       <line num="1086" type="stmt" count="2"/>
       <line num="1087" type="stmt" count="2"/>
-      <line num="1091" type="stmt" count="4"/>
-      <line num="1103" type="method" name="additionalCloudInformationGroupValid" visibility="public" complexity="5" crap="5" count="6"/>
-      <line num="1108" type="stmt" count="6"/>
-      <line num="1109" type="stmt" count="6"/>
-      <line num="1110" type="stmt" count="2"/>
-      <line num="1112" type="stmt" count="2"/>
-      <line num="1113" type="stmt" count="2"/>
-      <line num="1114" type="stmt" count="2"/>
-      <line num="1115" type="stmt" count="2"/>
-      <line num="1119" type="stmt" count="6"/>
-      <line num="1120" type="stmt" count="6"/>
-      <line num="1121" type="stmt" count="2"/>
+      <line num="1091" type="stmt" count="6"/>
+      <line num="1092" type="stmt" count="6"/>
+      <line num="1093" type="stmt" count="2"/>
+      <line num="1095" type="stmt" count="2"/>
+      <line num="1096" type="stmt" count="2"/>
+      <line num="1097" type="stmt" count="2"/>
+      <line num="1098" type="stmt" count="2"/>
+      <line num="1102" type="stmt" count="6"/>
+      <line num="1113" type="method" name="groundWithSnowGroupValid" visibility="public" complexity="4" crap="4" count="5"/>
+      <line num="1118" type="stmt" count="5"/>
+      <line num="1119" type="stmt" count="5"/>
+      <line num="1120" type="stmt" count="2"/>
+      <line num="1122" type="stmt" count="2"/>
       <line num="1123" type="stmt" count="2"/>
       <line num="1124" type="stmt" count="2"/>
       <line num="1125" type="stmt" count="2"/>
-      <line num="1127" type="stmt" count="2"/>
-      <line num="1131" type="stmt" count="6"/>
-      <line num="1132" type="stmt" count="6"/>
+      <line num="1129" type="stmt" count="5"/>
+      <line num="1130" type="stmt" count="5"/>
+      <line num="1131" type="stmt" count="2"/>
       <line num="1133" type="stmt" count="2"/>
+      <line num="1134" type="stmt" count="2"/>
       <line num="1135" type="stmt" count="2"/>
       <line num="1136" type="stmt" count="2"/>
-      <line num="1137" type="stmt" count="2"/>
-      <line num="1139" type="stmt" count="2"/>
-      <line num="1143" type="stmt" count="6"/>
-      <line num="1144" type="stmt" count="6"/>
+      <line num="1140" type="stmt" count="5"/>
+      <line num="1141" type="stmt" count="5"/>
+      <line num="1142" type="stmt" count="2"/>
+      <line num="1144" type="stmt" count="2"/>
       <line num="1145" type="stmt" count="2"/>
+      <line num="1146" type="stmt" count="2"/>
       <line num="1147" type="stmt" count="2"/>
-      <line num="1148" type="stmt" count="2"/>
-      <line num="1149" type="stmt" count="2"/>
-      <line num="1151" type="stmt" count="2"/>
-      <line num="1155" type="stmt" count="6"/>
-      <metrics loc="1158" ncloc="914" classes="1" methods="31" coveredmethods="27" conditionals="0" coveredconditionals="0" statements="442" coveredstatements="428" elements="473" coveredelements="455"/>
+      <line num="1151" type="stmt" count="5"/>
+      <line num="1162" type="method" name="sunshineRadiationDataGroupValid" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="1167" type="stmt" count="4"/>
+      <line num="1168" type="stmt" count="4"/>
+      <line num="1169" type="stmt" count="2"/>
+      <line num="1171" type="stmt" count="2"/>
+      <line num="1172" type="stmt" count="2"/>
+      <line num="1173" type="stmt" count="2"/>
+      <line num="1174" type="stmt" count="2"/>
+      <line num="1178" type="stmt" count="4"/>
+      <line num="1179" type="stmt" count="4"/>
+      <line num="1180" type="stmt" count="2"/>
+      <line num="1182" type="stmt" count="2"/>
+      <line num="1183" type="stmt" count="2"/>
+      <line num="1184" type="stmt" count="2"/>
+      <line num="1185" type="stmt" count="2"/>
+      <line num="1189" type="stmt" count="4"/>
+      <line num="1201" type="method" name="additionalCloudInformationGroupValid" visibility="public" complexity="5" crap="5" count="6"/>
+      <line num="1206" type="stmt" count="6"/>
+      <line num="1207" type="stmt" count="6"/>
+      <line num="1208" type="stmt" count="2"/>
+      <line num="1210" type="stmt" count="2"/>
+      <line num="1211" type="stmt" count="2"/>
+      <line num="1212" type="stmt" count="2"/>
+      <line num="1213" type="stmt" count="2"/>
+      <line num="1217" type="stmt" count="6"/>
+      <line num="1218" type="stmt" count="6"/>
+      <line num="1219" type="stmt" count="2"/>
+      <line num="1221" type="stmt" count="2"/>
+      <line num="1222" type="stmt" count="2"/>
+      <line num="1223" type="stmt" count="2"/>
+      <line num="1225" type="stmt" count="2"/>
+      <line num="1229" type="stmt" count="6"/>
+      <line num="1230" type="stmt" count="6"/>
+      <line num="1231" type="stmt" count="2"/>
+      <line num="1233" type="stmt" count="2"/>
+      <line num="1234" type="stmt" count="2"/>
+      <line num="1235" type="stmt" count="2"/>
+      <line num="1237" type="stmt" count="2"/>
+      <line num="1241" type="stmt" count="6"/>
+      <line num="1242" type="stmt" count="6"/>
+      <line num="1243" type="stmt" count="2"/>
+      <line num="1245" type="stmt" count="2"/>
+      <line num="1246" type="stmt" count="2"/>
+      <line num="1247" type="stmt" count="2"/>
+      <line num="1249" type="stmt" count="2"/>
+      <line num="1253" type="stmt" count="6"/>
+      <metrics loc="1256" ncloc="996" classes="1" methods="33" coveredmethods="27" conditionals="0" coveredconditionals="0" statements="486" coveredstatements="435" elements="519" coveredelements="462"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Fabrication\ValidateBase.php">
       <class name="Soandso\Synop\Fabrication\ValidateBase" namespace="global">
@@ -2837,47 +2929,47 @@
       <line num="83" type="stmt" count="197"/>
       <line num="91" type="method" name="setSignValue" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="93" type="stmt" count="2"/>
-      <line num="102" type="method" name="setTemperatureData" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="104" type="stmt" count="2"/>
-      <line num="113" type="method" name="setTemperatureValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="115" type="stmt" count="2"/>
-      <line num="123" type="method" name="getRawAirTemperature" visibility="public" complexity="1" crap="1" count="198"/>
-      <line num="125" type="stmt" count="198"/>
-      <line num="133" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="197"/>
-      <line num="135" type="stmt" count="197"/>
-      <line num="143" type="method" name="getSignValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="145" type="stmt" count="2"/>
-      <line num="153" type="method" name="getTemperatureData" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="155" type="stmt" count="2"/>
-      <line num="163" type="method" name="getTemperatureValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="165" type="stmt" count="2"/>
-      <line num="174" type="method" name="setAirTempGroup" visibility="public" complexity="2" crap="2" count="232"/>
+      <line num="101" type="method" name="setTemperatureData" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="103" type="stmt" count="2"/>
+      <line num="111" type="method" name="setTemperatureValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="113" type="stmt" count="2"/>
+      <line num="121" type="method" name="getRawAirTemperature" visibility="public" complexity="1" crap="1" count="198"/>
+      <line num="123" type="stmt" count="198"/>
+      <line num="131" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="197"/>
+      <line num="133" type="stmt" count="197"/>
+      <line num="141" type="method" name="getSignValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="143" type="stmt" count="2"/>
+      <line num="151" type="method" name="getTemperatureData" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="153" type="stmt" count="2"/>
+      <line num="161" type="method" name="getTemperatureValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="163" type="stmt" count="2"/>
+      <line num="172" type="method" name="setAirTempGroup" visibility="public" complexity="2" crap="2" count="232"/>
+      <line num="174" type="stmt" count="232"/>
+      <line num="175" type="stmt" count="232"/>
       <line num="176" type="stmt" count="232"/>
       <line num="177" type="stmt" count="232"/>
-      <line num="178" type="stmt" count="232"/>
-      <line num="179" type="stmt" count="232"/>
+      <line num="179" type="stmt" count="1"/>
+      <line num="180" type="stmt" count="1"/>
       <line num="181" type="stmt" count="1"/>
-      <line num="182" type="stmt" count="1"/>
-      <line num="183" type="stmt" count="1"/>
-      <line num="194" type="method" name="isAirTempGroup" visibility="public" complexity="1" crap="1" count="232"/>
-      <line num="196" type="stmt" count="232"/>
-      <line num="204" type="method" name="setSign" visibility="public" complexity="2" crap="2" count="232"/>
-      <line num="206" type="stmt" count="232"/>
-      <line num="207" type="stmt" count="2"/>
-      <line num="209" type="stmt" count="232"/>
-      <line num="218" type="method" name="setTemperature" visibility="public" complexity="2" crap="2" count="232"/>
-      <line num="220" type="stmt" count="232"/>
-      <line num="221" type="stmt" count="2"/>
-      <line num="223" type="stmt" count="232"/>
-      <line num="233" type="method" name="buildAirTemperature" visibility="public" complexity="4" crap="4" count="232"/>
-      <line num="235" type="stmt" count="232"/>
-      <line num="236" type="stmt" count="232"/>
-      <line num="237" type="stmt" count="9"/>
-      <line num="239" type="stmt" count="232"/>
-      <line num="242" type="stmt" count="4"/>
-      <line num="251" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="220"/>
-      <line num="253" type="stmt" count="220"/>
-      <metrics loc="256" ncloc="144" classes="1" methods="18" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="55" coveredelements="55"/>
+      <line num="192" type="method" name="isAirTempGroup" visibility="public" complexity="1" crap="1" count="232"/>
+      <line num="194" type="stmt" count="232"/>
+      <line num="202" type="method" name="setSign" visibility="public" complexity="2" crap="2" count="232"/>
+      <line num="204" type="stmt" count="232"/>
+      <line num="205" type="stmt" count="2"/>
+      <line num="207" type="stmt" count="232"/>
+      <line num="216" type="method" name="setTemperature" visibility="public" complexity="2" crap="2" count="232"/>
+      <line num="218" type="stmt" count="232"/>
+      <line num="219" type="stmt" count="2"/>
+      <line num="221" type="stmt" count="232"/>
+      <line num="231" type="method" name="buildAirTemperature" visibility="public" complexity="4" crap="4" count="232"/>
+      <line num="233" type="stmt" count="232"/>
+      <line num="234" type="stmt" count="232"/>
+      <line num="235" type="stmt" count="9"/>
+      <line num="237" type="stmt" count="232"/>
+      <line num="240" type="stmt" count="4"/>
+      <line num="249" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="220"/>
+      <line num="251" type="stmt" count="220"/>
+      <metrics loc="254" ncloc="144" classes="1" methods="18" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="37" coveredstatements="37" elements="55" coveredelements="55"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Sheme\AmountRainfallGroup.php">
       <class name="Soandso\Synop\Sheme\AmountRainfallGroup" namespace="global">
@@ -2957,14 +3049,14 @@
       <line num="92" type="stmt" count="2"/>
       <line num="100" type="method" name="setTendencyValue" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="102" type="stmt" count="2"/>
-      <line num="110" type="method" name="setTendencyValueData" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="112" type="stmt" count="2"/>
-      <line num="120" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="216"/>
-      <line num="122" type="stmt" count="216"/>
-      <line num="130" type="method" name="getCharacteristicChangeValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="132" type="stmt" count="2"/>
-      <line num="140" type="method" name="getTendencyValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="142" type="stmt" count="2"/>
+      <line num="111" type="method" name="setTendencyValueData" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="113" type="stmt" count="2"/>
+      <line num="121" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="216"/>
+      <line num="123" type="stmt" count="216"/>
+      <line num="131" type="method" name="getCharacteristicChangeValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="133" type="stmt" count="2"/>
+      <line num="141" type="method" name="getTendencyValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="143" type="stmt" count="2"/>
       <line num="151" type="method" name="getTendencyValueData" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="153" type="stmt" count="1"/>
       <line num="162" type="method" name="setBaricTendencyGroup" visibility="public" complexity="2" crap="2" count="216"/>
@@ -3461,63 +3553,63 @@
       <line num="107" type="stmt" count="228"/>
       <line num="116" type="method" name="setHeightLowValue" visibility="public" complexity="1" crap="1" count="228"/>
       <line num="118" type="stmt" count="228"/>
-      <line num="128" type="method" name="setVisibilityValue" visibility="public" complexity="1" crap="1" count="228"/>
-      <line num="130" type="stmt" count="228"/>
-      <line num="138" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="228"/>
-      <line num="140" type="stmt" count="228"/>
-      <line num="148" type="method" name="getIncPrecipValue" visibility="public" complexity="1" crap="1" count="3"/>
-      <line num="150" type="stmt" count="3"/>
-      <line num="158" type="method" name="getIncWeatherValue" visibility="public" complexity="1" crap="1" count="3"/>
-      <line num="160" type="stmt" count="3"/>
-      <line num="168" type="method" name="getHeightLowValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="170" type="stmt" count="2"/>
-      <line num="178" type="method" name="getVisibilityValue" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="180" type="stmt" count="2"/>
-      <line num="190" type="method" name="setLcvGroup" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="127" type="method" name="setVisibilityValue" visibility="public" complexity="1" crap="1" count="228"/>
+      <line num="129" type="stmt" count="228"/>
+      <line num="137" type="method" name="getDecoder" visibility="public" complexity="1" crap="1" count="228"/>
+      <line num="139" type="stmt" count="228"/>
+      <line num="147" type="method" name="getIncPrecipValue" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="149" type="stmt" count="3"/>
+      <line num="157" type="method" name="getIncWeatherValue" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="159" type="stmt" count="3"/>
+      <line num="167" type="method" name="getHeightLowValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="169" type="stmt" count="2"/>
+      <line num="177" type="method" name="getVisibilityValue" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="179" type="stmt" count="2"/>
+      <line num="189" type="method" name="setLcvGroup" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="191" type="stmt" count="228"/>
       <line num="192" type="stmt" count="228"/>
       <line num="193" type="stmt" count="228"/>
       <line num="194" type="stmt" count="228"/>
       <line num="195" type="stmt" count="228"/>
-      <line num="196" type="stmt" count="228"/>
+      <line num="197" type="stmt" count="1"/>
       <line num="198" type="stmt" count="1"/>
       <line num="199" type="stmt" count="1"/>
       <line num="200" type="stmt" count="1"/>
-      <line num="201" type="stmt" count="1"/>
-      <line num="212" type="method" name="setIncPrecip" visibility="public" complexity="2" crap="2" count="228"/>
-      <line num="214" type="stmt" count="228"/>
-      <line num="215" type="stmt" count="1"/>
-      <line num="217" type="stmt" count="228"/>
-      <line num="227" type="method" name="setIncWeather" visibility="public" complexity="2" crap="2" count="228"/>
-      <line num="229" type="stmt" count="228"/>
-      <line num="230" type="stmt" count="1"/>
-      <line num="232" type="stmt" count="228"/>
-      <line num="242" type="method" name="setHlowClouds" visibility="public" complexity="2" crap="2" count="228"/>
-      <line num="244" type="stmt" count="228"/>
-      <line num="245" type="stmt" count="1"/>
-      <line num="247" type="stmt" count="228"/>
-      <line num="257" type="method" name="setVisibility" visibility="public" complexity="2" crap="2" count="228"/>
-      <line num="259" type="stmt" count="228"/>
-      <line num="260" type="stmt" count="1"/>
-      <line num="262" type="stmt" count="228"/>
-      <line num="271" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="228"/>
-      <line num="273" type="stmt" count="228"/>
-      <metrics loc="276" ncloc="149" classes="1" methods="18" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="39" elements="57" coveredelements="57"/>
+      <line num="211" type="method" name="setIncPrecip" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="213" type="stmt" count="228"/>
+      <line num="214" type="stmt" count="1"/>
+      <line num="216" type="stmt" count="228"/>
+      <line num="226" type="method" name="setIncWeather" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="228" type="stmt" count="228"/>
+      <line num="229" type="stmt" count="1"/>
+      <line num="231" type="stmt" count="228"/>
+      <line num="241" type="method" name="setHlowClouds" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="243" type="stmt" count="228"/>
+      <line num="244" type="stmt" count="1"/>
+      <line num="246" type="stmt" count="228"/>
+      <line num="256" type="method" name="setVisibility" visibility="public" complexity="2" crap="2" count="228"/>
+      <line num="258" type="stmt" count="228"/>
+      <line num="259" type="stmt" count="1"/>
+      <line num="261" type="stmt" count="228"/>
+      <line num="270" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="228"/>
+      <line num="272" type="stmt" count="228"/>
+      <metrics loc="275" ncloc="149" classes="1" methods="18" coveredmethods="18" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="39" elements="57" coveredelements="57"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Sheme\MaxAirTemperatureGroup.php">
       <class name="Soandso\Synop\Sheme\MaxAirTemperatureGroup" namespace="global">
         <metrics complexity="4" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
       </class>
-      <line num="21" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="190"/>
-      <line num="23" type="stmt" count="190"/>
-      <line num="32" type="method" name="setData" visibility="public" complexity="2" crap="2" count="190"/>
+      <line num="20" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="190"/>
+      <line num="22" type="stmt" count="190"/>
+      <line num="31" type="method" name="setData" visibility="public" complexity="2" crap="2" count="190"/>
+      <line num="33" type="stmt" count="190"/>
       <line num="34" type="stmt" count="190"/>
       <line num="35" type="stmt" count="190"/>
       <line num="36" type="stmt" count="190"/>
-      <line num="37" type="stmt" count="190"/>
-      <line num="39" type="stmt" count="1"/>
-      <line num="48" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="190"/>
-      <line num="50" type="stmt" count="190"/>
-      <metrics loc="53" ncloc="34" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
+      <line num="38" type="stmt" count="1"/>
+      <line num="47" type="method" name="getGroupIndicator" visibility="public" complexity="1" crap="1" count="190"/>
+      <line num="49" type="stmt" count="190"/>
+      <metrics loc="52" ncloc="33" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="10" coveredelements="10"/>
     </file>
     <file name="C:\OpenServerPanel\domains\synop.local\src\Sheme\MinAirTemperatureGroup.php">
       <class name="Soandso\Synop\Sheme\MinAirTemperatureGroup" namespace="global">
@@ -3807,6 +3899,6 @@
       <line num="197" type="stmt" count="208"/>
       <metrics loc="200" ncloc="107" classes="1" methods="13" coveredmethods="12" conditionals="0" coveredconditionals="0" statements="25" coveredstatements="24" elements="38" coveredelements="36"/>
     </file>
-    <metrics files="68" loc="13739" ncloc="8717" classes="53" methods="773" coveredmethods="670" conditionals="0" coveredconditionals="0" statements="2664" coveredstatements="2441" elements="3437" coveredelements="3111"/>
+    <metrics files="70" loc="13986" ncloc="8907" classes="55" methods="783" coveredmethods="677" conditionals="0" coveredconditionals="0" statements="2734" coveredstatements="2473" elements="3517" coveredelements="3150"/>
   </project>
 </coverage>
