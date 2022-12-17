@@ -220,7 +220,7 @@ of this section of the weather report</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getCodeGroundState">getCodeGroundState()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: null|int    </span>
 </dt>
 <dd>Return code figure of state ground</dd>
 
@@ -248,7 +248,7 @@ of this section of the weather report</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Soandso-Synop-Decoder-GroupDecoder-GroundWithoutSnowDecoder.html#method_getGroundState">getGroundState()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: null|string    </span>
 </dt>
 <dd>Return state of ground title</dd>
 
@@ -387,7 +387,7 @@ of this section of the weather report</dd>
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, string&gt;</span>
     <span class="phpdocumentor-signature__name">$groundStateMap</span>
-     = <span class="phpdocumentor-signature__default-value">[&#039;0&#039; =&gt; &#039;Surface of ground dry (without cracks and no appreciable amount of dust of loose sand)&#039;, &#039;1&#039; =&gt; &#039;Surface of ground moist&#039;, &#039;2&#039; =&gt; &#039;Surface of ground wet (standing water in small or large pools on surface)&#039;, &#039;3&#039; =&gt; &#039;Flooded&#039;, &#039;4&#039; =&gt; &#039;Surface of ground frozen&#039;, &#039;5&#039; =&gt; &#039;Glaze on ground&#039;, &#039;6&#039; =&gt; &#039;Loose dry dust or sand not covering ground completely&#039;, &#039;7&#039; =&gt; &#039;Thin cover of loose dry dust or sand covering ground completely&#039;, &#039;8&#039; =&gt; &#039;Moderate or thick cover of loose dry dust or sand covering ground completely&#039;, &#039;9&#039; =&gt; &#039;Extremely dry with cracks&#039;]</span></code>
+     = <span class="phpdocumentor-signature__default-value">[&#039;0&#039; =&gt; &#039;Surface of ground dry (without cracks and no appreciable amount of dust of loose sand)&#039;, &#039;1&#039; =&gt; &#039;Surface of ground moist&#039;, &#039;2&#039; =&gt; &#039;Surface of ground wet (standing water in small or large pools on surface)&#039;, &#039;3&#039; =&gt; &#039;Flooded&#039;, &#039;4&#039; =&gt; &#039;Surface of ground frozen&#039;, &#039;5&#039; =&gt; &#039;Glaze on ground&#039;, &#039;6&#039; =&gt; &#039;Loose dry dust or sand not covering ground completely&#039;, &#039;7&#039; =&gt; &#039;Thin cover of loose dry dust or sand covering ground completely&#039;, &#039;8&#039; =&gt; &#039;Moderate or thick cover of loose dry dust or sand covering ground completely&#039;, &#039;9&#039; =&gt; &#039;Extremely dry with cracks&#039;, &#039;/&#039; =&gt; null]</span></code>
 
     
         <section class="phpdocumentor-description"><p>Map correspondences of symbolic and state of ground without snow or measurable ice cover values</p>
@@ -450,7 +450,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">42</span>
+    <span class="phpdocumentor-element-found-in__line">43</span>
 
     </aside>
 
@@ -494,7 +494,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">83</span>
+    <span class="phpdocumentor-element-found-in__line">84</span>
 
     </aside>
 
@@ -502,7 +502,7 @@ of this section of the weather report</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getCodeGroundState</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">getCodeGroundState</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|int</span></code>
 
     
     
@@ -523,7 +523,7 @@ of this section of the weather report</dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">null|int</span>
             &mdash;
             <section class="phpdocumentor-description"><p>Code figure of state of the ground without snow or measurable ice cover</p>
 </section>
@@ -543,7 +543,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">136</span>
+    <span class="phpdocumentor-element-found-in__line">137</span>
 
     </aside>
 
@@ -578,7 +578,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">124</span>
+    <span class="phpdocumentor-element-found-in__line">125</span>
 
     </aside>
 
@@ -613,7 +613,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">114</span>
+    <span class="phpdocumentor-element-found-in__line">115</span>
 
     </aside>
 
@@ -648,7 +648,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">99</span>
+    <span class="phpdocumentor-element-found-in__line">100</span>
 
     </aside>
 
@@ -656,7 +656,7 @@ of this section of the weather report</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getGroundState</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getGroundState</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">null|string</span></code>
 
     
     
@@ -677,7 +677,7 @@ of this section of the weather report</dd>
                         </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
+    <span class="phpdocumentor-signature__response_type">null|string</span>
             &mdash;
             <section class="phpdocumentor-description"><p>State of ground without snow or measurable ice cover</p>
 </section>
@@ -697,7 +697,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">171</span>
+    <span class="phpdocumentor-element-found-in__line">172</span>
 
     </aside>
 
@@ -730,7 +730,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">166</span>
+    <span class="phpdocumentor-element-found-in__line">167</span>
 
     </aside>
 
@@ -765,7 +765,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">156</span>
+    <span class="phpdocumentor-element-found-in__line">157</span>
 
     </aside>
 
@@ -800,7 +800,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">147</span>
 
     </aside>
 
@@ -835,7 +835,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">55</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
@@ -901,7 +901,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">186</span>
+    <span class="phpdocumentor-element-found-in__line">187</span>
 
     </aside>
 
@@ -934,7 +934,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">216</span>
+    <span class="phpdocumentor-element-found-in__line">217</span>
 
     </aside>
 
@@ -967,7 +967,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">206</span>
+    <span class="phpdocumentor-element-found-in__line">207</span>
 
     </aside>
 
@@ -1000,7 +1000,7 @@ of this section of the weather report</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php"><a href="files/src-decoder-groupdecoder-groundwithoutsnowdecoder.html"><abbr title="src/Decoder/GroupDecoder/GroundWithoutSnowDecoder.php">GroundWithoutSnowDecoder.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">196</span>
+    <span class="phpdocumentor-element-found-in__line">197</span>
 
     </aside>
 
