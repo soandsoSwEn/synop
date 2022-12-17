@@ -203,7 +203,7 @@ class GroundWithoutSnowDecoderTest extends TestCase
 
     public function testSuccessIsStringGetGroundSignTemperature()
     {
-        $this->assertIsString($this->groundWithoutSnowDecoder->getGroundSignTemperature());
+        $this->assertIsInt($this->groundWithoutSnowDecoder->getGroundSignTemperature());
     }
 
     public function testErrorGetGroundSignTemperature()

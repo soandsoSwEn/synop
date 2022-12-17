@@ -28,17 +28,17 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
     private $decoder;
 
     /**
-     * @var int air temperature sign
+     * @var null|int air temperature sign
      */
     private $sign;
 
     /**
-     * @var float air temperature in tenths
+     * @var null|float air temperature in tenths
      */
     private $temperature;
 
     /**
-     * @var float The resulting signed air temperature
+     * @var null|float The resulting signed air temperature
      */
     private $temperatureValue;
 
@@ -93,24 +93,22 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
         $this->sign = $singValue;
     }
 
-    //TODO null|float $temperature
     /**
      * Sets air temperature in tenths value
      *
-     * @param float $temperature air temperature value
+     * @param null|float $temperature air temperature value
      */
-    public function setTemperatureData(float $temperature)
+    public function setTemperatureData(?float $temperature)
     {
         $this->temperature = $temperature;
     }
 
-    //TODO null|float $temperatureValue
     /**
      * Sets resulting signed air temperature
      *
-     * @param float $temperatureValue resulting signed air temperature
+     * @param null|float $temperatureValue resulting signed air temperature
      */
-    public function setTemperatureValue(float $temperatureValue)
+    public function setTemperatureValue(?float $temperatureValue)
     {
         $this->temperatureValue = $temperatureValue;
     }
@@ -138,9 +136,9 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns air temperature sign
      *
-     * @return int air temperature sign
+     * @return null|int air temperature sign
      */
-    public function getSignValue(): int
+    public function getSignValue(): ?int
     {
         return $this->sign;
     }
@@ -148,9 +146,9 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns air temperature in tenths
      *
-     * @return float air temperature
+     * @return null|float air temperature
      */
-    public function getTemperatureData(): float
+    public function getTemperatureData(): ?float
     {
         return $this->temperature;
     }
@@ -158,9 +156,9 @@ class AirTemperatureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns resulting signed air temperature
      *
-     * @return float resulting signed air temperature
+     * @return null|float resulting signed air temperature
      */
-    public function getTemperatureValue(): float
+    public function getTemperatureValue(): ?float
     {
         return $this->temperatureValue;
     }

@@ -2466,6 +2466,16 @@ Search.appendIndex(
             "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020group\u00201SnTTT",
             "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_airTemperatureGroupValid"
         },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AmaxAirTemperatureGroupValid\u0028\u0029",
+            "name": "maxAirTemperatureGroupValid",
+            "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020group\u00202SnTxTxTx",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_maxAirTemperatureGroupValid"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AminAirTemperatureGroupValid\u0028\u0029",
+            "name": "minAirTemperatureGroupValid",
+            "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020group\u00202SnTnTnTn",
+            "url": "classes/Soandso-Synop-Fabrication-Validate.html#method_minAirTemperatureGroupValid"
+        },                {
             "fqsen": "\\Soandso\\Synop\\Fabrication\\Validate\u003A\u003AdewPointTemperatureGroupValid\u0028\u0029",
             "name": "dewPointTemperatureGroupValid",
             "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020group\u00202SnTdTdTd",
@@ -5295,6 +5305,56 @@ Search.appendIndex(
             "name": "report",
             "summary": "",
             "url": "classes/Soandso-Synop-Exception-EmptyReportException.html#property_report"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MaxAirTemperatureDecoder",
+            "name": "MaxAirTemperatureDecoder",
+            "summary": "Class\u0020AirTemperatureDecoder\u0020contains\u0020methods\u0020for\u0020decoding\u0020an\u0020air\u0020temperature\u0020group",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MaxAirTemperatureDecoder.html"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MaxAirTemperatureDecoder\u003A\u003AisGroup\u0028\u0029",
+            "name": "isGroup",
+            "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020the\u0020group",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MaxAirTemperatureDecoder.html#method_isGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MaxAirTemperatureDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020group\u0020indicator\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MaxAirTemperatureDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MaxAirTemperatureDecoder\u003A\u003AgetSignTemperatureIndicator\u0028\u0029",
+            "name": "getSignTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020sign\u0020of\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MaxAirTemperatureDecoder.html#method_getSignTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MaxAirTemperatureDecoder\u003A\u003AgetDryBulbTemperatureIndicator\u0028\u0029",
+            "name": "getDryBulbTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Dry\u002Dbulb\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MaxAirTemperatureDecoder.html#method_getDryBulbTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MinAirTemperatureDecoder",
+            "name": "MinAirTemperatureDecoder",
+            "summary": "Class\u0020AirTemperatureDecoder\u0020contains\u0020methods\u0020for\u0020decoding\u0020an\u0020air\u0020temperature\u0020group",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MinAirTemperatureDecoder.html"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MinAirTemperatureDecoder\u003A\u003AisGroup\u0028\u0029",
+            "name": "isGroup",
+            "summary": "Returns\u0020the\u0020result\u0020of\u0020checking\u0020the\u0020validity\u0020of\u0020the\u0020group",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MinAirTemperatureDecoder.html#method_isGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MinAirTemperatureDecoder\u003A\u003AgetIndicatorGroup\u0028\u0029",
+            "name": "getIndicatorGroup",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020group\u0020indicator\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MinAirTemperatureDecoder.html#method_getIndicatorGroup"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MinAirTemperatureDecoder\u003A\u003AgetSignTemperatureIndicator\u0028\u0029",
+            "name": "getSignTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020sign\u0020of\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MinAirTemperatureDecoder.html#method_getSignTemperatureIndicator"
+        },                {
+            "fqsen": "\\Soandso\\Synop\\Decoder\\GroupDecoder\\MinAirTemperatureDecoder\u003A\u003AgetDryBulbTemperatureIndicator\u0028\u0029",
+            "name": "getDryBulbTemperatureIndicator",
+            "summary": "Returns\u0020indicator\u0020and\u0020description\u0020of\u0020Dry\u002Dbulb\u0020temperature\u0020for\u0020air\u0020temperatures\u0020\u002D\u00201SnTTT",
+            "url": "classes/Soandso-Synop-Decoder-GroupDecoder-MinAirTemperatureDecoder.html#method_getDryBulbTemperatureIndicator"
         },                {
             "fqsen": "\\",
             "name": "\\",

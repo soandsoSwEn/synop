@@ -17,13 +17,13 @@ use Soandso\Synop\Decoder\GroupDecoder\GroundWithSnowDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
 use Soandso\Synop\Decoder\GroupDecoder\IndexDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\LowCloudVisibilityDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\MaxAirTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\MinAirTemperatureDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\MslPressureDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
-use Soandso\Synop\Sheme\MaxAirTemperatureGroup;
-use Soandso\Synop\Sheme\MinAirTemperatureGroup;
 use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
 
 /**
@@ -61,8 +61,8 @@ class Validate extends ValidateBase implements ValidateInterface
         AmountRainfallDecoder::class => ['check' => 'amountRainfallGroupValid'],
         PresentWeatherDecoder::class => ['check' => 'presentWeatherGroupValid'],
         CloudPresentDecoder::class => ['check' => 'cloudPresentGroupValid'],
-        MaxAirTemperatureGroup::class => '',
-        MinAirTemperatureGroup::class => '',
+        MaxAirTemperatureDecoder::class => ['check' => 'maxAirTemperatureGroupValid'],
+        MinAirTemperatureDecoder::class => ['check' => 'minAirTemperatureGroupValid'],
         GroundWithoutSnowDecoder::class => ['check' => 'groundWithoutSnowGroupValid'],
         GroundWithSnowDecoder::class => ['check' => 'groundWithSnowGroupValid'],
         SunshineRadiationDataDecoder::class => ['check' => 'sunshineRadiationDataGroupValid'],
@@ -602,6 +602,104 @@ class Validate extends ValidateBase implements ValidateInterface
     }
 
     /**
+     * Returns the result of checking the validity of group 2SnTxTxTx
+     *
+     * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
+     * @param array $groupData Components of a weather group
+     * @return bool
+     */
+    public function maxAirTemperatureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
+        $patternDn = '/^1$/';
+        if (!preg_match($patternDn, $groupData[0])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getIndicatorGroup()),
+                current($groupDecoderItem->getIndicatorGroup()),
+                $groupData[0],
+                "Wrong distinctive number of air temperature group 1SnTxTxTx - {$groupData[0]}"
+            );
+        }
+
+        $patternSt = '/^[0-1]$|^\/$/';
+        if (!preg_match($patternSt, $groupData[1])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getSignTemperatureIndicator()),
+                current($groupDecoderItem->getSignTemperatureIndicator()),
+                $groupData[1],
+                "Wrong sign of min air temperature group 1SnTxTxTx - {$groupData[1]}"
+            );
+        }
+
+        $patternTv = '/^\d{3}$|^\/\/\/$/';
+        if (!preg_match($patternTv, $groupData[2])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getDryBulbTemperatureIndicator()),
+                current($groupDecoderItem->getDryBulbTemperatureIndicator()),
+                $groupData[2],
+                "Wrong air temperature group 1SnTxTxTx - {$groupData[2]}"
+            );
+        }
+
+        return $this->notExistsError($groupIndicator);
+    }
+
+    /**
+     * Returns the result of checking the validity of group 2SnTnTnTn
+     *
+     * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
+     * @param string $groupIndicator Group indicator
+     * @param array $groupData Components of a weather group
+     * @return bool
+     */
+    public function minAirTemperatureGroupValid(
+        GroupDecoderInterface $groupDecoderItem,
+        string $groupIndicator,
+        array $groupData
+    ): bool {
+        $patternDn = '/^2$/';
+        if (!preg_match($patternDn, $groupData[0])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getIndicatorGroup()),
+                current($groupDecoderItem->getIndicatorGroup()),
+                $groupData[0],
+                "Wrong distinctive number of air temperature group 2SnTnTnTn - {$groupData[0]}"
+            );
+        }
+
+        $patternSt = '/^[0-1]$|^\/$/';
+        if (!preg_match($patternSt, $groupData[1])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getSignTemperatureIndicator()),
+                current($groupDecoderItem->getSignTemperatureIndicator()),
+                $groupData[1],
+                "Wrong sign of min air temperature group 2SnTnTnTn - {$groupData[1]}"
+            );
+        }
+
+        $patternTv = '/^\d{3}$|^\/\/\/$/';
+        if (!preg_match($patternTv, $groupData[2])) {
+            $this->setError(
+                $groupIndicator,
+                key($groupDecoderItem->getDryBulbTemperatureIndicator()),
+                current($groupDecoderItem->getDryBulbTemperatureIndicator()),
+                $groupData[2],
+                "Wrong air temperature group 2SnTnTnTn - {$groupData[2]}"
+            );
+        }
+
+        return $this->notExistsError($groupIndicator);
+    }
+
+    /**
      * Returns the result of checking the validity of group 2SnTdTdTd
      *
      * @param GroupDecoderInterface $groupDecoderItem Group decoder instance class
@@ -810,7 +908,7 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        $patternDp = '/^[1-2]$|^\/\/$/';
+        $patternDp = '/^[1-9]$|^\/$/';
         if (!preg_match($patternDp, $groupData[2])) {
             $this->setError(
                 $groupIndicator,
@@ -897,7 +995,7 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        $patternA = '/^\d$/';
+        $patternA = '/^\d$|^\/$/';
         if (!preg_match($patternA, $groupData[1])) {
             $this->setError(
                 $groupIndicator,

@@ -3,7 +3,7 @@
 namespace Soandso\Synop\Sheme;
 
 use Exception;
-use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
+use Soandso\Synop\Decoder\GroupDecoder\MinAirTemperatureDecoder;
 use Soandso\Synop\Fabrication\Unit;
 use Soandso\Synop\Fabrication\ValidateInterface;
 
@@ -35,7 +35,7 @@ class MinAirTemperatureGroup extends AirTemperatureGroup
     {
         if (!empty($data)) {
             $this->setRawAirTemperature($data);
-            $this->setDecoder(new AirTemperatureDecoder($this->getRawAirTemperature(), self::DIGIT));
+            $this->setDecoder(new MinAirTemperatureDecoder($this->getRawAirTemperature(), true));
             $this->setAirTempGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('Minimum Air Temperature Group group cannot be empty!');

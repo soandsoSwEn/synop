@@ -27,7 +27,7 @@ class CloudPresentDecoder implements GroupDecoderInterface
      * @var string[] Map correspondences of symbolic and amount of low cloud values
      */
     private $amountCloudMap = [
-        '0' => 'Niel',
+        '0' => 'Nil',
         '1' => '1 eight of sky covered, or less, but not zero',
         '2' => '2 eight of sky covered',
         '3' => '3 eight of sky covered',
@@ -37,6 +37,7 @@ class CloudPresentDecoder implements GroupDecoderInterface
         '7' => '7 eight of sky covered, or more, but not completely covered',
         '8' => 'Sky completely covered',
         '9' => 'Sky obscured or cloud amount cannot be estimated',
+        '/' => null
     ];
 
     /**
@@ -168,10 +169,10 @@ class CloudPresentDecoder implements GroupDecoderInterface
     /**
      * Returns the amount low cloud value
      *
-     * @return string
+     * @return null|string
      * @throws Exception
      */
-    public function getAmountLowCloud(): string
+    public function getAmountLowCloud(): ?string
     {
         $Nh = $this->getAmountLowCloudSymbol();
         if (array_key_exists($Nh, $this->amountCloudMap)) {

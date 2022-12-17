@@ -28,17 +28,17 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     private $decoder;
 
     /**
-     * @var string Total clouds
+     * @var null|string Total clouds
      */
     private $totalClouds;
 
     /**
-     * @var string Direction of the wind
+     * @var null|string Direction of the wind
      */
     private $directionWind;
 
     /**
-     * @var string Wind speed
+     * @var null|string Wind speed
      */
     private $windSpeed;
 
@@ -79,9 +79,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets total clouds value
      *
-     * @param string $totalClouds Total clouds
+     * @param null|string $totalClouds Total clouds
      */
-    public function setTotalCloudsValue(string $totalClouds): void
+    public function setTotalCloudsValue(?string $totalClouds): void
     {
         $this->totalClouds = $totalClouds;
     }
@@ -89,9 +89,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets direction of wind
      *
-     * @param string $directionWind Direction of wind
+     * @param null|string $directionWind Direction of wind
      */
-    public function setDirectionWindValue(string $directionWind): void
+    public function setDirectionWindValue(?string $directionWind): void
     {
         $this->directionWind = $directionWind;
     }
@@ -99,9 +99,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets wind speed
      *
-     * @param string $windSpeed Wind speed
+     * @param null|string $windSpeed Wind speed
      */
-    public function setWindSpeedValue(string $windSpeed): void
+    public function setWindSpeedValue(?string $windSpeed): void
     {
         $this->windSpeed = $windSpeed;
     }
@@ -119,9 +119,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns total clouds
      *
-     * @return string Total clouds
+     * @return null|string Total clouds
      */
-    public function getTotalCloudsValue(): string
+    public function getTotalCloudsValue(): ?string
     {
         return $this->totalClouds;
     }
@@ -129,9 +129,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns direction of wind
      *
-     * @return string Direction of wind
+     * @return null|string Direction of wind
      */
-    public function getDirectionWindValue(): string
+    public function getDirectionWindValue(): ?string
     {
         return $this->directionWind;
     }
@@ -139,9 +139,9 @@ class CloudWindGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns wind speed
      *
-     * @return string Wind speed
+     * @return null|string Wind speed
      */
-    public function getWindSpeedValue(): string
+    public function getWindSpeedValue(): ?string
     {
         return $this->windSpeed;
     }

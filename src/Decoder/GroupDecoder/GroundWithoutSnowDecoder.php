@@ -37,6 +37,7 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
         '7' => 'Thin cover of loose dry dust or sand covering ground completely',
         '8' => 'Moderate or thick cover of loose dry dust or sand covering ground completely',
         '9' => 'Extremely dry with cracks',
+        '/' => null,
     ];
 
     public function __construct(string $rawGroundWithoutSnow)
@@ -77,10 +78,10 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
     /**
      * Return code figure of state ground
      *
-     * @return int Code figure of state of the ground without snow or measurable ice cover
+     * @return null|int Code figure of state of the ground without snow or measurable ice cover
      * @throws Exception
      */
-    public function getCodeGroundState(): int
+    public function getCodeGroundState(): ?int
     {
         $E = substr($this->rawGroundWithoutSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -93,10 +94,10 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
     /**
      * Return state of ground title
      *
-     * @return string State of ground without snow or measurable ice cover
+     * @return null|string State of ground without snow or measurable ice cover
      * @throws Exception
      */
-    public function getGroundState(): string
+    public function getGroundState(): ?string
     {
         $E = substr($this->rawGroundWithoutSnow, 1, 1);
         if (array_key_exists($E, $this->groundStateMap)) {
@@ -106,15 +107,14 @@ class GroundWithoutSnowDecoder implements GroupDecoderInterface
         }
     }
 
-    //TODO string or int return sign analyse
     /**
      * Returns the sign of grass minimum temperature
      *
-     * @return false|string Sign of grass minimum temperature
+     * @return false|int Sign of grass minimum temperature
      */
-    public function getGroundSignTemperature()
+    public function getGroundSignTemperature(): int
     {
-        return substr($this->rawGroundWithoutSnow, 2, 1);
+        return intval(substr($this->rawGroundWithoutSnow, 2, 1));
     }
 
     /**

@@ -3,8 +3,7 @@
 namespace Soandso\Synop\Sheme;
 
 use Exception;
-use Soandso\Synop\Decoder\GroupDecoder\AirTemperatureDecoder;
-use Soandso\Synop\Decoder\GroupDecoder\GroupDecoderInterface;
+use Soandso\Synop\Decoder\GroupDecoder\MaxAirTemperatureDecoder;
 use Soandso\Synop\Fabrication\UnitInterface;
 use Soandso\Synop\Fabrication\ValidateInterface;
 
@@ -33,7 +32,7 @@ class MaxAirTemperatureGroup extends AirTemperatureGroup
     {
         if (!empty($data)) {
             $this->setRawAirTemperature($data);
-            $this->setDecoder(new AirTemperatureDecoder($this->getRawAirTemperature()));
+            $this->setDecoder(new MaxAirTemperatureDecoder($this->getRawAirTemperature()));
             $this->setAirTempGroup($this->getDecoder(), $validate);
         } else {
             throw new Exception('Maximum Air Temperature Group group cannot be empty!');
