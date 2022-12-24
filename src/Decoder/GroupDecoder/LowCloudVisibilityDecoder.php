@@ -20,10 +20,11 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
 
     /** @var array Indices precipitation group inclusion 6RRRtr */
     private $i_r = [
-        1 => 'Included in section 1',
-        2 => 'Included in section 3',
-        3 => 'Omitted (precipitation amount = 0)',
-        4 => 'Omitted (precipitation not amount available)'
+        '0' => 'In Sections 1 and 3',
+        '1' => 'In Section 1',
+        '2' => 'In Section 3',
+        '3' => 'In none of the two Sections 1 and 3',
+        '4' => 'In none of the two Sections 1 and 3'
     ];
 
     /**
@@ -31,12 +32,13 @@ class LowCloudVisibilityDecoder implements GroupDecoderInterface
      *  as inclusion in the group report 7wwW1W2
      */
     private $i_x = [
-        1 => ['Included', 'Manned'],
-        2 => ['Omitted (no significant phenomenon to report)', 'Manned'],
-        3 => ['Omitted (not observed, data not available)', 'Manned'],
-        4 => ['Included', 'Automatic'],
-        5 => ['Omitted (no significant phenomenon to report)', 'Automatic'],
-        6 => ['Omitted (not observed, data not available)', 'Automatic']
+        '1' => ['Included', 'Manned'],
+        '2' => ['Omitted (no significant phenomenon to report)', 'Manned'],
+        '3' => ['Omitted (no observation, data not available)', 'Manned'],
+        '4' => ['Included', 'Automatic'],
+        '5' => ['Omitted (no significant phenomenon to report)', 'Automatic'],
+        '6' => ['Omitted (no observation, data not available)', 'Automatic'],
+        '7' => ['Included', 'Automatic']
     ];
 
     /**

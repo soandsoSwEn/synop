@@ -444,7 +444,7 @@ class Validate extends ValidateBase implements ValidateInterface
         string $groupIndicator,
         array $groupData
     ): bool {
-        $patternIr = '/^[1-4]$/';
+        $patternIr = '/^[0-4]$/';
         if (!preg_match($patternIr, $groupData[0])) {
             $this->setError(
                 $groupIndicator,
@@ -455,7 +455,7 @@ class Validate extends ValidateBase implements ValidateInterface
             );
         }
 
-        $patternIx = '/^[1-6]$/';
+        $patternIx = '/^[1-7]$/';
         if (!preg_match($patternIx, $groupData[1])) {
             $this->setError(
                 $groupIndicator,
