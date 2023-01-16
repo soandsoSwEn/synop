@@ -29,9 +29,9 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     private $decoder;
 
     /**
-     * @var float Value atmospheric pressure at station level
+     * @var float|null Value atmospheric pressure at station level
      */
-    private $pressure;
+    private ?float $pressure;
 
     public function __construct(string $data, UnitInterface $unit, ValidateInterface $validate)
     {
@@ -91,9 +91,9 @@ class StLPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns value atmospheric pressure at station level
      *
-     * @return float Value atmospheric pressure at station level
+     * @return float|null Value atmospheric pressure at station level
      */
-    public function getPressureValue(): float
+    public function getPressureValue(): ?float
     {
         return $this->pressure;
     }

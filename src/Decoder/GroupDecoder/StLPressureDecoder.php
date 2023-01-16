@@ -41,13 +41,11 @@ class StLPressureDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawStlPressure, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(
+            return $validate->isValidGroup(
                 $this,
                 $groupIndicator,
                 [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]
             );
-
-            return true;
         }
 
         return false;
