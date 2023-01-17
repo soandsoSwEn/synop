@@ -31,7 +31,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4"
+        "php": ">=7.4"
     },
     "require-dev": {
         "mockery/mockery": "^1.5",

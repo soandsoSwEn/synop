@@ -302,7 +302,7 @@ class LowCloudVisibilityGroupTest extends TestCase
 
     public function testSuccessGetIncPrecipValue()
     {
-        $this->assertEquals('Included in section 1', $this->lowCloudVisibilityGroup->getIncPrecipValue());
+        $this->assertEquals('In Section 1', $this->lowCloudVisibilityGroup->getIncPrecipValue());
     }
 
     public function testSuccessIsStringGetIncPrecipValue()
@@ -527,10 +527,10 @@ class LowCloudVisibilityGroupTest extends TestCase
         $valueIncPr = $propertyIncPr->getValue($this->lowCloudVisibilityGroup);
 
         $expected = [
-            55,
+            '55',
             '300-600',
             ['Included', 'Manned'],
-            'Included in section 1'
+            'In Section 1'
         ];
 
         $this->assertEquals($expected, [$valueVis, $valueHlc, $valueInc, $valueIncPr]);

@@ -98,7 +98,7 @@ class AmountRainfallGroupTest extends TestCase
         $property->setAccessible(true);
         $value = $property->getValue($this->amountRainfallGroup);
 
-        $this->assertIsInt($value);
+        $this->assertIsString($value);
     }
 
     public function testNullSetDurationPeriodNumber()
@@ -305,7 +305,7 @@ class AmountRainfallGroupTest extends TestCase
         $this->assertEquals(2, $value);
     }
 
-    public function testSuccessIsIntSetDurationPeriodNumberValue()
+    public function testSuccessIsStringSetDurationPeriodNumberValue()
     {
         $this->amountRainfallGroup->setDurationPeriodNumberValue(2);
 
@@ -314,7 +314,7 @@ class AmountRainfallGroupTest extends TestCase
         $property->setAccessible(true);
         $value = $property->getValue($this->amountRainfallGroup);
 
-        $this->assertIsInt($value);
+        $this->assertIsString($value);
     }
 
     public function testNullSetDurationPeriodNumberValue()

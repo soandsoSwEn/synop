@@ -29,7 +29,7 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     private $decoder;
 
     /**
-     * @var float Value of Air Pressure reduced to mean sea level
+     * @var float|null Value of Air Pressure reduced to mean sea level
      */
     private $pressure;
 
@@ -91,9 +91,9 @@ class MslPressureGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Returns value of Air Pressure reduced to mean sea level
      *
-     * @return float Value of Air Pressure reduced to mean sea level
+     * @return float|null Value of Air Pressure reduced to mean sea level
      */
-    public function getPressureValue(): float
+    public function getPressureValue(): ?float
     {
         return $this->pressure;
     }

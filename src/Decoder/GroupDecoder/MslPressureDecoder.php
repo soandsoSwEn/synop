@@ -40,13 +40,11 @@ class MslPressureDecoder implements GroupDecoderInterface
         $distinguishingDigit = substr($this->rawMlsPressure, 0, 1);
 
         if (strcasecmp($distinguishingDigit, self::DIGIT) == 0) {
-            $validate->isValidGroup(
+            return $validate->isValidGroup(
                 $this,
                 $groupIndicator,
                 [$this->getCodeFigureIndicator(), $this->getCodeFigurePressure()]
             );
-
-            return true;
         }
 
         return false;

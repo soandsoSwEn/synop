@@ -107,9 +107,9 @@ class AmountRainfallGroup extends BaseGroupWithUnits implements GroupInterface
     /**
      * Sets duration period of Amount of rainfall integer value
      *
-     * @param int|null $durationPeriodNumber Duration period of Amount of rainfall
+     * @param string|null $durationPeriodNumber Duration period of Amount of rainfall
      */
-    public function setDurationPeriodNumberValue(?int $durationPeriodNumber): void
+    public function setDurationPeriodNumberValue(?string $durationPeriodNumber): void
     {
         $this->durationPeriodNumber = $durationPeriodNumber;
     }
