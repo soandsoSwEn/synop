@@ -326,7 +326,7 @@ Code quality and test coverage are analyzed by the [Codacy service](https://www.
 Standards
 ---------
 
-Continental index conforms to the following standards:
+Synop conforms to the following standards:
 
 * PSR-2  - Basic coding standard (https://www.php-fig.org/psr/psr-2/)
 * PSR-4  - Autoloader (https://www.php-fig.org/psr/psr-4/)
