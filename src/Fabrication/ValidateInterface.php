@@ -2,6 +2,8 @@
 
 namespace Soandso\Synop\Fabrication;
 
+use Exception;
+
 /**
  * This interface describes methods for validating weather reports
  *
@@ -20,7 +22,8 @@ interface ValidateInterface
     /**
      * Performs a basic check of the entire weather report
      *
-     * @return bool
+     * @return true
+     * @throws Exception
      */
-    public function isValid(): bool;
+    public function check(): bool;
 }

@@ -96,12 +96,8 @@ class Report implements ReportInterface
     public function initValidator(string $report)
     {
         $this->validate = new Validate($report);
-        if ($this->validate->isValid() === false) {
+        if (!$this->validate->check()) {
             throw new Exception('Wrong weather report format');
-        }
-
-        if (!$this->validate->isNotEmpty()) {
-            throw new EmptyReportException($report, 'Weather report is empty');
         }
     }
 

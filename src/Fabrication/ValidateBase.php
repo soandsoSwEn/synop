@@ -2,6 +2,8 @@
 
 namespace Soandso\Synop\Fabrication;
 
+use Exception;
+
 /**
  * Class Validate contains base methods for validating meteorological groups
  */
@@ -40,10 +42,10 @@ class ValidateBase
      */
     public function isEndEqualSign(string $report): bool
     {
-        $countSubmbolReport = iconv_strlen($report);
-        $endSumbolPosition = stripos($report, "=");
+        $countSybmbolReport = iconv_strlen($report);
+        $endSymbolPosition = stripos($report, "=");
 
-        return ($countSubmbolReport - 1) == $endSumbolPosition;
+        return ($countSybmbolReport - 1) == $endSymbolPosition;
     }
 
     /**
@@ -97,6 +99,30 @@ class ValidateBase
         }
 
         return false;
+    }
+
+    /**
+     * Returns an invalid meteorological report group
+     *
+     * @param string $report
+     * @return false|string
+     * @throws Exception
+     */
+    public function getInvalidGroup(string $report)
+    {
+        if ($this->isCountSymbol($report) === true) {
+            return false;
+        }
+
+        $this->report = str_replace('=', '', $report);
+        $groups = explode(' ', $this->report);
+        foreach ($groups as $group) {
+            if (!$this->isGroup($group)) {
+                return $group;
+            }
+        }
+
+        throw new Exception("No invalid meteorological group was found");
     }
 
     /**

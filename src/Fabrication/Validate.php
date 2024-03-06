@@ -24,6 +24,9 @@ use Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
+use Soandso\Synop\Exception\CountSymbolException;
+use Soandso\Synop\Exception\EmptyReportException;
+use Soandso\Synop\Exception\EndSignException;
 use Soandso\Synop\Sheme\RegionalExchangeAmountRainfallGroup;
 
 /**
@@ -215,15 +218,30 @@ class Validate extends ValidateBase implements ValidateInterface
     /**
      * Performs a basic check of the entire weather report
      *
-     * @return bool
+     * @return true
+     * @throws CountSymbolException
+     * @throws EndSignException
      * @throws Exception
      */
-    public function isValid(): bool
+    public function check(): bool
     {
         if (!$this->report) {
             throw new Exception('Meteorological weather report not defined!');
         }
-        return $this->isEndEqualSign($this->report) && $this->isCountSymbol($this->report);
+
+        if ($this->isEndEqualSign($this->report) === false) {
+            throw new EndSignException($this->report);
+        }
+
+        if ($this->isCountSymbol($this->report) === false) {
+            throw new CountSymbolException($this->getInvalidGroup($this->report));
+        }
+
+        if (!$this->isNotEmpty()) {
+            throw new EmptyReportException($this->report, 'Weather report is empty');
+        }
+
+        return true;
     }
 
     /**
