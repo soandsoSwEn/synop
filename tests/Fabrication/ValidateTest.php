@@ -21,6 +21,8 @@ use Soandso\Synop\Decoder\GroupDecoder\PresentWeatherDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\StLPressureDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\SunshineRadiationDataDecoder;
 use Soandso\Synop\Decoder\GroupDecoder\TypeDecoder;
+use Soandso\Synop\Exception\CountSymbolException;
+use Soandso\Synop\Exception\EndSignException;
 use Soandso\Synop\Fabrication\Validate;
 
 class ValidateTest extends TestCase
@@ -1293,7 +1295,7 @@ class ValidateTest extends TestCase
         $property->setAccessible(true);
         $property->setValue($this->validate, $report);
 
-        $this->assertTrue($this->validate->isValid());
+        $this->assertTrue($this->validate->check());
     }
 
     public function testExceptionIsValid()
@@ -1306,7 +1308,7 @@ class ValidateTest extends TestCase
 
         $this->expectException(\Exception::class);
 
-        $this->validate->isValid();
+        $this->validate->check();
     }
 
     public function testErrorEndEqualSignIsValid()
@@ -1317,7 +1319,10 @@ class ValidateTest extends TestCase
         $property->setAccessible(true);
         $property->setValue($this->validate, $report);
 
-        $this->assertFalse($this->validate->isValid());
+        $this->expectException(EndSignException::class);
+        $this->expectExceptionMessage("There is no sign of the end of the meteorological report");
+
+        $this->validate->check();
     }
 
     public function testErrorCountSymbolIsValid()
@@ -1328,7 +1333,10 @@ class ValidateTest extends TestCase
         $property->setAccessible(true);
         $property->setValue($this->validate, $report);
 
-        $this->assertFalse($this->validate->isValid());
+        $this->expectException(CountSymbolException::class);
+        $this->expectExceptionMessage("The meteorological summary group has an invalid number of characters");
+
+        $this->validate->check();
     }
 
     public function testSuccessIsValidGroup()
