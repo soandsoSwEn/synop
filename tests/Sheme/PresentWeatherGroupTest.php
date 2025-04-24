@@ -54,4 +54,44 @@ class PresentWeatherGroupTest extends TestCase
     {
         $this->assertIsString($this->presentWeatherGroup->getGroupIndicator());
     }
+
+    public function testSuccessGetPresentWeatherSymbolValue()
+    {
+        $value = $this->presentWeatherGroup->getPresentWeatherSymbolValue();
+
+        $this->assertEquals(02, $value);
+    }
+
+    public function testSuccessSetPresentWeatherSymbolValue()
+    {
+        $codeFigure = 15;
+        $this->presentWeatherGroup->setPresentWeatherSymbolValue($codeFigure);
+
+        $reflector = new \ReflectionClass(PresentWeatherGroup::class);
+        $property = $reflector->getProperty('presentWeatherSymbol');
+        $property->setAccessible(true);
+        $value = $property->getValue($this->presentWeatherGroup);
+
+        $this->assertEquals($codeFigure, $value);
+    }
+
+    public function testSuccessGetPastWeatherSymbolValue()
+    {
+        $value = $this->presentWeatherGroup->getPastWeatherSymbolValue();
+
+        $this->assertEquals(82, $value);
+    }
+
+    public function testSuccessSetPastWeatherSymbolValue()
+    {
+        $codeFigure = 95;
+        $this->presentWeatherGroup->setPastWeatherSymbolValue($codeFigure);
+
+        $reflector = new \ReflectionClass(PresentWeatherGroup::class);
+        $property = $reflector->getProperty('pastWeatherSymbol');
+        $property->setAccessible(true);
+        $value = $property->getValue($this->presentWeatherGroup);
+
+        $this->assertEquals($codeFigure, $value);
+    }
 }

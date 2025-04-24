@@ -86,7 +86,7 @@ class PresentWeatherGroup implements GroupInterface
      */
     public function setPresentWeatherSymbolValue(?int $presentWeatherSymbol): void
     {
-        $this->pastWeatherSymbol = $presentWeatherSymbol;
+        $this->presentWeatherSymbol = $presentWeatherSymbol;
     }
 
     /**
