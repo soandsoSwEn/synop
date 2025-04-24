@@ -633,6 +633,16 @@ class Report implements ReportInterface
     //Group 7wwW1W2
 
     /**
+     * Get a code figure of present weather
+     *
+     * @return int|null
+     */
+    public function getPresentWeatherCodeFigure(): ?int
+    {
+        return $this->partData->getPresentWeatherCodeFigureReport($this->rawBlocksData);
+    }
+
+    /**
      * Get present weather
      *
      * @return string|null
@@ -640,6 +650,16 @@ class Report implements ReportInterface
     public function getPresentWeather(): ?string
     {
         return $this->partData->getPresentWeatherReport($this->rawBlocksData);
+    }
+
+    /**
+     * Get a code figure past weather
+     *
+     * @return int|null
+     */
+    public function getPastWeatherCodeFigure(): ?int
+    {
+        return $this->partData->getPastWeatherCodeFigureReport($this->rawBlocksData);
     }
 
     /**

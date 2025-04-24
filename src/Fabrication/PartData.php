@@ -756,6 +756,27 @@ class PartData implements PartDataInterface
     }
 
     /**
+     * Returns code figure of present weather
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return int|null
+     */
+    public function getPresentWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?int
+    {
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        if (is_null($body)) {
+            return null;
+        }
+
+        $group = $this->getGroupData($body, PresentWeatherGroup::class);
+        if (is_null($group)) {
+            return null;
+        }
+
+        return $group->getPresentWeatherSymbolValue();
+    }
+
+    /**
      * Returns present weather
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
@@ -774,6 +795,27 @@ class PartData implements PartDataInterface
         }
 
         return $group->getPresentWeatherValue();
+    }
+
+    /**
+     * Returns code figure of past weather
+     *
+     * @param SectionInterface $rawBlocksData All sections of the meteorological report
+     * @return int|null
+     */
+    public function getPastWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?int
+    {
+        $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
+        if (is_null($body)) {
+            return null;
+        }
+
+        $group = $this->getGroupData($body, PresentWeatherGroup::class);
+        if (is_null($group)) {
+            return null;
+        }
+
+        return $group->getPastWeatherSymbolValue();
     }
 
     /**
