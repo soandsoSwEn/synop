@@ -1784,6 +1784,20 @@ class ReportTest extends TestCase
         $this->assertNull($this->report->getDurationPeriodRainfall());
     }
 
+    public function testSuccessGetPresentWeatherCodeFigure()
+    {
+        $this->report->parse();
+
+        $partData = Mockery::mock(PartData::class);
+        $partData->shouldReceive('getPresentWeatherCodeFigureReport')->once()->andReturn(02);
+
+        $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->report, $partData);
+
+        $this->assertEquals(02, $this->report->getPresentWeatherCodeFigure());
+    }
+
     public function testSuccessGetPresentWeather()
     {
         $this->report->parse();
@@ -1824,6 +1838,20 @@ class ReportTest extends TestCase
         $reflectorProperty->setValue($this->report, $partData);
 
         $this->assertNull($this->report->getPresentWeather());
+    }
+
+    public function testSuccessGetPastWeatherCodeFigure()
+    {
+        $this->report->parse();
+
+        $partData = Mockery::mock(PartData::class);
+        $partData->shouldReceive('getPastWeatherCodeFigureReport')->once()->andReturn(82);
+
+        $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->report, $partData);
+
+        $this->assertEquals(82, $this->report->getPastWeatherCodeFigure());
     }
 
     public function testSuccessGetPastWeather()
