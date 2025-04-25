@@ -1183,12 +1183,12 @@ class PartDataTest extends TestCase
         $this->rawBlocksData->setBody(new Section('General Section'));
 
         $group = Mockery::mock(PresentWeatherGroup::class);
-        $group->shouldReceive('getPresentWeatherSymbolValue')->once()->andReturn(02);
+        $group->shouldReceive('getPresentWeatherSymbolValue')->once()->andReturn('02');
 
         $section = $this->rawBlocksData->getBodyByTitle('General Section');
         $section->setBody($group);
 
-        $this->assertEquals(02, $this->partData->getPresentWeatherCodeFigureReport($this->rawBlocksData));
+        $this->assertEquals('02', $this->partData->getPresentWeatherCodeFigureReport($this->rawBlocksData));
     }
 
     public function testSuccessGetPresentWeatherReport()
@@ -1229,12 +1229,12 @@ class PartDataTest extends TestCase
         $this->rawBlocksData->setBody(new Section('General Section'));
 
         $group = Mockery::mock(PresentWeatherGroup::class);
-        $group->shouldReceive('getPastWeatherSymbolValue')->once()->andReturn(82);
+        $group->shouldReceive('getPastWeatherSymbolValue')->once()->andReturn('82');
 
         $section = $this->rawBlocksData->getBodyByTitle('General Section');
         $section->setBody($group);
 
-        $this->assertEquals(82, $this->partData->getPastWeatherCodeFigureReport($this->rawBlocksData));
+        $this->assertEquals('82', $this->partData->getPastWeatherCodeFigureReport($this->rawBlocksData));
     }
 
     public function testSuccessGetPastWeatherReport()

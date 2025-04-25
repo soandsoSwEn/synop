@@ -59,7 +59,12 @@ class PresentWeatherGroupTest extends TestCase
     {
         $value = $this->presentWeatherGroup->getPresentWeatherSymbolValue();
 
-        $this->assertEquals(02, $value);
+        $this->assertEquals('02', $value);
+    }
+
+    public function testSuccessIsStringGetPresentWeatherSymbolValue()
+    {
+        $this->assertIsString($this->presentWeatherGroup->getPresentWeatherSymbolValue());
     }
 
     public function testSuccessSetPresentWeatherSymbolValue()
@@ -79,7 +84,12 @@ class PresentWeatherGroupTest extends TestCase
     {
         $value = $this->presentWeatherGroup->getPastWeatherSymbolValue();
 
-        $this->assertEquals(82, $value);
+        $this->assertEquals('82', $value);
+    }
+
+    public function testSuccessIsStringGetPastWeatherSymbolValue()
+    {
+        $this->assertIsString($this->presentWeatherGroup->getPastWeatherSymbolValue());
     }
 
     public function testSuccessSetPastWeatherSymbolValue()
