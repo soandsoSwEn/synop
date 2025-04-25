@@ -1789,13 +1789,27 @@ class ReportTest extends TestCase
         $this->report->parse();
 
         $partData = Mockery::mock(PartData::class);
-        $partData->shouldReceive('getPresentWeatherCodeFigureReport')->once()->andReturn(02);
+        $partData->shouldReceive('getPresentWeatherCodeFigureReport')->once()->andReturn('02');
 
         $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
         $reflectorProperty->setAccessible(true);
         $reflectorProperty->setValue($this->report, $partData);
 
-        $this->assertEquals(02, $this->report->getPresentWeatherCodeFigure());
+        $this->assertEquals('02', $this->report->getPresentWeatherCodeFigure());
+    }
+
+    public function testSuccessIsStringGetPresentWeatherCodeFigure()
+    {
+        $this->report->parse();
+
+        $partData = Mockery::mock(PartData::class);
+        $partData->shouldReceive('getPresentWeatherCodeFigureReport')->once()->andReturn('02');
+
+        $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->report, $partData);
+
+        $this->assertIsString($this->report->getPresentWeatherCodeFigure());
     }
 
     public function testSuccessGetPresentWeather()
@@ -1845,13 +1859,27 @@ class ReportTest extends TestCase
         $this->report->parse();
 
         $partData = Mockery::mock(PartData::class);
-        $partData->shouldReceive('getPastWeatherCodeFigureReport')->once()->andReturn(82);
+        $partData->shouldReceive('getPastWeatherCodeFigureReport')->once()->andReturn('82');
 
         $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
         $reflectorProperty->setAccessible(true);
         $reflectorProperty->setValue($this->report, $partData);
 
-        $this->assertEquals(82, $this->report->getPastWeatherCodeFigure());
+        $this->assertEquals('82', $this->report->getPastWeatherCodeFigure());
+    }
+
+    public function testSuccessIsStringGetPastWeatherCodeFigure()
+    {
+        $this->report->parse();
+
+        $partData = Mockery::mock(PartData::class);
+        $partData->shouldReceive('getPastWeatherCodeFigureReport')->once()->andReturn('82');
+
+        $reflectorProperty = new \ReflectionProperty(Report::class, 'partData');
+        $reflectorProperty->setAccessible(true);
+        $reflectorProperty->setValue($this->report, $partData);
+
+        $this->assertIsString($this->report->getPastWeatherCodeFigure());
     }
 
     public function testSuccessGetPastWeather()

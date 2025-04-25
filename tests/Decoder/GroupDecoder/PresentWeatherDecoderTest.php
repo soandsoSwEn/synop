@@ -152,7 +152,7 @@ class PresentWeatherDecoderTest extends TestCase
 
     public function testSuccessIsStringGetPastWeatherSymbol()
     {
-        $this->assertIsInt($this->presentWeather->getPastWeatherSymbol());
+        $this->assertIsString($this->presentWeather->getPastWeatherSymbol());
     }
 
     public function testErrorGetPastWeatherSymbol()
@@ -185,7 +185,7 @@ class PresentWeatherDecoderTest extends TestCase
 
     public function testSuccesIsStringGetPresentWeatherSymbol()
     {
-        $this->assertIsInt($this->presentWeather->getPresentWeatherSymbol());
+        $this->assertIsString($this->presentWeather->getPresentWeatherSymbol());
     }
 
     public function testErrorGetPresentWeatherSymbol()
