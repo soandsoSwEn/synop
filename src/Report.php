@@ -635,9 +635,9 @@ class Report implements ReportInterface
     /**
      * Get a code figure of present weather
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getPresentWeatherCodeFigure(): ?int
+    public function getPresentWeatherCodeFigure(): ?string
     {
         return $this->partData->getPresentWeatherCodeFigureReport($this->rawBlocksData);
     }
@@ -655,9 +655,9 @@ class Report implements ReportInterface
     /**
      * Get a code figure past weather
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getPastWeatherCodeFigure(): ?int
+    public function getPastWeatherCodeFigure(): ?string
     {
         return $this->partData->getPastWeatherCodeFigureReport($this->rawBlocksData);
     }

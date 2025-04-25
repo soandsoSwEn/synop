@@ -195,11 +195,11 @@ class PresentWeatherDecoder implements GroupDecoderInterface
 
     /**
      * Returns the Present Weather symbol value
-     * @return int
+     * @return string
      */
-    public function getPresentWeatherSymbol(): int
+    public function getPresentWeatherSymbol(): string
     {
-        $symbol = intval(substr($this->rawPresentWeather, 1, 2));
+        $symbol = substr($this->rawPresentWeather, 1, 2);
         return sprintf("%1$02d", $symbol);
     }
 
@@ -224,9 +224,9 @@ class PresentWeatherDecoder implements GroupDecoderInterface
      *
      * @return string
      */
-    public function getPastWeatherSymbol(): int
+    public function getPastWeatherSymbol(): string
     {
-        $symbol = intval(substr($this->rawPresentWeather, 3, 2));
+        $symbol = substr($this->rawPresentWeather, 3, 2);
         return sprintf("%1$02d", $symbol);
     }
 

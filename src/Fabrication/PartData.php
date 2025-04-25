@@ -759,9 +759,9 @@ class PartData implements PartDataInterface
      * Returns code figure of present weather
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
-     * @return int|null
+     * @return string|null
      */
-    public function getPresentWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?int
+    public function getPresentWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {
@@ -801,9 +801,9 @@ class PartData implements PartDataInterface
      * Returns code figure of past weather
      *
      * @param SectionInterface $rawBlocksData All sections of the meteorological report
-     * @return int|null
+     * @return string|null
      */
-    public function getPastWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?int
+    public function getPastWeatherCodeFigureReport(SectionInterface $rawBlocksData): ?string
     {
         $body = $this->getBodyOfSection($rawBlocksData, 'General Section');
         if (is_null($body)) {

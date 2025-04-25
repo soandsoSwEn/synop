@@ -82,9 +82,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets the Present Weather symbolic value
      *
-     * @param null|int $presentWeatherSymbol The present weather symbolic value
+     * @param string|null $presentWeatherSymbol The present weather symbolic value
      */
-    public function setPresentWeatherSymbolValue(?int $presentWeatherSymbol): void
+    public function setPresentWeatherSymbolValue(?string $presentWeatherSymbol): void
     {
         $this->presentWeatherSymbol = $presentWeatherSymbol;
     }
@@ -102,9 +102,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Sets past weather symbolic value
      *
-     * @param null|int $pastWeatherSymbol The past weather symbolic value
+     * @param string|null $pastWeatherSymbol The past weather symbolic value
      */
-    public function setPastWeatherSymbolValue(?int $pastWeatherSymbol): void
+    public function setPastWeatherSymbolValue(?string $pastWeatherSymbol): void
     {
         $this->pastWeatherSymbol = $pastWeatherSymbol;
     }
@@ -132,9 +132,9 @@ class PresentWeatherGroup implements GroupInterface
     /**
      * Returns present weather symbolic value
      *
-     * @return int The present weather symbolic value
+     * @return string The present weather symbolic value
      */
-    public function getPresentWeatherSymbolValue(): int
+    public function getPresentWeatherSymbolValue(): string
     {
         return $this->presentWeatherSymbol;
     }
@@ -154,7 +154,7 @@ class PresentWeatherGroup implements GroupInterface
      *
      * @return int The past weather symbolic value
      */
-    public function getPastWeatherSymbolValue(): int
+    public function getPastWeatherSymbolValue(): string
     {
         return $this->pastWeatherSymbol;
     }
